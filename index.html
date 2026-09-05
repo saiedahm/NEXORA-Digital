@@ -1,0 +1,2147 @@
+```html
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>NEXORA Digital | AI-Powered Digital Agency</title>
+
+  <meta name="description"
+    content="NEXORA Digital – Modern websites, AI solutions, digital transformation and intelligent business automation." />
+
+  <style>
+    /* =========================================================
+       NEXORA DIGITAL — PHASE 1
+       Single-file MVP
+       ========================================================= */
+
+    :root {
+      --bg: #07111f;
+      --bg-2: #0b1728;
+      --panel: rgba(14, 31, 52, 0.72);
+      --panel-solid: #0d1d31;
+      --text: #f4f8ff;
+      --muted: #9db0c9;
+      --primary: #6ea8ff;
+      --primary-2: #9c6bff;
+      --cyan: #54e5ff;
+      --green: #52e6a3;
+      --border: rgba(174, 204, 255, 0.14);
+      --shadow: 0 20px 60px rgba(0, 0, 0, .32);
+      --radius: 22px;
+      --max: 1220px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background:
+        radial-gradient(circle at 15% 10%, rgba(83, 111, 255, .16), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(84, 229, 255, .12), transparent 25%),
+        linear-gradient(135deg, #050b14, #091525 48%, #07111f);
+
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: auto;
+    }
+
+    /* =========================================================
+       BACKGROUND
+       ========================================================= */
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      background-image:
+        linear-gradient(rgba(115, 158, 255, .12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(115, 158, 255, .12) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+      z-index: -2;
+    }
+
+    .orb {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .13;
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    .orb.one {
+      background: var(--primary);
+      top: -220px;
+      left: -180px;
+    }
+
+    .orb.two {
+      background: var(--primary-2);
+      right: -220px;
+      top: 180px;
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(5, 12, 22, .72);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow:
+        0 12px 30px rgba(94, 115, 255, .32);
+    }
+
+    .brand-mark::before {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border: 2px solid white;
+      border-left-color: transparent;
+      transform: rotate(45deg);
+      border-radius: 8px;
+      opacity: .9;
+    }
+
+    .brand-mark span {
+      position: relative;
+      z-index: 2;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    .brand-text small {
+      color: var(--cyan);
+      letter-spacing: 3px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: var(--muted);
+      padding: 10px 11px;
+      border-radius: 10px;
+      font-size: 13px;
+      transition: .25s ease;
+    }
+
+    nav a:hover {
+      color: white;
+      background: rgba(255,255,255,.06);
+    }
+
+    .nav-action {
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,168,255,.35);
+      background: linear-gradient(
+        135deg,
+        rgba(110,168,255,.16),
+        rgba(156,107,255,.16)
+      );
+      color: white;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .hero {
+      padding: 90px 0 70px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      background: rgba(110,168,255,.06);
+      border-radius: 999px;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 23px;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(82,230,163,.7);
+      animation: pulse 1.7s infinite;
+    }
+
+    @keyframes pulse {
+      70% {
+        box-shadow: 0 0 0 10px rgba(82,230,163,0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(82,230,163,0);
+      }
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: .98;
+      letter-spacing: -4px;
+      max-width: 780px;
+    }
+
+    h1 span {
+      background: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--cyan),
+        var(--primary-2)
+      );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 18px;
+      line-height: 1.75;
+      margin-top: 25px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 15px 21px;
+      font-weight: 800;
+      transition: .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: #06101d;
+      background:
+        linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--primary)
+        );
+
+      box-shadow:
+        0 15px 35px rgba(84,229,255,.18);
+    }
+
+    .btn-secondary {
+      color: white;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+    }
+
+    /* AI PANEL */
+
+    .ai-panel {
+      position: relative;
+      padding: 2px;
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(110,168,255,.75),
+          rgba(156,107,255,.1),
+          rgba(84,229,255,.45)
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .ai-inner {
+      padding: 24px;
+      border-radius: 26px;
+      background:
+        linear-gradient(
+          160deg,
+          rgba(11,25,42,.97),
+          rgba(5,14,26,.97)
+        );
+    }
+
+    .ai-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .ai-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .ai-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(110,168,255,.14);
+      color: var(--cyan);
+    }
+
+    .status {
+      font-size: 10px;
+      color: var(--green);
+      border: 1px solid rgba(82,230,163,.25);
+      background: rgba(82,230,163,.07);
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+
+    .command-box {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .command-label {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .command {
+      color: #d8e8ff;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .agent-list {
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .agent {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 14px;
+      border-radius: 13px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+
+    .agent-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .agent-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 15px var(--green);
+    }
+
+    .agent small {
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       STATS
+       ========================================================= */
+
+    .stats {
+      padding: 18px 0 65px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       SECTIONS
+       ========================================================= */
+
+    section {
+      padding: 85px 0;
+    }
+
+    .section-head {
+      margin-bottom: 35px;
+      max-width: 720px;
+    }
+
+    .section-head span {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .section-head h2 {
+      margin-top: 12px;
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: -2px;
+      line-height: 1.05;
+    }
+
+    .section-head p {
+      margin-top: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       SERVICES
+       ========================================================= */
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      padding: 26px;
+      min-height: 245px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.06),
+          rgba(255,255,255,.015)
+        );
+
+      border: 1px solid var(--border);
+      transition: .3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(110,168,255,.42);
+      box-shadow: var(--shadow);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(110,168,255,.22),
+          rgba(156,107,255,.18)
+        );
+
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* =========================================================
+       WORKFLOW
+       ========================================================= */
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 190px;
+      padding: 22px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.025);
+    }
+
+    .step-number {
+      font-size: 12px;
+      color: var(--cyan);
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .step h3 {
+      margin: 18px 0 10px;
+      font-size: 17px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       WEBSITE CHECK
+       ========================================================= */
+
+    .checker {
+      padding: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(110,168,255,.09),
+          rgba(156,107,255,.05)
+        );
+    }
+
+    .check-form {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 16px 17px;
+      border-radius: 14px;
+      outline: none;
+      color: white;
+      background: rgba(0,0,0,.2);
+      border: 1px solid var(--border);
+    }
+
+    .input:focus {
+      border-color: var(--primary);
+    }
+
+    .check-result {
+      display: none;
+      margin-top: 28px;
+    }
+
+    .check-result.show {
+      display: block;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+
+    .score {
+      padding: 17px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .score small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .score strong {
+      font-size: 25px;
+    }
+
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
+
+    .dashboard {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: rgba(7,17,31,.82);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .dash-header {
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dash-content {
+      padding: 24px;
+    }
+
+    .dash-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .dash-card {
+      padding: 19px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .dash-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .dash-card strong {
+      font-size: 27px;
+    }
+
+    .command-center {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(84,229,255,.16);
+      background: rgba(84,229,255,.035);
+    }
+
+    .command-center textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: vertical;
+      margin-top: 12px;
+      padding: 15px;
+      border-radius: 14px;
+      color: white;
+      background: rgba(0,0,0,.2);
+      border: 1px solid var(--border);
+      outline: none;
+    }
+
+    .command-center textarea:focus {
+      border-color: var(--cyan);
+    }
+
+    .ai-response {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      color: #cfeaff;
+      border-radius: 14px;
+      background: rgba(82,230,163,.06);
+      border: 1px solid rgba(82,230,163,.15);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* =========================================================
+       CLIENT REQUESTS
+       ========================================================= */
+
+    .requests {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .form-card,
+    .requests-list {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .form-card h3,
+    .requests-list h3 {
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 13px;
+    }
+
+    textarea.input {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .request-item {
+      padding: 15px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+
+    .request-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .request-item span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 9px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(84,229,255,.08);
+      font-size: 10px;
+    }
+
+    /* =========================================================
+       BOOKING
+       ========================================================= */
+
+    .booking-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 25px;
+      padding: 38px;
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(110,168,255,.14),
+          rgba(156,107,255,.14)
+        );
+
+      border: 1px solid rgba(110,168,255,.2);
+    }
+
+    .booking-box p {
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    footer {
+      padding: 35px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 1000px) {
+
+      nav {
+        display: none;
+      }
+
+      .hero-grid,
+      .requests {
+        grid-template-columns: 1fr;
+      }
+
+      .services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .workflow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-grid,
+      .dash-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .services,
+      .workflow,
+      .stats-grid,
+      .dash-cards,
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .check-form,
+      .booking-box {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .nav-action {
+        display: none;
+      }
+
+      .brand-text strong {
+        font-size: 15px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+  <div class="container nav">
+
+    <a href="#home" class="brand">
+
+      <div class="brand-mark">
+        <span>N</span>
+      </div>
+
+      <div class="brand-text">
+        <strong>NEXORA</strong>
+        <small>DIGITAL INTELLIGENCE</small>
+      </div>
+
+    </a>
+
+    <nav>
+      <a href="#design">التصميم</a>
+      <a href="#requirements">المطلوب</a>
+      <a href="#execution">التنفيذ</a>
+      <a href="#booking">الحجز</a>
+      <a href="#showcase">المشاهدة</a>
+      <a href="#requests">طلبات العملاء</a>
+      <a href="#contact">الاتصال</a>
+    </nav>
+
+    <a href="#dashboard" class="nav-action">
+      AI Manager
+    </a>
+
+  </div>
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main id="home">
+
+<section class="hero">
+
+  <div class="container hero-grid">
+
+    <div>
+
+      <div class="eyebrow">
+        <span class="pulse"></span>
+        AI-POWERED DIGITAL AGENCY
+      </div>
+
+      <h1>
+        Willkommen bei
+        <span>NEXORA Digital.</span>
+      </h1>
+
+      <p>
+        Wir entwickeln moderne Websites, intelligente digitale Lösungen
+        und KI-gestützte Systeme für Unternehmen, die bereit sind,
+        in die Zukunft zu gehen.
+      </p>
+
+      <div class="hero-actions">
+
+        <a href="#checker" class="btn btn-primary">
+          Website kostenlos prüfen
+        </a>
+
+        <a href="#requests" class="btn btn-secondary">
+          Projekt starten
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- AI MANAGER PREVIEW -->
+
+    <div class="ai-panel">
+
+      <div class="ai-inner">
+
+        <div class="ai-top">
+
+          <div class="ai-title">
+
+            <div class="ai-icon">✦</div>
+
+            <div>
+              <strong>NEXORA AI Manager</strong><br>
+              <small style="color:#9db0c9">
+                Digital Operations Center
+              </small>
+            </div>
+
+          </div>
+
+          <span class="status">
+            ● ONLINE
+          </span>
+
+        </div>
+
+
+        <div class="command-box">
+
+          <div class="command-label">
+            AI COMMAND
+          </div>
+
+          <div class="command">
+            Finde Unternehmen mit veralteten Websites,
+            analysiere deren digitalen Auftritt und erstelle
+            individuelle Modernisierungsvorschläge.
+          </div>
+
+        </div>
+
+
+        <div class="agent-list">
+
+          <div class="agent">
+            <div class="agent-left">
+              <span class="agent-dot"></span>
+              <div>
+                <strong>Research Agent</strong><br>
+                <small>Marktanalyse</small>
+              </div>
+            </div>
+
+            <small>ACTIVE</small>
+          </div>
+
+
+          <div class="agent">
+            <div class="agent-left">
+              <span class="agent-dot"></span>
+              <div>
+                <strong>Website Audit Agent</strong><br>
+                <small>Digital Check</small>
+              </div>
+            </div>
+
+            <small>READY</small>
+          </div>
+
+
+          <div class="agent">
+            <div class="agent-left">
+              <span class="agent-dot"></span>
+              <div>
+                <strong>Design Agent</strong><br>
+                <small>UI / UX</small>
+              </div>
+            </div>
+
+            <small>READY</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="stats">
+
+  <div class="container stats-grid">
+
+    <div class="stat">
+      <strong>AI</strong>
+      <span>Intelligente Automatisierung</span>
+    </div>
+
+    <div class="stat">
+      <strong>24/7</strong>
+      <span>Digital verfügbar</span>
+    </div>
+
+    <div class="stat">
+      <strong>Web</strong>
+      <span>Modern & Responsive</span>
+    </div>
+
+    <div class="stat">
+      <strong>Future</strong>
+      <span>Bereit für die nächste Generation</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DESIGN
+===================================================== -->
+
+<section id="design">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <span>01 / DESIGN</span>
+
+      <h2>
+        Digitale Erlebnisse,
+        die Unternehmen nach vorne bringen.
+      </h2>
+
+      <p>
+        Von der ersten Idee bis zur fertigen digitalen Plattform.
+        NEXORA Digital verbindet modernes Design,
+        Technologie und künstliche Intelligenz.
+      </p>
+
+    </div>
+
+
+    <div class="services">
+
+      <article class="service-card">
+
+        <div class="service-icon">◈</div>
+
+        <h3>Neue Website</h3>
+
+        <p>
+          Moderne, schnelle und responsive Websites
+          für Unternehmen jeder Größe.
+        </p>
+
+      </article>
+
+
+      <article class="service-card">
+
+        <div class="service-icon">↻</div>
+
+        <h3>Website Modernisierung</h3>
+
+        <p>
+          Wir analysieren bestehende Websites
+          und entwickeln ein neues digitales Erlebnis.
+        </p>
+
+      </article>
+
+
+      <article class="service-card">
+
+        <div class="service-icon">✦</div>
+
+        <h3>KI Integration</h3>
+
+        <p>
+          Chatbots, intelligente Automatisierung
+          und KI-gestützte Geschäftsprozesse.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     REQUIREMENTS
+===================================================== -->
+
+<section id="requirements">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <span>02 / REQUIREMENTS</span>
+
+      <h2>
+        Ihr Projekt.
+        Ihre Anforderungen.
+        Unsere Technologie.
+      </h2>
+
+      <p>
+        Jedes Projekt beginnt mit einer klaren Analyse.
+        Unser System sammelt die Anforderungen und
+        erstellt daraus einen strukturierten Projektplan.
+      </p>
+
+    </div>
+
+
+    <div class="workflow">
+
+      <div class="step">
+        <div class="step-number">STEP 01</div>
+        <h3>Analyse</h3>
+        <p>
+          Unternehmen, Zielgruppe und aktuelle digitale Situation verstehen.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">STEP 02</div>
+        <h3>Konzept</h3>
+        <p>
+          Digitale Strategie und technische Anforderungen definieren.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">STEP 03</div>
+        <h3>Design</h3>
+        <p>
+          Modernes UI/UX-Konzept und Vorschau erstellen.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">STEP 04</div>
+        <h3>Freigabe</h3>
+        <p>
+          Der Kunde prüft und bestätigt den gewünschten Entwurf.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">STEP 05</div>
+        <h3>Start</h3>
+        <p>
+          Nach Freigabe beginnt die technische Umsetzung.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXECUTION
+===================================================== -->
+
+<section id="execution">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <span>03 / EXECUTION</span>
+
+      <h2>
+        Von der Idee
+        zur digitalen Realität.
+      </h2>
+
+      <p>
+        NEXORA organisiert den gesamten Prozess:
+        Design, Entwicklung, Testing und Übergabe.
+      </p>
+
+    </div>
+
+    <div class="workflow">
+
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3>Project Setup</h3>
+        <p>Projektstruktur und Anforderungen werden vorbereitet.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3>Development</h3>
+        <p>Die Website und Funktionen werden entwickelt.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3>Testing</h3>
+        <p>Qualität, Mobilgeräte und Performance werden geprüft.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">04</div>
+        <h3>Launch</h3>
+        <p>Die digitale Lösung wird veröffentlicht.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">05</div>
+        <h3>Growth</h3>
+        <p>Weiterentwicklung, KI und Optimierung nach dem Launch.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     WEBSITE CHECKER
+===================================================== -->
+
+<section id="checker">
+
+  <div class="container">
+
+    <div class="checker">
+
+      <div class="section-head">
+
+        <span>FREE DIGITAL CHECK</span>
+
+        <h2>
+          Wie modern ist Ihre Website?
+        </h2>
+
+        <p>
+          Geben Sie Ihre Website-Adresse ein und starten Sie
+          den NEXORA Digital Check.
+        </p>
+
+      </div>
+
+
+      <div class="check-form">
+
+        <input
+          id="websiteInput"
+          class="input"
+          type="url"
+          placeholder="https://www.ihre-firma.de"
+        >
+
+        <button class="btn btn-primary" onclick="analyzeWebsite()">
+          Analyse starten
+        </button>
+
+      </div>
+
+
+      <div class="check-result" id="checkResult">
+
+        <div class="score-grid">
+
+          <div class="score">
+            <small>DESIGN</small>
+            <strong id="designScore">--</strong>
+          </div>
+
+          <div class="score">
+            <small>MOBILE</small>
+            <strong id="mobileScore">--</strong>
+          </div>
+
+          <div class="score">
+            <small>PERFORMANCE</small>
+            <strong id="performanceScore">--</strong>
+          </div>
+
+          <div class="score">
+            <small>SEO</small>
+            <strong id="seoScore">--</strong>
+          </div>
+
+          <div class="score">
+            <small>ACCESSIBILITY</small>
+            <strong id="accessibilityScore">--</strong>
+          </div>
+
+          <div class="score">
+            <small>AI READINESS</small>
+            <strong id="aiScore">--</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <span>NEXORA COMMAND CENTER</span>
+
+      <h2>
+        Dein AI Manager.
+      </h2>
+
+      <p>
+        Hier wird in Phase 2 der echte AI Manager,
+        CRM, Lead-System und Projekt-Automatisierung angebunden.
+      </p>
+
+    </div>
+
+
+    <div class="dashboard">
+
+      <div class="dash-header">
+
+        <strong>NEXORA AI MANAGER</strong>
+
+        <span class="status">
+          SYSTEM ONLINE
+        </span>
+
+      </div>
+
+
+      <div class="dash-content">
+
+        <div class="dash-cards">
+
+          <div class="dash-card">
+            <span>Leads</span>
+            <strong id="leadCount">0</strong>
+          </div>
+
+          <div class="dash-card">
+            <span>Analyzed</span>
+            <strong id="analysisCount">0</strong>
+          </div>
+
+          <div class="dash-card">
+            <span>Requests</span>
+            <strong id="requestCount">0</strong>
+          </div>
+
+          <div class="dash-card">
+            <span>Projects</span>
+            <strong id="projectCount">0</strong>
+          </div>
+
+        </div>
+
+
+        <div class="command-center">
+
+          <strong>AI COMMAND CENTER</strong>
+
+          <textarea
+            id="aiCommand"
+            placeholder="z.B. Finde 20 Unternehmen in Deutschland mit veralteten Websites..."
+          ></textarea>
+
+          <br><br>
+
+          <button
+            class="btn btn-primary"
+            onclick="runAICommand()"
+          >
+            Command ausführen
+          </button>
+
+
+          <div
+            class="ai-response"
+            id="aiResponse"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CLIENT REQUESTS
+===================================================== -->
+
+<section id="requests">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <span>CLIENT REQUESTS</span>
+
+      <h2>
+        Starten wir Ihr Projekt.
+      </h2>
+
+      <p>
+        Senden Sie uns Ihre Anfrage.
+        In der nächsten Entwicklungsphase wird diese
+        direkt mit dem CRM und AI Manager verbunden.
+      </p>
+
+    </div>
+
+
+    <div class="requests">
+
+      <div class="form-card">
+
+        <h3>Projekt anfragen</h3>
+
+        <form id="projectForm" class="form-grid">
+
+          <input
+            class="input"
+            id="clientName"
+            placeholder="Name / Unternehmen"
+            required
+          >
+
+          <input
+            class="input"
+            id="clientEmail"
+            type="email"
+            placeholder="E-Mail"
+            required
+          >
+
+          <select
+            class="input"
+            id="serviceType"
+          >
+            <option>Neue Website</option>
+            <option>Website Modernisierung</option>
+            <option>KI Integration</option>
+            <option>Online Shop</option>
+            <option>Digitalisierung</option>
+          </select>
+
+          <textarea
+            class="input"
+            id="clientMessage"
+            placeholder="Erzählen Sie uns von Ihrem Projekt..."
+            required
+          ></textarea>
+
+          <button class="btn btn-primary" type="submit">
+            Anfrage senden
+          </button>
+
+        </form>
+
+      </div>
+
+
+      <div class="requests-list">
+
+        <h3>Aktuelle Anfragen</h3>
+
+        <div id="requestsContainer">
+
+          <div class="request-item">
+
+            <strong>
+              Noch keine Anfragen
+            </strong>
+
+            <span>
+              Neue Kundenanfragen erscheinen hier.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     BOOKING
+===================================================== -->
+
+<section id="booking">
+
+  <div class="container">
+
+    <div class="booking-box">
+
+      <div>
+
+        <div class="section-head" style="margin-bottom:0">
+
+          <span>BOOKING</span>
+
+          <h2>
+            Kostenloses Erstgespräch buchen.
+          </h2>
+
+          <p>
+            Besprechen wir Ihre Website, Ihre Idee
+            oder Ihre digitale Zukunft.
+          </p>
+
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="bookMeeting()"
+      >
+        Termin buchen
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHOWCASE
+===================================================== -->
+
+<section id="showcase">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <span>SHOWCASE</span>
+
+      <h2>
+        Projekte.
+        Demos.
+        Digitale Zukunft.
+      </h2>
+
+      <p>
+        Hier werden zukünftige Kundenprojekte,
+        Website-Demos und AI-generierte Entwürfe angezeigt.
+      </p>
+
+    </div>
+
+
+    <div class="services">
+
+      <div class="service-card">
+
+        <div class="service-icon">01</div>
+
+        <h3>Business Website</h3>
+
+        <p>
+          Moderne Unternehmenswebsite
+          mit KI-Integration.
+        </p>
+
+      </div>
+
+
+      <div class="service-card">
+
+        <div class="service-icon">02</div>
+
+        <h3>Website Redesign</h3>
+
+        <p>
+          Alte Website wird zu einer modernen
+          digitalen Plattform.
+        </p>
+
+      </div>
+
+
+      <div class="service-card">
+
+        <div class="service-icon">03</div>
+
+        <h3>AI Automation</h3>
+
+        <p>
+          Intelligente Prozesse,
+          Kundenkommunikation und Automatisierung.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section id="contact">
+
+  <div class="container">
+
+    <div class="booking-box">
+
+      <div>
+
+        <div class="section-head" style="margin-bottom:0">
+
+          <span>CONTACT</span>
+
+          <h2>
+            Let's build the future.
+          </h2>
+
+          <p>
+            NEXORA Digital verbindet Unternehmen,
+            Technologie und künstliche Intelligenz.
+          </p>
+
+        </div>
+
+      </div>
+
+      <a href="mailto:hello@nexora-digital.com"
+         class="btn btn-secondary">
+        hello@nexora-digital.com
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  <div class="container footer-grid">
+
+    <div>
+      <strong>NEXORA Digital</strong>
+      <br>
+      Digital Intelligence for the Next Generation.
+    </div>
+
+    <div>
+      © <span id="year"></span> NEXORA Digital
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+  /* =======================================================
+     INITIAL STATE
+  ======================================================= */
+
+  let requests = [];
+
+  let stats = {
+    leads: 0,
+    analyzed: 0,
+    requests: 0,
+    projects: 0
+  };
+
+
+  /* =======================================================
+     WEBSITE ANALYZER DEMO
+     Phase 2: Real Website Analysis API
+  ======================================================= */
+
+  function analyzeWebsite() {
+
+    const website =
+      document.getElementById("websiteInput").value.trim();
+
+    if (!website) {
+      alert("Bitte geben Sie eine Website-Adresse ein.");
+      return;
+    }
+
+    const randomScore = (min, max) =>
+      Math.floor(Math.random() * (max - min + 1)) + min;
+
+    document.getElementById("designScore").textContent =
+      randomScore(45, 88) + "/100";
+
+    document.getElementById("mobileScore").textContent =
+      randomScore(40, 92) + "/100";
+
+    document.getElementById("performanceScore").textContent =
+      randomScore(38, 90) + "/100";
+
+    document.getElementById("seoScore").textContent =
+      randomScore(35, 86) + "/100";
+
+    document.getElementById("accessibilityScore").textContent =
+      randomScore(42, 90) + "/100";
+
+    document.getElementById("aiScore").textContent =
+      randomScore(10, 65) + "/100";
+
+    document
+      .getElementById("checkResult")
+      .classList.add("show");
+
+    stats.analyzed++;
+    stats.leads++;
+
+    updateDashboard();
+
+    document
+      .getElementById("checkResult")
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+  }
+
+
+  /* =======================================================
+     AI COMMAND DEMO
+     Phase 2: Connect Real AI API
+  ======================================================= */
+
+  function runAICommand() {
+
+    const command =
+      document.getElementById("aiCommand").value.trim();
+
+    if (!command) {
+      alert("Bitte geben Sie einen AI Command ein.");
+      return;
+    }
+
+    const response =
+      document.getElementById("aiResponse");
+
+    response.style.display = "block";
+
+    response.innerHTML = `
+      <strong>NEXORA AI Manager:</strong><br><br>
+      Command erhalten: "${escapeHtml(command)}"<br><br>
+      <strong>Phase 1 Simulation:</strong><br>
+      ✓ Task analysiert<br>
+      ✓ Research Agent vorbereitet<br>
+      ✓ Website Audit Workflow erstellt<br>
+      ✓ Ergebnisse werden in Phase 2 mit echten APIs,
+      Datenbank und Agenten verbunden.
+    `;
+
+    stats.leads += Math.floor(Math.random() * 8) + 1;
+    stats.analyzed += Math.floor(Math.random() * 5) + 1;
+
+    updateDashboard();
+
+  }
+
+
+  /* =======================================================
+     CLIENT REQUESTS
+  ======================================================= */
+
+  document
+    .getElementById("projectForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const name =
+        document.getElementById("clientName").value.trim();
+
+      const email =
+        document.getElementById("clientEmail").value.trim();
+
+      const service =
+        document.getElementById("serviceType").value;
+
+      const message =
+        document.getElementById("clientMessage").value.trim();
+
+      const request = {
+        id: Date.now(),
+        name,
+        email,
+        service,
+        message
+      };
+
+      requests.unshift(request);
+
+      stats.requests++;
+
+      updateRequests();
+      updateDashboard();
+
+      this.reset();
+
+      alert(
+        "Vielen Dank! Ihre Anfrage wurde erfolgreich an NEXORA Digital gesendet."
+      );
+
+    });
+
+
+  function updateRequests() {
+
+    const container =
+      document.getElementById("requestsContainer");
+
+    if (requests.length === 0) {
+      container.innerHTML = `
+        <div class="request-item">
+          <strong>Noch keine Anfragen</strong>
+          <span>Neue Kundenanfragen erscheinen hier.</span>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = requests
+      .map(request => `
+        <div class="request-item">
+
+          <strong>
+            ${escapeHtml(request.name)}
+          </strong>
+
+          <span>
+            ${escapeHtml(request.email)}
+          </span>
+
+          <br>
+
+          <span class="badge">
+            ${escapeHtml(request.service)}
+          </span>
+
+        </div>
+      `)
+      .join("");
+
+  }
+
+
+  /* =======================================================
+     BOOKING
+  ======================================================= */
+
+  function bookMeeting() {
+
+    const date =
+      prompt(
+        "Bitte geben Sie Ihren gewünschten Termin ein:"
+      );
+
+    if (date) {
+
+      alert(
+        "Vielen Dank! Ihr Terminwunsch wurde gespeichert: " +
+        date
+      );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     DASHBOARD
+  ======================================================= */
+
+  function updateDashboard() {
+
+    document
+      .getElementById("leadCount")
+      .textContent = stats.leads;
+
+    document
+      .getElementById("analysisCount")
+      .textContent = stats.analyzed;
+
+    document
+      .getElementById("requestCount")
+      .textContent = stats.requests;
+
+    document
+      .getElementById("projectCount")
+      .textContent = stats.projects;
+
+  }
+
+
+  /* =======================================================
+     SECURITY
+  ======================================================= */
+
+  function escapeHtml(text) {
+
+    return text.replace(/[&<>"']/g, function(char) {
+
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      };
+
+      return entities[char];
+
+    });
+
+  }
+
+
+  /* =======================================================
+     YEAR
+  ======================================================= */
+
+  document
+    .getElementById("year")
+    .textContent =
+      new Date().getFullYear();
+
+
+  updateDashboard();
+
+</script>
+
+</body>
+</html>
+```
+ 
