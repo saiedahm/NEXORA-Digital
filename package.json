@@ -1,0 +1,15 @@
+{
+  "name": "nexora-digital",
+  "version": "1.0.0",
+  "description": "NEXORA AI Manager - CRM, Project & Database Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
+ 
