@@ -1,0 +1,3301 @@
+ require("dotenv").config();
+
+const express = require("express");
+const Database = require("better-sqlite3");
+const crypto = require("crypto");
+const OpenAI = require("openai");
+
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+const MODEL = process.env.OPENAI_MODEL || "gpt-5.6-luna";
+
+const ai = process.env.OPENAI_API_KEY
+  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  : null;
+
+const db = new Database("nexora.db");
+
+app.use(express.json({ limit: "2mb" }));
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+db.exec(`
+CREATE TABLE IF NOT EXISTS clients (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  company TEXT,
+  email TEXT,
+  phone TEXT,
+  website TEXT,
+  country TEXT,
+  industry TEXT,
+  status TEXT DEFAULT 'NEW',
+  score INTEGER DEFAULT 50,
+  notes TEXT,
+  created_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id TEXT PRIMARY KEY,
+  client_id TEXT,
+  title TEXT,
+  service TEXT,
+  budget TEXT,
+  status TEXT DEFAULT 'PLANNING',
+  priority TEXT DEFAULT 'NORMAL',
+  description TEXT,
+  created_at TEXT,
+  updated_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS quotes (
+  id TEXT PRIMARY KEY,
+  client_id TEXT,
+  project_id TEXT,
+  title TEXT,
+  amount REAL,
+  currency TEXT DEFAULT 'EUR',
+  description TEXT,
+  status TEXT DEFAULT 'DRAFT',
+  created_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS invoices (
+  id TEXT PRIMARY KEY,
+  client_id TEXT,
+  project_id TEXT,
+  quote_id TEXT,
+  invoice_number TEXT,
+  amount REAL,
+  currency TEXT DEFAULT 'EUR',
+  status TEXT DEFAULT 'PENDING',
+  created_at TEXT,
+  paid_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS approvals (
+  id TEXT PRIMARY KEY,
+  client_id TEXT,
+  project_id TEXT,
+  title TEXT,
+  design_url TEXT,
+  notes TEXT,
+  status TEXT DEFAULT 'PENDING',
+  created_at TEXT,
+  approved_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS activities (
+  id TEXT PRIMARY KEY,
+  type TEXT,
+  message TEXT,
+  created_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ai_runs (
+  id TEXT PRIMARY KEY,
+  agent TEXT,
+  input TEXT,
+  output TEXT,
+  created_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS portal_tokens (
+  id TEXT PRIMARY KEY,
+  client_id TEXT,
+  token TEXT UNIQUE,
+  created_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT
+);
+`);
+
+function now() {
+  return new Date().toISOString();
+}
+
+function id() {
+  return crypto.randomUUID();
+}
+
+function addActivity(type, message) {
+  db.prepare(`
+    INSERT INTO activities
+    VALUES (?, ?, ?, ?)
+  `).run(id(), type, message, now());
+}
+
+function one(sql, ...params) {
+  return db.prepare(sql).get(...params);
+}
+
+function all(sql, ...params) {
+  return db.prepare(sql).all(...params);
+}
+
+function run(sql, ...params) {
+  return db.prepare(sql).run(...params);
+}
+
+/* =========================================================
+   AI
+========================================================= */
+
+async function askAI(agent, instructions, input) {
+  let output = "";
+
+  if (!ai) {
+    output = `
+DEMO MODE
+
+${agent} received the task successfully.
+
+Input:
+${input}
+
+To activate real AI:
+1. Create an API key.
+2. Add OPENAI_API_KEY to .env
+3. Restart the server.
+`;
+  } else {
+    const response = await ai.responses.create({
+      model: MODEL,
+      instructions: `
+You are ${agent}, working inside NEXORA Digital.
+
+${instructions}
+
+Rules:
+- Be accurate.
+- Do not invent facts.
+- Clearly mark assumptions.
+- Do not claim that an email, payment, contract, or external action happened unless the system explicitly confirms it.
+- Keep output structured and useful.
+- Human approval is required before irreversible or external business actions.
+`,
+      input
+    });
+
+    output =
+      response.output_text ||
+      "The AI completed the task but returned no text.";
+  }
+
+  run(
+    `
+    INSERT INTO ai_runs
+    VALUES (?, ?, ?, ?, ?)
+    `,
+    id(),
+    agent,
+    input,
+    output,
+    now()
+  );
+
+  addActivity("AI", `${agent} completed a task.`);
+
+  return output;
+}
+
+/* =========================================================
+   WEBSITE AUDIT
+========================================================= */
+
+async function auditWebsite(url) {
+  let result = {
+    url,
+    reachable: false,
+    status: null,
+    title: "",
+    description: "",
+    hasViewport: false,
+    hasLang: false,
+    hasOpenGraph: false,
+    forms: 0,
+    images: 0,
+    links: 0,
+    issues: [],
+    recommendations: []
+  };
+
+  try {
+    if (!/^https?:\/\//i.test(url)) {
+      url = "https://" + url;
+      result.url = url;
+    }
+
+    const controller = new AbortController();
+
+    const timer = setTimeout(
+      () => controller.abort(),
+      12000
+    );
+
+    const response = await fetch(url, {
+      signal: controller.signal,
+      redirect: "follow",
+      headers: {
+        "User-Agent":
+          "NEXORA-Digital-Audit/1.0"
+      }
+    });
+
+    clearTimeout(timer);
+
+    const html = await response.text();
+
+    result.reachable = true;
+    result.status = response.status;
+
+    const title =
+      html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+
+    const description =
+      html.match(
+        /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)/i
+      );
+
+    result.title =
+      title ? title[1].trim() : "";
+
+    result.description =
+      description ? description[1].trim() : "";
+
+    result.hasViewport =
+      /name=["']viewport["']/i.test(html);
+
+    result.hasLang =
+      /<html[^>]+lang=/i.test(html);
+
+    result.hasOpenGraph =
+      /property=["']og:/i.test(html);
+
+    result.forms =
+      (html.match(/<form\b/gi) || []).length;
+
+    result.images =
+      (html.match(/<img\b/gi) || []).length;
+
+    result.links =
+      (html.match(/<a\b/gi) || []).length;
+
+    if (!result.title) {
+      result.issues.push(
+        "No page title was detected."
+      );
+    }
+
+    if (!result.description) {
+      result.issues.push(
+        "No meta description was detected."
+      );
+    }
+
+    if (!result.hasViewport) {
+      result.issues.push(
+        "Mobile viewport tag was not detected."
+      );
+    }
+
+    if (!result.hasLang) {
+      result.issues.push(
+        "HTML language attribute was not detected."
+      );
+    }
+
+    if (!result.hasOpenGraph) {
+      result.recommendations.push(
+        "Add Open Graph metadata for better social sharing."
+      );
+    }
+
+    result.recommendations.push(
+      "Review performance with a dedicated performance testing service."
+    );
+
+    result.recommendations.push(
+      "Review accessibility, mobile usability, SEO and conversion paths."
+    );
+
+    return result;
+
+  } catch (error) {
+
+    result.issues.push(
+      "The website could not be analyzed: " +
+      error.message
+    );
+
+    return result;
+  }
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+app.get("/api/dashboard", (req, res) => {
+  const data = {
+    clients:
+      one("SELECT COUNT(*) AS n FROM clients").n,
+
+    projects:
+      one("SELECT COUNT(*) AS n FROM projects").n,
+
+    activeProjects:
+      one(`
+        SELECT COUNT(*) AS n
+        FROM projects
+        WHERE status IN ('DESIGN','IN_PROGRESS','QA')
+      `).n,
+
+    paidInvoices:
+      one(`
+        SELECT COUNT(*) AS n
+        FROM invoices
+        WHERE status='PAID'
+      `).n,
+
+    pendingApprovals:
+      one(`
+        SELECT COUNT(*) AS n
+        FROM approvals
+        WHERE status='PENDING'
+      `).n,
+
+    activities:
+      all(`
+        SELECT *
+        FROM activities
+        ORDER BY created_at DESC
+        LIMIT 20
+      `),
+
+    recentAI:
+      all(`
+        SELECT *
+        FROM ai_runs
+        ORDER BY created_at DESC
+        LIMIT 10
+      `)
+  };
+
+  res.json(data);
+});
+
+/* =========================================================
+   CLIENTS / CRM
+========================================================= */
+
+app.get("/api/clients", (req, res) => {
+  res.json(
+    all(`
+      SELECT *
+      FROM clients
+      ORDER BY created_at DESC
+    `)
+  );
+});
+
+app.post("/api/clients", (req, res) => {
+  const c = req.body;
+
+  const client = {
+    id: id(),
+    name: c.name || "",
+    company: c.company || "",
+    email: c.email || "",
+    phone: c.phone || "",
+    website: c.website || "",
+    country: c.country || "Germany",
+    industry: c.industry || "",
+    status: c.status || "NEW",
+    score: Number(c.score || 50),
+    notes: c.notes || "",
+    created_at: now()
+  };
+
+  run(`
+    INSERT INTO clients VALUES
+    (
+      @id,
+      @name,
+      @company,
+      @email,
+      @phone,
+      @website,
+      @country,
+      @industry,
+      @status,
+      @score,
+      @notes,
+      @created_at
+    )
+  `, client);
+
+  addActivity(
+    "CRM",
+    `New client added: ${client.company || client.name}`
+  );
+
+  res.status(201).json(client);
+});
+
+app.delete("/api/clients/:id", (req, res) => {
+  run(
+    "DELETE FROM clients WHERE id=?",
+    req.params.id
+  );
+
+  addActivity(
+    "CRM",
+    "Client deleted."
+  );
+
+  res.json({ success: true });
+});
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+app.get("/api/projects", (req, res) => {
+  res.json(
+    all(`
+      SELECT projects.*,
+      clients.company AS client_company,
+      clients.name AS client_name
+      FROM projects
+      LEFT JOIN clients
+      ON projects.client_id = clients.id
+      ORDER BY projects.created_at DESC
+    `)
+  );
+});
+
+app.post("/api/projects", (req, res) => {
+  const p = req.body;
+
+  const project = {
+    id: id(),
+    client_id: p.client_id || "",
+    title: p.title || "NEXORA Project",
+    service: p.service || "Website Development",
+    budget: p.budget || "",
+    status: p.status || "PLANNING",
+    priority: p.priority || "NORMAL",
+    description: p.description || "",
+    created_at: now(),
+    updated_at: now()
+  };
+
+  run(`
+    INSERT INTO projects VALUES
+    (
+      @id,
+      @client_id,
+      @title,
+      @service,
+      @budget,
+      @status,
+      @priority,
+      @description,
+      @created_at,
+      @updated_at
+    )
+  `, project);
+
+  addActivity(
+    "PROJECT",
+    `Project created: ${project.title}`
+  );
+
+  res.status(201).json(project);
+});
+
+app.put("/api/projects/:id", (req, res) => {
+  const old = one(
+    "SELECT * FROM projects WHERE id=?",
+    req.params.id
+  );
+
+  if (!old) {
+    return res.status(404).json({
+      error: "Project not found."
+    });
+  }
+
+  const p = {
+    ...old,
+    ...req.body,
+    updated_at: now()
+  };
+
+  run(`
+    UPDATE projects SET
+      client_id=@client_id,
+      title=@title,
+      service=@service,
+      budget=@budget,
+      status=@status,
+      priority=@priority,
+      description=@description,
+      updated_at=@updated_at
+    WHERE id=@id
+  `, p);
+
+  addActivity(
+    "PROJECT",
+    `Project updated: ${p.title}`
+  );
+
+  res.json(p);
+});
+
+/* =========================================================
+   AI MANAGER
+========================================================= */
+
+app.post("/api/ai/manager", async (req, res) => {
+  try {
+    const task = String(req.body.task || "").trim();
+
+    if (!task) {
+      return res.status(400).json({
+        error: "Please enter a task."
+      });
+    }
+
+    const output = await askAI(
+      "NEXORA AI Manager",
+      `
+You coordinate the NEXORA digital agency.
+
+Classify the task into:
+1. Lead Research
+2. Website Audit
+3. Design
+4. Quote
+5. Project Planning
+6. Development
+7. QA
+8. Launch
+
+Return:
+- Selected workflow
+- Recommended next action
+- Risks
+- What requires human approval
+      `,
+      task
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   LEAD RESEARCH AGENT
+
+   The agent analyzes supplied lead information.
+   External prospect discovery should be connected to
+   an approved business-data provider in production.
+========================================================= */
+
+app.post("/api/ai/lead", async (req, res) => {
+  try {
+    const input = JSON.stringify(
+      req.body,
+      null,
+      2
+    );
+
+    const output = await askAI(
+      "NEXORA Lead Research Agent",
+      `
+Analyze the supplied business or lead information.
+
+Return:
+- Business summary
+- Digital opportunity score from 0 to 100
+- Possible services
+- Website modernization opportunities
+- Suggested personalized outreach angle
+- Questions to verify before contacting
+
+Do not invent contact details.
+Do not claim outreach was sent.
+      `,
+      input
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   WEBSITE AUDIT AGENT
+========================================================= */
+
+app.post("/api/ai/audit", async (req, res) => {
+  try {
+    const url = String(req.body.url || "").trim();
+
+    if (!url) {
+      return res.status(400).json({
+        error: "Website URL required."
+      });
+    }
+
+    const technicalAudit =
+      await auditWebsite(url);
+
+    const output = await askAI(
+      "NEXORA Website Audit Agent",
+      `
+Use the technical audit data provided.
+
+Create a professional modernization report with:
+- Executive summary
+- Strengths
+- Problems
+- Mobile and UX observations based only on available evidence
+- SEO observations
+- Conversion opportunities
+- AI and automation opportunities
+- Recommended NEXORA service package
+
+Do not claim to have visually inspected anything that is not present in the data.
+      `,
+      JSON.stringify(
+        technicalAudit,
+        null,
+        2
+      )
+    );
+
+    res.json({
+      technicalAudit,
+      aiReport: output
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   DESIGN AGENT
+========================================================= */
+
+app.post("/api/ai/design", async (req, res) => {
+  try {
+    const output = await askAI(
+      "NEXORA Design Agent",
+      `
+Create a web design brief.
+
+Return:
+- Brand direction
+- Homepage structure
+- Color direction
+- Typography recommendation
+- Main sections
+- Conversion strategy
+- AI features
+- Responsive design requirements
+- Developer handoff checklist
+      `,
+      JSON.stringify(req.body, null, 2)
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   QUOTE AGENT
+========================================================= */
+
+app.post("/api/ai/quote", async (req, res) => {
+  try {
+    const output = await askAI(
+      "NEXORA Quote Agent",
+      `
+Create a transparent project quotation proposal.
+
+Return:
+- Scope
+- Deliverables
+- Suggested price range
+- Milestones
+- Assumptions
+- Exclusions
+- Estimated timeline
+
+Do not promise fixed dates unless supplied by the user.
+      `,
+      JSON.stringify(req.body, null, 2)
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   CREATE QUOTE
+========================================================= */
+
+app.get("/api/quotes", (req, res) => {
+  res.json(
+    all(`
+      SELECT quotes.*,
+      clients.company,
+      projects.title AS project_title
+      FROM quotes
+      LEFT JOIN clients ON quotes.client_id=clients.id
+      LEFT JOIN projects ON quotes.project_id=projects.id
+      ORDER BY quotes.created_at DESC
+    `)
+  );
+});
+
+app.post("/api/quotes", (req, res) => {
+  const q = req.body;
+
+  const quote = {
+    id: id(),
+    client_id: q.client_id || "",
+    project_id: q.project_id || "",
+    title: q.title || "NEXORA Proposal",
+    amount: Number(q.amount || 0),
+    currency: q.currency || "EUR",
+    description: q.description || "",
+    status: "DRAFT",
+    created_at: now()
+  };
+
+  run(`
+    INSERT INTO quotes VALUES
+    (
+      @id,
+      @client_id,
+      @project_id,
+      @title,
+      @amount,
+      @currency,
+      @description,
+      @status,
+      @created_at
+    )
+  `, quote);
+
+  addActivity(
+    "QUOTE",
+    `Quote created: ${quote.title}`
+  );
+
+  res.status(201).json(quote);
+});
+
+app.post("/api/quotes/:id/approve", (req, res) => {
+  run(
+    `
+    UPDATE quotes
+    SET status='APPROVED'
+    WHERE id=?
+    `,
+    req.params.id
+  );
+
+  addActivity(
+    "QUOTE",
+    "Quote approved."
+  );
+
+  res.json({ success: true });
+});
+
+/* =========================================================
+   INVOICE
+========================================================= */
+
+app.get("/api/invoices", (req, res) => {
+  res.json(
+    all(`
+      SELECT *
+      FROM invoices
+      ORDER BY created_at DESC
+    `)
+  );
+});
+
+app.post("/api/invoices", (req, res) => {
+  const x = req.body;
+
+  const invoice = {
+    id: id(),
+    client_id: x.client_id || "",
+    project_id: x.project_id || "",
+    quote_id: x.quote_id || "",
+    invoice_number:
+      "NEX-" +
+      Date.now().toString().slice(-8),
+    amount: Number(x.amount || 0),
+    currency: x.currency || "EUR",
+    status: "PENDING",
+    created_at: now(),
+    paid_at: null
+  };
+
+  run(`
+    INSERT INTO invoices VALUES
+    (
+      @id,
+      @client_id,
+      @project_id,
+      @quote_id,
+      @invoice_number,
+      @amount,
+      @currency,
+      @status,
+      @created_at,
+      @paid_at
+    )
+  `, invoice);
+
+  addActivity(
+    "INVOICE",
+    `Invoice created: ${invoice.invoice_number}`
+  );
+
+  res.status(201).json(invoice);
+});
+
+/* =========================================================
+   PAYMENT CONFIRMATION
+
+   Production:
+   Connect Stripe/PayPal/bank provider webhook here.
+========================================================= */
+
+app.post("/api/invoices/:id/mark-paid", (req, res) => {
+  const invoice = one(
+    `
+    SELECT *
+    FROM invoices
+    WHERE id=?
+    `,
+    req.params.id
+  );
+
+  if (!invoice) {
+    return res.status(404).json({
+      error: "Invoice not found."
+    });
+  }
+
+  run(
+    `
+    UPDATE invoices
+    SET status='PAID',
+    paid_at=?
+    WHERE id=?
+    `,
+    now(),
+    invoice.id
+  );
+
+  if (invoice.project_id) {
+    run(
+      `
+      UPDATE projects
+      SET status='IN_PROGRESS',
+      updated_at=?
+      WHERE id=?
+      `,
+      now(),
+      invoice.project_id
+    );
+  }
+
+  addActivity(
+    "PAYMENT",
+    `Payment confirmed for ${invoice.invoice_number}`
+  );
+
+  res.json({
+    success: true,
+    message:
+      "Payment confirmed. Project workflow can continue."
+  });
+});
+
+/* =========================================================
+   DESIGN APPROVAL
+========================================================= */
+
+app.get("/api/approvals", (req, res) => {
+  res.json(
+    all(`
+      SELECT *
+      FROM approvals
+      ORDER BY created_at DESC
+    `)
+  );
+});
+
+app.post("/api/approvals", (req, res) => {
+  const a = req.body;
+
+  const approval = {
+    id: id(),
+    client_id: a.client_id || "",
+    project_id: a.project_id || "",
+    title: a.title || "Design Approval",
+    design_url: a.design_url || "",
+    notes: a.notes || "",
+    status: "PENDING",
+    created_at: now(),
+    approved_at: null
+  };
+
+  run(`
+    INSERT INTO approvals VALUES
+    (
+      @id,
+      @client_id,
+      @project_id,
+      @title,
+      @design_url,
+      @notes,
+      @status,
+      @created_at,
+      @approved_at
+    )
+  `, approval);
+
+  addActivity(
+    "DESIGN",
+    `Design approval created: ${approval.title}`
+  );
+
+  res.status(201).json(approval);
+});
+
+app.post("/api/approvals/:id/approve", (req, res) => {
+  const approval = one(
+    `
+    SELECT *
+    FROM approvals
+    WHERE id=?
+    `,
+    req.params.id
+  );
+
+  if (!approval) {
+    return res.status(404).json({
+      error: "Approval not found."
+    });
+  }
+
+  run(
+    `
+    UPDATE approvals
+    SET status='APPROVED',
+    approved_at=?
+    WHERE id=?
+    `,
+    now(),
+    approval.id
+  );
+
+  if (approval.project_id) {
+    run(
+      `
+      UPDATE projects
+      SET status='IN_PROGRESS',
+      updated_at=?
+      WHERE id=?
+      `,
+      now(),
+      approval.project_id
+    );
+  }
+
+  addActivity(
+    "DESIGN",
+    `Design approved: ${approval.title}`
+  );
+
+  res.json({ success: true });
+});
+
+/* =========================================================
+   DEVELOPMENT AGENT
+========================================================= */
+
+app.post("/api/ai/development", async (req, res) => {
+  try {
+    const output = await askAI(
+      "NEXORA Development Agent",
+      `
+Create a development plan.
+
+Return:
+- Recommended stack
+- Architecture
+- Components
+- Database requirements
+- API requirements
+- Security checklist
+- Development phases
+- Testing plan
+      `,
+      JSON.stringify(req.body, null, 2)
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   QA AGENT
+========================================================= */
+
+app.post("/api/ai/qa", async (req, res) => {
+  try {
+    const output = await askAI(
+      "NEXORA Quality Assurance Agent",
+      `
+Create a QA report.
+
+Check:
+- Functional testing
+- Responsive testing
+- Accessibility
+- SEO basics
+- Security basics
+- Forms
+- Broken links
+- Performance testing recommendations
+- Launch blockers
+
+Classify every issue:
+CRITICAL / HIGH / MEDIUM / LOW
+      `,
+      JSON.stringify(req.body, null, 2)
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   LAUNCH AGENT
+========================================================= */
+
+app.post("/api/ai/launch", async (req, res) => {
+  try {
+    const output = await askAI(
+      "NEXORA Launch Agent",
+      `
+Create a safe launch checklist.
+
+Include:
+- Backup
+- Domain
+- SSL
+- Environment variables
+- Analytics
+- Error monitoring
+- SEO
+- Redirects
+- Forms
+- Payment testing
+- Post-launch monitoring
+
+Do not claim the website is launched.
+      `,
+      JSON.stringify(req.body, null, 2)
+    );
+
+    res.json({ output });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+/* =========================================================
+   CLIENT PORTAL
+========================================================= */
+
+app.post("/api/clients/:id/portal", (req, res) => {
+  const client = one(
+    "SELECT * FROM clients WHERE id=?",
+    req.params.id
+  );
+
+  if (!client) {
+    return res.status(404).json({
+      error: "Client not found."
+    });
+  }
+
+  let portal = one(
+    `
+    SELECT *
+    FROM portal_tokens
+    WHERE client_id=?
+    `,
+    client.id
+  );
+
+  if (!portal) {
+    portal = {
+      id: id(),
+      client_id: client.id,
+      token: crypto.randomBytes(24).toString("hex"),
+      created_at: now()
+    };
+
+    run(`
+      INSERT INTO portal_tokens
+      VALUES
+      (
+        @id,
+        @client_id,
+        @token,
+        @created_at
+      )
+    `, portal);
+  }
+
+  res.json({
+    portalUrl:
+      `/portal/${portal.token}`
+  });
+});
+
+app.get("/api/portal/:token", (req, res) => {
+  const portal = one(
+    `
+    SELECT *
+    FROM portal_tokens
+    WHERE token=?
+    `,
+    req.params.token
+  );
+
+  if (!portal) {
+    return res.status(404).json({
+      error: "Portal not found."
+    });
+  }
+
+  const client = one(
+    `
+    SELECT *
+    FROM clients
+    WHERE id=?
+    `,
+    portal.client_id
+  );
+
+  const projects = all(
+    `
+    SELECT *
+    FROM projects
+    WHERE client_id=?
+    ORDER BY created_at DESC
+    `,
+    client.id
+  );
+
+  const quotes = all(
+    `
+    SELECT *
+    FROM quotes
+    WHERE client_id=?
+    ORDER BY created_at DESC
+    `,
+    client.id
+  );
+
+  const invoices = all(
+    `
+    SELECT *
+    FROM invoices
+    WHERE client_id=?
+    ORDER BY created_at DESC
+    `,
+    client.id
+  );
+
+  const approvals = all(
+    `
+    SELECT *
+    FROM approvals
+    WHERE client_id=?
+    ORDER BY created_at DESC
+    `,
+    client.id
+  );
+
+  res.json({
+    client,
+    projects,
+    quotes,
+    invoices,
+    approvals
+  });
+});
+
+/* =========================================================
+   HTML FRONTEND
+========================================================= */
+
+const HTML = String.raw`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>NEXORA Digital — Phase 3</title>
+
+<style>
+
+:root{
+--bg:#050914;
+--panel:#0b1422;
+--panel2:#101d31;
+--line:rgba(255,255,255,.09);
+--text:#f5f8ff;
+--muted:#93a2b8;
+--cyan:#55e6ff;
+--blue:#6e8cff;
+--purple:#936cff;
+--green:#55dfa7;
+--red:#ff7181;
+--yellow:#ffd166;
+}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:
+radial-gradient(circle at 0 0,rgba(92,104,255,.16),transparent 30%),
+var(--bg);
+color:var(--text);
+}
+
+button,input,textarea,select{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+.app{
+display:grid;
+grid-template-columns:250px 1fr;
+min-height:100vh;
+}
+
+aside{
+padding:20px 14px;
+background:rgba(6,13,24,.96);
+border-right:1px solid var(--line);
+position:fixed;
+width:250px;
+top:0;
+bottom:0;
+overflow:auto;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+padding:10px;
+margin-bottom:25px;
+}
+
+.logo{
+width:46px;
+height:46px;
+border-radius:15px;
+display:grid;
+place-items:center;
+font-weight:900;
+font-size:25px;
+background:linear-gradient(135deg,var(--blue),var(--purple));
+}
+
+.brand h1{
+letter-spacing:2px;
+font-size:17px;
+}
+
+.brand small{
+color:var(--cyan);
+letter-spacing:2px;
+font-size:9px;
+}
+
+nav{
+display:grid;
+gap:5px;
+}
+
+nav button{
+background:transparent;
+color:var(--muted);
+border:0;
+padding:12px;
+text-align:left;
+border-radius:10px;
+}
+
+nav button:hover,
+nav button.active{
+background:rgba(85,230,255,.08);
+color:var(--cyan);
+}
+
+main{
+grid-column:2;
+padding:28px;
+max-width:1700px;
+width:100%;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:28px;
+}
+
+.top p{
+color:var(--muted);
+font-size:13px;
+margin-top:5px;
+}
+
+.primary{
+border:0;
+border-radius:11px;
+padding:11px 16px;
+font-weight:bold;
+background:linear-gradient(135deg,var(--cyan),var(--blue));
+color:#06101b;
+}
+
+.secondary{
+border:1px solid var(--line);
+border-radius:10px;
+padding:9px 12px;
+background:rgba(255,255,255,.04);
+color:white;
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
+margin-bottom:18px;
+}
+
+.stat,
+.card{
+background:rgba(255,255,255,.025);
+border:1px solid var(--line);
+border-radius:18px;
+}
+
+.stat{
+padding:18px;
+}
+
+.stat span{
+display:block;
+font-size:10px;
+letter-spacing:1px;
+color:var(--muted);
+margin-bottom:9px;
+}
+
+.stat strong{
+font-size:28px;
+}
+
+.grid2{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.grid3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+}
+
+.card{
+padding:20px;
+margin-bottom:16px;
+}
+
+.card h3{
+margin-bottom:15px;
+font-size:16px;
+}
+
+.activity{
+padding:11px 0;
+border-bottom:1px solid var(--line);
+font-size:13px;
+}
+
+.activity small{
+display:block;
+color:var(--muted);
+margin-top:4px;
+}
+
+.agent{
+padding:18px;
+border:1px solid var(--line);
+border-radius:16px;
+background:rgba(255,255,255,.025);
+}
+
+.agent .icon{
+font-size:27px;
+}
+
+.agent p{
+color:var(--muted);
+font-size:12px;
+line-height:1.6;
+margin:9px 0;
+}
+
+textarea,input,select{
+width:100%;
+background:#07111f;
+border:1px solid var(--line);
+color:white;
+border-radius:10px;
+padding:12px;
+margin-bottom:10px;
+}
+
+textarea{
+min-height:140px;
+resize:vertical;
+}
+
+pre.output{
+white-space:pre-wrap;
+font-family:Arial,sans-serif;
+font-size:13px;
+line-height:1.65;
+padding:16px;
+background:#06101c;
+border:1px solid var(--line);
+border-radius:13px;
+margin-top:14px;
+max-height:600px;
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:700px;
+}
+
+.table{
+overflow:auto;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid var(--line);
+text-align:left;
+font-size:13px;
+}
+
+th{
+font-size:10px;
+color:var(--muted);
+}
+
+.badge{
+display:inline-block;
+padding:5px 8px;
+border-radius:999px;
+font-size:10px;
+background:rgba(110,140,255,.15);
+color:var(--cyan);
+}
+
+.green{
+color:var(--green);
+background:rgba(85,223,167,.1);
+}
+
+.yellow{
+color:var(--yellow);
+background:rgba(255,209,102,.1);
+}
+
+.red{
+color:var(--red);
+background:rgba(255,113,129,.1);
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.72);
+z-index:10;
+padding:20px;
+overflow:auto;
+}
+
+.modal.active{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.modal-box{
+width:min(650px,100%);
+background:#0b1727;
+border:1px solid var(--line);
+border-radius:20px;
+padding:22px;
+}
+
+.modal-head{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+}
+
+.close{
+border:0;
+background:transparent;
+color:white;
+font-size:25px;
+}
+
+.toast{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#11243a;
+border:1px solid var(--line);
+padding:14px 18px;
+border-radius:12px;
+display:none;
+z-index:50;
+}
+
+.toast.show{
+display:block;
+}
+
+.portal{
+max-width:1100px;
+margin:0 auto;
+padding:30px;
+}
+
+@media(max-width:1100px){
+.stats{grid-template-columns:repeat(3,1fr);}
+.grid3{grid-template-columns:1fr 1fr;}
+}
+
+@media(max-width:800px){
+.app{grid-template-columns:1fr;}
+aside{
+position:static;
+width:auto;
+}
+main{
+grid-column:1;
+padding:16px;
+}
+nav{
+grid-template-columns:1fr 1fr;
+}
+.grid2,.grid3{
+grid-template-columns:1fr;
+}
+.stats{
+grid-template-columns:1fr 1fr;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside>
+
+<div class="brand">
+<div class="logo">N</div>
+<div>
+<h1>NEXORA</h1>
+<small>DIGITAL INTELLIGENCE</small>
+</div>
+</div>
+
+<nav>
+
+<button class="active" onclick="page('dashboard',this)">
+◈ Dashboard
+</button>
+
+<button onclick="page('manager',this)">
+🧠 AI Manager
+</button>
+
+<button onclick="page('lead',this)">
+🔍 Lead Research
+</button>
+
+<button onclick="page('audit',this)">
+🌐 Website Audit
+</button>
+
+<button onclick="page('design',this)">
+🎨 Design Agent
+</button>
+
+<button onclick="page('crm',this)">
+👥 CRM Clients
+</button>
+
+<button onclick="page('projects',this)">
+📋 Projects
+</button>
+
+<button onclick="page('business',this)">
+💶 Quotes & Invoices
+</button>
+
+<button onclick="page('qa',this)">
+🛡️ QA & Launch
+</button>
+
+</nav>
+
+</aside>
+
+<main>
+
+<div class="top">
+<div>
+<h1 id="title">NEXORA Command Center</h1>
+<p>Phase 3 — AI powered digital operations.</p>
+</div>
+
+<button class="primary" onclick="openClient()">
++ New Client
+</button>
+</div>
+
+
+<section id="dashboard" class="page active">
+
+<div class="stats">
+
+<div class="stat">
+<span>CLIENTS</span>
+<strong id="sClients">0</strong>
+</div>
+
+<div class="stat">
+<span>PROJECTS</span>
+<strong id="sProjects">0</strong>
+</div>
+
+<div class="stat">
+<span>ACTIVE</span>
+<strong id="sActive">0</strong>
+</div>
+
+<div class="stat">
+<span>PAID INVOICES</span>
+<strong id="sPaid">0</strong>
+</div>
+
+<div class="stat">
+<span>PENDING APPROVALS</span>
+<strong id="sApprovals">0</strong>
+</div>
+
+</div>
+
+<div class="grid2">
+
+<div class="card">
+<h3>Recent Activity</h3>
+<div id="activity"></div>
+</div>
+
+<div class="card">
+<h3>AI Status</h3>
+<p style="color:var(--muted);line-height:1.8;font-size:13px">
+AI Manager: <b id="aiStatus">Checking...</b><br>
+Lead Research Agent: Ready<br>
+Website Audit Agent: Ready<br>
+Design Agent: Ready<br>
+Quote Agent: Ready<br>
+Development Agent: Ready<br>
+QA Agent: Ready<br>
+Launch Agent: Ready
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="manager" class="page">
+
+<div class="card">
+
+<h3>🧠 NEXORA AI Manager</h3>
+
+<textarea id="managerInput"
+placeholder="Example: We have a German manufacturing company with an old website. Analyze the opportunity and decide the next workflow."></textarea>
+
+<button class="primary" onclick="runAI('manager')">
+Run AI Manager
+</button>
+
+<pre id="managerOutput" class="output"></pre>
+
+</div>
+
+</section>
+
+
+<section id="lead" class="page">
+
+<div class="card">
+
+<h3>🔍 Lead Research Agent</h3>
+
+<input id="leadCompany"
+placeholder="Company name">
+
+<input id="leadWebsite"
+placeholder="Website">
+
+<input id="leadIndustry"
+placeholder="Industry">
+
+<textarea id="leadNotes"
+placeholder="Paste known information about the company here."></textarea>
+
+<button class="primary" onclick="runLead()">
+Analyze Lead
+</button>
+
+<pre id="leadOutput" class="output"></pre>
+
+</div>
+
+</section>
+
+
+<section id="audit" class="page">
+
+<div class="card">
+
+<h3>🌐 Website Audit Agent</h3>
+
+<input id="auditUrl"
+placeholder="https://example.de">
+
+<button class="primary" onclick="runAudit()">
+Run Website Audit
+</button>
+
+<pre id="auditOutput" class="output"></pre>
+
+</div>
+
+</section>
+
+
+<section id="design" class="page">
+
+<div class="card">
+
+<h3>🎨 Design Agent</h3>
+
+<input id="designBusiness"
+placeholder="Business / Company">
+
+<input id="designIndustry"
+placeholder="Industry">
+
+<textarea id="designRequirements"
+placeholder="Describe the requested website, redesign or AI features."></textarea>
+
+<button class="primary" onclick="runDesign()">
+Create Design Brief
+</button>
+
+<pre id="designOutput" class="output"></pre>
+
+</div>
+
+</section>
+
+
+<section id="crm" class="page">
+
+<div class="card">
+
+<h3>CRM — Clients & Leads</h3>
+
+<div class="table">
+
+<table>
+
+<thead>
+<tr>
+<th>NAME</th>
+<th>COMPANY</th>
+<th>COUNTRY</th>
+<th>WEBSITE</th>
+<th>SCORE</th>
+<th>STATUS</th>
+<th>ACTION</th>
+</tr>
+</thead>
+
+<tbody id="clientsTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="projects" class="page">
+
+<div style="margin-bottom:15px">
+<button class="primary" onclick="openProject()">
++ New Project
+</button>
+</div>
+
+<div id="projectsGrid" class="grid3"></div>
+
+</section>
+
+
+<section id="business" class="page">
+
+<div class="grid2">
+
+<div class="card">
+
+<h3>💶 Create Quote</h3>
+
+<select id="quoteClient"></select>
+
+<input id="quoteTitle"
+placeholder="Quote title">
+
+<input id="quoteAmount"
+type="number"
+placeholder="Amount EUR">
+
+<textarea id="quoteDescription"
+placeholder="Scope and deliverables"></textarea>
+
+<button class="primary" onclick="createQuote()">
+Create Quote
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>💳 Create Invoice</h3>
+
+<select id="invoiceClient"></select>
+
+<input id="invoiceAmount"
+type="number"
+placeholder="Amount EUR">
+
+<button class="primary" onclick="createInvoice()">
+Create Invoice
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+<h3>Quotes</h3>
+<div id="quotesList"></div>
+</div>
+
+<div class="card">
+<h3>Invoices</h3>
+<div id="invoicesList"></div>
+</div>
+
+</section>
+
+
+<section id="qa" class="page">
+
+<div class="grid2">
+
+<div class="card">
+
+<h3>🛡️ QA Agent</h3>
+
+<textarea id="qaInput"
+placeholder="Describe the website, project or test results."></textarea>
+
+<button class="primary" onclick="runQA()">
+Run QA Review
+</button>
+
+<pre id="qaOutput" class="output"></pre>
+
+</div>
+
+
+<div class="card">
+
+<h3>🚀 Launch Agent</h3>
+
+<textarea id="launchInput"
+placeholder="Describe the project and deployment environment."></textarea>
+
+<button class="primary" onclick="runLaunch()">
+Create Launch Checklist
+</button>
+
+<pre id="launchOutput" class="output"></pre>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+
+<div id="clientModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+<h2>New Client</h2>
+<button class="close" onclick="closeModal('clientModal')">×</button>
+</div>
+
+<input id="cName" placeholder="Contact name">
+<input id="cCompany" placeholder="Company">
+<input id="cEmail" placeholder="Email">
+<input id="cPhone" placeholder="Phone">
+<input id="cWebsite" placeholder="Website">
+<input id="cCountry" value="Germany" placeholder="Country">
+<input id="cIndustry" placeholder="Industry">
+
+<input id="cScore"
+type="number"
+value="50"
+placeholder="Opportunity score">
+
+<select id="cStatus">
+<option>NEW</option>
+<option>CONTACTED</option>
+<option>INTERESTED</option>
+<option>CLIENT</option>
+</select>
+
+<textarea id="cNotes"
+placeholder="Notes"></textarea>
+
+<button class="primary" onclick="saveClient()">
+Save Client
+</button>
+
+</div>
+</div>
+
+
+<div id="projectModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+<h2>New Project</h2>
+<button class="close" onclick="closeModal('projectModal')">×</button>
+</div>
+
+<select id="pClient"></select>
+
+<input id="pTitle"
+placeholder="Project title">
+
+<select id="pService">
+<option>New Website</option>
+<option>Website Redesign</option>
+<option>AI Integration</option>
+<option>Digital Automation</option>
+<option>E-Commerce</option>
+</select>
+
+<input id="pBudget"
+placeholder="Budget">
+
+<select id="pStatus">
+<option>PLANNING</option>
+<option>DESIGN</option>
+<option>WAITING_APPROVAL</option>
+<option>IN_PROGRESS</option>
+<option>QA</option>
+<option>COMPLETED</option>
+</select>
+
+<select id="pPriority">
+<option>NORMAL</option>
+<option>HIGH</option>
+<option>URGENT</option>
+</select>
+
+<textarea id="pDescription"
+placeholder="Project description"></textarea>
+
+<button class="primary" onclick="saveProject()">
+Create Project
+</button>
+
+</div>
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+const api = async (url, options={}) => {
+
+  const response = await fetch(url, {
+    headers:{
+      "Content-Type":"application/json"
+    },
+    ...options
+  });
+
+  const data = await response.json();
+
+  if(!response.ok){
+    throw new Error(
+      data.error || "Request failed."
+    );
+  }
+
+  return data;
+};
+
+
+let clients = [];
+
+
+function escapeHTML(text){
+
+  return String(text || "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;");
+}
+
+
+function toast(message){
+
+  const el =
+    document.getElementById("toast");
+
+  el.textContent = message;
+
+  el.classList.add("show");
+
+  setTimeout(
+    ()=>el.classList.remove("show"),
+    3000
+  );
+}
+
+
+function page(id,button){
+
+  document
+  .querySelectorAll(".page")
+  .forEach(x=>x.classList.remove("active"));
+
+  document
+  .getElementById(id)
+  .classList.add("active");
+
+  document
+  .querySelectorAll("nav button")
+  .forEach(x=>x.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+}
+
+
+function openClient(){
+  document
+  .getElementById("clientModal")
+  .classList.add("active");
+}
+
+
+function openProject(){
+  document
+  .getElementById("projectModal")
+  .classList.add("active");
+}
+
+
+function closeModal(id){
+  document
+  .getElementById(id)
+  .classList.remove("active");
+}
+
+
+/* DASHBOARD */
+
+async function loadDashboard(){
+
+  const data =
+    await api("/api/dashboard");
+
+  sClients.textContent =
+    data.clients;
+
+  sProjects.textContent =
+    data.projects;
+
+  sActive.textContent =
+    data.activeProjects;
+
+  sPaid.textContent =
+    data.paidInvoices;
+
+  sApprovals.textContent =
+    data.pendingApprovals;
+
+  aiStatus.textContent =
+    "Online";
+
+  activity.innerHTML =
+    data.activities.length
+    ? data.activities.map(x=>`
+      <div class="activity">
+        ${escapeHTML(x.message)}
+        <small>
+          ${new Date(x.created_at).toLocaleString()}
+        </small>
+      </div>
+    `).join("")
+    : "No activity yet.";
+
+}
+
+
+/* CLIENTS */
+
+async function loadClients(){
+
+  clients =
+    await api("/api/clients");
+
+  clientsTable.innerHTML =
+    clients.length
+    ? clients.map(c=>`
+
+<tr>
+
+<td>
+${escapeHTML(c.name)}
+</td>
+
+<td>
+${escapeHTML(c.company)}
+</td>
+
+<td>
+${escapeHTML(c.country)}
+</td>
+
+<td>
+${escapeHTML(c.website)}
+</td>
+
+<td>
+${c.score}/100
+</td>
+
+<td>
+<span class="badge">
+${escapeHTML(c.status)}
+</span>
+</td>
+
+<td>
+
+<button
+class="secondary"
+onclick="portal('${c.id}')">
+
+Portal
+
+</button>
+
+<button
+class="secondary"
+onclick="removeClient('${c.id}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`).join("")
+    : `
+<tr>
+<td colspan="7">
+No clients yet.
+</td>
+</tr>
+`;
+
+  const options =
+    `<option value="">Select client</option>` +
+    clients.map(c=>`
+      <option value="${c.id}">
+        ${escapeHTML(c.company || c.name)}
+      </option>
+    `).join("");
+
+  pClient.innerHTML =
+    options;
+
+  quoteClient.innerHTML =
+    options;
+
+  invoiceClient.innerHTML =
+    options;
+}
+
+
+async function saveClient(){
+
+  try{
+
+    await api(
+      "/api/clients",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          name:cName.value,
+          company:cCompany.value,
+          email:cEmail.value,
+          phone:cPhone.value,
+          website:cWebsite.value,
+          country:cCountry.value,
+          industry:cIndustry.value,
+          score:cScore.value,
+          status:cStatus.value,
+          notes:cNotes.value
+        })
+      }
+    );
+
+    closeModal("clientModal");
+
+    toast("Client saved.");
+
+    await refresh();
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+}
+
+
+async function removeClient(id){
+
+  if(!confirm("Delete this client?")){
+    return;
+  }
+
+  await api(
+    "/api/clients/" + id,
+    {
+      method:"DELETE"
+    }
+  );
+
+  toast("Client deleted.");
+
+  refresh();
+}
+
+
+async function portal(id){
+
+  try{
+
+    const result =
+      await api(
+        "/api/clients/" + id + "/portal",
+        {
+          method:"POST"
+        }
+      );
+
+    window.open(
+      result.portalUrl,
+      "_blank"
+    );
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+}
+
+
+/* PROJECTS */
+
+async function loadProjects(){
+
+  const projects =
+    await api("/api/projects");
+
+  projectsGrid.innerHTML =
+    projects.length
+    ? projects.map(p=>`
+
+<div class="agent">
+
+<div class="icon">📋</div>
+
+<h3 style="margin-top:10px">
+${escapeHTML(p.title)}
+</h3>
+
+<p>
+Client:
+${escapeHTML(
+  p.client_company ||
+  p.client_name ||
+  "-"
+)}
+<br>
+
+Service:
+${escapeHTML(p.service)}
+<br>
+
+Budget:
+${escapeHTML(p.budget)}
+</p>
+
+<span class="badge">
+${escapeHTML(p.status)}
+</span>
+
+<br><br>
+
+<select
+onchange="updateProject('${p.id}',this.value)">
+
+${[
+"PLANNING",
+"DESIGN",
+"WAITING_APPROVAL",
+"IN_PROGRESS",
+"QA",
+"COMPLETED"
+].map(status=>`
+<option
+value="${status}"
+${status===p.status?"selected":""}>
+${status}
+</option>
+`).join("")}
+
+</select>
+
+</div>
+
+`).join("")
+    : `
+<div class="card">
+No projects yet.
+</div>
+`;
+}
+
+
+async function saveProject(){
+
+  try{
+
+    await api(
+      "/api/projects",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          client_id:pClient.value,
+          title:pTitle.value,
+          service:pService.value,
+          budget:pBudget.value,
+          status:pStatus.value,
+          priority:pPriority.value,
+          description:pDescription.value
+        })
+      }
+    );
+
+    closeModal("projectModal");
+
+    toast("Project created.");
+
+    refresh();
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+}
+
+
+async function updateProject(id,status){
+
+  await api(
+    "/api/projects/" + id,
+    {
+      method:"PUT",
+      body:JSON.stringify({
+        status
+      })
+    }
+  );
+
+  toast("Project updated.");
+
+  refresh();
+}
+
+
+/* AI MANAGER */
+
+async function runAI(type){
+
+  const input =
+    managerInput.value.trim();
+
+  if(!input){
+    toast("Write a task first.");
+    return;
+  }
+
+  managerOutput.textContent =
+    "NEXORA AI is thinking...";
+
+  try{
+
+    const data =
+      await api(
+        "/api/ai/manager",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            task:input
+          })
+        }
+      );
+
+    managerOutput.textContent =
+      data.output;
+
+    loadDashboard();
+
+  }catch(error){
+
+    managerOutput.textContent =
+      error.message;
+
+  }
+}
+
+
+/* LEAD AGENT */
+
+async function runLead(){
+
+  leadOutput.textContent =
+    "Analyzing lead...";
+
+  try{
+
+    const data =
+      await api(
+        "/api/ai/lead",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            company:leadCompany.value,
+            website:leadWebsite.value,
+            industry:leadIndustry.value,
+            notes:leadNotes.value
+          })
+        }
+      );
+
+    leadOutput.textContent =
+      data.output;
+
+  }catch(error){
+
+    leadOutput.textContent =
+      error.message;
+
+  }
+}
+
+
+/* WEBSITE AUDIT */
+
+async function runAudit(){
+
+  const url =
+    auditUrl.value.trim();
+
+  if(!url){
+    toast("Enter a website URL.");
+    return;
+  }
+
+  auditOutput.textContent =
+    "Running technical audit and AI analysis...";
+
+  try{
+
+    const data =
+      await api(
+        "/api/ai/audit",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            url
+          })
+        }
+      );
+
+    auditOutput.textContent =
+      "TECHNICAL AUDIT\n\n" +
+      JSON.stringify(
+        data.technicalAudit,
+        null,
+        2
+      ) +
+      "\n\nAI REPORT\n\n" +
+      data.aiReport;
+
+  }catch(error){
+
+    auditOutput.textContent =
+      error.message;
+
+  }
+}
+
+
+/* DESIGN */
+
+async function runDesign(){
+
+  designOutput.textContent =
+    "Creating design brief...";
+
+  try{
+
+    const data =
+      await api(
+        "/api/ai/design",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            business:designBusiness.value,
+            industry:designIndustry.value,
+            requirements:designRequirements.value
+          })
+        }
+      );
+
+    designOutput.textContent =
+      data.output;
+
+  }catch(error){
+
+    designOutput.textContent =
+      error.message;
+
+  }
+}
+
+
+/* QUOTES */
+
+async function createQuote(){
+
+  try{
+
+    await api(
+      "/api/quotes",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          client_id:quoteClient.value,
+          title:quoteTitle.value,
+          amount:quoteAmount.value,
+          description:quoteDescription.value,
+          currency:"EUR"
+        })
+      }
+    );
+
+    toast("Quote created.");
+
+    loadBusiness();
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+}
+
+
+async function loadBusiness(){
+
+  const quotes =
+    await api("/api/quotes");
+
+  const invoices =
+    await api("/api/invoices");
+
+  quotesList.innerHTML =
+    quotes.length
+    ? quotes.map(q=>`
+<div class="activity">
+
+<b>
+${escapeHTML(q.title)}
+</b>
+
+<br>
+
+${q.amount} ${q.currency}
+
+—
+
+<span class="badge">
+${escapeHTML(q.status)}
+</span>
+
+</div>
+`).join("")
+    : "No quotes.";
+
+  invoicesList.innerHTML =
+    invoices.length
+    ? invoices.map(i=>`
+<div class="activity">
+
+<b>
+${escapeHTML(i.invoice_number)}
+</b>
+
+<br>
+
+${i.amount} ${i.currency}
+
+—
+
+<span class="badge ${
+i.status==="PAID" ? "green" : "yellow"
+}">
+${escapeHTML(i.status)}
+</span>
+
+${i.status!=="PAID"
+? `
+<button
+class="secondary"
+onclick="markPaid('${i.id}')">
+Confirm Payment
+</button>
+`
+: ""}
+
+</div>
+`).join("")
+    : "No invoices.";
+}
+
+
+/* INVOICE */
+
+async function createInvoice(){
+
+  try{
+
+    await api(
+      "/api/invoices",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          client_id:invoiceClient.value,
+          amount:invoiceAmount.value,
+          currency:"EUR"
+        })
+      }
+    );
+
+    toast("Invoice created.");
+
+    loadBusiness();
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+}
+
+
+async function markPaid(id){
+
+  if(
+    !confirm(
+      "Confirm that payment was actually received?"
+    )
+  ){
+    return;
+  }
+
+  await api(
+    "/api/invoices/" +
+    id +
+    "/mark-paid",
+    {
+      method:"POST"
+    }
+  );
+
+  toast("Payment confirmed.");
+
+  refresh();
+}
+
+
+/* QA */
+
+async function runQA(){
+
+  qaOutput.textContent =
+    "Running QA review...";
+
+  try{
+
+    const data =
+      await api(
+        "/api/ai/qa",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            project:qaInput.value
+          })
+        }
+      );
+
+    qaOutput.textContent =
+      data.output;
+
+  }catch(error){
+
+    qaOutput.textContent =
+      error.message;
+
+  }
+}
+
+
+/* LAUNCH */
+
+async function runLaunch(){
+
+  launchOutput.textContent =
+    "Preparing launch checklist...";
+
+  try{
+
+    const data =
+      await api(
+        "/api/ai/launch",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            project:launchInput.value
+          })
+        }
+      );
+
+    launchOutput.textContent =
+      data.output;
+
+  }catch(error){
+
+    launchOutput.textContent =
+      error.message;
+
+  }
+}
+
+
+/* REFRESH */
+
+async function refresh(){
+
+  await Promise.all([
+    loadDashboard(),
+    loadClients(),
+    loadProjects(),
+    loadBusiness()
+  ]);
+
+}
+
+
+/* START */
+
+refresh();
+
+</script>
+
+</body>
+</html>
+`;
+
+
+/* =========================================================
+   CLIENT PORTAL PAGE
+========================================================= */
+
+app.get("/portal/:token", (req, res) => {
+
+  res.send(`
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>NEXORA Client Portal</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#07101c;
+color:#f5f8ff;
+}
+
+main{
+max-width:1000px;
+margin:auto;
+padding:30px;
+}
+
+.card{
+background:#0d1929;
+border:1px solid rgba(255,255,255,.1);
+border-radius:18px;
+padding:20px;
+margin-bottom:16px;
+}
+
+h1{
+color:#55e6ff;
+}
+
+.item{
+padding:12px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.badge{
+background:#12324a;
+color:#55e6ff;
+padding:5px 9px;
+border-radius:999px;
+font-size:11px;
+}
+
+button{
+padding:10px 14px;
+border:0;
+border-radius:10px;
+background:#55e6ff;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main>
+
+<h1>NEXORA Client Portal</h1>
+
+<div id="app">
+Loading your secure workspace...
+</div>
+
+</main>
+
+<script>
+
+const token =
+location.pathname.split("/").pop();
+
+async function load(){
+
+  const response =
+    await fetch(
+      "/api/portal/" + token
+    );
+
+  const data =
+    await response.json();
+
+  if(!response.ok){
+
+    app.innerHTML =
+      "<div class='card'>Portal not found.</div>";
+
+    return;
+  }
+
+  app.innerHTML = `
+
+<div class="card">
+
+<h2>
+Welcome,
+\${data.client.name ||
+data.client.company}
+</h2>
+
+<p>
+\${data.client.company || ""}
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Projects</h2>
+
+\${data.projects.length
+? data.projects.map(p=>`
+
+<div class="item">
+
+<b>\${p.title}</b>
+
+<br>
+
+<span class="badge">
+
+\${p.status}
+
+</span>
+
+</div>
+
+`).join("")
+: "No projects."}
+
+</div>
+
+
+<div class="card">
+
+<h2>Quotes</h2>
+
+\${data.quotes.length
+? data.quotes.map(q=>`
+
+<div class="item">
+
+<b>\${q.title}</b>
+
+<br>
+
+\${q.amount} \${q.currency}
+
+—
+
+<span class="badge">
+
+\${q.status}
+
+</span>
+
+</div>
+
+`).join("")
+: "No quotes."}
+
+</div>
+
+
+<div class="card">
+
+<h2>Invoices</h2>
+
+\${data.invoices.length
+? data.invoices.map(i=>`
+
+<div class="item">
+
+<b>\${i.invoice_number}</b>
+
+<br>
+
+\${i.amount} \${i.currency}
+
+—
+
+<span class="badge">
+
+\${i.status}
+
+</span>
+
+</div>
+
+`).join("")
+: "No invoices."}
+
+</div>
+
+
+<div class="card">
+
+<h2>Design Approvals</h2>
+
+\${data.approvals.length
+? data.approvals.map(a=>`
+
+<div class="item">
+
+<b>\${a.title}</b>
+
+<br>
+
+<span class="badge">
+
+\${a.status}
+
+</span>
+
+\${a.design_url
+? \`
+<br><br>
+<a
+href="\${a.design_url}"
+target="_blank">
+View Design
+</a>
+\`
+: ""}
+
+</div>
+
+`).join("")
+: "No approvals waiting."}
+
+</div>
+
+`;
+
+}
+
+load();
+
+</script>
+
+</body>
+
+</html>
+  `);
+});
+
+
+/* =========================================================
+   MAIN SITE
+========================================================= */
+
+app.get("/", (req, res) => {
+  res.send(HTML);
+});
+
+
+/* =========================================================
+   START
+========================================================= */
+
+app.listen(PORT, () => {
+
+  console.log("");
+  console.log("========================================");
+  console.log("NEXORA DIGITAL — PHASE 3");
+  console.log("AI COMMAND CENTER");
+  console.log("========================================");
+  console.log("");
+  console.log(
+    "http://localhost:" + PORT
+  );
+  console.log("");
+  console.log(
+    ai
+      ? "AI MODE: CONNECTED"
+      : "AI MODE: DEMO — Add OPENAI_API_KEY"
+  );
+  console.log("");
+
+});
