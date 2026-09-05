@@ -1,0 +1,4016 @@
+ <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>NEXORA Digital | AI • Web • Digital Intelligence</title>
+
+<meta name="description"
+content="NEXORA Digital develops modern websites, AI solutions and digital automation for companies.">
+
+<style>
+
+/* =========================================================
+   NEXORA DIGITAL
+   PHASE 1.1
+   AI POWERED DIGITAL AGENCY
+========================================================= */
+
+:root{
+
+--bg:#050b14;
+--bg2:#091525;
+
+--panel:#0b1728;
+--panel2:#0e1d31;
+
+--text:#f5f8ff;
+--muted:#9baec8;
+
+--primary:#6ea8ff;
+--purple:#926bff;
+--cyan:#55e6ff;
+--green:#52e6a3;
+
+--border:rgba(170,200,255,.14);
+
+--radius:22px;
+
+--max:1240px;
+
+--shadow:
+0 25px 70px rgba(0,0,0,.35);
+
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+margin:0;
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+font-family:
+
+Inter,
+Arial,
+Helvetica,
+sans-serif;
+
+background:
+
+radial-gradient(
+circle at 10% 0%,
+rgba(73,103,255,.16),
+transparent 30%
+),
+
+radial-gradient(
+circle at 90% 20%,
+rgba(85,230,255,.10),
+transparent 28%
+),
+
+linear-gradient(
+135deg,
+#040913,
+#081524 50%,
+#050b14
+);
+
+color:var(--text);
+
+overflow-x:hidden;
+
+min-height:100vh;
+
+}
+
+a{
+
+color:inherit;
+text-decoration:none;
+
+}
+
+button,
+input,
+textarea,
+select{
+
+font:inherit;
+
+}
+
+button{
+
+cursor:pointer;
+
+}
+
+.container{
+
+width:min(
+calc(100% - 32px),
+var(--max)
+);
+
+margin:auto;
+
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.grid{
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+opacity:.12;
+
+background-image:
+
+linear-gradient(
+rgba(110,168,255,.12) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(110,168,255,.12) 1px,
+transparent 1px
+);
+
+background-size:
+
+50px 50px;
+
+mask-image:
+linear-gradient(
+to bottom,
+black,
+transparent 70%
+);
+
+z-index:-2;
+
+}
+
+.orb{
+
+position:fixed;
+
+width:500px;
+height:500px;
+
+border-radius:50%;
+
+filter:blur(120px);
+
+opacity:.13;
+
+pointer-events:none;
+
+z-index:-3;
+
+}
+
+.orb1{
+
+background:#527cff;
+
+top:-200px;
+left:-200px;
+
+}
+
+.orb2{
+
+background:#7d52ff;
+
+right:-200px;
+top:300px;
+
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+background:
+rgba(4,10,20,.78);
+
+backdrop-filter:
+blur(20px);
+
+border-bottom:
+1px solid rgba(255,255,255,.06);
+
+}
+
+.navbar{
+
+min-height:82px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:20px;
+
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand{
+
+display:flex;
+
+align-items:center;
+
+gap:13px;
+
+}
+
+.brand-logo{
+
+width:48px;
+height:48px;
+
+border-radius:15px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:23px;
+
+font-weight:900;
+
+background:
+
+linear-gradient(
+135deg,
+#6ea8ff,
+#8869ff
+);
+
+position:relative;
+
+overflow:hidden;
+
+box-shadow:
+
+0 15px 35px
+rgba(86,110,255,.3);
+
+}
+
+.brand-logo:before{
+
+content:"";
+
+position:absolute;
+
+width:33px;
+height:33px;
+
+border:2px solid white;
+
+border-left-color:transparent;
+
+transform:rotate(45deg);
+
+border-radius:8px;
+
+opacity:.85;
+
+}
+
+.brand-logo span{
+
+position:relative;
+
+z-index:2;
+
+}
+
+.brand-title{
+
+font-size:18px;
+
+font-weight:900;
+
+letter-spacing:2px;
+
+}
+
+.brand-sub{
+
+font-size:9px;
+
+font-weight:800;
+
+letter-spacing:3px;
+
+color:var(--cyan);
+
+margin-top:3px;
+
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+nav{
+
+display:flex;
+
+align-items:center;
+
+gap:3px;
+
+}
+
+nav a{
+
+padding:
+
+10px 9px;
+
+font-size:12px;
+
+color:var(--muted);
+
+border-radius:9px;
+
+transition:.25s;
+
+white-space:nowrap;
+
+}
+
+nav a:hover{
+
+background:
+rgba(255,255,255,.06);
+
+color:white;
+
+}
+
+.language-btn{
+
+border:
+
+1px solid
+rgba(110,168,255,.25);
+
+background:
+
+rgba(110,168,255,.08);
+
+color:white;
+
+padding:
+
+10px 13px;
+
+border-radius:10px;
+
+font-weight:800;
+
+font-size:12px;
+
+}
+
+.mobile-menu{
+
+display:none;
+
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+padding:
+
+60px 0
+80px;
+
+}
+
+.hero-visual{
+
+position:relative;
+
+min-height:680px;
+
+border-radius:32px;
+
+overflow:hidden;
+
+border:
+
+1px solid
+rgba(110,168,255,.22);
+
+box-shadow:
+
+0 30px 90px
+rgba(0,0,0,.45);
+
+background:#07111f;
+
+display:flex;
+
+align-items:flex-end;
+
+}
+
+/* الصورة المرسلة */
+
+.hero-image{
+
+position:absolute;
+
+inset:0;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+object-position:center;
+
+opacity:.72;
+
+}
+
+.hero-overlay{
+
+position:absolute;
+
+inset:0;
+
+background:
+
+linear-gradient(
+90deg,
+rgba(3,8,17,.96) 0%,
+rgba(3,8,17,.76) 38%,
+rgba(3,8,17,.18) 75%
+),
+
+linear-gradient(
+0deg,
+rgba(3,8,17,.92),
+transparent 60%
+);
+
+}
+
+.hero-content{
+
+position:relative;
+
+z-index:3;
+
+padding:
+
+70px;
+
+max-width:780px;
+
+}
+
+.eyebrow{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:9px;
+
+padding:
+
+9px 14px;
+
+border-radius:999px;
+
+background:
+rgba(84,229,255,.08);
+
+border:
+1px solid
+rgba(84,229,255,.18);
+
+color:var(--cyan);
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+margin-bottom:22px;
+
+}
+
+.pulse{
+
+width:8px;
+height:8px;
+
+background:var(--green);
+
+border-radius:50%;
+
+box-shadow:
+0 0 15px var(--green);
+
+}
+
+h1{
+
+font-size:
+
+clamp(
+46px,
+7vw,
+82px
+);
+
+line-height:.98;
+
+letter-spacing:-4px;
+
+}
+
+.gradient-text{
+
+background:
+
+linear-gradient(
+90deg,
+#ffffff,
+var(--cyan),
+var(--primary)
+);
+
+-webkit-background-clip:text;
+
+background-clip:text;
+
+color:transparent;
+
+}
+
+.hero-text{
+
+margin-top:25px;
+
+font-size:18px;
+
+line-height:1.75;
+
+color:#c0d0e6;
+
+max-width:650px;
+
+}
+
+.hero-buttons{
+
+display:flex;
+
+gap:13px;
+
+flex-wrap:wrap;
+
+margin-top:32px;
+
+}
+
+.btn{
+
+border:0;
+
+padding:
+
+15px 22px;
+
+border-radius:14px;
+
+font-weight:800;
+
+transition:.25s;
+
+}
+
+.btn:hover{
+
+transform:
+translateY(-3px);
+
+}
+
+.btn-primary{
+
+background:
+
+linear-gradient(
+135deg,
+var(--cyan),
+var(--primary)
+);
+
+color:#06101d;
+
+box-shadow:
+
+0 15px 35px
+rgba(84,229,255,.18);
+
+}
+
+.btn-secondary{
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid var(--border);
+
+color:white;
+
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+
+margin-top:-25px;
+
+position:relative;
+
+z-index:5;
+
+}
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+
+}
+
+.stat{
+
+padding:23px;
+
+border-radius:18px;
+
+background:
+rgba(10,23,40,.86);
+
+border:
+1px solid var(--border);
+
+backdrop-filter:
+blur(15px);
+
+}
+
+.stat strong{
+
+display:block;
+
+font-size:28px;
+
+margin-bottom:7px;
+
+}
+
+.stat span{
+
+font-size:12px;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+
+padding:
+
+90px 0;
+
+}
+
+.section-head{
+
+max-width:760px;
+
+margin-bottom:38px;
+
+}
+
+.section-tag{
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:2px;
+
+color:var(--cyan);
+
+}
+
+h2{
+
+margin-top:12px;
+
+font-size:
+
+clamp(
+34px,
+5vw,
+55px
+);
+
+line-height:1.05;
+
+letter-spacing:-2px;
+
+}
+
+.section-description{
+
+margin-top:16px;
+
+color:var(--muted);
+
+line-height:1.75;
+
+font-size:16px;
+
+}
+
+/* =========================================================
+   SERVICE CARDS
+========================================================= */
+
+.services{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:18px;
+
+}
+
+.card{
+
+padding:28px;
+
+min-height:255px;
+
+border-radius:var(--radius);
+
+background:
+
+linear-gradient(
+145deg,
+rgba(255,255,255,.06),
+rgba(255,255,255,.015)
+);
+
+border:
+1px solid var(--border);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-7px);
+
+border-color:
+rgba(110,168,255,.45);
+
+box-shadow:
+var(--shadow);
+
+}
+
+.card-icon{
+
+width:54px;
+height:54px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border-radius:17px;
+
+font-size:22px;
+
+background:
+
+linear-gradient(
+135deg,
+rgba(110,168,255,.25),
+rgba(146,107,255,.18)
+);
+
+margin-bottom:22px;
+
+}
+
+.card h3{
+
+margin-bottom:11px;
+
+font-size:20px;
+
+}
+
+.card p{
+
+color:var(--muted);
+
+line-height:1.7;
+
+font-size:14px;
+
+}
+
+/* =========================================================
+   WORKFLOW
+========================================================= */
+
+.workflow{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:13px;
+
+}
+
+.step{
+
+min-height:205px;
+
+padding:23px;
+
+border-radius:20px;
+
+border:
+1px solid var(--border);
+
+background:
+rgba(255,255,255,.025);
+
+}
+
+.step-number{
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:1.5px;
+
+color:var(--cyan);
+
+}
+
+.step h3{
+
+margin:
+
+18px 0 10px;
+
+}
+
+.step p{
+
+font-size:13px;
+
+line-height:1.65;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+   WEBSITE CHECK
+========================================================= */
+
+.checker{
+
+padding:38px;
+
+border-radius:28px;
+
+border:
+1px solid
+rgba(110,168,255,.22);
+
+background:
+
+linear-gradient(
+135deg,
+rgba(110,168,255,.10),
+rgba(146,107,255,.06)
+);
+
+}
+
+.check-form{
+
+display:flex;
+
+gap:12px;
+
+margin-top:25px;
+
+}
+
+.input{
+
+width:100%;
+
+padding:
+
+16px 17px;
+
+border-radius:14px;
+
+border:
+1px solid var(--border);
+
+background:
+rgba(0,0,0,.25);
+
+color:white;
+
+outline:none;
+
+}
+
+.input:focus{
+
+border-color:
+var(--cyan);
+
+}
+
+.check-result{
+
+display:none;
+
+margin-top:25px;
+
+}
+
+.check-result.show{
+
+display:block;
+
+}
+
+.score-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:13px;
+
+}
+
+.score{
+
+padding:18px;
+
+border-radius:15px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid
+rgba(255,255,255,.06);
+
+}
+
+.score small{
+
+display:block;
+
+color:var(--muted);
+
+margin-bottom:7px;
+
+}
+
+.score strong{
+
+font-size:26px;
+
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard{
+
+border-radius:28px;
+
+overflow:hidden;
+
+border:
+1px solid var(--border);
+
+background:
+rgba(7,17,31,.88);
+
+box-shadow:
+var(--shadow);
+
+}
+
+.dashboard-header{
+
+padding:
+
+20px 24px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+border-bottom:
+1px solid var(--border);
+
+}
+
+.online{
+
+font-size:10px;
+
+color:var(--green);
+
+border:
+1px solid
+rgba(82,230,163,.25);
+
+background:
+rgba(82,230,163,.06);
+
+padding:
+
+7px 11px;
+
+border-radius:999px;
+
+}
+
+.dashboard-content{
+
+padding:25px;
+
+}
+
+.dashboard-cards{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+
+}
+
+.dashboard-card{
+
+padding:20px;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,.035);
+
+}
+
+.dashboard-card span{
+
+display:block;
+
+color:var(--muted);
+
+font-size:12px;
+
+margin-bottom:9px;
+
+}
+
+.dashboard-card strong{
+
+font-size:28px;
+
+}
+
+.command-center{
+
+margin-top:20px;
+
+padding:22px;
+
+border-radius:19px;
+
+background:
+rgba(84,229,255,.035);
+
+border:
+1px solid
+rgba(84,229,255,.16);
+
+}
+
+.command-center textarea{
+
+width:100%;
+
+min-height:110px;
+
+resize:vertical;
+
+padding:15px;
+
+margin-top:13px;
+
+border-radius:14px;
+
+color:white;
+
+background:
+rgba(0,0,0,.22);
+
+border:
+1px solid var(--border);
+
+outline:none;
+
+}
+
+.ai-response{
+
+display:none;
+
+margin-top:15px;
+
+padding:17px;
+
+border-radius:14px;
+
+background:
+rgba(82,230,163,.06);
+
+border:
+1px solid
+rgba(82,230,163,.15);
+
+color:#d8f9eb;
+
+line-height:1.7;
+
+}
+
+/* =========================================================
+   REQUESTS
+========================================================= */
+
+.requests-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:22px;
+
+}
+
+.form-card,
+.request-list{
+
+padding:28px;
+
+border-radius:24px;
+
+background:
+rgba(255,255,255,.025);
+
+border:
+1px solid var(--border);
+
+}
+
+.form-grid{
+
+display:grid;
+
+gap:13px;
+
+margin-top:20px;
+
+}
+
+textarea.input{
+
+min-height:130px;
+
+resize:vertical;
+
+}
+
+.request-item{
+
+padding:16px;
+
+border-radius:14px;
+
+background:
+rgba(255,255,255,.035);
+
+border:
+1px solid
+rgba(255,255,255,.06);
+
+margin-bottom:10px;
+
+}
+
+.request-item strong{
+
+display:block;
+
+margin-bottom:5px;
+
+}
+
+.request-item span{
+
+color:var(--muted);
+
+font-size:12px;
+
+}
+
+.badge{
+
+display:inline-block;
+
+margin-top:8px;
+
+padding:
+
+5px 10px;
+
+border-radius:999px;
+
+background:
+rgba(84,229,255,.08);
+
+color:var(--cyan);
+
+font-size:10px;
+
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-box{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:35px;
+
+padding:38px;
+
+border-radius:30px;
+
+background:
+
+linear-gradient(
+135deg,
+rgba(110,168,255,.10),
+rgba(146,107,255,.06)
+);
+
+border:
+1px solid var(--border);
+
+}
+
+.about-text p{
+
+margin-top:18px;
+
+color:var(--muted);
+
+line-height:1.8;
+
+}
+
+.about-values{
+
+display:grid;
+
+gap:13px;
+
+}
+
+.value{
+
+padding:18px;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid
+rgba(255,255,255,.06);
+
+}
+
+.value strong{
+
+display:block;
+
+margin-bottom:6px;
+
+}
+
+.value span{
+
+color:var(--muted);
+
+font-size:13px;
+
+}
+
+/* =========================================================
+   BOOKING
+========================================================= */
+
+.booking{
+
+display:grid;
+
+grid-template-columns:
+1fr auto;
+
+align-items:center;
+
+gap:25px;
+
+padding:40px;
+
+border-radius:28px;
+
+background:
+
+linear-gradient(
+135deg,
+rgba(110,168,255,.16),
+rgba(146,107,255,.16)
+);
+
+border:
+1px solid
+rgba(110,168,255,.25);
+
+}
+
+/* =========================================================
+   LEGAL MODALS
+========================================================= */
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+z-index:5000;
+
+background:
+rgba(0,0,0,.75);
+
+backdrop-filter:
+blur(8px);
+
+align-items:center;
+
+justify-content:center;
+
+padding:20px;
+
+}
+
+.modal.active{
+
+display:flex;
+
+}
+
+.modal-box{
+
+width:min(760px,100%);
+
+max-height:85vh;
+
+overflow:auto;
+
+padding:35px;
+
+border-radius:25px;
+
+background:#0a1727;
+
+border:
+1px solid var(--border);
+
+box-shadow:
+var(--shadow);
+
+}
+
+.modal-box h2{
+
+font-size:34px;
+
+}
+
+.modal-box p{
+
+margin-top:17px;
+
+color:var(--muted);
+
+line-height:1.75;
+
+}
+
+.close{
+
+float:right;
+
+border:0;
+
+background:
+rgba(255,255,255,.08);
+
+color:white;
+
+width:40px;
+height:40px;
+
+border-radius:12px;
+
+font-size:18px;
+
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+border-top:
+1px solid var(--border);
+
+padding:
+
+55px 0 25px;
+
+background:
+rgba(0,0,0,.12);
+
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:
+1.4fr 1fr 1fr;
+
+gap:40px;
+
+padding-bottom:40px;
+
+}
+
+.footer-title{
+
+font-size:14px;
+
+font-weight:900;
+
+margin-bottom:15px;
+
+}
+
+.footer-text{
+
+font-size:13px;
+
+color:var(--muted);
+
+line-height:1.8;
+
+max-width:380px;
+
+}
+
+.footer-links{
+
+display:grid;
+
+gap:10px;
+
+}
+
+.footer-links a{
+
+font-size:13px;
+
+color:var(--muted);
+
+cursor:pointer;
+
+}
+
+.footer-links a:hover{
+
+color:var(--cyan);
+
+}
+
+.footer-bottom{
+
+padding-top:22px;
+
+border-top:
+1px solid var(--border);
+
+display:flex;
+
+justify-content:space-between;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+font-size:12px;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1050px){
+
+nav{
+
+display:none;
+
+}
+
+.mobile-menu{
+
+display:block;
+
+}
+
+.services{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.workflow{
+
+grid-template-columns:
+repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:750px){
+
+.hero{
+
+padding-top:35px;
+
+}
+
+.hero-visual{
+
+min-height:680px;
+
+}
+
+.hero-content{
+
+padding:35px 25px;
+
+}
+
+h1{
+
+letter-spacing:-2px;
+
+}
+
+.stats-grid,
+.services,
+.score-grid,
+.dashboard-cards,
+.requests-grid,
+.about-box,
+.footer-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.workflow{
+
+grid-template-columns:
+1fr 1fr;
+
+}
+
+.check-form,
+.booking{
+
+display:grid;
+
+grid-template-columns:1fr;
+
+}
+
+section{
+
+padding:65px 0;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="grid"></div>
+
+<div class="orb orb1"></div>
+
+<div class="orb orb2"></div>
+
+
+<!-- =========================================================
+HEADER
+========================================================= -->
+
+<header>
+
+<div class="container navbar">
+
+<a href="#home" class="brand">
+
+<div class="brand-logo">
+
+<span>N</span>
+
+</div>
+
+<div>
+
+<div class="brand-title">
+
+NEXORA
+
+</div>
+
+<div class="brand-sub">
+
+DIGITAL INTELLIGENCE
+
+</div>
+
+</div>
+
+</a>
+
+
+<nav>
+
+<a href="#design" data-de="Design" data-en="Design">
+Design
+</a>
+
+<a href="#requirements"
+data-de="Anforderungen"
+data-en="Requirements">
+Anforderungen
+</a>
+
+<a href="#execution"
+data-de="Umsetzung"
+data-en="Execution">
+Umsetzung
+</a>
+
+<a href="#booking"
+data-de="Termin"
+data-en="Booking">
+Termin
+</a>
+
+<a href="#showcase"
+data-de="Projekte"
+data-en="Showcase">
+Projekte
+</a>
+
+<a href="#requests"
+data-de="Anfragen"
+data-en="Client Requests">
+Anfragen
+</a>
+
+<a href="#about"
+data-de="Über uns"
+data-en="About Us">
+Über uns
+</a>
+
+<a href="#contact"
+data-de="Kontakt"
+data-en="Contact">
+Kontakt
+</a>
+
+</nav>
+
+
+<button
+class="language-btn"
+onclick="toggleLanguage()"
+id="languageButton">
+
+🇬🇧 EN
+
+</button>
+
+</div>
+
+</header>
+
+
+<!-- =========================================================
+HOME
+========================================================= -->
+
+<main id="home">
+
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-visual">
+
+<!-- ضع الصورة بنفس اسم nexora-hero.png -->
+
+<img
+src="nexora-hero.png"
+class="hero-image"
+alt="NEXORA Digital AI Technology">
+
+
+<div class="hero-overlay"></div>
+
+
+<div class="hero-content">
+
+<div class="eyebrow">
+
+<span class="pulse"></span>
+
+<span
+data-de="KI-GESTÜTZTE DIGITALE AGENTUR"
+data-en="AI-POWERED DIGITAL AGENCY">
+
+KI-GESTÜTZTE DIGITALE AGENTUR
+
+</span>
+
+</div>
+
+
+<h1>
+
+<span
+data-de="Wir gestalten"
+data-en="We build">
+
+Wir gestalten
+
+</span>
+
+<br>
+
+<span class="gradient-text"
+data-de="die digitale Zukunft."
+data-en="the digital future.">
+
+die digitale Zukunft.
+
+</span>
+
+</h1>
+
+
+<p class="hero-text"
+data-de="NEXORA Digital entwickelt moderne Websites, intelligente KI-Lösungen und digitale Systeme für Unternehmen, die bereit sind, den nächsten Schritt zu gehen."
+data-en="NEXORA Digital creates modern websites, intelligent AI solutions and digital systems for companies ready to take the next step.">
+
+NEXORA Digital entwickelt moderne Websites,
+intelligente KI-Lösungen und digitale Systeme
+für Unternehmen, die bereit sind,
+den nächsten Schritt zu gehen.
+
+</p>
+
+
+<div class="hero-buttons">
+
+<a
+href="#checker"
+class="btn btn-primary"
+data-de="Website kostenlos prüfen"
+data-en="Check Your Website">
+
+Website kostenlos prüfen
+
+</a>
+
+
+<a
+href="#requests"
+class="btn btn-secondary"
+data-de="Projekt starten"
+data-en="Start a Project">
+
+Projekt starten
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+STATS
+========================================================= -->
+
+<section class="stats">
+
+<div class="container stats-grid">
+
+<div class="stat">
+
+<strong>AI</strong>
+
+<span
+data-de="Intelligente Automatisierung"
+data-en="Intelligent Automation">
+
+Intelligente Automatisierung
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<strong>24/7</strong>
+
+<span
+data-de="Digital verfügbar"
+data-en="Always Available">
+
+Digital verfügbar
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<strong>WEB</strong>
+
+<span
+data-de="Modern & Responsive"
+data-en="Modern & Responsive">
+
+Modern & Responsive
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<strong>∞</strong>
+
+<span
+data-de="Bereit für Wachstum"
+data-en="Built for Growth">
+
+Bereit für Wachstum
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+DESIGN
+========================================================= -->
+
+<section id="design">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+01 / DESIGN
+
+</div>
+
+<h2
+data-de="Digitale Erlebnisse für die nächste Generation."
+data-en="Digital experiences for the next generation.">
+
+Digitale Erlebnisse für die nächste Generation.
+
+</h2>
+
+<p class="section-description"
+data-de="Wir verbinden modernes Design, Technologie und künstliche Intelligenz zu digitalen Lösungen mit Zukunft."
+data-en="We combine modern design, technology and artificial intelligence to create digital solutions for the future.">
+
+Wir verbinden modernes Design,
+Technologie und künstliche Intelligenz
+zu digitalen Lösungen mit Zukunft.
+
+</p>
+
+</div>
+
+
+<div class="services">
+
+<div class="card">
+
+<div class="card-icon">◈</div>
+
+<h3
+data-de="Neue Website"
+data-en="New Website">
+
+Neue Website
+
+</h3>
+
+<p
+data-de="Moderne, schnelle und responsive Websites für Unternehmen jeder Größe."
+data-en="Modern, fast and responsive websites for companies of every size.">
+
+Moderne, schnelle und responsive Websites
+für Unternehmen jeder Größe.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">↻</div>
+
+<h3
+data-de="Website Modernisierung"
+data-en="Website Modernization">
+
+Website Modernisierung
+
+</h3>
+
+<p
+data-de="Wir analysieren bestehende Websites und entwickeln eine moderne digitale Lösung."
+data-en="We analyze existing websites and transform them into modern digital experiences.">
+
+Wir analysieren bestehende Websites
+und entwickeln eine moderne digitale Lösung.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">✦</div>
+
+<h3
+data-de="KI Integration"
+data-en="AI Integration">
+
+KI Integration
+
+</h3>
+
+<p
+data-de="Intelligente Assistenten, Automatisierung und moderne KI-Systeme für Ihr Unternehmen."
+data-en="Intelligent assistants, automation and modern AI systems for your business.">
+
+Intelligente Assistenten,
+Automatisierung und moderne KI-Systeme
+für Ihr Unternehmen.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+REQUIREMENTS
+========================================================= -->
+
+<section id="requirements">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+02 / REQUIREMENTS
+
+</div>
+
+<h2
+data-de="Ihre Anforderungen werden zum digitalen Plan."
+data-en="Your requirements become a digital plan.">
+
+Ihre Anforderungen werden
+zum digitalen Plan.
+
+</h2>
+
+<p class="section-description"
+data-de="Jedes Projekt beginnt mit Analyse, Strategie und einem klaren Verständnis Ihrer Ziele."
+data-en="Every project begins with analysis, strategy and a clear understanding of your goals.">
+
+Jedes Projekt beginnt mit Analyse,
+Strategie und einem klaren Verständnis Ihrer Ziele.
+
+</p>
+
+</div>
+
+
+<div class="workflow">
+
+<div class="step">
+
+<div class="step-number">01</div>
+
+<h3
+data-de="Analyse"
+data-en="Analysis">
+
+Analyse
+
+</h3>
+
+<p
+data-de="Wir verstehen Ihr Unternehmen und Ihre Zielgruppe."
+data-en="We understand your business and your audience.">
+
+Wir verstehen Ihr Unternehmen
+und Ihre Zielgruppe.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">02</div>
+
+<h3
+data-de="Konzept"
+data-en="Concept">
+
+Konzept
+
+</h3>
+
+<p
+data-de="Strategie und technische Anforderungen werden definiert."
+data-en="Strategy and technical requirements are defined.">
+
+Strategie und technische Anforderungen
+werden definiert.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">03</div>
+
+<h3
+data-de="Design"
+data-en="Design">
+
+Design
+
+</h3>
+
+<p
+data-de="Wir erstellen ein modernes digitales Konzept."
+data-en="We create a modern digital concept.">
+
+Wir erstellen ein modernes digitales Konzept.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">04</div>
+
+<h3
+data-de="Freigabe"
+data-en="Approval">
+
+Freigabe
+
+</h3>
+
+<p
+data-de="Der Kunde prüft und bestätigt das Konzept."
+data-en="The client reviews and approves the concept.">
+
+Der Kunde prüft und bestätigt das Konzept.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">05</div>
+
+<h3
+data-de="Start"
+data-en="Launch">
+
+Start
+
+</h3>
+
+<p
+data-de="Nach der Freigabe beginnt die Umsetzung."
+data-en="After approval, development begins.">
+
+Nach der Freigabe beginnt die Umsetzung.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+EXECUTION
+========================================================= -->
+
+<section id="execution">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+03 / EXECUTION
+
+</div>
+
+<h2
+data-de="Von der Idee zur digitalen Realität."
+data-en="From idea to digital reality.">
+
+Von der Idee zur digitalen Realität.
+
+</h2>
+
+<p class="section-description"
+data-de="NEXORA organisiert Design, Entwicklung, Qualitätssicherung und zukünftige Optimierung."
+data-en="NEXORA organizes design, development, quality assurance and future optimization.">
+
+NEXORA organisiert Design,
+Entwicklung, Qualitätssicherung
+und zukünftige Optimierung.
+
+</p>
+
+</div>
+
+
+<div class="workflow">
+
+<div class="step">
+
+<div class="step-number">01</div>
+
+<h3>Setup</h3>
+
+<p
+data-de="Projekt und technische Struktur vorbereiten."
+data-en="Prepare the project and technical structure.">
+
+Projekt und technische Struktur vorbereiten.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">02</div>
+
+<h3
+data-de="Entwicklung"
+data-en="Development">
+
+Entwicklung
+
+</h3>
+
+<p
+data-de="Website und Funktionen werden aufgebaut."
+data-en="The website and its functionality are developed.">
+
+Website und Funktionen werden aufgebaut.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">03</div>
+
+<h3>Testing</h3>
+
+<p
+data-de="Performance und Benutzererfahrung prüfen."
+data-en="Test performance and user experience.">
+
+Performance und Benutzererfahrung prüfen.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">04</div>
+
+<h3
+data-de="Veröffentlichung"
+data-en="Launch">
+
+Veröffentlichung
+
+</h3>
+
+<p
+data-de="Das Projekt geht online."
+data-en="The project goes live.">
+
+Das Projekt geht online.
+
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">05</div>
+
+<h3>Growth</h3>
+
+<p
+data-de="Optimierung und zukünftige Erweiterung."
+data-en="Optimization and future expansion.">
+
+Optimierung und zukünftige Erweiterung.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+WEBSITE CHECK
+========================================================= -->
+
+<section id="checker">
+
+<div class="container">
+
+<div class="checker">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+FREE DIGITAL CHECK
+
+</div>
+
+<h2
+data-de="Wie modern ist Ihre Website?"
+data-en="How modern is your website?">
+
+Wie modern ist Ihre Website?
+
+</h2>
+
+<p class="section-description"
+data-de="Geben Sie Ihre Website-Adresse ein und starten Sie den NEXORA Digital Check."
+data-en="Enter your website address and start the NEXORA Digital Check.">
+
+Geben Sie Ihre Website-Adresse ein
+und starten Sie den NEXORA Digital Check.
+
+</p>
+
+</div>
+
+
+<div class="check-form">
+
+<input
+id="websiteInput"
+class="input"
+placeholder="https://www.your-company.com">
+
+<button
+class="btn btn-primary"
+onclick="analyzeWebsite()"
+data-de="Analyse starten"
+data-en="Start Analysis">
+
+Analyse starten
+
+</button>
+
+</div>
+
+
+<div
+id="checkResult"
+class="check-result">
+
+<div class="score-grid">
+
+<div class="score">
+
+<small>DESIGN</small>
+
+<strong id="designScore">--</strong>
+
+</div>
+
+<div class="score">
+
+<small>MOBILE</small>
+
+<strong id="mobileScore">--</strong>
+
+</div>
+
+<div class="score">
+
+<small>PERFORMANCE</small>
+
+<strong id="performanceScore">--</strong>
+
+</div>
+
+<div class="score">
+
+<small>SEO</small>
+
+<strong id="seoScore">--</strong>
+
+</div>
+
+<div class="score">
+
+<small>ACCESSIBILITY</small>
+
+<strong id="accessibilityScore">--</strong>
+
+</div>
+
+<div class="score">
+
+<small>AI READINESS</small>
+
+<strong id="aiScore">--</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+AI MANAGER
+========================================================= -->
+
+<section id="dashboard">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+NEXORA COMMAND CENTER
+
+</div>
+
+<h2
+data-de="Ihr intelligenter AI Manager."
+data-en="Your intelligent AI Manager.">
+
+Ihr intelligenter AI Manager.
+
+</h2>
+
+<p class="section-description"
+data-de="Die Kommandozentrale für Leads, Website-Analysen, Kunden und zukünftige Projekte."
+data-en="The command center for leads, website analysis, clients and future projects.">
+
+Die Kommandozentrale für Leads,
+Website-Analysen, Kunden
+und zukünftige Projekte.
+
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="dashboard-header">
+
+<strong>NEXORA AI MANAGER</strong>
+
+<span class="online">
+
+● SYSTEM ONLINE
+
+</span>
+
+</div>
+
+
+<div class="dashboard-content">
+
+<div class="dashboard-cards">
+
+<div class="dashboard-card">
+
+<span>LEADS</span>
+
+<strong id="leadCount">0</strong>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<span>ANALYZED</span>
+
+<strong id="analysisCount">0</strong>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<span>REQUESTS</span>
+
+<strong id="requestCount">0</strong>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<span>PROJECTS</span>
+
+<strong id="projectCount">0</strong>
+
+</div>
+
+</div>
+
+
+<div class="command-center">
+
+<strong>AI COMMAND CENTER</strong>
+
+<textarea
+id="aiCommand"
+placeholder="Example: Find companies with outdated websites and prepare a digital analysis..."></textarea>
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="runAICommand()"
+data-de="Command ausführen"
+data-en="Run Command">
+
+Command ausführen
+
+</button>
+
+
+<div
+id="aiResponse"
+class="ai-response">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+SHOWCASE
+========================================================= -->
+
+<section id="showcase">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+SHOWCASE
+
+</div>
+
+<h2
+data-de="Projekte. Demos. Innovation."
+data-en="Projects. Demos. Innovation.">
+
+Projekte. Demos. Innovation.
+
+</h2>
+
+<p class="section-description"
+data-de="Hier werden zukünftige Kundenprojekte und digitale Konzepte präsentiert."
+data-en="Future client projects and digital concepts will be presented here.">
+
+Hier werden zukünftige Kundenprojekte
+und digitale Konzepte präsentiert.
+
+</p>
+
+</div>
+
+
+<div class="services">
+
+<div class="card">
+
+<div class="card-icon">01</div>
+
+<h3>Business Website</h3>
+
+<p
+data-de="Moderne Unternehmensplattform mit intelligenter Technologie."
+data-en="Modern business platform with intelligent technology.">
+
+Moderne Unternehmensplattform
+mit intelligenter Technologie.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">02</div>
+
+<h3>Website Redesign</h3>
+
+<p
+data-de="Alte Websites werden modern, schnell und mobil."
+data-en="Old websites become modern, fast and mobile.">
+
+Alte Websites werden modern,
+schnell und mobil.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">03</div>
+
+<h3>AI Automation</h3>
+
+<p
+data-de="Intelligente Prozesse und automatisierte Kommunikation."
+data-en="Intelligent processes and automated communication.">
+
+Intelligente Prozesse
+und automatisierte Kommunikation.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+CLIENT REQUESTS
+========================================================= -->
+
+<section id="requests">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+CLIENT REQUESTS
+
+</div>
+
+<h2
+data-de="Starten wir Ihr Projekt."
+data-en="Let's start your project.">
+
+Starten wir Ihr Projekt.
+
+</h2>
+
+<p class="section-description"
+data-de="Senden Sie uns Ihre Anfrage und erzählen Sie uns von Ihrer Idee."
+data-en="Send us your request and tell us about your idea.">
+
+Senden Sie uns Ihre Anfrage
+und erzählen Sie uns von Ihrer Idee.
+
+</p>
+
+</div>
+
+
+<div class="requests-grid">
+
+<div class="form-card">
+
+<h3
+data-de="Projekt anfragen"
+data-en="Request a Project">
+
+Projekt anfragen
+
+</h3>
+
+
+<form
+id="projectForm"
+class="form-grid">
+
+<input
+id="clientName"
+class="input"
+required
+placeholder="Name / Company">
+
+<input
+id="clientEmail"
+type="email"
+class="input"
+required
+placeholder="E-Mail">
+
+<select
+id="serviceType"
+class="input">
+
+<option>New Website</option>
+
+<option>Website Modernization</option>
+
+<option>AI Integration</option>
+
+<option>E-Commerce</option>
+
+<option>Digital Automation</option>
+
+</select>
+
+<textarea
+id="clientMessage"
+class="input"
+required
+placeholder="Tell us about your project..."></textarea>
+
+<button
+type="submit"
+class="btn btn-primary"
+data-de="Anfrage senden"
+data-en="Send Request">
+
+Anfrage senden
+
+</button>
+
+</form>
+
+</div>
+
+
+<div class="request-list">
+
+<h3
+data-de="Aktuelle Anfragen"
+data-en="Current Requests">
+
+Aktuelle Anfragen
+
+</h3>
+
+
+<div id="requestsContainer">
+
+<div class="request-item">
+
+<strong
+data-de="Noch keine Anfragen"
+data-en="No requests yet">
+
+Noch keine Anfragen
+
+</strong>
+
+<span
+data-de="Neue Kundenanfragen erscheinen hier."
+data-en="New client requests will appear here.">
+
+Neue Kundenanfragen erscheinen hier.
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+ABOUT
+========================================================= -->
+
+<section id="about">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="section-tag">
+
+ABOUT NEXORA
+
+</div>
+
+<h2
+data-de="Wir verbinden Unternehmen mit der digitalen Zukunft."
+data-en="We connect businesses with the digital future.">
+
+Wir verbinden Unternehmen
+mit der digitalen Zukunft.
+
+</h2>
+
+</div>
+
+
+<div class="about-box">
+
+<div class="about-text">
+
+<h3
+data-de="Über NEXORA Digital"
+data-en="About NEXORA Digital">
+
+Über NEXORA Digital
+
+</h3>
+
+<p
+data-de="NEXORA Digital ist eine moderne digitale Plattform für Unternehmen, die ihre Online-Präsenz verbessern, neue Technologien einsetzen und künstliche Intelligenz in ihre digitale Zukunft integrieren möchten."
+data-en="NEXORA Digital is a modern digital platform for companies that want to improve their online presence, adopt new technologies and integrate artificial intelligence into their digital future.">
+
+NEXORA Digital ist eine moderne digitale Plattform
+für Unternehmen, die ihre Online-Präsenz verbessern,
+neue Technologien einsetzen und künstliche Intelligenz
+in ihre digitale Zukunft integrieren möchten.
+
+</p>
+
+<p
+data-de="Unsere Vision ist es, moderne Technologie für Unternehmen verständlich, zugänglich und praktisch nutzbar zu machen."
+data-en="Our vision is to make modern technology understandable, accessible and practically useful for businesses.">
+
+Unsere Vision ist es,
+moderne Technologie für Unternehmen
+verständlich, zugänglich und praktisch nutzbar zu machen.
+
+</p>
+
+</div>
+
+
+<div class="about-values">
+
+<div class="value">
+
+<strong
+data-de="Innovation"
+data-en="Innovation">
+
+Innovation
+
+</strong>
+
+<span
+data-de="Neue Technologien sinnvoll einsetzen."
+data-en="Using new technologies with purpose.">
+
+Neue Technologien sinnvoll einsetzen.
+
+</span>
+
+</div>
+
+
+<div class="value">
+
+<strong
+data-de="Intelligenz"
+data-en="Intelligence">
+
+Intelligenz
+
+</strong>
+
+<span
+data-de="KI unterstützt Menschen und Unternehmen."
+data-en="AI supports people and businesses.">
+
+KI unterstützt Menschen und Unternehmen.
+
+</span>
+
+</div>
+
+
+<div class="value">
+
+<strong
+data-de="Wachstum"
+data-en="Growth">
+
+Wachstum
+
+</strong>
+
+<span
+data-de="Digitale Lösungen, die mit Unternehmen wachsen."
+data-en="Digital solutions designed to grow with businesses.">
+
+Digitale Lösungen,
+die mit Unternehmen wachsen.
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+BOOKING
+========================================================= -->
+
+<section id="booking">
+
+<div class="container">
+
+<div class="booking">
+
+<div>
+
+<div class="section-tag">
+
+BOOKING
+
+</div>
+
+<h2
+data-de="Buchen Sie ein kostenloses Erstgespräch."
+data-en="Book a free initial consultation.">
+
+Buchen Sie ein kostenloses Erstgespräch.
+
+</h2>
+
+<p class="section-description"
+data-de="Lassen Sie uns über Ihre Website, Ihre Idee und Ihre digitale Zukunft sprechen."
+data-en="Let's talk about your website, your idea and your digital future.">
+
+Lassen Sie uns über Ihre Website,
+Ihre Idee und Ihre digitale Zukunft sprechen.
+
+</p>
+
+</div>
+
+
+<button
+class="btn btn-primary"
+onclick="bookMeeting()"
+data-de="Termin buchen"
+data-en="Book Appointment">
+
+Termin buchen
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+CONTACT
+========================================================= -->
+
+<section id="contact">
+
+<div class="container">
+
+<div class="booking">
+
+<div>
+
+<div class="section-tag">
+
+CONTACT
+
+</div>
+
+<h2
+data-de="Let's build the future."
+data-en="Let's build the future.">
+
+Let's build the future.
+
+</h2>
+
+<p class="section-description">
+
+NEXORA Digital —
+AI • Web • Automation • Digital Future
+
+</p>
+
+</div>
+
+
+<a
+href="mailto:hello@nexora-digital.com"
+class="btn btn-secondary">
+
+hello@nexora-digital.com
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+<div>
+
+<div class="brand">
+
+<div class="brand-logo">
+
+<span>N</span>
+
+</div>
+
+<div>
+
+<div class="brand-title">
+
+NEXORA
+
+</div>
+
+<div class="brand-sub">
+
+DIGITAL INTELLIGENCE
+
+</div>
+
+</div>
+
+</div>
+
+<p class="footer-text"
+style="margin-top:18px;">
+
+AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION
+
+</p>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+
+NEXORA DIGITAL
+
+</div>
+
+<div class="footer-links">
+
+<a href="#design">Design</a>
+
+<a href="#dashboard">AI Manager</a>
+
+<a href="#about">About Us</a>
+
+<a href="#requests">Client Requests</a>
+
+<a href="#contact">Contact</a>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+
+LEGAL
+
+</div>
+
+<div class="footer-links">
+
+<a onclick="openModal('terms')">
+
+Terms & Conditions
+
+</a>
+
+<a onclick="openModal('privacy')">
+
+Privacy Policy
+
+</a>
+
+<a onclick="openModal('impressum')">
+
+Impressum
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+<div>
+
+© <span id="year"></span>
+NEXORA Digital.
+All Rights Reserved.
+
+</div>
+
+<div>
+
+Built for the Digital Future.
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<!-- =========================================================
+TERMS MODAL
+========================================================= -->
+
+<div
+id="terms"
+class="modal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal('terms')">
+
+×</button>
+
+<h2>Terms & Conditions</h2>
+
+<p>
+
+These terms currently serve as a placeholder for
+the NEXORA Digital Phase 1 prototype.
+
+</p>
+
+<p>
+
+Before commercial launch, the complete terms and
+conditions should be prepared according to the actual
+business model, services, contracts and applicable law.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+PRIVACY MODAL
+========================================================= -->
+
+<div
+id="privacy"
+class="modal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal('privacy')">
+
+×</button>
+
+<h2>Privacy Policy</h2>
+
+<p>
+
+NEXORA Digital respects the privacy of visitors
+and clients.
+
+</p>
+
+<p>
+
+This prototype does not currently operate a real
+backend database. When Phase 2 introduces user
+accounts, CRM, analytics, AI services and payment
+systems, the privacy documentation must be updated
+to reflect the actual data processing.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+IMPRESSUM MODAL
+========================================================= -->
+
+<div
+id="impressum"
+class="modal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal('impressum')">
+
+×</button>
+
+<h2>Impressum</h2>
+
+<p>
+
+NEXORA Digital
+
+</p>
+
+<p>
+
+Company information, responsible person,
+business address, contact details and other legally
+required information should be added here before
+the public commercial launch.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+STATE
+========================================================= */
+
+let currentLanguage = "de";
+
+let requests = [];
+
+let stats = {
+
+leads:0,
+
+analyzed:0,
+
+requests:0,
+
+projects:0
+
+};
+
+
+/* =========================================================
+LANGUAGE
+========================================================= */
+
+function toggleLanguage(){
+
+currentLanguage =
+currentLanguage === "de"
+? "en"
+: "de";
+
+
+document
+.querySelectorAll("[data-de]")
+.forEach(element => {
+
+element.textContent =
+element.getAttribute(
+"data-" + currentLanguage
+);
+
+});
+
+
+document.documentElement.lang =
+currentLanguage;
+
+
+document
+.getElementById("languageButton")
+.textContent =
+currentLanguage === "de"
+? "🇬🇧 EN"
+: "🇩🇪 DE";
+
+
+if(currentLanguage === "en"){
+
+document
+.getElementById("websiteInput")
+.placeholder =
+"https://www.your-company.com";
+
+document
+.getElementById("aiCommand")
+.placeholder =
+"Example: Find companies with outdated websites and prepare a digital analysis...";
+
+}
+
+else{
+
+document
+.getElementById("websiteInput")
+.placeholder =
+"https://www.ihre-firma.de";
+
+document
+.getElementById("aiCommand")
+.placeholder =
+"Beispiel: Finde Unternehmen mit veralteten Websites...";
+
+}
+
+}
+
+
+/* =========================================================
+WEBSITE ANALYZER
+PHASE 1 DEMO
+========================================================= */
+
+function analyzeWebsite(){
+
+const website =
+document
+.getElementById("websiteInput")
+.value
+.trim();
+
+
+if(!website){
+
+alert(
+
+currentLanguage === "de"
+
+? "Bitte geben Sie eine Website-Adresse ein."
+
+: "Please enter a website address."
+
+);
+
+return;
+
+}
+
+
+function randomScore(min,max){
+
+return Math.floor(
+Math.random() *
+(max-min+1)
+)+min;
+
+}
+
+
+document
+.getElementById("designScore")
+.textContent =
+randomScore(45,95)+"/100";
+
+
+document
+.getElementById("mobileScore")
+.textContent =
+randomScore(40,96)+"/100";
+
+
+document
+.getElementById("performanceScore")
+.textContent =
+randomScore(35,94)+"/100";
+
+
+document
+.getElementById("seoScore")
+.textContent =
+randomScore(30,92)+"/100";
+
+
+document
+.getElementById("accessibilityScore")
+.textContent =
+randomScore(40,94)+"/100";
+
+
+document
+.getElementById("aiScore")
+.textContent =
+randomScore(10,85)+"/100";
+
+
+document
+.getElementById("checkResult")
+.classList
+.add("show");
+
+
+stats.analyzed++;
+
+stats.leads++;
+
+updateDashboard();
+
+}
+
+
+/* =========================================================
+AI COMMAND
+PHASE 1 SIMULATION
+========================================================= */
+
+function runAICommand(){
+
+const command =
+document
+.getElementById("aiCommand")
+.value
+.trim();
+
+
+if(!command){
+
+alert(
+
+currentLanguage === "de"
+
+? "Bitte geben Sie einen Command ein."
+
+: "Please enter a command."
+
+);
+
+return;
+
+}
+
+
+const response =
+document
+.getElementById("aiResponse");
+
+
+response.style.display =
+"block";
+
+
+if(currentLanguage === "de"){
+
+response.innerHTML =
+
+"<strong>NEXORA AI Manager:</strong><br><br>" +
+
+"Command empfangen:<br>" +
+
+"“" +
+escapeHtml(command) +
+"”<br><br>" +
+
+"✓ Aufgabe analysiert<br>" +
+
+"✓ Research Workflow vorbereitet<br>" +
+
+"✓ Website Audit vorbereitet<br>" +
+
+"✓ Ergebnisse werden in Phase 2 mit echten KI-Agenten, Datenbank und APIs verbunden.";
+
+}
+
+else{
+
+response.innerHTML =
+
+"<strong>NEXORA AI Manager:</strong><br><br>" +
+
+"Command received:<br>" +
+
+"“" +
+escapeHtml(command) +
+"”<br><br>" +
+
+"✓ Task analyzed<br>" +
+
+"✓ Research workflow prepared<br>" +
+
+"✓ Website audit prepared<br>" +
+
+"✓ Phase 2 will connect real AI agents, databases and APIs.";
+
+}
+
+
+stats.leads +=
+Math.floor(
+Math.random()*10
+)+1;
+
+
+stats.analyzed +=
+Math.floor(
+Math.random()*6
+)+1;
+
+
+updateDashboard();
+
+}
+
+
+/* =========================================================
+CLIENT REQUEST FORM
+========================================================= */
+
+document
+.getElementById("projectForm")
+.addEventListener(
+"submit",
+function(event){
+
+event.preventDefault();
+
+
+const name =
+document
+.getElementById("clientName")
+.value;
+
+
+const email =
+document
+.getElementById("clientEmail")
+.value;
+
+
+const service =
+document
+.getElementById("serviceType")
+.value;
+
+
+requests.unshift({
+
+name:name,
+
+email:email,
+
+service:service
+
+});
+
+
+stats.requests++;
+
+updateRequests();
+
+updateDashboard();
+
+this.reset();
+
+
+alert(
+
+currentLanguage === "de"
+
+? "Vielen Dank! Ihre Anfrage wurde erfolgreich gespeichert."
+
+: "Thank you! Your request has been successfully submitted."
+
+);
+
+}
+);
+
+
+/* =========================================================
+UPDATE REQUESTS
+========================================================= */
+
+function updateRequests(){
+
+const container =
+document
+.getElementById("requestsContainer");
+
+
+if(requests.length === 0){
+
+return;
+
+}
+
+
+container.innerHTML =
+requests
+.map(request => `
+
+<div class="request-item">
+
+<strong>
+
+${escapeHtml(request.name)}
+
+</strong>
+
+<span>
+
+${escapeHtml(request.email)}
+
+</span>
+
+<br>
+
+<span class="badge">
+
+${escapeHtml(request.service)}
+
+</span>
+
+</div>
+
+`)
+.join("");
+
+}
+
+
+/* =========================================================
+BOOKING
+========================================================= */
+
+function bookMeeting(){
+
+const date =
+prompt(
+
+currentLanguage === "de"
+
+? "Bitte geben Sie Ihren gewünschten Termin ein:"
+
+: "Please enter your preferred appointment date:"
+
+);
+
+
+if(date){
+
+alert(
+
+currentLanguage === "de"
+
+? "Vielen Dank! Ihr Terminwunsch wurde gespeichert: " + date
+
+: "Thank you! Your preferred appointment has been saved: " + date
+
+);
+
+}
+
+}
+
+
+/* =========================================================
+DASHBOARD
+========================================================= */
+
+function updateDashboard(){
+
+document
+.getElementById("leadCount")
+.textContent =
+stats.leads;
+
+
+document
+.getElementById("analysisCount")
+.textContent =
+stats.analyzed;
+
+
+document
+.getElementById("requestCount")
+.textContent =
+stats.requests;
+
+
+document
+.getElementById("projectCount")
+.textContent =
+stats.projects;
+
+}
+
+
+/* =========================================================
+MODALS
+========================================================= */
+
+function openModal(id){
+
+document
+.getElementById(id)
+.classList
+.add("active");
+
+}
+
+
+function closeModal(id){
+
+document
+.getElementById(id)
+.classList
+.remove("active");
+
+}
+
+
+/* =========================================================
+SECURITY
+========================================================= */
+
+function escapeHtml(text){
+
+return text.replace(
+
+/[&<>"']/g,
+
+function(character){
+
+const entities={
+
+"&":"&amp;",
+
+"<":"&lt;",
+
+">":"&gt;",
+
+'"':"&quot;",
+
+"'":"&#039;"
+
+};
+
+return entities[character];
+
+}
+
+);
+
+}
+
+
+/* =========================================================
+YEAR
+========================================================= */
+
+document
+.getElementById("year")
+.textContent =
+new Date().getFullYear();
+
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
