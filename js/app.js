@@ -1079,4 +1079,4 @@ new Date().getFullYear();
 
 updateDashboard();
 
-setLanguage("de"); 
+setLanguage("de");
