@@ -1,2382 +1,1069 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NEXORA Digital | AI • Web • Automation</title>
+  <title>NEXORA Digital | AI • Web • Digital Intelligence</title>
 
-<meta name="description"
-content="NEXORA Digital develops modern websites, AI solutions, automation and digital experiences.">
+  <meta
+    name="description"
+    content="NEXORA Digital develops modern websites, AI solutions and digital automation."
+  >
 
-<style>
-
-/* =========================================================
-   NEXORA DIGITAL — UPDATED PLATFORM
-========================================================= */
-
-:root{
-  --bg:#030814;
-  --bg2:#071426;
-  --panel:#0a1728;
-  --panel2:#0d1d33;
-
-  --text:#f5f8ff;
-  --muted:#9eb0c9;
-
-  --cyan:#38e7ff;
-  --blue:#4c8dff;
-  --purple:#a843ff;
-  --pink:#e43cff;
-  --green:#52e6a3;
-
-  --border:rgba(115,205,255,.16);
-  --radius:22px;
-  --max:1240px;
-
-  --shadow:0 25px 70px rgba(0,0,0,.45);
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 10% 0%,rgba(50,130,255,.16),transparent 28%),
-    radial-gradient(circle at 90% 10%,rgba(180,50,255,.10),transparent 25%),
-    linear-gradient(135deg,#020611,#071426 55%,#030814);
-  overflow-x:hidden;
-  min-height:100vh;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-button,input,textarea,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.container{
-  width:min(calc(100% - 32px),var(--max));
-  margin:auto;
-}
-
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-.grid{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.10;
-  background-image:
-    linear-gradient(rgba(80,220,255,.13) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(80,220,255,.13) 1px,transparent 1px);
-  background-size:52px 52px;
-  mask-image:linear-gradient(to bottom,black,transparent 75%);
-  z-index:-3;
-}
-
-.orb{
-  position:fixed;
-  width:550px;
-  height:550px;
-  border-radius:50%;
-  filter:blur(130px);
-  opacity:.14;
-  pointer-events:none;
-  z-index:-4;
-}
-
-.orb1{
-  background:#277dff;
-  top:-250px;
-  left:-250px;
-}
-
-.orb2{
-  background:#a02dff;
-  right:-250px;
-  top:300px;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(2,8,18,.82);
-  backdrop-filter:blur(22px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.navbar{
-  min-height:82px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.brand-logo{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  object-fit:cover;
-  border:1px solid rgba(80,230,255,.35);
-  box-shadow:0 0 25px rgba(80,220,255,.15);
-  background:#020611;
-}
-
-.brand-title{
-  font-size:19px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.brand-sub{
-  margin-top:3px;
-  color:var(--cyan);
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:2.8px;
-}
-
-nav{
-  display:flex;
-  align-items:center;
-  gap:2px;
-}
-
-nav a{
-  padding:10px 8px;
-  font-size:12px;
-  color:var(--muted);
-  border-radius:9px;
-  transition:.25s;
-  white-space:nowrap;
-}
-
-nav a:hover{
-  color:white;
-  background:rgba(255,255,255,.06);
-}
-
-.language-btn{
-  border:1px solid rgba(70,210,255,.28);
-  background:rgba(50,180,255,.08);
-  color:white;
-  padding:10px 14px;
-  border-radius:11px;
-  font-weight:800;
-  font-size:12px;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  padding:52px 0 75px;
-}
-
-.hero-visual{
-  position:relative;
-  min-height:680px;
-  border-radius:30px;
-  overflow:hidden;
-  border:1px solid rgba(70,200,255,.22);
-  background:#06101d;
-  box-shadow:var(--shadow);
-  display:flex;
-  align-items:flex-end;
-}
-
-.hero-image{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  opacity:.82;
-}
-
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,
-      rgba(2,7,16,.96) 0%,
-      rgba(2,7,16,.78) 40%,
-      rgba(2,7,16,.18) 78%
-    ),
-    linear-gradient(0deg,
-      rgba(2,7,16,.85),
-      transparent 65%
-    );
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  padding:70px;
-  max-width:790px;
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:9px 14px;
-  border-radius:999px;
-  background:rgba(50,230,255,.08);
-  border:1px solid rgba(50,230,255,.2);
-  color:var(--cyan);
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:1px;
-  margin-bottom:22px;
-}
-
-.pulse{
-  width:8px;
-  height:8px;
-  background:var(--green);
-  border-radius:50%;
-  box-shadow:0 0 15px var(--green);
-}
-
-h1{
-  font-size:clamp(46px,7vw,82px);
-  line-height:.98;
-  letter-spacing:-4px;
-}
-
-.gradient-text{
-  background:linear-gradient(
-    90deg,
-    #fff,
-    var(--cyan),
-    var(--purple)
-  );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.hero-text{
-  margin-top:24px;
-  max-width:650px;
-  font-size:18px;
-  line-height:1.75;
-  color:#c2d0e3;
-}
-
-.hero-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:13px;
-  margin-top:32px;
-}
-
-.btn{
-  border:0;
-  padding:15px 22px;
-  border-radius:14px;
-  font-weight:800;
-  transition:.25s;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-}
-
-.btn-primary{
-  background:linear-gradient(
-    135deg,
-    var(--cyan),
-    var(--blue),
-    var(--purple)
-  );
-  color:#03101d;
-  box-shadow:0 15px 35px rgba(50,210,255,.18);
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,.07);
-  border:1px solid var(--border);
-  color:white;
-}
-
-/* =========================================================
-   STATS
-========================================================= */
-
-.stats{
-  margin-top:-25px;
-  position:relative;
-  z-index:5;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.stat{
-  padding:23px;
-  border-radius:18px;
-  background:rgba(8,21,38,.88);
-  border:1px solid var(--border);
-  backdrop-filter:blur(15px);
-}
-
-.stat strong{
-  display:block;
-  font-size:27px;
-  margin-bottom:7px;
-}
-
-.stat span{
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-section{
-  padding:90px 0;
-}
-
-.section-head{
-  max-width:760px;
-  margin-bottom:38px;
-}
-
-.section-tag{
-  color:var(--cyan);
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-h2{
-  margin-top:12px;
-  font-size:clamp(34px,5vw,55px);
-  line-height:1.05;
-  letter-spacing:-2px;
-}
-
-.section-description{
-  margin-top:16px;
-  color:var(--muted);
-  line-height:1.75;
-  font-size:16px;
-}
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.services{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.card{
-  padding:28px;
-  min-height:245px;
-  border-radius:var(--radius);
-  background:linear-gradient(
-    145deg,
-    rgba(255,255,255,.065),
-    rgba(255,255,255,.015)
-  );
-  border:1px solid var(--border);
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-7px);
-  border-color:rgba(70,210,255,.45);
-  box-shadow:var(--shadow);
-}
-
-.card-icon{
-  width:55px;
-  height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:17px;
-  font-size:22px;
-  background:linear-gradient(
-    135deg,
-    rgba(50,220,255,.25),
-    rgba(170,60,255,.2)
-  );
-  margin-bottom:22px;
-}
-
-.card h3{
-  margin-bottom:11px;
-  font-size:20px;
-}
-
-.card p{
-  color:var(--muted);
-  line-height:1.7;
-  font-size:14px;
-}
-
-/* =========================================================
-   WORKFLOW
-========================================================= */
-
-.workflow{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:13px;
-}
-
-.step{
-  min-height:205px;
-  padding:23px;
-  border-radius:20px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.025);
-}
-
-.step-number{
-  color:var(--cyan);
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:1.5px;
-}
-
-.step h3{
-  margin:18px 0 10px;
-}
-
-.step p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.65;
-}
-
-/* =========================================================
-   CHECKER
-========================================================= */
-
-.checker{
-  padding:38px;
-  border-radius:28px;
-  border:1px solid rgba(70,210,255,.22);
-  background:linear-gradient(
-    135deg,
-    rgba(40,150,255,.1),
-    rgba(160,50,255,.06)
-  );
-}
-
-.check-form{
-  display:flex;
-  gap:12px;
-  margin-top:25px;
-}
-
-.input{
-  width:100%;
-  padding:16px 17px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(0,0,0,.25);
-  color:white;
-  outline:none;
-}
-
-.input:focus{
-  border-color:var(--cyan);
-}
-
-.check-result{
-  display:none;
-  margin-top:25px;
-}
-
-.check-result.show{
-  display:block;
-}
-
-.score-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-}
-
-.score{
-  padding:18px;
-  border-radius:15px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.06);
-}
-
-.score small{
-  display:block;
-  color:var(--muted);
-  margin-bottom:7px;
-}
-
-.score strong{
-  font-size:25px;
-}
-
-/* =========================================================
-   REQUESTS
-========================================================= */
-
-.requests-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
-}
-
-.form-card,
-.request-list{
-  padding:28px;
-  border-radius:24px;
-  background:rgba(255,255,255,.025);
-  border:1px solid var(--border);
-}
-
-.form-grid{
-  display:grid;
-  gap:13px;
-  margin-top:20px;
-}
-
-textarea.input{
-  min-height:130px;
-  resize:vertical;
-}
-
-.request-item{
-  padding:16px;
-  border-radius:14px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.06);
-  margin-bottom:10px;
-}
-
-.request-item strong{
-  display:block;
-  margin-bottom:5px;
-}
-
-.request-item span{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.badge{
-  display:inline-block;
-  margin-top:8px;
-  padding:5px 10px;
-  border-radius:999px;
-  background:rgba(50,220,255,.08);
-  color:var(--cyan);
-  font-size:10px;
-}
-
-/* =========================================================
-   ABOUT / CONTACT
-========================================================= */
-
-.about-box,
-.booking{
-  border-radius:28px;
-  border:1px solid var(--border);
-  background:linear-gradient(
-    135deg,
-    rgba(50,140,255,.11),
-    rgba(160,50,255,.07)
-  );
-}
-
-.about-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:35px;
-  padding:38px;
-}
-
-.about-text p{
-  margin-top:18px;
-  color:var(--muted);
-  line-height:1.8;
-}
-
-.about-values{
-  display:grid;
-  gap:13px;
-}
-
-.value{
-  padding:18px;
-  border-radius:16px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.06);
-}
-
-.value strong{
-  display:block;
-  margin-bottom:6px;
-}
-
-.value span{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.booking{
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  gap:25px;
-  padding:40px;
-}
-
-/* =========================================================
-   LEGAL PAGES
-========================================================= */
-
-.legal-page{
-  display:none;
-  min-height:100vh;
-  padding:70px 0 100px;
-}
-
-.legal-page.active{
-  display:block;
-}
-
-.legal-card{
-  padding:40px;
-  border-radius:28px;
-  background:rgba(7,19,35,.9);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
-
-.legal-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:30px;
-}
-
-.back-btn{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.05);
-  color:white;
-  padding:11px 16px;
-  border-radius:12px;
-}
-
-.legal-content{
-  color:#c7d4e5;
-  line-height:1.8;
-}
-
-.legal-content h1{
-  font-size:clamp(36px,5vw,58px);
-  margin-bottom:25px;
-  letter-spacing:-2px;
-}
-
-.legal-content h2{
-  font-size:25px;
-  margin:34px 0 12px;
-  letter-spacing:-1px;
-}
-
-.legal-content h3{
-  font-size:18px;
-  margin:24px 0 8px;
-  color:white;
-}
-
-.legal-content p{
-  margin-bottom:16px;
-}
-
-.legal-content ul{
-  margin:10px 0 18px 22px;
-}
-
-.legal-content li{
-  margin-bottom:8px;
-}
-
-.legal-content a{
-  color:var(--cyan);
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-  border-top:1px solid var(--border);
-  padding:55px 0 25px;
-  background:rgba(0,0,0,.14);
-}
-
-.footer-grid{
-  display:grid;
-  grid-template-columns:1.4fr 1fr 1fr;
-  gap:40px;
-  padding-bottom:40px;
-}
-
-.footer-logo{
-  width:85px;
-  height:85px;
-  border-radius:50%;
-  object-fit:cover;
-  border:1px solid rgba(70,220,255,.3);
-  margin-bottom:15px;
-}
-
-.footer-title{
-  font-size:14px;
-  font-weight:900;
-  margin-bottom:15px;
-}
-
-.footer-text{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-}
-
-.footer-links{
-  display:grid;
-  gap:10px;
-}
-
-.footer-links a{
-  color:var(--muted);
-  font-size:13px;
-  cursor:pointer;
-}
-
-.footer-links a:hover{
-  color:var(--cyan);
-}
-
-.contact-details{
-  margin-top:18px;
-  display:grid;
-  gap:8px;
-}
-
-.contact-details a{
-  color:var(--cyan);
-  font-size:13px;
-}
-
-.footer-bottom{
-  padding-top:22px;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:1050px){
-
-  nav{
-    display:none;
-  }
-
-  .services{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .workflow{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-}
-
-@media(max-width:750px){
-
-  .hero{
-    padding-top:30px;
-  }
-
-  .hero-visual{
-    min-height:650px;
-  }
-
-  .hero-content{
-    padding:35px 24px;
-  }
-
-  h1{
-    letter-spacing:-2px;
-  }
-
-  .stats-grid,
-  .services,
-  .score-grid,
-  .requests-grid,
-  .about-box,
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
-
-  .workflow{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .check-form,
-  .booking{
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .legal-card{
-    padding:24px;
-  }
-
-  section{
-    padding:65px 0;
-  }
-
-}
-
-</style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div class="grid"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
+  <div class="grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-<header id="mainHeader">
+  <header>
 
-<div class="container navbar">
+    <div class="container navbar">
 
-<a href="#home" class="brand">
+      <a href="#home" class="brand">
 
-<img src="nexora-logo.png"
-class="brand-logo"
-alt="NEXORA Digital Logo">
+        <!-- ضع الشعار الجديد بهذا الاسم -->
+        <img
+          src="nexora-logo.png"
+          alt="NEXORA Digital"
+          class="logo-image"
+        >
 
-<div>
-<div class="brand-title">NEXORA</div>
-<div class="brand-sub">DIGITAL INTELLIGENCE</div>
-</div>
+        <div>
+          <div class="brand-title">NEXORA</div>
+          <div class="brand-sub">DIGITAL INTELLIGENCE</div>
+        </div>
 
-</a>
+      </a>
 
-<nav>
 
-<a href="#design" data-de="Leistungen" data-en="Services">Services</a>
+      <nav>
 
-<a href="#requirements"
-data-de="Anforderungen"
-data-en="Requirements">
-Requirements
-</a>
+        <a href="#design" data-i18n="nav_design">Design</a>
 
-<a href="#execution"
-data-de="Umsetzung"
-data-en="Execution">
-Execution
-</a>
+        <a href="#requirements" data-i18n="nav_requirements">
+          Anforderungen
+        </a>
 
-<a href="#checker"
-data-de="Website Check"
-data-en="Website Check">
-Website Check
-</a>
+        <a href="#execution" data-i18n="nav_execution">
+          Umsetzung
+        </a>
 
-<a href="#requests"
-data-de="Projekt starten"
-data-en="Start a Project">
-Start a Project
-</a>
+        <a href="#booking" data-i18n="nav_booking">
+          Termin
+        </a>
 
-<a href="#about"
-data-de="Über uns"
-data-en="About Us">
-About Us
-</a>
+        <a href="#showcase" data-i18n="nav_showcase">
+          Projekte
+        </a>
 
-<a href="#contact"
-data-de="Kontakt"
-data-en="Contact">
-Contact
-</a>
+        <a href="#requests" data-i18n="nav_requests">
+          Anfragen
+        </a>
 
-</nav>
+        <a href="#about" data-i18n="nav_about">
+          Über uns
+        </a>
 
-<button
-class="language-btn"
-id="languageButton"
-onclick="toggleLanguage()">
-🇩🇪 DE
-</button>
+        <a href="#contact" data-i18n="nav_contact">
+          Kontakt
+        </a>
 
-</div>
+      </nav>
 
-</header>
 
+      <!-- LANGUAGE -->
 
-<!-- =========================================================
-     MAIN WEBSITE
-========================================================= -->
+      <div class="language-wrapper">
 
-<main id="mainSite">
+        <button
+          class="language-btn"
+          id="languageButton"
+          onclick="toggleLanguageMenu()"
+        >
+          🇩🇪 DE
+        </button>
 
-<section class="hero" id="home">
 
-<div class="container">
+        <div
+          class="language-menu"
+          id="languageMenu"
+        >
 
-<div class="hero-visual">
+          <button onclick="setLanguage('de')">
+            🇩🇪 Deutsch
+          </button>
 
-<img
-src="nexora-hero.png"
-class="hero-image"
-alt="NEXORA Digital AI Platform">
+          <button onclick="setLanguage('en')">
+            🇬🇧 English
+          </button>
 
-<div class="hero-overlay"></div>
+          <button onclick="setLanguage('ar')">
+            🇸🇦 العربية
+          </button>
 
-<div class="hero-content">
+          <button onclick="setLanguage('fr')">
+            🇫🇷 Français
+          </button>
 
-<div class="eyebrow">
-
-<span class="pulse"></span>
-
-<span
-data-de="KI-OPTIMIERTE DIGITALE PLATTFORM"
-data-en="AI-OPTIMIZED DIGITAL PLATFORM">
-AI-OPTIMIZED DIGITAL PLATFORM
-</span>
-
-</div>
-
-<h1>
-
-<span
-data-de="Von alten Systemen"
-data-en="From old systems">
-From old systems
-</span>
+          <button onclick="setLanguage('es')">
+            🇪🇸 Español
+          </button>
 
-<br>
-
-<span
-class="gradient-text"
-data-de="zur digitalen Zukunft."
-data-en="to the digital future.">
-to the digital future.
-</span>
-
-</h1>
-
-<p
-class="hero-text"
-data-de="NEXORA Digital entwickelt moderne Websites, intelligente KI-Lösungen und digitale Automatisierung für Unternehmen, die bereit für die nächste Generation digitaler Technologie sind."
-data-en="NEXORA Digital develops modern websites, intelligent AI solutions and digital automation for businesses ready for the next generation of technology.">
-NEXORA Digital develops modern websites, intelligent AI solutions and digital automation for businesses ready for the next generation of technology.
-</p>
+          <button onclick="setLanguage('it')">
+            🇮🇹 Italiano
+          </button>
 
-<div class="hero-buttons">
+          <button onclick="setLanguage('nl')">
+            🇳🇱 Nederlands
+          </button>
 
-<a href="#checker"
-class="btn btn-primary"
-data-de="Website kostenlos prüfen"
-data-en="Check Your Website">
-Check Your Website
-</a>
+          <button onclick="setLanguage('pl')">
+            🇵🇱 Polski
+          </button>
 
-<a href="#requests"
-class="btn btn-secondary"
-data-de="Projekt starten"
-data-en="Start a Project">
-Start a Project
-</a>
+          <button onclick="setLanguage('tr')">
+            🇹🇷 Türkçe
+          </button>
 
-</div>
+          <button onclick="setLanguage('pt')">
+            🇵🇹 Português
+          </button>
 
-</div>
-</div>
-</div>
+          <button onclick="setLanguage('ru')">
+            🇷🇺 Русский
+          </button>
 
-</section>
+          <button onclick="setLanguage('uk')">
+            🇺🇦 Українська
+          </button>
 
+          <button onclick="setLanguage('zh')">
+            🇨🇳 中文
+          </button>
 
-<section class="stats">
+          <button onclick="setLanguage('ja')">
+            🇯🇵 日本語
+          </button>
 
-<div class="container stats-grid">
+          <button onclick="setLanguage('ko')">
+            🇰🇷 한국어
+          </button>
 
-<div class="stat">
-<strong>AI</strong>
-<span
-data-de="Intelligente Automatisierung"
-data-en="Intelligent Automation">
-Intelligent Automation
-</span>
-</div>
+          <button onclick="setLanguage('hi')">
+            🇮🇳 हिन्दी
+          </button>
 
-<div class="stat">
-<strong>24/7</strong>
-<span
-data-de="Digital verfügbar"
-data-en="Always Available">
-Always Available
-</span>
-</div>
+          <button onclick="setLanguage('sv')">
+            🇸🇪 Svenska
+          </button>
 
-<div class="stat">
-<strong>WEB</strong>
-<span
-data-de="Modern & Responsive"
-data-en="Modern & Responsive">
-Modern & Responsive
-</span>
-</div>
+          <button onclick="setLanguage('da')">
+            🇩🇰 Dansk
+          </button>
 
-<div class="stat">
-<strong>∞</strong>
-<span
-data-de="Bereit für Wachstum"
-data-en="Built for Growth">
-Built for Growth
-</span>
-</div>
+          <button onclick="setLanguage('no')">
+            🇳🇴 Norsk
+          </button>
 
-</div>
-</section>
+          <button onclick="setLanguage('fi')">
+            🇫🇮 Suomi
+          </button>
 
+        </div>
 
-<!-- SERVICES -->
+      </div>
 
-<section id="design">
+    </div>
 
-<div class="container">
+  </header>
 
-<div class="section-head">
 
-<div class="section-tag">01 / SERVICES</div>
+  <!-- =========================
+       MAIN
+  ========================== -->
 
-<h2
-data-de="Digitale Lösungen für die nächste Generation."
-data-en="Digital solutions for the next generation.">
-Digital solutions for the next generation.
-</h2>
+  <main id="home">
 
-<p
-class="section-description"
-data-de="Wir verbinden modernes Webdesign, künstliche Intelligenz und Automatisierung zu intelligenten digitalen Lösungen."
-data-en="We combine modern web design, artificial intelligence and automation into intelligent digital solutions.">
-We combine modern web design, artificial intelligence and automation into intelligent digital solutions.
-</p>
 
-</div>
+    <!-- HERO -->
 
-<div class="services">
+    <section class="hero">
 
-<div class="card">
+      <div class="container">
 
-<div class="card-icon">◈</div>
+        <div class="hero-visual">
 
-<h3
-data-de="Neue Website"
-data-en="New Website">
-New Website
-</h3>
+          <!-- الصورة الرئيسية الحديثة -->
+          <img
+            src="nexora-hero.png"
+            alt="NEXORA Digital AI Technology"
+            class="hero-image"
+          >
 
-<p
-data-de="Moderne, schnelle und responsive Websites für Unternehmen und digitale Projekte."
-data-en="Modern, fast and responsive websites for businesses and digital projects.">
-Modern, fast and responsive websites for businesses and digital projects.
-</p>
+          <div class="hero-overlay"></div>
 
-</div>
 
-<div class="card">
+          <div class="hero-content">
 
-<div class="card-icon">↻</div>
+            <div class="eyebrow">
 
-<h3
-data-de="Website modernisieren"
-data-en="Website Modernization">
-Website Modernization
-</h3>
-
-<p
-data-de="Wir modernisieren alte Websites und verwandeln sie in schnelle, moderne und KI-bereite digitale Erlebnisse."
-data-en="We modernize outdated websites and transform them into fast, modern and AI-ready digital experiences.">
-We modernize outdated websites and transform them into fast, modern and AI-ready digital experiences.
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">✦</div>
-
-<h3
-data-de="KI integrieren"
-data-en="AI Integration">
-AI Integration
-</h3>
+              <span class="pulse"></span>
 
-<p
-data-de="Intelligente KI-Assistenten, Automatisierung und digitale Systeme für moderne Unternehmen."
-data-en="Intelligent AI assistants, automation and digital systems for modern businesses.">
-Intelligent AI assistants, automation and digital systems for modern businesses.
-</p>
+              <span data-i18n="hero_tag">
+                KI-GESTÜTZTE DIGITALE AGENTUR
+              </span>
 
-</div>
+            </div>
 
-</div>
-</div>
 
-</section>
+            <h1>
 
+              <span data-i18n="hero_title_1">
+                Wir gestalten
+              </span>
 
-<!-- REQUIREMENTS -->
+              <br>
 
-<section id="requirements">
+              <span
+                class="gradient-text"
+                data-i18n="hero_title_2"
+              >
+                die digitale Zukunft.
+              </span>
 
-<div class="container">
+            </h1>
 
-<div class="section-head">
 
-<div class="section-tag">02 / REQUIREMENTS</div>
+            <p
+              class="hero-text"
+              data-i18n="hero_text"
+            >
+              NEXORA Digital entwickelt moderne Websites,
+              intelligente KI-Lösungen und digitale Systeme
+              für Unternehmen.
+            </p>
 
-<h2
-data-de="Ihre Anforderungen werden zum digitalen Plan."
-data-en="Your requirements become a digital plan.">
-Your requirements become a digital plan.
-</h2>
 
-<p
-class="section-description"
-data-de="Jedes Projekt beginnt mit Analyse, Strategie und einem klaren Verständnis Ihrer Ziele."
-data-en="Every project begins with analysis, strategy and a clear understanding of your goals.">
-Every project begins with analysis, strategy and a clear understanding of your goals.
-</p>
+            <div class="hero-buttons">
 
-</div>
-
-<div class="workflow">
-
-<div class="step">
-<div class="step-number">01</div>
-<h3 data-de="Analyse" data-en="Analysis">Analysis</h3>
-<p
-data-de="Wir analysieren Ihr Unternehmen und Ihre Zielgruppe."
-data-en="We analyze your business and your audience.">
-We analyze your business and your audience.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">02</div>
-<h3 data-de="Konzept" data-en="Concept">Concept</h3>
-<p
-data-de="Strategie und technische Anforderungen werden definiert."
-data-en="Strategy and technical requirements are defined.">
-Strategy and technical requirements are defined.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">03</div>
-<h3 data-de="Design" data-en="Design">Design</h3>
-<p
-data-de="Wir entwickeln ein modernes digitales Konzept."
-data-en="We develop a modern digital concept.">
-We develop a modern digital concept.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">04</div>
-<h3 data-de="Freigabe" data-en="Approval">Approval</h3>
-<p
-data-de="Das Konzept wird geprüft und vorbereitet."
-data-en="The concept is reviewed and prepared.">
-The concept is reviewed and prepared.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">05</div>
-<h3 data-de="Start" data-en="Launch">Launch</h3>
-<p
-data-de="Nach der Freigabe beginnt die Umsetzung."
-data-en="After approval, development begins.">
-After approval, development begins.
-</p>
-</div>
-
-</div>
-</div>
-
-</section>
-
-
-<!-- EXECUTION -->
-
-<section id="execution">
-
-<div class="container">
-
-<div class="section-head">
+              <a
+                href="#checker"
+                class="btn btn-primary"
+                data-i18n="hero_check"
+              >
+                Website kostenlos prüfen
+              </a>
 
-<div class="section-tag">03 / EXECUTION</div>
-
-<h2
-data-de="Von der Idee zur digitalen Realität."
-data-en="From idea to digital reality.">
-From idea to digital reality.
-</h2>
-
-<p
-class="section-description"
-data-de="NEXORA verbindet Design, Entwicklung, Qualität und zukünftige Optimierung."
-data-en="NEXORA connects design, development, quality and future optimization.">
-NEXORA connects design, development, quality and future optimization.
-</p>
-
-</div>
-
-<div class="workflow">
 
-<div class="step">
-<div class="step-number">01</div>
-<h3>Setup</h3>
-<p data-de="Projekt und technische Struktur vorbereiten."
-data-en="Prepare the project and technical structure.">
-Prepare the project and technical structure.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">02</div>
-<h3 data-de="Entwicklung" data-en="Development">Development</h3>
-<p data-de="Website und Funktionen werden entwickelt."
-data-en="The website and functionality are developed.">
-The website and functionality are developed.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">03</div>
-<h3 data-de="Testen" data-en="Testing">Testing</h3>
-<p data-de="Performance und Benutzererfahrung werden geprüft."
-data-en="Performance and user experience are tested.">
-Performance and user experience are tested.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">04</div>
-<h3 data-de="Veröffentlichung" data-en="Launch">Launch</h3>
-<p data-de="Das Projekt wird für die Veröffentlichung vorbereitet."
-data-en="The project is prepared for launch.">
-The project is prepared for launch.
-</p>
-</div>
-
-<div class="step">
-<div class="step-number">05</div>
-<h3>Growth</h3>
-<p data-de="Optimierung und zukünftige Erweiterung."
-data-en="Optimization and future expansion.">
-Optimization and future expansion.
-</p>
-</div>
+              <a
+                href="#requests"
+                class="btn btn-secondary"
+                data-i18n="hero_project"
+              >
+                Projekt starten
+              </a>
 
-</div>
-</div>
+            </div>
 
-</section>
+          </div>
 
+        </div>
 
-<!-- WEBSITE CHECK -->
+      </div>
 
-<section id="checker">
+    </section>
 
-<div class="container">
 
-<div class="checker">
+    <!-- STATS -->
 
-<div class="section-head">
+    <section class="stats">
 
-<div class="section-tag">FREE DIGITAL CHECK</div>
+      <div class="container stats-grid">
 
-<h2
-data-de="Wie modern ist Ihre Website?"
-data-en="How modern is your website?">
-How modern is your website?
-</h2>
+        <div class="stat">
+          <strong>AI</strong>
 
-<p
-class="section-description"
-data-de="Geben Sie Ihre Website-Adresse ein und starten Sie den NEXORA Digital Check."
-data-en="Enter your website address and start the NEXORA Digital Check.">
-Enter your website address and start the NEXORA Digital Check.
-</p>
+          <span data-i18n="stat_ai">
+            Intelligente Automatisierung
+          </span>
+        </div>
 
-</div>
 
-<div class="check-form">
+        <div class="stat">
+          <strong>24/7</strong>
 
-<input
-id="websiteInput"
-class="input"
-placeholder="https://www.your-company.com">
+          <span data-i18n="stat_online">
+            Digital verfügbar
+          </span>
+        </div>
 
-<button
-class="btn btn-primary"
-onclick="analyzeWebsite()"
-data-de="Analyse starten"
-data-en="Start Analysis">
-Start Analysis
-</button>
 
-</div>
+        <div class="stat">
+          <strong>WEB</strong>
 
-<div id="checkResult" class="check-result">
+          <span data-i18n="stat_web">
+            Modern & Responsive
+          </span>
+        </div>
 
-<div class="score-grid">
 
-<div class="score">
-<small>DESIGN</small>
-<strong id="designScore">--</strong>
-</div>
+        <div class="stat">
+          <strong>∞</strong>
 
-<div class="score">
-<small>MOBILE</small>
-<strong id="mobileScore">--</strong>
-</div>
+          <span data-i18n="stat_growth">
+            Bereit für Wachstum
+          </span>
+        </div>
 
-<div class="score">
-<small>PERFORMANCE</small>
-<strong id="performanceScore">--</strong>
-</div>
+      </div>
 
-<div class="score">
-<small>SEO</small>
-<strong id="seoScore">--</strong>
-</div>
+    </section>
 
-<div class="score">
-<small>ACCESSIBILITY</small>
-<strong id="accessibilityScore">--</strong>
-</div>
 
-<div class="score">
-<small>AI READINESS</small>
-<strong id="aiScore">--</strong>
-</div>
+    <!-- DESIGN -->
 
-</div>
-</div>
+    <section id="design">
 
-</div>
-</div>
+      <div class="container">
 
-</section>
+        <div class="section-head">
 
+          <div class="section-tag">
+            01 / DESIGN
+          </div>
 
-<!-- PROJECT REQUEST -->
+          <h2 data-i18n="design_title">
+            Digitale Erlebnisse für die nächste Generation.
+          </h2>
 
-<section id="requests">
+          <p
+            class="section-description"
+            data-i18n="design_text"
+          >
+            Wir verbinden modernes Design,
+            Technologie und künstliche Intelligenz.
+          </p>
 
-<div class="container">
+        </div>
 
-<div class="section-head">
 
-<div class="section-tag">PROJECT REQUEST</div>
+        <div class="services">
 
-<h2
-data-de="Starten wir Ihr Projekt."
-data-en="Let's start your project.">
-Let's start your project.
-</h2>
+          <div class="card">
 
-<p
-class="section-description"
-data-de="Senden Sie uns Ihre Anfrage und erzählen Sie uns von Ihrer Idee."
-data-en="Send us your request and tell us about your idea.">
-Send us your request and tell us about your idea.
-</p>
+            <div class="card-icon">◈</div>
 
-</div>
+            <h3 data-i18n="service_1_title">
+              Neue Website
+            </h3>
 
-<div class="requests-grid">
+            <p data-i18n="service_1_text">
+              Moderne und responsive Websites.
+            </p>
 
-<div class="form-card">
+          </div>
 
-<h3
-data-de="Projekt anfragen"
-data-en="Request a Project">
-Request a Project
-</h3>
 
-<form id="projectForm" class="form-grid">
+          <div class="card">
 
-<input id="clientName"
-class="input"
-required
-placeholder="Name / Company">
+            <div class="card-icon">↻</div>
 
-<input id="clientEmail"
-type="email"
-class="input"
-required
-placeholder="E-Mail">
+            <h3 data-i18n="service_2_title">
+              Website Modernisierung
+            </h3>
 
-<select id="serviceType" class="input">
-<option>New Website</option>
-<option>Website Modernization</option>
-<option>AI Integration</option>
-<option>E-Commerce</option>
-<option>Digital Automation</option>
-</select>
+            <p data-i18n="service_2_text">
+              Alte Websites werden modernisiert.
+            </p>
 
-<textarea
-id="clientMessage"
-class="input"
-required
-placeholder="Tell us about your project..."></textarea>
+          </div>
 
-<button
-type="submit"
-class="btn btn-primary"
-data-de="Anfrage senden"
-data-en="Send Request">
-Send Request
-</button>
 
-</form>
+          <div class="card">
 
-</div>
+            <div class="card-icon">✦</div>
 
-<div class="request-list">
+            <h3 data-i18n="service_3_title">
+              KI Integration
+            </h3>
 
-<h3
-data-de="Aktuelle Anfragen"
-data-en="Current Requests">
-Current Requests
-</h3>
+            <p data-i18n="service_3_text">
+              Intelligente KI-Lösungen und Automatisierung.
+            </p>
 
-<div id="requestsContainer">
+          </div>
 
-<div class="request-item">
+        </div>
 
-<strong
-data-de="Noch keine Anfragen"
-data-en="No requests yet">
-No requests yet
-</strong>
+      </div>
 
-<span
-data-de="Neue Kundenanfragen erscheinen hier."
-data-en="New client requests will appear here.">
-New client requests will appear here.
-</span>
+    </section>
 
-</div>
 
-</div>
-</div>
+    <!-- REQUIREMENTS -->
 
-</div>
-</div>
+    <section id="requirements">
 
-</section>
+      <div class="container">
 
+        <div class="section-head">
 
-<!-- ABOUT -->
+          <div class="section-tag">
+            02 / REQUIREMENTS
+          </div>
 
-<section id="about">
+          <h2 data-i18n="requirements_title">
+            Ihre Anforderungen werden zum digitalen Plan.
+          </h2>
 
-<div class="container">
+          <p
+            class="section-description"
+            data-i18n="requirements_text"
+          >
+            Analyse, Strategie und klare Ziele.
+          </p>
 
-<div class="section-head">
+        </div>
 
-<div class="section-tag">ABOUT NEXORA</div>
 
-<h2
-data-de="Wir verbinden Unternehmen mit der digitalen Zukunft."
-data-en="We connect businesses with the digital future.">
-We connect businesses with the digital future.
-</h2>
+        <div class="workflow">
 
-</div>
+          <div class="step">
 
-<div class="about-box">
+            <div class="step-number">01</div>
 
-<div class="about-text">
+            <h3 data-i18n="step_1_title">
+              Analyse
+            </h3>
 
-<h3
-data-de="Über NEXORA Digital"
-data-en="About NEXORA Digital">
-About NEXORA Digital
-</h3>
+            <p data-i18n="step_1_text">
+              Wir verstehen Ihr Unternehmen.
+            </p>
 
-<p
-data-de="NEXORA Digital ist eine moderne digitale Plattform für Unternehmen, die ihre Online-Präsenz verbessern, neue Technologien einsetzen und künstliche Intelligenz in ihre digitale Zukunft integrieren möchten."
-data-en="NEXORA Digital is a modern digital platform for companies that want to improve their online presence, adopt new technologies and integrate artificial intelligence into their digital future.">
-NEXORA Digital is a modern digital platform for companies that want to improve their online presence, adopt new technologies and integrate artificial intelligence into their digital future.
-</p>
+          </div>
 
-<p
-data-de="Unsere Vision ist es, moderne Technologie verständlich, zugänglich und praktisch nutzbar zu machen."
-data-en="Our vision is to make modern technology understandable, accessible and practically useful.">
-Our vision is to make modern technology understandable, accessible and practically useful.
-</p>
 
-</div>
+          <div class="step">
 
-<div class="about-values">
+            <div class="step-number">02</div>
 
-<div class="value">
-<strong data-de="Innovation" data-en="Innovation">Innovation</strong>
-<span
-data-de="Neue Technologien sinnvoll einsetzen."
-data-en="Using new technologies with purpose.">
-Using new technologies with purpose.
-</span>
-</div>
+            <h3 data-i18n="step_2_title">
+              Konzept
+            </h3>
 
-<div class="value">
-<strong data-de="Intelligenz" data-en="Intelligence">Intelligence</strong>
-<span
-data-de="KI unterstützt Menschen und Unternehmen."
-data-en="AI supports people and businesses.">
-AI supports people and businesses.
-</span>
-</div>
+            <p data-i18n="step_2_text">
+              Strategie und Anforderungen.
+            </p>
 
-<div class="value">
-<strong data-de="Wachstum" data-en="Growth">Growth</strong>
-<span
-data-de="Digitale Lösungen, die mit Unternehmen wachsen."
-data-en="Digital solutions designed to grow with businesses.">
-Digital solutions designed to grow with businesses.
-</span>
-</div>
+          </div>
 
-</div>
-</div>
-</div>
 
-</section>
+          <div class="step">
 
+            <div class="step-number">03</div>
 
-<!-- CONTACT -->
+            <h3 data-i18n="step_3_title">
+              Design
+            </h3>
 
-<section id="contact">
+            <p data-i18n="step_3_text">
+              Modernes digitales Konzept.
+            </p>
 
-<div class="container">
+          </div>
 
-<div class="booking">
 
-<div>
+          <div class="step">
 
-<div class="section-tag">CONTACT</div>
+            <div class="step-number">04</div>
 
-<h2
-data-de="Gemeinsam die digitale Zukunft gestalten."
-data-en="Let's build the digital future together.">
-Let's build the digital future together.
-</h2>
+            <h3 data-i18n="step_4_title">
+              Freigabe
+            </h3>
 
-<p
-class="section-description"
-data-de="Kontaktieren Sie NEXORA Digital für Websites, KI-Integration und digitale Automatisierung."
-data-en="Contact NEXORA Digital for websites, AI integration and digital automation.">
-Contact NEXORA Digital for websites, AI integration and digital automation.
-</p>
+            <p data-i18n="step_4_text">
+              Der Kunde bestätigt das Konzept.
+            </p>
 
-</div>
+          </div>
 
-<a
-href="mailto:contact@nexoraonline.de"
-class="btn btn-primary">
-contact@nexoraonline.de
-</a>
 
-</div>
+          <div class="step">
 
-</div>
+            <div class="step-number">05</div>
 
-</section>
+            <h3 data-i18n="step_5_title">
+              Start
+            </h3>
 
-</main>
+            <p data-i18n="step_5_text">
+              Umsetzung beginnt.
+            </p>
 
+          </div>
 
-<!-- =========================================================
-     PRIVACY PAGE
-========================================================= -->
+        </div>
 
-<main id="privacyPage" class="legal-page">
+      </div>
 
-<div class="container">
+    </section>
 
-<div class="legal-card">
 
-<div class="legal-top">
+    <!-- AI COMMAND CENTER -->
 
-<strong>NEXORA DIGITAL</strong>
+    <section id="dashboard">
 
-<button class="back-btn" onclick="closeLegalPage()">
-← <span data-de="Zurück zur Website" data-en="Back to Website">
-Back to Website
-</span>
-</button>
+      <div class="container">
 
-</div>
+        <div class="section-head">
 
-<div id="privacyContent" class="legal-content"></div>
+          <div class="section-tag">
+            NEXORA COMMAND CENTER
+          </div>
 
-</div>
-</div>
+          <h2 data-i18n="ai_title">
+            Ihr intelligenter AI Manager.
+          </h2>
 
-</main>
+          <p
+            class="section-description"
+            data-i18n="ai_text"
+          >
+            Die Kommandozentrale für Leads,
+            Website-Analysen und Projekte.
+          </p>
 
+        </div>
 
-<!-- =========================================================
-     IMPRESSUM PAGE
-========================================================= -->
 
-<main id="impressumPage" class="legal-page">
+        <div class="dashboard">
 
-<div class="container">
+          <div class="dashboard-header">
 
-<div class="legal-card">
+            <strong>NEXORA AI MANAGER</strong>
 
-<div class="legal-top">
+            <span class="online">
+              ● SYSTEM ONLINE
+            </span>
 
-<strong>NEXORA DIGITAL</strong>
+          </div>
 
-<button class="back-btn" onclick="closeLegalPage()">
-← <span data-de="Zurück zur Website" data-en="Back to Website">
-Back to Website
-</span>
-</button>
 
-</div>
+          <div class="dashboard-content">
 
-<div id="impressumContent" class="legal-content"></div>
+            <div class="dashboard-cards">
 
-</div>
-</div>
+              <div class="dashboard-card">
+                <span>LEADS</span>
+                <strong id="leadCount">0</strong>
+              </div>
 
-</main>
+              <div class="dashboard-card">
+                <span>ANALYZED</span>
+                <strong id="analysisCount">0</strong>
+              </div>
 
+              <div class="dashboard-card">
+                <span>REQUESTS</span>
+                <strong id="requestCount">0</strong>
+              </div>
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+              <div class="dashboard-card">
+                <span>PROJECTS</span>
+                <strong id="projectCount">0</strong>
+              </div>
 
-<footer id="mainFooter">
+            </div>
 
-<div class="container">
 
-<div class="footer-grid">
+            <div class="command-center">
 
-<div>
+              <strong>AI COMMAND CENTER</strong>
 
-<img
-src="nexora-logo.png"
-class="footer-logo"
-alt="NEXORA Digital Logo">
+              <textarea
+                id="aiCommand"
+                placeholder="Geben Sie einen Befehl ein..."
+              ></textarea>
 
-<p class="footer-text">
-AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION
-</p>
+              <br><br>
 
-<div class="contact-details">
+              <button
+                class="btn btn-primary"
+                onclick="runAICommand()"
+                data-i18n="ai_run"
+              >
+                Command ausführen
+              </button>
 
-<a href="https://www.nexoraonline.de">
-www.nexoraonline.de
-</a>
 
-<a href="mailto:info@nexoraonline.de">
-info@nexoraonline.de
-</a>
+              <div
+                id="aiResponse"
+                class="ai-response"
+              ></div>
 
-<a href="mailto:contact@nexoraonline.de">
-contact@nexoraonline.de
-</a>
+            </div>
 
-</div>
+          </div>
 
-</div>
+        </div>
 
+      </div>
 
-<div>
+    </section>
 
-<div
-class="footer-title"
-data-de="NEXORA DIGITAL"
-data-en="NEXORA DIGITAL">
-NEXORA DIGITAL
-</div>
 
-<div class="footer-links">
+    <!-- CLIENT REQUESTS -->
 
-<a href="#design"
-data-de="Leistungen"
-data-en="Services">
-Services
-</a>
+    <section id="requests">
 
-<a href="#checker"
-data-de="Website Check"
-data-en="Website Check">
-Website Check
-</a>
+      <div class="container">
 
-<a href="#requests"
-data-de="Projekt starten"
-data-en="Start a Project">
-Start a Project
-</a>
+        <div class="section-head">
 
-<a href="#about"
-data-de="Über uns"
-data-en="About Us">
-About Us
-</a>
+          <div class="section-tag">
+            CLIENT REQUESTS
+          </div>
 
-<a href="#contact"
-data-de="Kontakt"
-data-en="Contact">
-Contact
-</a>
+          <h2 data-i18n="request_title">
+            Starten wir Ihr Projekt.
+          </h2>
 
-</div>
+          <p
+            class="section-description"
+            data-i18n="request_text"
+          >
+            Senden Sie uns Ihre Anfrage.
+          </p>
 
-</div>
+        </div>
 
 
-<div>
+        <div class="requests-grid">
 
-<div
-class="footer-title"
-data-de="RECHTLICHES"
-data-en="LEGAL">
-LEGAL
-</div>
+          <div class="form-card">
 
-<div class="footer-links">
+            <h3 data-i18n="form_title">
+              Projekt anfragen
+            </h3>
 
-<a href="javascript:void(0)"
-onclick="openPrivacy()"
-data-de="Datenschutzerklärung"
-data-en="Privacy Policy">
-Privacy Policy
-</a>
 
-<a href="javascript:void(0)"
-onclick="openImpressum()"
-data-de="Impressum"
-data-en="Legal Notice (Impressum)">
-Legal Notice (Impressum)
-</a>
+            <form
+              id="projectForm"
+              class="form-grid"
+            >
 
-</div>
+              <input
+                id="clientName"
+                class="input"
+                required
+                placeholder="Name / Company"
+              >
 
-</div>
+              <input
+                id="clientEmail"
+                type="email"
+                class="input"
+                required
+                placeholder="E-Mail"
+              >
 
-</div>
+              <select
+                id="serviceType"
+                class="input"
+              >
 
+                <option>New Website</option>
+                <option>Website Modernization</option>
+                <option>AI Integration</option>
+                <option>E-Commerce</option>
+                <option>Digital Automation</option>
 
-<div class="footer-bottom">
+              </select>
 
-<div>
-© <span id="year"></span> NEXORA Digital.
-<span
-data-de="Alle Rechte vorbehalten."
-data-en="All Rights Reserved.">
-All Rights Reserved.
-</span>
-</div>
 
-<div>
-www.nexoraonline.de •
-info@nexoraonline.de •
-contact@nexoraonline.de
-</div>
+              <textarea
+                id="clientMessage"
+                class="input"
+                required
+                placeholder="Tell us about your project..."
+              ></textarea>
 
-</div>
 
-</div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-i18n="form_send"
+              >
+                Anfrage senden
+              </button>
 
-</footer>
+            </form>
 
+          </div>
 
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
 
-<script>
+          <div class="request-list">
 
-/* =========================================================
-   STATE
-========================================================= */
+            <h3 data-i18n="current_requests">
+              Aktuelle Anfragen
+            </h3>
 
-let currentLanguage = "en";
-let requests = [];
+            <div id="requestsContainer">
 
+              <div class="request-item">
 
-/* =========================================================
-   LEGAL CONTENT
-========================================================= */
+                <strong data-i18n="no_requests">
+                  Noch keine Anfragen
+                </strong>
 
-const impressum = {
+              </div>
 
-de: `
+            </div>
 
-<h1>Impressum</h1>
+          </div>
 
-<h2>Angaben gemäß § 5 Digital-Dienste-Gesetz (DDG)</h2>
+        </div>
 
-<p><strong>Diensteanbieter &amp; Inhaltlich Verantwortlicher gemäß § 18 Abs. 2 MStV:</strong><br>
-Akhmed Ismail Saied<br>
-Ehndorfer Str. 130<br>
-24537 Neumünster<br>
-Deutschland</p>
+      </div>
 
-<h2>Kontakt</h2>
+    </section>
 
-<ul>
-<li><strong>Website:</strong> <a href="https://www.nexoraonline.de">www.nexoraonline.de</a></li>
-<li><strong>E-Mail Allgemein:</strong> <a href="mailto:info@nexoraonline.de">info@nexoraonline.de</a></li>
-<li><strong>E-Mail Support / Datenschutz:</strong> <a href="mailto:contact@nexoraonline.de">contact@nexoraonline.de</a></li>
-</ul>
 
-<h2>Gewerbliche Angaben &amp; Status der Plattform</h2>
+    <!-- ABOUT -->
 
-<p>Die Plattform <strong>NEXORA Digital</strong> befindet sich derzeit in der Entwicklungs- und Testphase (Testbetrieb).</p>
+    <section id="about">
 
-<ul>
-<li><strong>Zahlungsabwicklung im Testbetrieb:</strong> Eventuelle Zahlungstransaktionen werden ausschließlich im Stripe-Testmodus zu Testzwecken durchgeführt. Es werden keine echten Geldbeträge erhoben, verbucht oder verarbeitet.</li>
+      <div class="container">
 
-<li><strong>Gewerbe- und Steuernummern:</strong> Mit dem offiziellen Übergang in den regulären Live-Betrieb und der Aufnahme kostenpflichtiger Dienste werden die Gewerbeanmeldung sowie die Steuernummer bzw. Umsatzsteuer-Identifikationsnummer (USt-IdNr. gemäß § 27a UStG) unverzüglich in diesem Impressum ergänzt und veröffentlicht.</li>
-</ul>
+        <div class="section-head">
 
-<h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+          <div class="section-tag">
+            ABOUT NEXORA
+          </div>
 
-<p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit. Wir sind weder verpflichtet noch bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+          <h2 data-i18n="about_title">
+            Wir verbinden Unternehmen mit der digitalen Zukunft.
+          </h2>
 
-<h2>Haftungsausschluss (Disclaimer)</h2>
+        </div>
 
-<h3>1. Haftung für Inhalte</h3>
 
-<p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+        <div class="about-box">
 
-<p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+          <div class="about-text">
 
-<h3>2. Haftung für Links</h3>
+            <h3 data-i18n="about_heading">
+              Über NEXORA Digital
+            </h3>
 
-<p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+            <p data-i18n="about_text">
+              NEXORA Digital ist eine moderne Plattform
+              für Websites, künstliche Intelligenz
+              und digitale Transformation.
+            </p>
 
-<h3>3. Urheberrecht</h3>
+          </div>
 
-<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
 
-`,
+          <div class="about-values">
 
-en: `
+            <div class="value">
+              <strong data-i18n="value_1">
+                Innovation
+              </strong>
+            </div>
 
-<h1>Legal Notice (Impressum)</h1>
+            <div class="value">
+              <strong data-i18n="value_2">
+                Intelligenz
+              </strong>
+            </div>
 
-<h2>Information pursuant to § 5 Digital Services Act (DDG)</h2>
+            <div class="value">
+              <strong data-i18n="value_3">
+                Wachstum
+              </strong>
+            </div>
 
-<p><strong>Service Provider &amp; Content Responsible Person pursuant to § 18 Para. 2 MStV:</strong><br>
-Akhmed Ismail Saied<br>
-Ehndorfer Str. 130<br>
-24537 Neumünster<br>
-Germany</p>
+          </div>
 
-<h2>Contact</h2>
+        </div>
 
-<ul>
-<li><strong>Website:</strong> <a href="https://www.nexoraonline.de">www.nexoraonline.de</a></li>
-<li><strong>General Email:</strong> <a href="mailto:info@nexoraonline.de">info@nexoraonline.de</a></li>
-<li><strong>Support / Privacy Email:</strong> <a href="mailto:contact@nexoraonline.de">contact@nexoraonline.de</a></li>
-</ul>
+      </div>
 
-<h2>Commercial Details &amp; Platform Status</h2>
+    </section>
 
-<p>The platform <strong>NEXORA Digital</strong> is currently in the development and testing phase (test mode).</p>
 
-<ul>
-<li><strong>Payment Processing in Test Mode:</strong> Any payment transactions are conducted exclusively in Stripe test mode for testing purposes. No real monetary amounts are charged, booked, or processed.</li>
+    <!-- BOOKING -->
 
-<li><strong>Business Registration &amp; Tax Numbers:</strong> Upon the official transition to regular live operation and the commencement of paid services, the business registration as well as the tax number or VAT Identification Number (USt-IdNr. pursuant to § 27a UStG) will be promptly added to this Legal Notice and published.</li>
-</ul>
+    <section id="booking">
 
-<h2>Consumer Dispute Resolution / Universal Arbitration Board</h2>
+      <div class="container">
 
-<p>The European Commission provides a platform for Online Dispute Resolution (ODR). We are neither obligated nor willing to participate in dispute resolution proceedings before a consumer arbitration board.</p>
+        <div class="booking">
 
-<h2>Liability Disclaimer</h2>
+          <div>
 
-<h3>1. Liability for Content</h3>
+            <div class="section-tag">
+              BOOKING
+            </div>
 
-<p>As a service provider, we are responsible for our own content on these pages in accordance with general laws pursuant to § 7 Para. 1 DDG. According to §§ 8 to 10 DDG, however, we as a service provider are not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.</p>
+            <h2 data-i18n="booking_title">
+              Buchen Sie ein kostenloses Erstgespräch.
+            </h2>
 
-<p>Obligations to remove or block the use of information in accordance with general laws remain unaffected. However, liability in this regard is only possible from the time knowledge of a specific infringement is gained. Upon notification of corresponding legal violations, we will remove this content immediately.</p>
+            <p
+              class="section-description"
+              data-i18n="booking_text"
+            >
+              Lassen Sie uns über Ihre digitale Zukunft sprechen.
+            </p>
 
-<h3>2. Liability for Links</h3>
+          </div>
 
-<p>Our offering contains links to external third-party websites, over whose content we have no influence. Therefore, we cannot accept any liability for this external content. The respective provider or operator of the pages is always responsible for the content of the linked pages. Upon notification of legal violations, we will remove such links immediately.</p>
 
-<h3>3. Copyright</h3>
+          <button
+            class="btn btn-primary"
+            onclick="bookMeeting()"
+            data-i18n="booking_button"
+          >
+            Termin buchen
+          </button>
 
-<p>The content and works created by the page operators on these pages are subject to German copyright law. Duplication, processing, distribution, and any kind of exploitation outside the limits of copyright law require the written consent of the respective author or creator.</p>
+        </div>
 
-`
+      </div>
 
-};
+    </section>
 
 
-/* =========================================================
-   PRIVACY CONTENT
-========================================================= */
+    <!-- CONTACT -->
 
-const privacy = {
+    <section id="contact">
 
-de: `
+      <div class="container">
 
-<h1>Datenschutzerklärung</h1>
+        <div class="booking">
 
-<p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Datenschutzerklärung informiert über die Verarbeitung personenbezogener Daten im Zusammenhang mit der Nutzung der Plattform NEXORA Digital.</p>
+          <div>
 
-<h2>1. Verantwortlicher</h2>
+            <div class="section-tag">
+              CONTACT
+            </div>
 
-<p>
-Akhmed Ismail Saied<br>
-Ehndorfer Str. 130<br>
-24537 Neumünster<br>
-Deutschland
-</p>
+            <h2 data-i18n="contact_title">
+              Let's build the future.
+            </h2>
 
-<p>
-E-Mail: <a href="mailto:contact@nexoraonline.de">contact@nexoraonline.de</a>
-</p>
+            <p class="section-description">
+              NEXORA Digital
+              <br>
+              AI • WEB • AUTOMATION
+            </p>
 
-<h2>2. Allgemeine Nutzung der Website</h2>
+          </div>
 
-<p>Beim Besuch dieser Website können technisch erforderliche Daten verarbeitet werden, die für die Bereitstellung und Sicherheit der Website notwendig sind.</p>
 
-<h2>3. Kontaktaufnahme</h2>
+          <a
+            href="mailto:info@nexoraonline.de"
+            class="btn btn-secondary"
+          >
+            info@nexoraonline.de
+          </a>
 
-<p>Wenn Sie uns per E-Mail oder über ein Kontakt- bzw. Anfrageformular kontaktieren, werden die von Ihnen übermittelten Angaben zur Bearbeitung Ihrer Anfrage verarbeitet.</p>
+        </div>
 
-<h2>4. Projektanfragen</h2>
+      </div>
 
-<p>Angaben wie Name, E-Mail-Adresse und Informationen über Ihr Projekt werden ausschließlich zur Bearbeitung Ihrer Anfrage und zur Kommunikation mit Ihnen verwendet.</p>
+    </section>
 
-<h2>5. KI- und digitale Dienste</h2>
+  </main>
 
-<p>NEXORA Digital entwickelt und testet KI-gestützte Funktionen und digitale Systeme. Soweit zukünftig externe KI-Dienste, Datenbanken, Analysewerkzeuge oder weitere technische Dienstleister eingesetzt werden, wird diese Datenschutzerklärung entsprechend den tatsächlich eingesetzten Datenverarbeitungen aktualisiert.</p>
 
-<h2>6. Zahlungsdienste</h2>
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
-<p>Während der aktuellen Testphase können Zahlungsvorgänge ausschließlich im Testmodus erfolgen. Es werden dabei keine realen Geldbeträge verarbeitet. Bei Aufnahme des regulären Live-Betriebs wird die Datenschutzerklärung entsprechend den tatsächlich eingesetzten Zahlungsdiensten ergänzt.</p>
+  <footer>
 
-<h2>7. Ihre Rechte</h2>
+    <div class="container">
 
-<p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten.</p>
+      <div class="footer-grid">
 
-<h2>8. Aktualisierung dieser Datenschutzerklärung</h2>
+        <div>
 
-<p>Diese Datenschutzerklärung kann aktualisiert werden, wenn sich technische Funktionen, eingesetzte Dienste oder gesetzliche Anforderungen ändern.</p>
+          <img
+            src="nexora-logo.png"
+            alt="NEXORA"
+            class="footer-logo"
+          >
 
-<p><strong>Kontakt für Datenschutzanfragen:</strong><br>
-<a href="mailto:contact@nexoraonline.de">contact@nexoraonline.de</a></p>
+          <p class="footer-text">
 
-`,
+            AI • WEB • AUTOMATION •
+            DIGITAL TRANSFORMATION
 
-en: `
+            <br><br>
 
-<h1>Privacy Policy</h1>
+            www.nexoraonline.de
 
-<p>The protection of your personal data is important to us. This Privacy Policy provides information about the processing of personal data in connection with the use of the NEXORA Digital platform.</p>
+            <br>
 
-<h2>1. Data Controller</h2>
+            info@nexoraonline.de
 
-<p>
-Akhmed Ismail Saied<br>
-Ehndorfer Str. 130<br>
-24537 Neumünster<br>
-Germany
-</p>
+            <br>
 
-<p>
-Email: <a href="mailto:contact@nexoraonline.de">contact@nexoraonline.de</a>
-</p>
+            contact@nexoraonline.de
 
-<h2>2. General Use of the Website</h2>
+          </p>
 
-<p>When visiting this website, technically necessary data may be processed where required for the provision, operation and security of the website.</p>
+        </div>
 
-<h2>3. Contact Requests</h2>
 
-<p>If you contact us by email or through a contact or project request form, the information you provide may be processed for the purpose of handling your request and communicating with you.</p>
+        <div>
 
-<h2>4. Project Requests</h2>
+          <div
+            class="footer-title"
+            data-i18n="footer_company"
+          >
+            NEXORA DIGITAL
+          </div>
 
-<p>Information such as your name, email address and project details is used for the purpose of processing your request and communicating with you.</p>
+          <div class="footer-links">
 
-<h2>5. AI and Digital Services</h2>
+            <a href="#design">Design</a>
 
-<p>NEXORA Digital develops and tests AI-supported functions and digital systems. If external AI services, databases, analytics tools or additional technical service providers are introduced in the future, this Privacy Policy will be updated to reflect the actual data processing activities.</p>
+            <a href="#dashboard">
+              AI Manager
+            </a>
 
-<h2>6. Payment Services</h2>
+            <a href="#about">
+              About Us
+            </a>
 
-<p>During the current testing phase, payment operations may only be carried out in test mode. No real monetary amounts are processed. Upon the introduction of regular live payment services, this Privacy Policy will be updated to reflect the payment services actually used.</p>
+            <a href="#contact">
+              Contact
+            </a>
 
-<h2>7. Your Rights</h2>
+          </div>
 
-<p>Subject to applicable law, you may have rights including access, rectification, deletion, restriction of processing and objection to the processing of your personal data.</p>
+        </div>
 
-<h2>8. Updates to this Privacy Policy</h2>
 
-<p>This Privacy Policy may be updated when technical functions, services or applicable legal requirements change.</p>
+        <div>
 
-<p><strong>Privacy contact:</strong><br>
-<a href="mailto:contact@nexoraonline.de">contact@nexoraonline.de</a></p>
+          <div
+            class="footer-title"
+            data-i18n="footer_legal"
+          >
+            LEGAL
+          </div>
 
-`
 
-};
+          <div class="footer-links">
 
+            <a
+              href="#"
+              onclick="openModal('privacy');return false;"
+              data-i18n="privacy"
+            >
+              Datenschutzerklärung
+            </a>
 
-/* =========================================================
-   LANGUAGE
-========================================================= */
 
-function toggleLanguage(){
+            <a
+              href="#"
+              onclick="openModal('impressum');return false;"
+            >
+              Impressum
+            </a>
 
-  currentLanguage =
-  currentLanguage === "en"
-  ? "de"
-  : "en";
+          </div>
 
-  document.querySelectorAll("[data-de]").forEach(element => {
+        </div>
 
-    const value =
-    element.getAttribute("data-" + currentLanguage);
+      </div>
 
-    if(value !== null){
-      element.textContent = value;
-    }
 
-  });
+      <div class="footer-bottom">
 
-  document.documentElement.lang = currentLanguage;
+        <div>
+          © <span id="year"></span>
+          NEXORA Digital.
+          All Rights Reserved.
+        </div>
 
-  document.getElementById("languageButton").textContent =
-  currentLanguage === "en"
-  ? "🇩🇪 DE"
-  : "🇬🇧 EN";
+        <div>
+          www.nexoraonline.de
+        </div>
 
-  document.getElementById("websiteInput").placeholder =
-  currentLanguage === "de"
-  ? "https://www.ihre-firma.de"
-  : "https://www.your-company.com";
+      </div>
 
-  document.getElementById("clientMessage").placeholder =
-  currentLanguage === "de"
-  ? "Erzählen Sie uns von Ihrem Projekt..."
-  : "Tell us about your project...";
+    </div>
 
-  updateLegalContent();
+  </footer>
 
-}
 
+  <!-- =========================
+       PRIVACY MODAL
+  ========================== -->
 
-/* =========================================================
-   LEGAL PAGES
-========================================================= */
+  <div
+    id="privacy"
+    class="modal"
+  >
 
-function updateLegalContent(){
+    <div class="modal-box">
 
-  document.getElementById("impressumContent").innerHTML =
-  impressum[currentLanguage];
+      <button
+        class="close"
+        onclick="closeModal('privacy')"
+      >
+        ×
+      </button>
 
-  document.getElementById("privacyContent").innerHTML =
-  privacy[currentLanguage];
+      <div id="privacyContent"></div>
 
-}
-
-
-function openPrivacy(){
-
-  updateLegalContent();
-
-  document.getElementById("mainSite").style.display = "none";
-  document.getElementById("mainFooter").style.display = "none";
-  document.getElementById("privacyPage").classList.add("active");
-
-  window.scrollTo(0,0);
-
-}
-
-
-function openImpressum(){
-
-  updateLegalContent();
-
-  document.getElementById("mainSite").style.display = "none";
-  document.getElementById("mainFooter").style.display = "none";
-  document.getElementById("impressumPage").classList.add("active");
-
-  window.scrollTo(0,0);
-
-}
-
-
-function closeLegalPage(){
-
-  document.getElementById("privacyPage").classList.remove("active");
-
-  document.getElementById("impressumPage").classList.remove("active");
-
-  document.getElementById("mainSite").style.display = "block";
-
-  document.getElementById("mainFooter").style.display = "block";
-
-  window.scrollTo(0,0);
-
-}
-
-
-/* =========================================================
-   WEBSITE ANALYZER DEMO
-========================================================= */
-
-function analyzeWebsite(){
-
-  const website =
-  document.getElementById("websiteInput").value.trim();
-
-  if(!website){
-
-    alert(
-      currentLanguage === "de"
-      ? "Bitte geben Sie eine Website-Adresse ein."
-      : "Please enter a website address."
-    );
-
-    return;
-  }
-
-  function randomScore(min,max){
-
-    return Math.floor(
-      Math.random()*(max-min+1)
-    )+min;
-
-  }
-
-  document.getElementById("designScore").textContent =
-  randomScore(45,95)+"/100";
-
-  document.getElementById("mobileScore").textContent =
-  randomScore(40,96)+"/100";
-
-  document.getElementById("performanceScore").textContent =
-  randomScore(35,94)+"/100";
-
-  document.getElementById("seoScore").textContent =
-  randomScore(30,92)+"/100";
-
-  document.getElementById("accessibilityScore").textContent =
-  randomScore(40,94)+"/100";
-
-  document.getElementById("aiScore").textContent =
-  randomScore(10,85)+"/100";
-
-  document.getElementById("checkResult")
-  .classList.add("show");
-
-}
-
-
-/* =========================================================
-   PROJECT REQUESTS
-========================================================= */
-
-document
-.getElementById("projectForm")
-.addEventListener("submit",function(event){
-
-  event.preventDefault();
-
-  const name =
-  document.getElementById("clientName").value;
-
-  const email =
-  document.getElementById("clientEmail").value;
-
-  const service =
-  document.getElementById("serviceType").value;
-
-  requests.unshift({
-    name:name,
-    email:email,
-    service:service
-  });
-
-  updateRequests();
-
-  this.reset();
-
-  alert(
-    currentLanguage === "de"
-    ? "Vielen Dank! Ihre Anfrage wurde erfolgreich gespeichert."
-    : "Thank you! Your request has been successfully submitted."
-  );
-
-});
-
-
-function updateRequests(){
-
-  const container =
-  document.getElementById("requestsContainer");
-
-  if(requests.length === 0){
-    return;
-  }
-
-  container.innerHTML =
-  requests.map(request => `
-
-  <div class="request-item">
-
-    <strong>
-      ${escapeHtml(request.name)}
-    </strong>
-
-    <span>
-      ${escapeHtml(request.email)}
-    </span>
-
-    <br>
-
-    <span class="badge">
-      ${escapeHtml(request.service)}
-    </span>
+    </div>
 
   </div>
 
-  `).join("");
 
-}
+  <!-- =========================
+       IMPRESSUM MODAL
+  ========================== -->
 
+  <div
+    id="impressum"
+    class="modal"
+  >
 
-/* =========================================================
-   SECURITY
-========================================================= */
+    <div class="modal-box">
 
-function escapeHtml(text){
+      <button
+        class="close"
+        onclick="closeModal('impressum')"
+      >
+        ×
+      </button>
 
-  return text.replace(
-    /[&<>"']/g,
-    function(character){
+      <div id="impressumContent"></div>
 
-      const entities = {
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      };
+    </div>
 
-      return entities[character];
-
-    }
-  );
-
-}
+  </div>
 
 
-/* =========================================================
-   YEAR
-========================================================= */
-
-document.getElementById("year").textContent =
-new Date().getFullYear();
-
-
-/* INITIALIZE */
-
-updateLegalContent();
-
-</script>
+  <script src="js/app.js"></script>
 
 </body>
 </html>
