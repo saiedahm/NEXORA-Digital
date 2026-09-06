@@ -1,102 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXORA — Future Digital Experience</title>
-  <meta name="description" content="NEXORA Digital — AI, Web, Automation and Digital Transformation.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/cinematic.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA - Future Digital Experience</title>
+    <meta name="description" content="NEXORA Digital - AI, Web, Automation and Digital Transformation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        /* كود التصميم السينمائي الاحترافي المدمج */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #030812; color: #ffffff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        
+        /* الشبكة السيبرانية المتحركة ثنائية الأبعاد وثلاثية الأبعاد */
+        .boot-grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px); background-size: 40px 40px; transform: perspective(500px) rotateX(60deg) translateY(-30%) translateZ(0); transform-origin: top center; animation: gridMove 12s linear infinite; z-index: 1; }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 480px; } }
+        
+        .boot-core { position: relative; z-index: 10; text-align: center; max-width: 600px; padding: 20px; background: rgba(3, 8, 18, 0.8); border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 16px; backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0, 243, 255, 0.05); }
+        .eyebrow { font-family: 'Space Grotesk', sans-serif; color: #00f3ff; text-transform: uppercase; letter-spacing: 4px; font-size: 14px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,243,255,0.5); }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; margin-bottom: 15px; line-height: 1.2; }
+        h1 span { color: #00f3ff; }
+        p { color: #8fa0dd; font-size: 14px; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
+        
+        /* زر التشغيل والاندماج السينمائي */
+        #enterBtn { background: transparent; color: #00f3ff; border: 2px solid #00f3ff; padding: 12px 35px; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+        #enterBtn:hover { background: #00f3ff; color: #030812; box-shadow: 0 0 30px rgba(0, 243, 255, 0.6); transform: translateY(-2px); }
+        .boot-note { font-size: 11px; color: #4b597b; margin-top: 20px; }
+    </style>
 </head>
 <body>
-  <div id="boot">
+
     <div class="boot-grid"></div>
-    <div class="boot-core"></div>
-    <div class="boot-copy">
-      <div class="eyebrow">NEXORA DIGITAL</div>
-      <h1>THE FUTURE<br><span>IS BUILDABLE.</span></h1>
-      <p>AI • WEB • AUTOMATION • DIGITAL INTELLIGENCE</p>
-      <button id="enterBtn">ENTER EXPERIENCE</button>
-      <div class="boot-note">Best experienced fullscreen · 60 seconds</div>
+
+    <div id="boot">
+        <div class="boot-core">
+            <div class="eyebrow">NEXORA DIGITAL</div>
+            <h1>THE FUTURE <br><span>IS BUILDABLE.</span></h1>
+            <p>AI • WEB • AUTOMATION • DIGITAL INTELLIGENCE</p>
+            <button id="enterBtn" onclick="startExperience()">ENTER EXPERIENCE</button>
+            <div class="boot-note">Best experienced fullscreen • Audio background integrated</div>
+        </div>
     </div>
-  </div>
 
-  <canvas id="scene"></canvas>
+    <!-- ملف الصوت المدمج من المسار الرئيسي لقراءته فوراً -->
+    <audio id="futureAudio" src="nexora-future.mp3" loop></audio>
 
-  <div id="hud">
-    <div class="hud-top">
-      <div class="brand">NEXORA<span> / DIGITAL</span></div>
-      <div class="signal">SYSTEM ONLINE <i></i></div>
-    </div>
-    <div class="hud-bottom">
-      <div class="counter" id="timecode">00:00 / 01:00</div>
-      <div class="progress"><span id="progressBar"></span></div>
-      <button id="fullscreenBtn" aria-label="Fullscreen">FULLSCREEN</button>
-    </div>
-  </div>
-
-  <main id="story">
-    <section class="scene-text" id="s1">
-      <div class="eyebrow">NEXORA DIGITAL</div>
-      <h2>We design<br><span>the digital future.</span></h2>
-      <p>AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION</p>
-    </section>
-
-    <section class="scene-text builder" id="s2">
-      <div class="eyebrow">01 / AI WEBSITE BUILDER</div>
-      <h2>From an idea<br>to a <span>live website.</span></h2>
-      <div class="prompt">“Create a modern website for my company.”</div>
-      <div class="pipeline">
-        <b>IDEA</b><i>→</i><b>STRUCTURE</b><i>→</i><b>DESIGN</b><i>→</i><b>CODE</b><i>→</i><b>LIVE</b>
-      </div>
-    </section>
-
-    <section class="scene-text modernize" id="s3">
-      <div class="eyebrow">02 / WEBSITE MODERNIZATION</div>
-      <h2>Old digital presence?<br><span>Rebuild it for now.</span></h2>
-      <div class="transform">
-        <div class="old-card"><small>LEGACY SITE</small><strong>OUTDATED</strong><em>STATIC · SLOW · INVISIBLE</em></div>
-        <div class="transform-arrow">↠</div>
-        <div class="new-card"><small>NEXORA SYSTEM</small><strong>MODERN</strong><em>FAST · INTELLIGENT · CONVERTING</em></div>
-      </div>
-    </section>
-
-    <section class="scene-text team" id="s4">
-      <div class="eyebrow">03 / AI TEAM</div>
-      <h2>AI isn't just a tool.<br><span>It's part of the team.</span></h2>
-      <div class="team-grid">
-        <div>DESIGN AI</div><div>CODE AI</div><div>SEO AI</div>
-        <div>CONTENT AI</div><div>ANALYTICS AI</div><div>AUTOMATION AI</div>
-      </div>
-    </section>
-
-    <section class="scene-text command" id="s5">
-      <div class="eyebrow">04 / NEXORA COMMAND CENTER</div>
-      <h2>Your digital operation<br><span>in one intelligent system.</span></h2>
-      <div class="dashboard">
-        <div><small>LEADS</small><strong data-count="248">0</strong></div>
-        <div><small>ANALYZED</small><strong data-count="1842">0</strong></div>
-        <div><small>REQUESTS</small><strong data-count="96">0</strong></div>
-        <div><small>PROJECTS</small><strong data-count="37">0</strong></div>
-      </div>
-      <div class="command-line"><span>›</span> BUILD DIGITAL FUTURE<span class="cursor">_</span></div>
-    </section>
-
-    <section class="scene-text finale" id="s6">
-      <div class="logo-mark">N</div>
-      <div class="eyebrow">NEXORA DIGITAL</div>
-      <h2>BUILD. MODERNIZE.<br><span>INTELLIGENTLY.</span></h2>
-      <p>AI • WEB • AUTOMATION</p>
-      <a href="https://www.nexoraonline.de/" target="_blank" rel="noopener">WWW.NEXORAONLINE.DE</a>
-    </section>
-  </main>
-
-  <audio id="music" preload="auto" src="./assets/audio/nexora-future.mp3"></audio>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="./js/cinematic.js"></script>
+    <script>
+        // كود الحركة والتشغيل الصوتي السينمائي المدمج
+        function startExperience() {
+            const audio = document.getElementById('futureAudio');
+            
+            // تشغيل الموسيقى الخلفية الفاخرة المرفوعة في مستودعك
+            audio.play().then(() => {
+                console.log("Audio playing successfully.");
+            }).catch(err => {
+                console.log("Audio playback blocked or file missing: ", err);
+            });
+            
+            // إضافة تأثير حركي عند الضغط لفتح النظام والآدمن
+            document.querySelector('.boot-core').style.transform = 'scale(0.95)';
+            document.querySelector('.boot-core').style.opacity = '0';
+            document.querySelector('.boot-core').style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                // ينقلك مباشرة للوحة تحكم المدير العام الحقيقية بعد انتهاء المقدمة السينمائية
+                window.location.href = "http://localhost:3000"; 
+            }, 600026);
+        }
+    </script>
 </body>
 </html>
+
