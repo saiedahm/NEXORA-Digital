@@ -48,7 +48,7 @@ const TRANSLATIONS = {
     hero_title_2:"die digitale Zukunft.",
     hero_text:"NEXORA Digital entwickelt moderne Websites, intelligente KI-Lösungen, Automatisierung und AI Advertising für Unternehmen.",
     hero_check:"Website kostenlos prüfen",
-    hero_ad:"اعلانك بل اي اي",
+    hero_ad:"KI-Werbung",
     hero_project:"Projekt starten",
 
     stat_team:"AI Team Mitglieder",
@@ -96,7 +96,7 @@ const TRANSLATIONS = {
     command_placeholder:"Beschreiben Sie Ihren Auftrag...",
     ai_run:"Command ausführen",
 
-    advertising_title:"اعلانك بل اي اي",
+    advertising_title:"KI-Werbung",
     advertising_text:"Beschreiben Sie Ihre gewünschte Werbung. Der AI Manager entwickelt daraus eine Kampagnenstruktur und bereitet die Distribution für geeignete Plattformen vor.",
     advertising_form_title:"Ihre AI-Werbeanfrage",
     company_placeholder:"Unternehmen",
