@@ -23,11 +23,15 @@
 <header>
   <div class="container navbar">
 
-    <a href="#home" class="brand">
+    <a href="#home" class="brand" aria-label="NEXORA Digital Startseite">
       <img
-        src="assets/nexora-logo.png"
+        src="./assets/nexora-logo.png"
         alt="NEXORA Digital"
         class="logo-image"
+        width="180"
+        height="auto"
+        loading="eager"
+        decoding="async"
       >
 
       <div>
@@ -36,12 +40,12 @@
       </div>
     </a>
 
-    <nav id="mainNav">
+    <nav id="mainNav" aria-label="Hauptnavigation">
       <a href="#design" data-i18n="nav_design">Design</a>
       <a href="#requirements" data-i18n="nav_requirements">Anforderungen</a>
       <a href="#execution" data-i18n="nav_execution">Umsetzung</a>
       <a href="#ai-team" data-i18n="nav_ai_team">AI Team</a>
-      <a href="#advertising" class="nav-ad">اعلانك بل اي اي</a>
+      <a href="#advertising" class="nav-ad">KI-Werbung</a>
       <a href="#pricing" data-i18n="nav_pricing">Preise</a>
       <a href="#booking" data-i18n="nav_booking">Termin</a>
       <a href="#contact" data-i18n="nav_contact">Kontakt</a>
@@ -53,32 +57,14 @@
         id="languageButton"
         type="button"
         onclick="toggleLanguageMenu()"
+        aria-haspopup="true"
+        aria-expanded="false"
       >
         🇩🇪 DE
       </button>
 
       <div class="language-menu" id="languageMenu">
-
-        <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
-        <button onclick="setLanguage('en')">🇬🇧 English</button>
-        <button onclick="setLanguage('ar')">🇸🇦 العربية</button>
-        <button onclick="setLanguage('fr')">🇫🇷 Français</button>
-        <button onclick="setLanguage('es')">🇪🇸 Español</button>
-        <button onclick="setLanguage('it')">🇮🇹 Italiano</button>
-        <button onclick="setLanguage('nl')">🇳🇱 Nederlands</button>
-        <button onclick="setLanguage('pl')">🇵🇱 Polski</button>
-        <button onclick="setLanguage('tr')">🇹🇷 Türkçe</button>
-        <button onclick="setLanguage('pt')">🇵🇹 Português</button>
-        <button onclick="setLanguage('ru')">🇷🇺 Русский</button>
-        <button onclick="setLanguage('uk')">🇺🇦 Українська</button>
-        <button onclick="setLanguage('zh')">🇨🇳 中文</button>
-        <button onclick="setLanguage('ja')">🇯🇵 日本語</button>
-        <button onclick="setLanguage('ko')">🇰🇷 한국어</button>
-        <button onclick="setLanguage('hi')">🇮🇳 हिन्दी</button>
-        <button onclick="setLanguage('sv')">🇸🇪 Svenska</button>
-        <button onclick="setLanguage('da')">🇩🇰 Dansk</button>
-        <button onclick="setLanguage('no')">🇳🇴 Norsk</button>
-        <button onclick="setLanguage('fi')">🇫🇮 Suomi</button>
+        <button type="button" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
       </div>
     </div>
 
@@ -98,11 +84,14 @@
         <video
           id="heroVideo"
           class="hero-video"
+          controls
           preload="metadata"
-          poster="assets/nexora-hero.png"
+          poster="./assets/nexora-hero.png"
           playsinline
+          aria-label="NEXORA Digital Präsentationsvideo"
         >
-          <source src="assets/nexora-hero-intro.mp4" type="video/mp4">
+          <source src="./assets/nexora-hero-intro.mp4" type="video/mp4">
+          Ihr Browser unterstützt die Videowiedergabe nicht.
         </video>
 
         <div class="hero-video-overlay"></div>
@@ -112,7 +101,7 @@
           class="video-play"
           type="button"
           onclick="toggleHeroVideo()"
-          aria-label="Play video"
+          aria-label="Video abspielen"
         >
           ▶
         </button>
@@ -161,7 +150,7 @@
               class="btn btn-ad"
               data-i18n="hero_ad"
             >
-              اعلانك بل اي اي
+              KI-Werbung
             </a>
 
             <a
@@ -178,9 +167,13 @@
 
         <!-- Central hero image -->
         <img
-          src="assets/nexora-hero.png"
+          src="./assets/nexora-hero.png"
           alt="NEXORA Digital AI Technology"
           class="hero-center-image"
+          width="1200"
+          height="800"
+          loading="eager"
+          decoding="async"
         >
 
       </div>
@@ -532,7 +525,7 @@
         <div class="section-tag">05 / AI ADVERTISING</div>
 
         <h2 data-i18n="advertising_title">
-          اعلانك بل اي اي
+          KI-Werbung
         </h2>
 
         <p
@@ -648,7 +641,11 @@
           <p data-i18n="price_1_text">
             Moderne Unternehmenswebsite mit responsive Design.
           </p>
-          <button class="btn btn-secondary" onclick="selectService('New Website Design')">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            onclick="selectService('New Website Design')"
+          >
             <span data-i18n="choose">Auswählen</span>
           </button>
         </div>
@@ -660,7 +657,11 @@
           <p data-i18n="price_2_text">
             Modernisierung einer bestehenden Website.
           </p>
-          <button class="btn btn-primary" onclick="selectService('Website Modernization')">
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="selectService('Website Modernization')"
+          >
             <span data-i18n="choose">Auswählen</span>
           </button>
         </div>
@@ -672,7 +673,11 @@
           <p data-i18n="price_3_text">
             Integration intelligenter KI-Funktionen.
           </p>
-          <button class="btn btn-secondary" onclick="selectService('AI Integration')">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            onclick="selectService('AI Integration')"
+          >
             <span data-i18n="choose">Auswählen</span>
           </button>
         </div>
@@ -684,7 +689,11 @@
           <p data-i18n="price_4_text">
             AI-basierte Kampagnenplanung und Werbematerial.
           </p>
-          <button class="btn btn-ad" onclick="selectService('AI Advertising')">
+          <button
+            class="btn btn-ad"
+            type="button"
+            onclick="selectService('AI Advertising')"
+          >
             <span data-i18n="choose">Auswählen</span>
           </button>
         </div>
@@ -854,7 +863,10 @@
         </h2>
       </div>
 
-      <div class="workflow workflow-large" id="executionPipeline"></div>
+      <div
+        class="workflow workflow-large"
+        id="executionPipeline"
+      ></div>
 
     </div>
   </section>
@@ -884,6 +896,7 @@
 
         <button
           class="btn btn-primary"
+          type="button"
           onclick="bookMeeting()"
           data-i18n="booking_button"
         >
@@ -935,7 +948,11 @@
 
 <footer>
 
-  <div class="footer-bg-image"></div>
+  <!-- Footer background image -->
+  <div
+    class="footer-bg-image"
+    aria-hidden="true"
+  ></div>
 
   <div class="container footer-content">
 
@@ -944,9 +961,13 @@
       <div>
 
         <img
-          src="assets/nexora-logo.png"
+          src="./assets/nexora-logo.png"
           alt="NEXORA Digital"
           class="footer-logo"
+          width="180"
+          height="auto"
+          loading="lazy"
+          decoding="async"
         >
 
         <p class="footer-text">
@@ -972,7 +993,7 @@
           <a href="#design" data-i18n="nav_design">Design</a>
           <a href="#ai-team" data-i18n="nav_ai_team">AI Team</a>
           <a href="#pricing" data-i18n="nav_pricing">Preise</a>
-          <a href="#advertising">اعلانك بل اي اي</a>
+          <a href="#advertising">KI-Werbung</a>
           <a href="#contact" data-i18n="nav_contact">Kontakt</a>
         </div>
 
@@ -1040,29 +1061,120 @@
 
 <div id="privacy" class="modal">
   <div class="modal-box">
-    <button class="close" onclick="closeModal('privacy')">×</button>
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('privacy')"
+      aria-label="Datenschutzerklärung schließen"
+    >
+      ×
+    </button>
     <div id="privacyContent"></div>
   </div>
 </div>
 
 <div id="impressum" class="modal">
   <div class="modal-box">
-    <button class="close" onclick="closeModal('impressum')">×</button>
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('impressum')"
+      aria-label="Impressum schließen"
+    >
+      ×
+    </button>
     <div id="impressumContent"></div>
   </div>
 </div>
 
 <div id="terms" class="modal">
   <div class="modal-box">
-    <button class="close" onclick="closeModal('terms')">×</button>
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('terms')"
+      aria-label="Terms & Conditions schließen"
+    >
+      ×
+    </button>
     <div id="termsContent"></div>
   </div>
 </div>
 
 
-<script src="js/app.js"></script>
+<script src="./js/app.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById("heroVideo");
+    const playButton = document.getElementById("videoPlayButton");
+    const languageButton = document.getElementById("languageButton");
+    const languageMenu = document.getElementById("languageMenu");
+
+    if (video) {
+      video.removeAttribute("autoplay");
+      video.autoplay = false;
+      video.preload = "metadata";
+
+      video.addEventListener("play", function () {
+        if (playButton) {
+          playButton.style.display = "none";
+          playButton.setAttribute("aria-hidden", "true");
+        }
+      });
+
+      video.addEventListener("pause", function () {
+        if (playButton) {
+          playButton.style.display = "";
+          playButton.setAttribute("aria-hidden", "false");
+        }
+      });
+
+      video.addEventListener("ended", function () {
+        if (playButton) {
+          playButton.style.display = "";
+          playButton.setAttribute("aria-hidden", "false");
+        }
+      });
+    }
+
+    if (languageButton && languageMenu) {
+      languageButton.addEventListener("click", function () {
+        const isOpen = languageMenu.classList.toggle("open");
+        languageButton.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".language-wrapper")) {
+          languageMenu.classList.remove("open");
+          languageButton.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    const yearElement = document.getElementById("year");
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+  });
+
+  function toggleHeroVideo() {
+    const video = document.getElementById("heroVideo");
+
+    if (!video) {
+      return;
+    }
+
+    if (video.paused || video.ended) {
+      video.play().catch(function () {
+        video.controls = true;
+      });
+    } else {
+      video.pause();
+    }
+  }
+</script>
 
 </body>
 </html>
-
 
