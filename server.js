@@ -1,1159 +1,1946 @@
-'use strict';
 
-/**
- * NEXORA Enterprise Backend
- * AI Agents + SQLite + Activity Logging + 14-Stage Workflow
- *
- * Required packages:
- * npm install express cors dotenv sqlite3 sqlite helmet express-rate-limit openai
- *
- * Required .env:
- * OPENAI_API_KEY=your_openai_api_key
- * PORT=3000
- * OPENAI_MODEL=gpt-5.5
- */
+"use strict";
 
-require('dotenv').config();
+/*
+  NEXORA Digital AI Backend
 
-const path = require('path');
-const fs = require('fs');
-const util = require('util');
+  Install:
+  npm install express cors helmet dotenv better-sqlite3 openai
 
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const sqlite3 = require('sqlite3').verbose();
-const OpenAI = require('openai');
+  Start:
+  node server.js
+
+  Required .env:
+  OPENAI_API_KEY=your_openai_api_key
+  PORT=3000
+*/
+
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const path = require("path");
+const Database = require("better-sqlite3");
+const OpenAI = require("openai");
 
 const app = express();
 
-const PORT = Number(process.env.PORT || 3000);
-const DB_PATH = path.join(__dirname, 'nexora_enterprise.db');
+const PORT =
+  Number(process.env.PORT || 3000);
 
-const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-5.5';
+const ROOT =
+  __dirname;
 
-if (!process.env.OPENAI_API_KEY) {
-    console.error(
-        '[NEXORA FATAL] OPENAI_API_KEY is missing. Add it to your .env file before starting the server.'
-    );
-    process.exit(1);
-}
+const PUBLIC_DIR =
+  path.join(ROOT,"public");
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    timeout: 120000,
-    maxRetries: 2
-});
+const DB_FILE =
+  path.join(ROOT,"nexora_enterprise.db");
 
-app.disable('x-powered-by');
+const db =
+  new Database(DB_FILE);
+
+db.pragma("journal_mode = WAL");
 
 app.use(
-    helmet({
-        crossOriginResourcePolicy: false
-    })
+  helmet({
+    contentSecurityPolicy:false
+  })
+);
+
+app.use(cors());
+
+app.use(
+  express.json({
+    limit:"2mb"
+  })
 );
 
 app.use(
-    cors({
-        origin: process.env.CORS_ORIGIN
-            ? process.env.CORS_ORIGIN.split(',').map((item) => item.trim())
-            : true,
-        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
-    })
+  express.urlencoded({
+    extended:true,
+    limit:"2mb"
+  })
 );
 
-app.use(
-    express.json({
-        limit: '2mb'
-    })
-);
 
-app.use(
-    express.urlencoded({
-        extended: true,
-        limit: '2mb'
-    })
-);
+/* =========================
+   OPENAI
+========================= */
 
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 300,
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: {
-        success: false,
-        error: 'Too many requests. Please try again later.'
-    }
-});
+const openai =
+  process.env.OPENAI_API_KEY
+    ? new OpenAI({
+        apiKey:process.env.OPENAI_API_KEY,
+        timeout:120000,
+        maxRetries:2
+      })
+    : null;
 
-app.use('/api', apiLimiter);
 
-const db = new sqlite3.Database(DB_PATH);
+/* =========================
+   LANGUAGES
+========================= */
 
-const dbRun = util.promisify(db.run.bind(db));
-const dbGet = util.promisify(db.get.bind(db));
-const dbAll = util.promisify(db.all.bind(db));
+const LANGUAGES = {
+
+  de:"German",
+  en:"English",
+  ar:"Arabic",
+  fr:"French",
+  es:"Spanish",
+  it:"Italian",
+  nl:"Dutch",
+  pl:"Polish",
+  tr:"Turkish",
+  pt:"Portuguese",
+  ru:"Russian",
+  uk:"Ukrainian",
+  zh:"Chinese",
+  ja:"Japanese",
+  ko:"Korean",
+  hi:"Hindi",
+  sv:"Swedish",
+  da:"Danish",
+  no:"Norwegian",
+  fi:"Finnish"
+
+};
+
+
+/* =========================
+   9 AI MEMBERS
+========================= */
+
+const AI_TEAM = {
+
+  manager:{
+    id:"manager",
+    name:"AI GENERAL MANAGER",
+    role:"AI General Manager",
+    description:
+      "Coordinates the entire NEXORA AI workforce."
+  },
+
+  lead:{
+    id:"lead",
+    name:"LEAD RESEARCH",
+    role:"Lead Research Agent",
+    description:
+      "Researches company profiles, opportunities and requirements."
+  },
+
+  audit:{
+    id:"audit",
+    name:"WEBSITE AUDIT",
+    role:"Website Audit Agent",
+    description:
+      "Analyzes website structure, SEO and technical signals."
+  },
+
+  design:{
+    id:"design",
+    name:"DESIGN AGENT",
+    role:"UI/UX Design Agent",
+    description:
+      "Creates design concepts, UX plans and creative direction."
+  },
+
+  quote:{
+    id:"quote",
+    name:"QUOTE GENERATOR",
+    role:"Proposal and Pricing Agent",
+    description:
+      "Creates proposals, estimates and pricing breakdowns."
+  },
+
+  advertising:{
+    id:"advertising",
+    name:"ADVERTISING AGENT",
+    role:"AI Advertising Agent",
+    description:
+      "Creates advertising campaigns and platform-ready campaign structures."
+  },
+
+  development:{
+    id:"development",
+    name:"DEVELOPMENT AGENT",
+    role:"Development Agent",
+    description:
+      "Plans and executes development tasks."
+  },
+
+  qa:{
+    id:"qa",
+    name:"QA AGENT",
+    role:"Quality Assurance Agent",
+    description:
+      "Checks implementation quality and identifies defects."
+  },
+
+  launch:{
+    id:"launch",
+    name:"LAUNCH AGENT",
+    role:"Launch Agent",
+    description:
+      "Prepares deployment and launch procedures."
+  }
+
+};
+
+
+/* =========================
+   14 STAGES
+========================= */
 
 const PIPELINE = [
-    {
-        id: 'lead-research',
-        name: 'Lead Research',
-        stage: 1
-    },
-    {
-        id: 'website-audit',
-        name: 'Website Audit',
-        stage: 2
-    },
-    {
-        id: 'ai-manager',
-        name: 'AI Manager',
-        stage: 3
-    },
-    {
-        id: 'crm',
-        name: 'CRM Qualification',
-        stage: 4
-    },
-    {
-        id: 'client-portal',
-        name: 'Client Portal',
-        stage: 5
-    },
-    {
-        id: 'design-agent',
-        name: 'Design Agent',
-        stage: 6
-    },
-    {
-        id: 'design-approval',
-        name: 'Design Approval',
-        stage: 7
-    },
-    {
-        id: 'quote-generator',
-        name: 'Quote Generator',
-        stage: 8
-    },
-    {
-        id: 'invoice',
-        name: 'Invoice',
-        stage: 9
-    },
-    {
-        id: 'payment-confirmation',
-        name: 'Payment Confirmation',
-        stage: 10
-    },
-    {
-        id: 'development',
-        name: 'Development Workflow',
-        stage: 11
-    },
-    {
-        id: 'qa',
-        name: 'Quality Assurance',
-        stage: 12
-    },
-    {
-        id: 'launch',
-        name: 'Launch',
-        stage: 13
-    },
-    {
-        id: 'growth',
-        name: 'Growth & Optimization',
-        stage: 14
-    }
+
+  {
+    id:1,
+    name:"Lead Intake"
+  },
+
+  {
+    id:2,
+    name:"Lead Research"
+  },
+
+  {
+    id:3,
+    name:"Website Audit"
+  },
+
+  {
+    id:4,
+    name:"Opportunity Analysis"
+  },
+
+  {
+    id:5,
+    name:"Design Brief"
+  },
+
+  {
+    id:6,
+    name:"Client Portal"
+  },
+
+  {
+    id:7,
+    name:"Design Approval"
+  },
+
+  {
+    id:8,
+    name:"Quote"
+  },
+
+  {
+    id:9,
+    name:"Contract / Terms"
+  },
+
+  {
+    id:10,
+    name:"Invoice"
+  },
+
+  {
+    id:11,
+    name:"Payment Confirmation"
+  },
+
+  {
+    id:12,
+    name:"Development"
+  },
+
+  {
+    id:13,
+    name:"QA"
+  },
+
+  {
+    id:14,
+    name:"Launch"
+  }
+
 ];
 
-const SUPPORTED_AGENTS = {
-    'lead-research': {
-        name: 'LEAD RESEARCH',
-        stage: 1
-    },
-    'website-audit': {
-        name: 'WEBSITE AUDIT',
-        stage: 2
-    },
-    'design-agent': {
-        name: 'DESIGN AGENT',
-        stage: 6
-    },
-    'quote-generator': {
-        name: 'QUOTE GENERATOR',
-        stage: 8
-    }
-};
 
-const AGENT_ALIASES = {
-    leadresearch: 'lead-research',
-    lead_research: 'lead-research',
-    lead: 'lead-research',
+/* =========================
+   DATABASE
+========================= */
 
-    websiteaudit: 'website-audit',
-    website_audit: 'website-audit',
-    audit: 'website-audit',
+db.exec(`
+  CREATE TABLE IF NOT EXISTS clients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    service TEXT,
+    message TEXT,
+    language TEXT DEFAULT 'de',
+    stage INTEGER DEFAULT 1,
+    agent_payload TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
 
-    design: 'design-agent',
-    designagent: 'design-agent',
-    design_agent: 'design-agent',
+  CREATE TABLE IF NOT EXISTS agent_activity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id INTEGER,
+    agent_id TEXT NOT NULL,
+    stage INTEGER,
+    input TEXT,
+    output TEXT,
+    language TEXT,
+    status TEXT DEFAULT 'completed',
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
 
-    quote: 'quote-generator',
-    quotegenerator: 'quote-generator',
-    quote_generator: 'quote-generator'
-};
+  CREATE TABLE IF NOT EXISTS campaigns (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id INTEGER,
+    company TEXT,
+    product TEXT,
+    goal TEXT,
+    brief TEXT,
+    platforms TEXT,
+    language TEXT,
+    ai_output TEXT,
+    status TEXT DEFAULT 'draft',
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
 
-function normalizeAgentId(agentId) {
-    if (typeof agentId !== 'string') {
-        return null;
-    }
+  CREATE TABLE IF NOT EXISTS system_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event TEXT NOT NULL,
+    payload TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`);
 
-    const normalized = agentId.trim().toLowerCase();
 
-    if (SUPPORTED_AGENTS[normalized]) {
-        return normalized;
-    }
+/* =========================
+   HELPERS
+========================= */
 
-    return AGENT_ALIASES[normalized] || null;
+function normalizeLanguage(language){
+
+  if (
+    typeof language !== "string" ||
+    !LANGUAGES[language]
+  ){
+    return "de";
+  }
+
+  return language;
 }
 
-function nowISO() {
-    return new Date().toISOString();
+
+function getLanguageName(language){
+
+  return LANGUAGES[
+    normalizeLanguage(language)
+  ];
 }
 
-function safeParseJSON(value, fallback) {
-    if (!value || typeof value !== 'string') {
-        return fallback;
-    }
 
-    try {
-        return JSON.parse(value);
-    } catch (error) {
-        return fallback;
-    }
+function safeJSON(value){
+
+  try{
+    return JSON.parse(value);
+  }catch{
+    return null;
+  }
+
 }
 
-function sanitizeText(value, maxLength = 5000) {
-    if (value === undefined || value === null) {
-        return '';
-    }
 
-    return String(value)
-        .trim()
-        .replace(/\u0000/g, '')
-        .slice(0, maxLength);
+function logSystem(event,payload={}){
+
+  db.prepare(`
+    INSERT INTO system_logs
+    (event,payload)
+    VALUES (?,?)
+  `).run(
+    event,
+    JSON.stringify(payload)
+  );
+
 }
 
-function validateClientId(clientId) {
-    const numericId = Number(clientId);
 
-    if (!Number.isInteger(numericId) || numericId <= 0) {
-        return null;
-    }
+function getClient(clientId){
 
-    return numericId;
+  return db.prepare(`
+    SELECT *
+    FROM clients
+    WHERE id = ?
+  `).get(clientId);
+
 }
 
-function buildClientContext(client) {
-    const payloadHistory = safeParseJSON(client.agent_payload, []);
 
-    return {
-        id: client.id,
-        company_name: client.company_name || '',
-        contact_name: client.contact_name || '',
-        email: client.email || '',
-        phone: client.phone || '',
-        website_url: client.website_url || '',
-        country: client.country || '',
-        industry: client.industry || '',
-        project_type: client.project_type || '',
-        budget: client.budget || '',
-        current_stage: Number(client.current_stage || 0),
-        status: client.status || 'new',
-        notes: client.notes || '',
-        previous_agent_outputs: Array.isArray(payloadHistory)
-            ? payloadHistory.slice(-8)
-            : []
-    };
+function updateClientStage(clientId,stage){
+
+  db.prepare(`
+    UPDATE clients
+    SET stage = ?,
+        updated_at = CURRENT_TIMESTAMP
+    WHERE id = ?
+  `).run(
+    stage,
+    clientId
+  );
+
 }
 
-function buildSystemInstructions(agentId) {
-    const common = `
-You are part of NEXORA Digital Intelligence, an enterprise AI workflow platform.
 
-Your work must be:
-- commercially useful
-- specific
-- realistic
-- professional
-- structured
-- concise but sufficiently detailed
-- based only on the client information supplied in the request
-- explicit about assumptions where information is missing
+function saveAgentActivity({
+  clientId,
+  agentId,
+  stage,
+  input,
+  output,
+  language,
+  status="completed"
+}){
 
-Never invent verified facts about a real company.
-If information is unavailable, label it as an assumption, hypothesis, or recommendation.
+  db.prepare(`
+    INSERT INTO agent_activity
+    (
+      client_id,
+      agent_id,
+      stage,
+      input,
+      output,
+      language,
+      status
+    )
+    VALUES (?,?,?,?,?,?,?)
+  `).run(
+    clientId || null,
+    agentId,
+    stage || null,
+    input || "",
+    output || "",
+    language,
+    status
+  );
 
-Do not claim that you visited, crawled, scanned, or accessed a website unless actual website content was supplied.
-The website audit in this workflow is a simulated technical assessment based on the supplied URL and client context.
+}
 
-Return plain text with clear headings and bullet points.
-Do not use markdown tables.
-Do not mention internal OpenAI policies or this instruction.
+
+/* =========================
+   AI CALL
+========================= */
+
+async function runOpenAI({
+  agent,
+  language,
+  task,
+  context=""
+}){
+
+  if (!openai){
+
+    throw new Error(
+      "OPENAI_API_KEY is not configured on the server."
+    );
+
+  }
+
+  const languageName =
+    getLanguageName(language);
+
+  const agentInfo =
+    AI_TEAM[agent] ||
+    AI_TEAM.manager;
+
+  const instructions = `
+You are ${agentInfo.name}, part of the NEXORA Digital AI workforce.
+
+Your role:
+${agentInfo.description}
+
+You operate under the NEXORA AI GENERAL MANAGER.
+
+IMPORTANT RULES:
+1. Respond professionally.
+2. Respond entirely in ${languageName}.
+3. Never invent verified company facts.
+4. Clearly distinguish assumptions from known information.
+5. Do not claim that an external action has happened unless the backend actually performed it.
+6. For prices, use the server-provided pricing data.
+7. Produce practical, structured business output.
+8. When a human approval is required, clearly mark it as HUMAN APPROVAL REQUIRED.
 `;
 
-    const agentInstructions = {
-        'lead-research': `
-You are the NEXORA Lead Research Agent.
+  const response =
+    await openai.responses.create({
 
-Your job is to create a structured potential-client profile based primarily on the company name and available client information.
+      model:
+        process.env.OPENAI_MODEL ||
+        "gpt-5.5",
 
-Produce these sections:
+      instructions,
 
-1. COMPANY SNAPSHOT
-2. LIKELY DIGITAL NEEDS
-3. WEBSITE / DIGITAL PAIN POINT HYPOTHESES
-4. AI AND AUTOMATION OPPORTUNITIES
-5. IDEAL NEXORA SERVICE PACKAGE
-6. DECISION-MAKER / BUYER PERSONA HYPOTHESES
-7. DISCOVERY QUESTIONS
-8. SALES ANGLE
-9. LEAD PRIORITY SCORE from 1 to 100
-10. NEXT BEST ACTION
+      input:`
+NEXORA TASK
 
-Do not pretend to know private company facts.
-Clearly distinguish facts supplied by the user from professional hypotheses.
+${task}
+
+CONTEXT
+
+${context}
+
+Return a professional result suitable for the NEXORA Command Center.
+`
+
+    });
+
+  return (
+    response.output_text ||
+    "No AI output was returned."
+  );
+
+}
+
+
+/* =========================
+   MANAGER ROUTING
+========================= */
+
+function detectAgent(command){
+
+  const text =
+    String(command || "")
+      .toLowerCase();
+
+  if (
+    /advert|werbung|anzeige|kampagne|social|ad\b|إعلان|اعلان/.test(text)
+  ){
+    return "advertising";
+  }
+
+  if (
+    /website.*audit|audit|seo|prüfung|prüfen|check|analyse.*website/.test(text)
+  ){
+    return "audit";
+  }
+
+  if (
+    /design|ui|ux|layout|wireframe|branding/.test(text)
+  ){
+    return "design";
+  }
+
+  if (
+    /preis|quote|angebot|cost|kosten|estimate|budget/.test(text)
+  ){
+    return "quote";
+  }
+
+  if (
+    /entwick|development|code|programm|automation|automatis/.test(text)
+  ){
+    return "development";
+  }
+
+  if (
+    /qa|test|quality|qualität|bug|fehler/.test(text)
+  ){
+    return "qa";
+  }
+
+  if (
+    /launch|deploy|deployment|live|veröffentlichen/.test(text)
+  ){
+    return "launch";
+  }
+
+  if (
+    /lead|kunde|unternehmen|firma|research|recherche/.test(text)
+  ){
+    return "lead";
+  }
+
+  return "manager";
+
+}
+
+
+/* =========================
+   PRICING
+========================= */
+
+const PRICING = {
+
+  "New Website Design":{
+    base:1490,
+    description:
+      "Modern responsive business website"
+  },
+
+  "Website Modernization":{
+    base:990,
+    description:
+      "Modernization of an existing website"
+  },
+
+  "AI Integration":{
+    base:1290,
+    description:
+      "AI functionality integration"
+  },
+
+  "AI Advertising":{
+    base:490,
+    description:
+      "AI advertising campaign package"
+  }
+
+};
+
+
+function calculateQuote(service){
+
+  const selected =
+    PRICING[service] ||
+    PRICING["New Website Design"];
+
+  const setup =
+    selected.base;
+
+  const contingency =
+    Math.round(
+      setup * 0.10
+    );
+
+  const total =
+    setup + contingency;
+
+  return {
+    service,
+    basePrice:setup,
+    contingency,
+    estimatedTotal:total,
+    currency:"EUR",
+    description:selected.description
+  };
+
+}
+
+
+/* =========================
+   HEALTH
+========================= */
+
+app.get(
+  "/api/health",
+  (req,res) => {
+
+    const totalClients =
+      db.prepare(`
+        SELECT COUNT(*) AS count
+        FROM clients
+      `).get().count;
+
+    res.json({
+
+      status:"online",
+
+      aiConfigured:
+        Boolean(openai),
+
+      teamSize:
+        Object.keys(AI_TEAM).length,
+
+      pipelineStages:
+        PIPELINE.length,
+
+      supportedLanguages:
+        Object.keys(LANGUAGES).length,
+
+      clients:
+        totalClients,
+
+      pipeline:{
+        currentStage:1
+      }
+
+    });
+
+  }
+);
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+app.post(
+  "/api/language",
+  (req,res) => {
+
+    const language =
+      normalizeLanguage(
+        req.body.language
+      );
+
+    res.json({
+      success:true,
+      language,
+      languageName:
+        getLanguageName(language)
+    });
+
+  }
+);
+
+
+/* =========================
+   CLIENT CREATE
+========================= */
+
+app.post(
+  "/api/clients",
+  async (req,res) => {
+
+    try{
+
+      const {
+        name,
+        email,
+        service="",
+        message="",
+        language="de"
+      } = req.body;
+
+      const normalizedLanguage =
+        normalizeLanguage(language);
+
+      if (!name || !email){
+
+        return res.status(400).json({
+          error:
+            "Name and email are required."
+        });
+
+      }
+
+      const result =
+        db.prepare(`
+          INSERT INTO clients
+          (
+            name,
+            email,
+            service,
+            message,
+            language,
+            stage
+          )
+          VALUES (?,?,?,?,?,1)
+        `).run(
+          String(name).trim(),
+          String(email).trim(),
+          String(service).trim(),
+          String(message).trim(),
+          normalizedLanguage
+        );
+
+      const clientId =
+        Number(result.lastInsertRowid);
+
+      const client =
+        getClient(clientId);
+
+      logSystem(
+        "CLIENT_CREATED",
+        {
+          clientId,
+          language:normalizedLanguage,
+          service
+        }
+      );
+
+      /*
+        Automatically start the AI Manager workflow.
+        Financial approval/payment are intentionally
+        not auto-confirmed by AI.
+      */
+
+      let managerOutput = null;
+
+      if (openai){
+
+        try{
+
+          managerOutput =
+            await runOpenAI({
+
+              agent:"manager",
+
+              language:normalizedLanguage,
+
+              task:`
+A new client request has arrived.
+
+Determine:
+1. Which AI agent should handle it first.
+2. Which pipeline stage should be active.
+3. What information is missing.
+4. What the recommended next action is.
+
+Client:
+${name}
+
+Service:
+${service}
+
+Message:
+${message}
+
+Return a concise operational routing decision.
+`
+
+            });
+
+          saveAgentActivity({
+
+            clientId,
+
+            agentId:"manager",
+
+            stage:1,
+
+            input:message,
+
+            output:managerOutput,
+
+            language:normalizedLanguage
+
+          });
+
+        }catch(error){
+
+          saveAgentActivity({
+
+            clientId,
+
+            agentId:"manager",
+
+            stage:1,
+
+            input:message,
+
+            output:error.message,
+
+            language:normalizedLanguage,
+
+            status:"error"
+
+          });
+
+        }
+
+      }
+
+      return res.status(201).json({
+
+        success:true,
+
+        client,
+
+        manager:
+          managerOutput,
+
+        pipeline:
+          PIPELINE
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      return res.status(500).json({
+        error:
+          "Unable to create client."
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================
+   AI COMMAND CENTER
+========================= */
+
+app.post(
+  "/api/command",
+  async (req,res) => {
+
+    try{
+
+      const {
+        command,
+        language="de",
+        clientId=null
+      } = req.body;
+
+      const normalizedLanguage =
+        normalizeLanguage(language);
+
+      if (!command){
+
+        return res.status(400).json({
+          error:
+            "Command is required."
+        });
+
+      }
+
+      const agent =
+        detectAgent(command);
+
+      const agentInfo =
+        AI_TEAM[agent];
+
+      const client =
+        clientId
+          ? getClient(clientId)
+          : null;
+
+      const result =
+        await runOpenAI({
+
+          agent,
+
+          language:normalizedLanguage,
+
+          task:`
+The AI Manager received this command:
+
+${command}
+
+Route this task to:
+
+${agentInfo.name}
+
+Agent role:
+${agentInfo.description}
+
+Provide the actual professional work requested.
 `,
 
-        'website-audit': `
-You are the NEXORA Website Audit Agent.
+          context:
+            client
+              ? JSON.stringify(client,null,2)
+              : "No specific client attached."
 
-Perform a simulated expert technical, UX, accessibility, performance, SEO and conversion audit.
+        });
 
-The supplied URL is contextual only. You do not have live browsing access through this workflow.
-Do not claim to have inspected its real HTML, server, analytics, Lighthouse score, backlinks, or search rankings.
+      saveAgentActivity({
 
-Generate:
+        clientId,
 
-1. EXECUTIVE SUMMARY
-2. ASSUMED CURRENT DIGITAL RISKS
-3. TECHNICAL ARCHITECTURE RECOMMENDATIONS
-4. PERFORMANCE RECOMMENDATIONS
-5. MOBILE AND RESPONSIVE UX ISSUES TO CHECK
-6. ACCESSIBILITY IMPROVEMENTS
-7. SEO RECOMMENDATIONS
-8. SECURITY AND PRIVACY CHECKLIST
-9. CONVERSION RATE IMPROVEMENTS
-10. AI INTEGRATION OPPORTUNITIES
-11. PRIORITIZED ACTION PLAN
-12. EXPECTED BUSINESS IMPACT
+        agentId:agent,
 
-Classify each recommendation as CRITICAL, HIGH, MEDIUM, or LOW priority.
+        stage:
+          client?.stage || 1,
+
+        input:command,
+
+        output:result,
+
+        language:normalizedLanguage
+
+      });
+
+      logSystem(
+        "AI_COMMAND",
+        {
+          agent,
+          language:normalizedLanguage
+        }
+      );
+
+      res.json({
+
+        success:true,
+
+        agent:{
+          id:agent,
+          name:agentInfo.name,
+          role:agentInfo.role
+        },
+
+        language:normalizedLanguage,
+
+        result
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      res.status(500).json({
+        error:
+          error.message ||
+          "AI Manager error."
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================
+   WEBSITE AUDIT
+========================= */
+
+app.post(
+  "/api/audit",
+  async (req,res) => {
+
+    try{
+
+      const {
+        url,
+        language="de",
+        clientId=null
+      } = req.body;
+
+      if (!url){
+
+        return res.status(400).json({
+          error:
+            "Website URL is required."
+        });
+
+      }
+
+      let parsedUrl;
+
+      try{
+
+        parsedUrl =
+          new URL(url);
+
+        if (
+          !["http:","https:"]
+            .includes(parsedUrl.protocol)
+        ){
+          throw new Error(
+            "Only HTTP and HTTPS URLs are supported."
+          );
+        }
+
+      }catch{
+
+        return res.status(400).json({
+          error:
+            "Invalid website URL."
+        });
+
+      }
+
+      const response =
+        await fetch(
+          parsedUrl.toString(),
+          {
+            method:"GET",
+            headers:{
+              "User-Agent":
+                "NEXORA-Digital-Audit/1.0"
+            },
+            redirect:"follow",
+            signal:
+              AbortSignal.timeout(20000)
+          }
+        );
+
+      const html =
+        await response.text();
+
+      const limitedHTML =
+        html.slice(0,120000);
+
+      const title =
+        (
+          html.match(
+            /<title[^>]*>([\s\S]*?)<\/title>/i
+          ) || []
+        )[1] || "";
+
+      const description =
+        (
+          html.match(
+            /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i
+          ) || []
+        )[1] || "";
+
+      const h1Count =
+        (
+          html.match(
+            /<h1\b/gi
+          ) || []
+        ).length;
+
+      const viewport =
+        /name=["']viewport["']/i.test(html);
+
+      const canonical =
+        /rel=["']canonical["']/i.test(html);
+
+      const langAttribute =
+        (
+          html.match(
+            /<html[^>]+lang=["']([^"']+)["']/i
+          ) || []
+        )[1] || "";
+
+      const auditData = {
+
+        url:
+          parsedUrl.toString(),
+
+        status:
+          response.status,
+
+        title,
+
+        metaDescription:
+          description,
+
+        h1Count,
+
+        viewport,
+
+        canonical,
+
+        htmlLanguage:
+          langAttribute,
+
+        htmlSize:
+          html.length,
+
+        https:
+          parsedUrl.protocol === "https:"
+
+      };
+
+      const aiResult =
+        await runOpenAI({
+
+          agent:"audit",
+
+          language,
+
+          task:`
+Analyze the following website audit data.
+
+Return:
+
+1. Executive summary
+2. Technical findings
+3. SEO findings
+4. UX findings
+5. Security/basic best-practice observations
+6. Priority fixes
+7. Recommended next steps
+
+Do not claim that performance, Core Web Vitals, accessibility scores,
+backlinks or server configuration were measured unless the supplied
+data proves it.
+
+AUDIT DATA:
+${JSON.stringify(auditData,null,2)}
 `,
 
-        'design-agent': `
-You are the NEXORA Design Agent and senior UI/UX strategist.
+          context:
+            `Selected HTML sample:\n${limitedHTML}`
 
-Create a creative but commercially realistic UI/UX design brief for the client's requested digital project.
+        });
 
-Generate:
+      saveAgentActivity({
 
-1. DESIGN VISION
-2. BRAND AND VISUAL DIRECTION
-3. TARGET USERS
-4. USER EXPERIENCE STRATEGY
-5. INFORMATION ARCHITECTURE
-6. HOMEPAGE WIREFRAME CONCEPT
-7. CORE PAGE WIREFRAME CONCEPTS
-8. PRIMARY USER FLOWS
-9. RESPONSIVE DESIGN STRATEGY
-10. COMPONENT SYSTEM
-11. ACCESSIBILITY REQUIREMENTS
-12. AI-POWERED EXPERIENCE IDEAS
-13. THREE CREATIVE DESIGN CONCEPTS WITH DISTINCT NAMES
-14. RECOMMENDED CONCEPT
+        clientId,
 
-Describe wireframes in structured textual blocks that a developer and designer can directly use.
+        agentId:"audit",
+
+        stage:3,
+
+        input:url,
+
+        output:aiResult,
+
+        language
+
+      });
+
+      res.json({
+
+        success:true,
+
+        audit:auditData,
+
+        result:aiResult
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      res.status(500).json({
+        error:
+          error.message ||
+          "Website audit failed."
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================
+   AI ADVERTISING
+========================= */
+
+app.post(
+  "/api/advertising",
+  async (req,res) => {
+
+    try{
+
+      const {
+        clientId=null,
+        company,
+        product,
+        goal="brand",
+        brief,
+        platforms=[],
+        language="de"
+      } = req.body;
+
+      const normalizedLanguage =
+        normalizeLanguage(language);
+
+      if (
+        !company ||
+        !product ||
+        !brief
+      ){
+
+        return res.status(400).json({
+          error:
+            "Company, product and advertising brief are required."
+        });
+
+      }
+
+      const selectedPlatforms =
+        Array.isArray(platforms)
+          ? platforms.slice(0,10)
+          : [];
+
+      const campaign =
+        await runOpenAI({
+
+          agent:"advertising",
+
+          language:normalizedLanguage,
+
+          task:`
+Create a professional AI advertising campaign.
+
+Company:
+${company}
+
+Product/service:
+${product}
+
+Goal:
+${goal}
+
+Brief:
+${brief}
+
+Requested platforms:
+${selectedPlatforms.join(", ") || "Not specified"}
+
+Return:
+
+1. Campaign concept
+2. Core message
+3. Target audience
+4. Creative direction
+5. Primary ad copy
+6. Short headline variations
+7. Call to action
+8. Platform adaptation notes
+9. Suggested campaign structure
+10. HUMAN APPROVAL REQUIRED before publishing
 `,
 
-        'quote-generator': `
-You are the NEXORA Quote Generator and enterprise digital project estimator.
+          context:
+            "The campaign is being prepared by NEXORA Advertising Agent."
 
-Generate a realistic EUR project estimate based on the client context and previous agent outputs.
+        });
 
-You must calculate a professional cost breakdown using explicit assumptions and scope.
+      const insert =
+        db.prepare(`
+          INSERT INTO campaigns
+          (
+            client_id,
+            company,
+            product,
+            goal,
+            brief,
+            platforms,
+            language,
+            ai_output,
+            status
+          )
+          VALUES (?,?,?,?,?,?,?,?,?)
+        `).run(
+          clientId || null,
+          company,
+          product,
+          goal,
+          brief,
+          JSON.stringify(
+            selectedPlatforms
+          ),
+          normalizedLanguage,
+          campaign,
+          "draft"
+        );
+
+      saveAgentActivity({
+
+        clientId,
+
+        agentId:"advertising",
+
+        stage:
+          clientId
+            ? 5
+            : 1,
+
+        input:
+          brief,
+
+        output:
+          campaign,
+
+        language:
+          normalizedLanguage
+
+      });
+
+      logSystem(
+        "AI_CAMPAIGN_CREATED",
+        {
+          campaignId:
+            insert.lastInsertRowid,
+          clientId,
+          platforms:selectedPlatforms
+        }
+      );
+
+      res.json({
+
+        success:true,
+
+        campaignId:
+          Number(
+            insert.lastInsertRowid
+          ),
+
+        status:"draft",
+
+        platforms:
+          selectedPlatforms,
+
+        result:
+          campaign
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      res.status(500).json({
+        error:
+          error.message ||
+          "Advertising campaign generation failed."
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================
+   QUOTE GENERATOR
+========================= */
+
+app.post(
+  "/api/quote",
+  async (req,res) => {
+
+    try{
+
+      const {
+        service,
+        requirements="",
+        language="de",
+        clientId=null
+      } = req.body;
+
+      const normalizedLanguage =
+        normalizeLanguage(language);
+
+      const quote =
+        calculateQuote(service);
+
+      const proposal =
+        await runOpenAI({
+
+          agent:"quote",
+
+          language:normalizedLanguage,
+
+          task:`
+Create a formal professional proposal using the following
+server-calculated pricing.
+
+Service:
+${quote.service}
+
+Base price:
+€${quote.basePrice}
+
+Contingency:
+€${quote.contingency}
+
+Estimated total:
+€${quote.estimatedTotal}
+
+Description:
+${quote.description}
+
+Client requirements:
+${requirements}
+
+The AI must NOT alter the numerical prices.
+Explain that final pricing depends on confirmed scope.
 
 Include:
-
-1. PROJECT SUMMARY
-2. SCOPE OF WORK
-3. COST BREAKDOWN IN EUR
-4. OPTIONAL ADD-ONS
-5. DELIVERY TIMELINE
-6. PAYMENT MILESTONES
-7. ASSUMPTIONS
-8. EXCLUSIONS
-9. FORMAL PROJECT PROPOSAL
-10. RECOMMENDED PACKAGE
-11. TOTAL PROJECT INVESTMENT IN EUR
-
-The total must equal the sum of the mandatory cost items.
-
-Use reasonable enterprise pricing.
-Do not claim this is a legally binding contract.
-The proposal should be ready for human review before sending to a customer.
+- Scope
+- Deliverables
+- Price
+- Estimated timeline
+- Assumptions
+- Next step
+- HUMAN APPROVAL REQUIRED
 `
-    };
 
-    return `${common}\n${agentInstructions[agentId] || ''}`;
-}
+        });
 
-function buildAgentInput(agentId, client) {
-    const context = buildClientContext(client);
+      saveAgentActivity({
 
-    const companyName =
-        sanitizeText(context.company_name, 300) || 'Unnamed Company';
+        clientId,
 
-    const websiteUrl =
-        sanitizeText(context.website_url, 2000) ||
-        'No website URL supplied';
+        agentId:"quote",
 
-    const projectType =
-        sanitizeText(context.project_type, 1000) ||
-        'Website modernization / digital transformation';
+        stage:8,
 
-    const budget =
-        sanitizeText(context.budget, 200) ||
-        'Budget not specified';
+        input:
+          requirements,
 
-    const previousOutputs = context.previous_agent_outputs.length
-        ? JSON.stringify(context.previous_agent_outputs, null, 2)
-        : 'No previous AI agent outputs available.';
+        output:
+          proposal,
 
-    if (agentId === 'lead-research') {
-        return `
-Create a lead research profile for the following potential client.
+        language:
+          normalizedLanguage
 
-Company name: ${companyName}
-Industry: ${context.industry || 'Not specified'}
-Country: ${context.country || 'Germany or target market not specified'}
-Website: ${websiteUrl}
-Requested project: ${projectType}
-Known budget: ${budget}
-Internal notes: ${sanitizeText(context.notes, 4000)}
+      });
 
-Previous workflow context:
-${previousOutputs}
-`;
+      res.json({
+
+        success:true,
+
+        pricing:
+          quote,
+
+        result:
+          proposal
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      res.status(500).json({
+        error:
+          error.message
+      });
+
     }
 
-    if (agentId === 'website-audit') {
-        return `
-Perform a simulated professional website and digital presence audit.
+  }
+);
 
-Company: ${companyName}
-Industry: ${context.industry || 'Not specified'}
-Website URL: ${websiteUrl}
-Requested project: ${projectType}
-Country / market: ${context.country || 'Not specified'}
-Known business context: ${sanitizeText(context.notes, 4000)}
 
-Previous workflow context:
-${previousOutputs}
+/* =========================
+   RUN AGENT
+========================= */
 
-Important:
-The URL is supplied as a reference only. Do not claim live crawling or direct access.
-`;
-    }
+app.post(
+  "/api/run-agent",
+  async (req,res) => {
 
-    if (agentId === 'design-agent') {
-        return `
-Create the UI/UX strategy and textual wireframe concepts.
+    try{
 
-Company: ${companyName}
-Industry: ${context.industry || 'Not specified'}
-Current website: ${websiteUrl}
-Project type: ${projectType}
-Target market: ${context.country || 'Not specified'}
-Budget guidance: ${budget}
-Additional notes: ${sanitizeText(context.notes, 4000)}
-
-Previous workflow outputs:
-${previousOutputs}
-`;
-    }
-
-    if (agentId === 'quote-generator') {
-        return `
-Create a detailed EUR project quote and formal proposal.
-
-Client company: ${companyName}
-Industry: ${context.industry || 'Not specified'}
-Website: ${websiteUrl}
-Requested project: ${projectType}
-Budget guidance: ${budget}
-Country / market: ${context.country || 'Not specified'}
-Additional notes: ${sanitizeText(context.notes, 4000)}
-
-Use all useful information from these previous workflow outputs:
-${previousOutputs}
-
-The quote must contain arithmetic that is internally consistent.
-Show every mandatory cost item and then show the exact total.
-`;
-    }
-
-    throw new Error(`Unsupported agent: ${agentId}`);
-}
-
-async function callAgent(agentId, client) {
-    const instructions = buildSystemInstructions(agentId);
-    const input = buildAgentInput(agentId, client);
-
-    const response = await openai.responses.create(
-        {
-            model: OPENAI_MODEL,
-            instructions,
-            input
-        },
-        {
-            timeout: 120000
-        }
-    );
-
-    const output = sanitizeText(response.output_text, 100000);
-
-    if (!output) {
-        throw new Error('OpenAI returned an empty agent response.');
-    }
-
-    return {
-        output,
-        responseId: response.id || null,
-        requestId: response._request_id || null,
-        model: OPENAI_MODEL
-    };
-}
-
-async function initializeDatabase() {
-    await dbRun(`
-        CREATE TABLE IF NOT EXISTS clients (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            company_name TEXT NOT NULL,
-            contact_name TEXT,
-            email TEXT,
-            phone TEXT,
-            website_url TEXT,
-            country TEXT,
-            industry TEXT,
-            project_type TEXT,
-            budget TEXT,
-            notes TEXT,
-            current_stage INTEGER NOT NULL DEFAULT 0,
-            status TEXT NOT NULL DEFAULT 'new',
-            agent_payload TEXT NOT NULL DEFAULT '[]',
-            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-        )
-    `);
-
-    const columns = await dbAll(`PRAGMA table_info(clients)`);
-
-    const columnNames = new Set(columns.map((column) => column.name));
-
-    const requiredColumns = [
-        ['contact_name', 'TEXT'],
-        ['email', 'TEXT'],
-        ['phone', 'TEXT'],
-        ['website_url', 'TEXT'],
-        ['country', 'TEXT'],
-        ['industry', 'TEXT'],
-        ['project_type', 'TEXT'],
-        ['budget', 'TEXT'],
-        ['notes', 'TEXT'],
-        ['current_stage', 'INTEGER NOT NULL DEFAULT 0'],
-        ['status', "TEXT NOT NULL DEFAULT 'new'"],
-        ['agent_payload', "TEXT NOT NULL DEFAULT '[]'"],
-        ['created_at', 'TEXT'],
-        ['updated_at', 'TEXT']
-    ];
-
-    for (const [columnName, definition] of requiredColumns) {
-        if (!columnNames.has(columnName)) {
-            await dbRun(
-                `ALTER TABLE clients ADD COLUMN ${columnName} ${definition}`
-            );
-        }
-    }
-
-    await dbRun(`
-        CREATE TABLE IF NOT EXISTS activity_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            client_id INTEGER,
-            agent_id TEXT,
-            action TEXT NOT NULL,
-            status TEXT NOT NULL,
-            details TEXT,
-            created_at TEXT NOT NULL,
-            FOREIGN KEY(client_id) REFERENCES clients(id)
-        )
-    `);
-
-    await dbRun(`
-        CREATE INDEX IF NOT EXISTS idx_activity_logs_client_id
-        ON activity_logs(client_id)
-    `);
-
-    await dbRun(`
-        CREATE INDEX IF NOT EXISTS idx_clients_current_stage
-        ON clients(current_stage)
-    `);
-
-    await dbRun(`
-        UPDATE clients
-        SET agent_payload = '[]'
-        WHERE agent_payload IS NULL OR TRIM(agent_payload) = ''
-    `);
-
-    console.log(`[NEXORA] SQLite database ready: ${DB_PATH}`);
-}
-
-async function logActivity({
-    clientId = null,
-    agentId = null,
-    action,
-    status,
-    details = null
-}) {
-    const safeDetails =
-        details === null || details === undefined
-            ? null
-            : JSON.stringify(details);
-
-    await dbRun(
-        `
-        INSERT INTO activity_logs (
-            client_id,
-            agent_id,
-            action,
-            status,
-            details,
-            created_at
-        )
-        VALUES (?, ?, ?, ?, ?, ?)
-        `,
-        [
-            clientId,
-            agentId,
-            sanitizeText(action, 500),
-            sanitizeText(status, 100),
-            safeDetails,
-            nowISO()
-        ]
-    );
-}
-
-async function appendAgentPayload(client, agentId, result) {
-    const existingPayload = safeParseJSON(client.agent_payload, []);
-
-    const payloadHistory = Array.isArray(existingPayload)
-        ? existingPayload
-        : [];
-
-    const newEntry = {
-        agent_id: agentId,
-        agent_name: SUPPORTED_AGENTS[agentId].name,
-        stage: SUPPORTED_AGENTS[agentId].stage,
-        generated_at: nowISO(),
-        model: result.model,
-        response_id: result.responseId,
-        request_id: result.requestId,
-        output: result.output
-    };
-
-    payloadHistory.push(newEntry);
-
-    const serializedPayload = JSON.stringify(payloadHistory);
-
-    await dbRun(
-        `
-        UPDATE clients
-        SET
-            agent_payload = ?,
-            current_stage = ?,
-            status = ?,
-            updated_at = ?
-        WHERE id = ?
-        `,
-        [
-            serializedPayload,
-            SUPPORTED_AGENTS[agentId].stage,
-            'in_progress',
-            nowISO(),
-            client.id
-        ]
-    );
-
-    return newEntry;
-}
-
-async function getClientById(clientId) {
-    return dbGet(
-        `
-        SELECT *
-        FROM clients
-        WHERE id = ?
-        `,
-        [clientId]
-    );
-}
-
-async function executeAgentPipeline(clientId, agentId) {
-    const client = await getClientById(clientId);
-
-    if (!client) {
-        const error = new Error(`Client with ID ${clientId} was not found.`);
-        error.statusCode = 404;
-        throw error;
-    }
-
-    await logActivity({
+      const {
         clientId,
         agentId,
-        action: 'agent_execution_started',
-        status: 'started',
-        details: {
-            agent: SUPPORTED_AGENTS[agentId].name,
-            stage: SUPPORTED_AGENTS[agentId].stage
-        }
-    });
+        language
+      } = req.body;
 
-    try {
-        const result = await callAgent(agentId, client);
+      const client =
+        getClient(clientId);
 
-        const savedPayload = await appendAgentPayload(
-            client,
-            agentId,
-            result
+      if (!client){
+
+        return res.status(404).json({
+          error:
+            "Client not found."
+        });
+
+      }
+
+      if (!AI_TEAM[agentId]){
+
+        return res.status(400).json({
+          error:
+            "Unknown AI agent."
+        });
+
+      }
+
+      const normalizedLanguage =
+        normalizeLanguage(
+          language || client.language
         );
 
-        await logActivity({
-            clientId,
-            agentId,
-            action: 'agent_execution_completed',
-            status: 'success',
-            details: {
-                stage: SUPPORTED_AGENTS[agentId].stage,
-                response_id: result.responseId,
-                request_id: result.requestId,
-                model: result.model
-            }
+      const agent =
+        AI_TEAM[agentId];
+
+      const task =
+        `
+Client:
+${client.name}
+
+Service:
+${client.service}
+
+Email:
+${client.email}
+
+Request:
+${client.message}
+
+Current pipeline stage:
+${client.stage}
+
+Execute your assigned role as ${agent.name}.
+
+Return the practical next output required for this client.
+`;
+
+      const output =
+        await runOpenAI({
+
+          agent:agentId,
+
+          language:normalizedLanguage,
+
+          task
+
         });
 
-        const updatedClient = await getClientById(clientId);
-
-        return {
-            client: updatedClient,
-            agent: savedPayload,
-            output: result.output
-        };
-    } catch (error) {
-        await logActivity({
-            clientId,
-            agentId,
-            action: 'agent_execution_failed',
-            status: 'failed',
-            details: {
-                message: error.message || 'Unknown error',
-                status: error.status || null,
-                code: error.code || null
-            }
-        });
-
-        throw error;
-    }
-}
-
-app.get('/api/health', async (req, res, next) => {
-    try {
-        const result = await dbGet('SELECT 1 AS database_ok');
-
-        res.status(200).json({
-            success: true,
-            service: 'NEXORA Enterprise AI Backend',
-            status: 'online',
-            database: result?.database_ok === 1 ? 'connected' : 'unknown',
-            model: OPENAI_MODEL,
-            timestamp: nowISO()
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-
-app.get('/api/pipeline', (req, res) => {
-    res.status(200).json({
-        success: true,
-        pipeline: PIPELINE,
-        active_ai_agents: Object.entries(SUPPORTED_AGENTS).map(
-            ([id, agent]) => ({
-                id,
-                name: agent.name,
-                stage: agent.stage
-            })
-        )
-    });
-});
-
-app.get('/api/clients', async (req, res, next) => {
-    try {
-        const clients = await dbAll(`
-            SELECT
-                id,
-                company_name,
-                contact_name,
-                email,
-                phone,
-                website_url,
-                country,
-                industry,
-                project_type,
-                budget,
-                notes,
-                current_stage,
-                status,
-                agent_payload,
-                created_at,
-                updated_at
-            FROM clients
-            ORDER BY updated_at DESC, id DESC
-        `);
-
-        res.status(200).json({
-            success: true,
-            count: clients.length,
-            clients
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-
-app.get('/api/clients/:id', async (req, res, next) => {
-    try {
-        const clientId = validateClientId(req.params.id);
-
-        if (!clientId) {
-            return res.status(400).json({
-                success: false,
-                error: 'Invalid client ID.'
-            });
-        }
-
-        const client = await getClientById(clientId);
-
-        if (!client) {
-            return res.status(404).json({
-                success: false,
-                error: 'Client not found.'
-            });
-        }
-
-        const activity = await dbAll(
-            `
-            SELECT *
-            FROM activity_logs
-            WHERE client_id = ?
-            ORDER BY id DESC
-            LIMIT 100
-            `,
-            [clientId]
+      const nextStage =
+        Math.min(
+          14,
+          Math.max(
+            client.stage + 1,
+            client.stage
+          )
         );
 
-        res.status(200).json({
-            success: true,
-            client,
-            activity
-        });
-    } catch (error) {
-        next(error);
+      db.prepare(`
+        UPDATE clients
+        SET
+          agent_payload = ?,
+          stage = ?,
+          language = ?,
+          updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `).run(
+        JSON.stringify({
+          agent:agentId,
+          output,
+          language:normalizedLanguage
+        }),
+        nextStage,
+        normalizedLanguage,
+        clientId
+      );
+
+      saveAgentActivity({
+
+        clientId,
+
+        agentId,
+
+        stage:
+          client.stage,
+
+        input:
+          client.message,
+
+        output,
+
+        language:
+          normalizedLanguage
+
+      });
+
+      res.json({
+
+        success:true,
+
+        client:
+          getClient(clientId),
+
+        agent:{
+          id:agentId,
+          name:agent.name
+        },
+
+        result:
+          output,
+
+        nextStage
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      res.status(500).json({
+        error:
+          error.message ||
+          "Agent execution failed."
+      });
+
     }
-});
 
-app.post('/api/clients', async (req, res, next) => {
-    try {
-        const companyName = sanitizeText(req.body.company_name, 300);
+  }
+);
 
-        if (!companyName) {
-            return res.status(400).json({
-                success: false,
-                error: 'company_name is required.'
-            });
-        }
 
-        const values = {
-            company_name: companyName,
-            contact_name: sanitizeText(req.body.contact_name, 300),
-            email: sanitizeText(req.body.email, 500),
-            phone: sanitizeText(req.body.phone, 100),
-            website_url: sanitizeText(req.body.website_url, 2000),
-            country: sanitizeText(req.body.country, 200),
-            industry: sanitizeText(req.body.industry, 300),
-            project_type: sanitizeText(req.body.project_type, 1000),
-            budget: sanitizeText(req.body.budget, 200),
-            notes: sanitizeText(req.body.notes, 10000),
-            current_stage: 0,
-            status: 'new',
-            agent_payload: '[]',
-            created_at: nowISO(),
-            updated_at: nowISO()
-        };
+/* =========================
+   CLIENTS
+========================= */
 
-        const insertResult = await dbRun(
-            `
-            INSERT INTO clients (
-                company_name,
-                contact_name,
-                email,
-                phone,
-                website_url,
-                country,
-                industry,
-                project_type,
-                budget,
-                notes,
-                current_stage,
-                status,
-                agent_payload,
-                created_at,
-                updated_at
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `,
-            [
-                values.company_name,
-                values.contact_name,
-                values.email,
-                values.phone,
-                values.website_url,
-                values.country,
-                values.industry,
-                values.project_type,
-                values.budget,
-                values.notes,
-                values.current_stage,
-                values.status,
-                values.agent_payload,
-                values.created_at,
-                values.updated_at
-            ]
-        );
+app.get(
+  "/api/clients",
+  (req,res) => {
 
-        const clientId = insertResult.lastID;
-        const client = await getClientById(clientId);
+    const clients =
+      db.prepare(`
+        SELECT
+          id,
+          name,
+          email,
+          service,
+          language,
+          stage,
+          created_at,
+          updated_at
+        FROM clients
+        ORDER BY id DESC
+        LIMIT 100
+      `).all();
 
-        await logActivity({
-            clientId,
-            action: 'client_created',
-            status: 'success',
-            details: {
-                company_name: companyName
-            }
-        });
-
-        res.status(201).json({
-            success: true,
-            client
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-
-app.post('/api/run-agent', async (req, res, next) => {
-    try {
-        const clientId = validateClientId(req.body.clientId);
-        const agentId = normalizeAgentId(req.body.agentId);
-
-        if (!clientId) {
-            return res.status(400).json({
-                success: false,
-                error: 'A valid positive integer clientId is required.'
-            });
-        }
-
-        if (!agentId) {
-            return res.status(400).json({
-                success: false,
-                error:
-                    'Unsupported agentId. Supported agents: lead-research, website-audit, design-agent, quote-generator.'
-            });
-        }
-
-        const result = await executeAgentPipeline(clientId, agentId);
-
-        res.status(200).json({
-            success: true,
-            message: `${SUPPORTED_AGENTS[agentId].name} completed successfully.`,
-            clientId,
-            agentId,
-            currentStage: SUPPORTED_AGENTS[agentId].stage,
-            output: result.output,
-            agent: result.agent,
-            client: result.client
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-
-app.get('/api/clients/:id/activities', async (req, res, next) => {
-    try {
-        const clientId = validateClientId(req.params.id);
-
-        if (!clientId) {
-            return res.status(400).json({
-                success: false,
-                error: 'Invalid client ID.'
-            });
-        }
-
-        const activities = await dbAll(
-            `
-            SELECT *
-            FROM activity_logs
-            WHERE client_id = ?
-            ORDER BY id DESC
-            `,
-            [clientId]
-        );
-
-        res.status(200).json({
-            success: true,
-            clientId,
-            count: activities.length,
-            activities
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        error: 'API endpoint not found.',
-        path: req.originalUrl
-    });
-});
-
-app.use(async (error, req, res, next) => {
-    console.error('[NEXORA ERROR]', {
-        message: error.message,
-        status: error.status,
-        code: error.code,
-        type: error.type,
-        stack:
-            process.env.NODE_ENV === 'production'
-                ? undefined
-                : error.stack
+    res.json({
+      clients
     });
 
-    let statusCode =
-        Number(error.statusCode || error.status || 500);
+  }
+);
 
-    if (!Number.isInteger(statusCode) || statusCode < 400) {
-        statusCode = 500;
+
+/* =========================
+   CLIENT DETAILS
+========================= */
+
+app.get(
+  "/api/clients/:id",
+  (req,res) => {
+
+    const client =
+      getClient(
+        Number(req.params.id)
+      );
+
+    if (!client){
+
+      return res.status(404).json({
+        error:
+          "Client not found."
+      });
+
     }
 
-    if (statusCode > 599) {
-        statusCode = 500;
-    }
+    const activities =
+      db.prepare(`
+        SELECT *
+        FROM agent_activity
+        WHERE client_id = ?
+        ORDER BY id DESC
+      `).all(client.id);
 
-    let message = 'An internal server error occurred.';
+    res.json({
 
-    if (error instanceof SyntaxError && 'body' in error) {
-        statusCode = 400;
-        message = 'Invalid JSON request body.';
-    } else if (statusCode >= 400 && statusCode < 500) {
-        message = error.message || message;
-    } else if (error.status === 401) {
-        statusCode = 500;
-        message =
-            'OpenAI authentication failed. Check OPENAI_API_KEY.';
-    } else if (error.status === 429) {
-        statusCode = 429;
-        message =
-            'OpenAI rate limit or quota limit reached. Please retry later.';
-    } else if (error.code === 'SQLITE_CONSTRAINT') {
-        statusCode = 409;
-        message = 'Database constraint error.';
-    }
+      client,
 
-    res.status(statusCode).json({
-        success: false,
-        error: message,
-        requestId: req.id || null
+      activities,
+
+      pipeline:
+        PIPELINE
+
     });
-});
 
-async function startServer() {
-    try {
-        await initializeDatabase();
+  }
+);
 
-        const uploadsPath = path.join(__dirname, 'uploads');
 
-        if (!fs.existsSync(uploadsPath)) {
-            fs.mkdirSync(uploadsPath, {
-                recursive: true
-            });
-        }
+/* =========================
+   PIPELINE UPDATE
+========================= */
 
-        const server = app.listen(PORT, () => {
-            console.log('');
-            console.log('==============================================');
-            console.log(' NEXORA DIGITAL INTELLIGENCE');
-            console.log(' Enterprise AI Backend is running');
-            console.log(` Port: ${PORT}`);
-            console.log(` Model: ${OPENAI_MODEL}`);
-            console.log(` Database: ${DB_PATH}`);
-            console.log('==============================================');
-            console.log('');
-        });
+app.post(
+  "/api/clients/:id/stage",
+  (req,res) => {
 
-        const gracefulShutdown = async (signal) => {
-            console.log(
-                `[NEXORA] ${signal} received. Shutting down gracefully...`
-            );
+    const clientId =
+      Number(req.params.id);
 
-            server.close(async () => {
-                db.close((error) => {
-                    if (error) {
-                        console.error(
-                            '[NEXORA] Error closing SQLite database:',
-                            error
-                        );
-                        process.exit(1);
-                    }
+    const stage =
+      Number(req.body.stage);
 
-                    console.log(
-                        '[NEXORA] Server and database closed successfully.'
-                    );
+    if (
+      !Number.isInteger(stage) ||
+      stage < 1 ||
+      stage > 14
+    ){
 
-                    process.exit(0);
-                });
-            });
-        };
+      return res.status(400).json({
+        error:
+          "Stage must be between 1 and 14."
+      });
 
-        process.on('SIGINT', () => gracefulShutdown('SIGINT'));
-        process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-    } catch (error) {
-        console.error('[NEXORA FATAL STARTUP ERROR]', error);
-        process.exit(1);
     }
-}
 
-startServer();
+    const client =
+      getClient(clientId);
+
+    if (!client){
+
+      return res.status(404).json({
+        error:
+          "Client not found."
+      });
+
+    }
+
+    /*
+      Important:
+      Stages involving payment, contracts and approvals
+      should be confirmed by the responsible human,
+      payment webhook or trusted business integration.
+    */
+
+    updateClientStage(
+      clientId,
+      stage
+    );
+
+    logSystem(
+      "PIPELINE_STAGE_UPDATED",
+      {
+        clientId,
+        stage,
+        stageName:
+          PIPELINE[stage - 1].name
+      }
+    );
+
+    res.json({
+
+      success:true,
+
+      client:
+        getClient(clientId),
+
+      stage:
+        PIPELINE[stage - 1]
+
+    });
+
+  }
+);
+
+
+/* =========================
+   TEAM
+========================= */
+
+app.get(
+  "/api/ai-team",
+  (req,res) => {
+
+    res.json({
+
+      manager:
+        AI_TEAM.manager,
+
+      agents:
+        Object.values(AI_TEAM)
+          .filter(
+            agent =>
+              agent.id !== "manager"
+          )
+
+    });
+
+  }
+);
+
+
+/* =========================
+   PIPELINE
+========================= */
+
+app.get(
+  "/api/pipeline",
+  (req,res) => {
+
+    res.json({
+      pipeline:PIPELINE
+    });
+
+  }
+);
+
+
+/* =========================
+   STATIC WEBSITE
+========================= */
+
+app.use(
+  express.static(
+    PUBLIC_DIR
+  )
+);
+
+
+/* =========================
+   SPA FALLBACK
+========================= */
+
+app.get(
+  "*",
+  (req,res) => {
+
+    res.sendFile(
+      path.join(
+        PUBLIC_DIR,
+        "index.html"
+      )
+    );
+
+  }
+);
+
+
+/* =========================
+   ERROR HANDLER
+========================= */
+
+app.use(
+  (error,req,res,next) => {
+
+    console.error(error);
+
+    if (res.headersSent){
+      return next(error);
+    }
+
+    res.status(500).json({
+      error:
+        "Internal NEXORA server error."
+    });
+
+  }
+);
+
+
+/* =========================
+   START
+========================= */
+
+app.listen(
+  PORT,
+  () => {
+
+    console.log(
+      `NEXORA Digital running on http://localhost:${PORT}`
+    );
+
+    console.log(
+      `AI Manager: ${openai ? "CONFIGURED" : "NOT CONFIGURED"}`
+    );
+
+    console.log(
+      `AI Team: ${Object.keys(AI_TEAM).length} members`
+    );
+
+    console.log(
+      `Pipeline: ${PIPELINE.length} stages`
+    );
+
+    console.log(
+      `Languages: ${Object.keys(LANGUAGES).length}`
+    );
+
+  }
+);
