@@ -1,4 +1,3 @@
-```javascript
 "use strict";
 
 /*
@@ -58,92 +57,154 @@ const DE_TRANSLATION = {
   hero_tag: "KI-GESTÜTZTE DIGITALE AGENTUR",
   hero_title_1: "Wir gestalten",
   hero_title_2: "die digitale Zukunft.",
+
   hero_text:
-    "NEXORA Digital entwickelt moderne Websites, intelligente KI-Lösungen, Automatisierung und AI Advertising für Unternehmen.",
-  hero_check: "Website kostenlos prüfen",
-  hero_ad: "KI-Werbung",
-  hero_project: "Projekt starten",
+    "NEXORA Digital entwickelt moderne Websites, intelligente KI-Lösungen, Automatisierung und KI-Werbung für Unternehmen.",
 
-  stat_team: "AI Team Mitglieder",
-  stat_pipeline: "Automatisierte Workflow-Stufen",
-  stat_languages: "Sprachen",
-  stat_online: "Digital verfügbar",
+  hero_check:
+    "Website kostenlos prüfen",
 
-  design_title: "Digitale Erlebnisse für die nächste Generation.",
+  hero_ad:
+    "KI-Werbung",
+
+  hero_project:
+    "Projekt starten",
+
+  stat_team:
+    "AI Team Mitglieder",
+
+  stat_pipeline:
+    "Automatisierte Workflow-Stufen",
+
+  stat_languages:
+    "Sprachen",
+
+  stat_online:
+    "Digital verfügbar",
+
+  design_title:
+    "Digitale Erlebnisse für die nächste Generation.",
+
   design_text:
     "Design, Technologie und künstliche Intelligenz werden zu einem digitalen System verbunden.",
 
-  service_1_title: "Neue Website",
+  service_1_title:
+    "Neue Website",
+
   service_1_text:
     "Moderne, responsive und conversion-orientierte Websites.",
 
-  service_2_title: "Website Modernisierung",
+  service_2_title:
+    "Website Modernisierung",
+
   service_2_text:
     "Bestehende Websites werden technisch und visuell modernisiert.",
 
-  service_3_title: "KI Integration",
+  service_3_title:
+    "KI Integration",
+
   service_3_text:
     "KI-Assistenten, Automatisierung und intelligente Prozesse.",
 
   requirements_title:
     "Ihre Anforderungen werden zum digitalen Plan.",
+
   requirements_text:
     "Analyse, Strategie, Design, Entwicklung und Launch werden über einen strukturierten Workflow geführt.",
 
-  step_1_title: "Analyse",
+  step_1_title:
+    "Analyse",
+
   step_1_text:
     "Unternehmen und Ziel werden analysiert.",
 
-  step_2_title: "Research",
+  step_2_title:
+    "Research",
+
   step_2_text:
     "Markt, Website und Chancen werden untersucht.",
 
-  step_3_title: "Audit",
+  step_3_title:
+    "Audit",
+
   step_3_text:
     "Technische und digitale Schwachstellen werden erkannt.",
 
-  step_4_title: "Design",
+  step_4_title:
+    "Design",
+
   step_4_text:
     "Ein individuelles UI/UX-Konzept wird erstellt.",
 
-  step_5_title: "Freigabe",
+  step_5_title:
+    "Freigabe",
+
   step_5_text:
     "Der Kunde bestätigt den nächsten Schritt.",
 
   team_title:
     "Ein virtueller 9-köpfiger AI-Workforce.",
+
   team_text:
     "Ein AI General Manager koordiniert acht spezialisierte Agenten und verteilt Aufgaben automatisch.",
 
-  agent_manager: "Koordination & Aufgabenverteilung",
-  agent_lead: "Lead- und Unternehmensanalyse",
-  agent_audit: "Website- und SEO-Analyse",
-  agent_design: "UI/UX und kreative Konzepte",
-  agent_quote: "Angebote und Preisplanung",
-  agent_ad: "AI Advertising Kampagnen",
-  agent_dev: "Entwicklung und Automatisierung",
-  agent_qa: "Qualitätssicherung",
-  agent_launch: "Deployment und Launch",
+  agent_manager:
+    "Koordination & Aufgabenverteilung",
 
-  ai_title: "Ihr intelligenter AI Manager.",
+  agent_lead:
+    "Lead- und Unternehmensanalyse",
+
+  agent_audit:
+    "Website- und SEO-Analyse",
+
+  agent_design:
+    "UI/UX und kreative Konzepte",
+
+  agent_quote:
+    "Angebote und Preisplanung",
+
+  agent_ad:
+    "KI-Werbung Kampagnen",
+
+  agent_dev:
+    "Entwicklung und Automatisierung",
+
+  agent_qa:
+    "Qualitätssicherung",
+
+  agent_launch:
+    "Deployment und Launch",
+
+  ai_title:
+    "Ihr intelligenter AI Manager.",
+
   ai_text:
     "Schreiben Sie einen Auftrag. Der AI Manager analysiert die Anfrage und weist die passende Aufgabe einem Agenten zu.",
 
-  command_title: "AI COMMAND CENTER",
+  command_title:
+    "AI COMMAND CENTER",
+
   command_placeholder:
     "Beschreiben Sie Ihren Auftrag...",
-  ai_run: "Command ausführen",
 
-  advertising_title: "KI-Werbung",
+  ai_run:
+    "Command ausführen",
+
+  advertising_title:
+    "KI-Werbung",
+
   advertising_text:
     "Beschreiben Sie Ihre gewünschte Werbung. Der AI Manager entwickelt daraus eine Kampagnenstruktur und bereitet die Distribution für geeignete Plattformen vor.",
 
   advertising_form_title:
     "Ihre AI-Werbeanfrage",
 
-  company_placeholder: "Unternehmen",
+  company_placeholder:
+    "Unternehmen",
+
   product_placeholder:
     "Produkt oder Dienstleistung",
+
   ad_placeholder:
     "Beschreiben Sie Ihre Werbung...",
 
@@ -161,28 +222,33 @@ const DE_TRANSLATION = {
 
   price_1_title:
     "New Website Design",
+
   price_1_text:
     "Moderne Unternehmenswebsite mit responsive Design.",
 
   price_2_title:
     "Website Modernization",
+
   price_2_text:
     "Modernisierung einer bestehenden Website.",
 
   price_3_title:
     "AI Integration",
+
   price_3_text:
     "Integration intelligenter KI-Funktionen.",
 
   price_4_title:
     "AI Advertising",
+
   price_4_text:
-    "AI-basierte Kampagnenplanung und Werbematerial.",
+    "KI-basierte Kampagnenplanung und Werbematerial.",
 
   pricing_note:
     "Endpreise werden anhand des Projektumfangs individuell kalkuliert.",
 
-  choose: "Auswählen",
+  choose:
+    "Auswählen",
 
   checker_title:
     "Prüfen Sie Ihre Website.",
@@ -273,19 +339,38 @@ const EN_TRANSLATION = {
   nav_booking: "Booking",
   nav_contact: "Contact",
 
-  hero_tag: "AI-POWERED DIGITAL AGENCY",
-  hero_title_1: "We design",
-  hero_title_2: "the digital future.",
+  hero_tag:
+    "AI-POWERED DIGITAL AGENCY",
+
+  hero_title_1:
+    "We design",
+
+  hero_title_2:
+    "the digital future.",
+
   hero_text:
     "NEXORA Digital builds modern websites, intelligent AI solutions, automation and AI advertising systems for businesses.",
-  hero_check: "Free Website Audit",
-  hero_ad: "AI Advertising",
-  hero_project: "Start Project",
 
-  stat_team: "AI Team Members",
-  stat_pipeline: "Automated Workflow Stages",
-  stat_languages: "Languages",
-  stat_online: "Digital Availability",
+  hero_check:
+    "Free Website Audit",
+
+  hero_ad:
+    "AI Advertising",
+
+  hero_project:
+    "Start Project",
+
+  stat_team:
+    "AI Team Members",
+
+  stat_pipeline:
+    "Automated Workflow Stages",
+
+  stat_languages:
+    "Languages",
+
+  stat_online:
+    "Digital Availability",
 
   design_title:
     "Digital experiences for the next generation.",
@@ -316,6 +401,36 @@ const EN_TRANSLATION = {
 
   requirements_text:
     "Analysis, strategy, design, development and launch are managed through a structured workflow.",
+
+  step_1_title:
+    "Analysis",
+
+  step_1_text:
+    "The business and objective are analyzed.",
+
+  step_2_title:
+    "Research",
+
+  step_2_text:
+    "Market, website and opportunities are researched.",
+
+  step_3_title:
+    "Audit",
+
+  step_3_text:
+    "Technical and digital weaknesses are identified.",
+
+  step_4_title:
+    "Design",
+
+  step_4_text:
+    "A custom UI/UX concept is created.",
+
+  step_5_title:
+    "Approval",
+
+  step_5_text:
+    "The client approves the next step.",
 
   team_title:
     "A virtual 9-member AI workforce.",
@@ -550,6 +665,36 @@ const AR_TRANSLATION = {
   requirements_text:
     "يتم تنظيم التحليل والاستراتيجية والتصميم والتطوير والإطلاق ضمن سير عمل واضح.",
 
+  step_1_title:
+    "تحليل",
+
+  step_1_text:
+    "تحليل الشركة والهدف.",
+
+  step_2_title:
+    "بحث",
+
+  step_2_text:
+    "بحث السوق والموقع والفرص.",
+
+  step_3_title:
+    "تدقيق",
+
+  step_3_text:
+    "اكتشاف المشاكل التقنية والرقمية.",
+
+  step_4_title:
+    "تصميم",
+
+  step_4_text:
+    "إنشاء مفهوم UI/UX مخصص.",
+
+  step_5_title:
+    "موافقة",
+
+  step_5_text:
+    "يؤكد العميل الخطوة التالية.",
+
   team_title:
     "فريق افتراضي من 9 أعضاء بالذكاء الاصطناعي.",
 
@@ -728,9 +873,6 @@ const LANGUAGE_OVERRIDES = {
 
     hero_title_2:
       "le futur numérique.",
-
-    hero_text:
-      "NEXORA Digital développe des sites modernes, des solutions IA intelligentes, de l'automatisation et de la publicité IA.",
 
     hero_check:
       "Auditer gratuitement le site",
@@ -2318,12 +2460,16 @@ document.addEventListener(
 
     buildLanguageMenu();
 
-    applyLanguage(currentLanguage);
+    applyLanguage(
+      currentLanguage
+    );
 
     renderPipeline();
 
     const form =
-      document.getElementById("projectForm");
+      document.getElementById(
+        "projectForm"
+      );
 
     if (form) {
 
@@ -2400,7 +2546,9 @@ function buildLanguageMenu() {
 
   menu.innerHTML = "";
 
-  Object.entries(LANGUAGES).forEach(
+  Object.entries(
+    LANGUAGES
+  ).forEach(
     ([code, language]) => {
 
       const button =
@@ -2412,6 +2560,11 @@ function buildLanguageMenu() {
 
       button.dataset.language =
         code;
+
+      button.setAttribute(
+        "role",
+        "menuitem"
+      );
 
       button.setAttribute(
         "aria-label",
@@ -2434,8 +2587,15 @@ function buildLanguageMenu() {
 
       button.addEventListener(
         "click",
-        () => {
-          setLanguage(code);
+        event => {
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          setLanguage(
+            code
+          );
+
         }
       );
 
@@ -2484,7 +2644,9 @@ function toggleLanguageMenu() {
    SET LANGUAGE
 ========================================================= */
 
-async function setLanguage(language) {
+async function setLanguage(
+  language
+) {
 
   if (!LANGUAGES[language]) {
     language = "de";
@@ -2564,7 +2726,9 @@ async function setLanguage(language) {
    APPLY LANGUAGE
 ========================================================= */
 
-function applyLanguage(language) {
+function applyLanguage(
+  language
+) {
 
   const dictionary =
     TRANSLATIONS[language] ||
@@ -2592,56 +2756,61 @@ function applyLanguage(language) {
 
   }
 
+
   document
     .querySelectorAll(
       "[data-i18n]"
     )
-    .forEach(element => {
+    .forEach(
+      element => {
 
-      const key =
-        element.getAttribute(
-          "data-i18n"
-        );
+        const key =
+          element.getAttribute(
+            "data-i18n"
+          );
 
-      if (
-        Object.prototype.hasOwnProperty.call(
-          dictionary,
-          key
-        )
-      ) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            dictionary,
+            key
+          )
+        ) {
 
-        element.textContent =
-          dictionary[key];
+          element.textContent =
+            dictionary[key];
+
+        }
 
       }
-
-    });
+    );
 
 
   document
     .querySelectorAll(
       "[data-i18n-placeholder]"
     )
-    .forEach(element => {
+    .forEach(
+      element => {
 
-      const key =
-        element.getAttribute(
-          "data-i18n-placeholder"
-        );
+        const key =
+          element.getAttribute(
+            "data-i18n-placeholder"
+          );
 
-      if (
-        Object.prototype.hasOwnProperty.call(
-          dictionary,
-          key
-        )
-      ) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            dictionary,
+            key
+          )
+        ) {
 
-        element.placeholder =
-          dictionary[key];
+          element.placeholder =
+            dictionary[key];
+
+        }
 
       }
-
-    });
+    );
 
 
   const button =
@@ -2735,10 +2904,12 @@ function applyLanguage(language) {
 
 
 /* =========================================================
-   SERVICE OPTIONS — ALL 20 LANGUAGES
+   SERVICE OPTIONS
 ========================================================= */
 
-function updateServiceOptions(language) {
+function updateServiceOptions(
+  language
+) {
 
   const select =
     document.getElementById(
@@ -2764,7 +2935,7 @@ function updateServiceOptions(language) {
       ],
       [
         "AI Advertising",
-        "AI Advertising"
+        "KI-Werbung"
       ],
       [
         "Digital Automation",
@@ -3626,7 +3797,9 @@ async function runWebsiteAudit() {
    PROJECT FORM
 ========================================================= */
 
-async function submitProject(event) {
+async function submitProject(
+  event
+) {
 
   event.preventDefault();
 
@@ -3700,9 +3873,10 @@ async function submitProject(event) {
               "application/json"
           },
 
-          body: JSON.stringify(
-            payload
-          )
+          body:
+            JSON.stringify(
+              payload
+            )
         }
       );
 
@@ -3760,7 +3934,9 @@ async function submitProject(event) {
    SERVICE SELECT
 ========================================================= */
 
-function selectService(service) {
+function selectService(
+  service
+) {
 
   const select =
     document.getElementById(
@@ -3804,7 +3980,10 @@ function renderPipeline(
       "executionPipeline"
     );
 
-  if (!pipeline && !execution) {
+  if (
+    !pipeline &&
+    !execution
+  ) {
     return;
   }
 
@@ -3997,7 +4176,9 @@ async function refreshSystemStatus() {
    AI RESULT FORMATTER
 ========================================================= */
 
-function formatAIResult(data) {
+function formatAIResult(
+  data
+) {
 
   if (!data) {
     return "";
@@ -4044,7 +4225,9 @@ function formatAIResult(data) {
    TOAST
 ========================================================= */
 
-function showToast(message) {
+function showToast(
+  message
+) {
 
   const toast =
     document.createElement(
@@ -4116,394 +4299,15 @@ function bookMeeting() {
 
 const LEGAL_CONTENT = {
 
+  /* =======================================================
+     PRIVACY
+  ======================================================= */
+
   privacy: `
 
     <h2>
       Datenschutzerklärung (DSGVO)
     </h2>
-
-    <p>
-      NEXORA Digital (www.nexoraonline.de) schützt Ihre Daten
-      gemäß Art. 13 DSGVO und dem BDSG.
-    </p>
-
-    <h3>
-      1. Verantwortlicher
-    </h3>
-
-    <p>
-      <strong>Akhmed Ismail Saied</strong><br>
-      NEXORA Digital<br>
-      Ehndorfer Str. 130<br>
-      24537 Neumünster<br>
-      Deutschland
-    </p>
-
-    <p>
-      Datenschutzanfragen:
-      contact@nexoraonline.de |
-      info@nexoraonline.de
-    </p>
-
-
-    <h3>
-      2. Verarbeitete Daten
-    </h3>
-
-    <p>
-      <strong>Kontodaten:</strong>
-      Name, E-Mail-Adresse, Kontaktdaten und Sprachpräferenzen.
-    </p>
-
-    <p>
-      <strong>Profildaten:</strong>
-      Freiwillig bereitgestellte Daten, Fotos,
-      Unternehmensangaben oder Verifizierungsunterlagen.
-    </p>
-
-    <p>
-      <strong>Nutzungsdaten:</strong>
-      Technische Anfragen, Nachrichtenaustausch,
-      Login-Protokolle, IP-Adressen und Daten zur
-      Gewährleistung der IT-Sicherheit und Betrugsprävention.
-    </p>
-
-
-    <h3>
-      3. KI-gestützte Verarbeitung
-    </h3>
-
-    <p>
-      Texte und Inhalte werden automatisiert über verschlüsselte
-      Schnittstellen verarbeitet, um KI-gestützte digitale
-      Dienstleistungen und Analysen bereitzustellen.
-      Diese Daten werden weder zum Training öffentlicher
-      KI-Modelle verwendet noch an unbefugte Dritte weitergegeben
-      (Art. 9 DSGVO).
-    </p>
-
-
-    <h3>
-      4. Rechtsgrundlage und Speicherdauer
-    </h3>
-
-    <p>
-      Vertragserfüllung
-      (Art. 6 Abs. 1 lit. b DSGVO)
-    </p>
-
-    <p>
-      Berechtigtes Interesse an IT-Sicherheit
-      (Art. 6 Abs. 1 lit. f DSGVO)
-    </p>
-
-    <p>
-      Einwilligung
-      (Art. 6 Abs. 1 lit. a /
-      Art. 9 Abs. 2 lit. a DSGVO).
-    </p>
-
-    <p>
-      Daten werden für die Dauer der aktiven Nutzung oder des
-      Nutzerkontos gespeichert und nach einem Löschantrag
-      entfernt, soweit keine gesetzlichen Steuer- oder
-      Aufbewahrungspflichten entgegenstehen.
-    </p>
-
-
-    <h3>
-      5. Speicherung und Verschlüsselung
-    </h3>
-
-    <p>
-      Alle Daten liegen auf verschlüsselten Servern innerhalb
-      der Europäischen Union (z. B. AWS / EU-Server);
-      Mediendateien und Dokumente werden in geschützten
-      Umgebung über sichere, zeitlich begrenzte Zugriffe ausgeliefert.
-    </p>
-
-
-    <h3>
-      6. Ihre Rechte
-    </h3>
-
-    <p>
-      <strong>Art. 15 DSGVO:</strong>
-      Recht auf Auskunft
-    </p>
-
-    <p>
-      <strong>Art. 16 DSGVO:</strong>
-      Recht auf Berichtigung
-    </p>
-
-    <p>
-      <strong>Art. 17 DSGVO:</strong>
-      Recht auf Löschung („Recht auf Vergessenwerden“)
-    </p>
-
-    <p>
-      <strong>Art. 18 DSGVO:</strong>
-      Recht auf Einschränkung der Verarbeitung
-    </p>
-
-    <p>
-      <strong>Art. 20 DSGVO:</strong>
-      Recht auf Datenübertragbarkeit
-    </p>
-
-    <p>
-      <strong>Beschwerderecht:</strong>
-      Recht auf Beschwerde bei der zuständigen
-      Datenschutzaufsichtsbehörde
-      (Unabhängiges Landeszentrum für Datenschutz
-      Schleswig-Holstein - ULD).
-    </p>
-
-
-    <h3>
-      7. Zahlungen und Cookies
-    </h3>
-
-    <p>
-      Zahlungen laufen über den zertifizierten Zahlungsdienstleister
-      Stripe; Zahlungsdaten werden niemals auf unseren eigenen
-      Servern gespeichert.
-    </p>
-
-    <p>
-      Wir setzen nur technisch notwendige Cookies für den Betrieb
-      der Website, die Sitzungsverwaltung und die Sprachwahl ein
-      (kein Werbetracking ohne Ihre explizite Einwilligung).
-    </p>
-
-  `,
-
-
-  terms: `
-
-    <h2>
-      Nutzungsbedingungen (AGB)
-    </h2>
-
-    <p>
-      Nutzungsbedingungen für die Plattform NEXORA Digital
-      (www.nexoraonline.de)
-    </p>
-
-
-    <h3>
-      1. Art der Leistung
-    </h3>
-
-    <p>
-      NEXORA Digital bietet digitale Dienstleistungen und
-      KI-gestützte Lösungen an. Ein spezifischer wirtschaftlicher
-      Erfolg wird nicht garantiert.
-    </p>
-
-    <p>
-      Einige Grundfunktionen der Plattform sind kostenlos;
-      kostenpflichtige Funktionen und erweiterte Dienste sind
-      rein optional.
-    </p>
-
-
-    <h3>
-      2. Zulassung und Konto
-    </h3>
-
-    <p>
-      Mindestalter für die Nutzung der Dienste ist 18 Jahre.
-    </p>
-
-    <p>
-      Die Angabe wahrheitsgemäßer und vollständiger Daten bei
-      der Registrierung ist Pflicht.
-    </p>
-
-    <p>
-      Ein Konto pro Person/Unternehmen.
-      Identitätsmissbrauch und Fake-Profile sind ausdrücklich
-      untersagt.
-    </p>
-
-    <p>
-      Neue Konten können bis zum Abschluss der automatisierten
-      Sicherheitsprüfung im Status „in Überprüfung“ verbleiben.
-    </p>
-
-
-    <h3>
-      3. Verhaltensregeln
-    </h3>
-
-    <p>
-      Beleidigende, rechtswidrige, hetzerische oder nicht
-      genehmigte werbliche Inhalte sind strikt verboten.
-    </p>
-
-    <p>
-      Jeglicher Missbrauch der Dienstleistungen oder der Versuch,
-      unbefugten Zugriff auf die Systeme zu erlangen, ist untersagt.
-    </p>
-
-    <p>
-      Verstöße gegen die Nutzungsbedingungen führen zur sofortigen
-      Sperrung oder dauerhaften Löschung des Kontos.
-    </p>
-
-
-    <h3>
-      4. Zahlungen und Preistruktur
-    </h3>
-
-    <p>
-      Die Preise und Gebühren für kostenpflichtige Funktionen
-      oder Abonnements richten sich nach der jeweils aktuellen
-      Preisübersicht auf der Website.
-    </p>
-
-    <p>
-      Die Zahlungsabwicklung erfolgt über sichere Zahlungsanbieter
-      (z. B. Stripe). Im Testbetrieb wird kein echtes Geld abgebucht.
-    </p>
-
-    <p>
-      <strong>Widerrufsrecht:</strong>
-      Verbraucher in der EU haben ein 14-tägiges Widerrufsrecht.
-      Das Widerrufsrecht erlischt vorzeitig, wenn die digitale
-      Dienstleistung auf ausdrücklichen Wunsch des Nutzers sofort
-      ausgeführt wird.
-    </p>
-
-
-    <h3>
-      5. Haftung und Beendigung
-    </h3>
-
-    <p>
-      NEXORA Digital haftet nur für Schäden, die auf vorsätzlichem
-      oder grob fahrlässigem Verhalten beruhen, soweit gesetzlich
-      zulässig.
-    </p>
-
-    <p>
-      Sie können Ihr Konto jederzeit in den Kontoeinstellungen
-      löschen. Wir behalten uns das Recht vor, Konten bei
-      Verstößen gegen diese AGB zu kündigen.
-    </p>
-
-    <p>
-      Es gilt ausschließlich das Recht der Bundesrepublik Deutschland.
-    </p>
-
-  `,
-
-
-  impressum: `
-
-    <h2>
-      Impressum
-    </h2>
-
-    <p>
-      Angaben gemäß § 5 DDG
-      (ehemals § 5 TMG)
-    </p>
-
-
-    <h3>
-      Diensteanbieter / Inhaltlich verantwortlich:
-    </h3>
-
-    <p>
-      <strong>Akhmed Ismail Saied</strong><br>
-      NEXORA Digital<br>
-      Ehndorfer Str. 130<br>
-      24537 Neumünster<br>
-      Deutschland
-    </p>
-
-
-    <h3>
-      Kontakt
-    </h3>
-
-    <p>
-      Website:
-      www.nexoraonline.de
-    </p>
-
-    <p>
-      E-Mail:
-      contact@nexoraonline.de
-    </p>
-
-    <p>
-      Kundenservice:
-      info@nexoraonline.de
-    </p>
-
-
-    <h3>
-      Gewerbliche Angaben
-    </h3>
-
-    <p>
-      Die Plattform befindet sich derzeit im Testbetrieb;
-      Zahlungen laufen ausschließlich über den Stripe-Testmodus,
-      es fließt kein echtes Geld.
-    </p>
-
-    <p>
-      Mit Umstellung auf den Live-Modus werden Gewerbeanmeldung
-      und Steuernummer (bzw. USt-IdNr. gem. § 27a UStG)
-      hier ergänzt.
-    </p>
-
-
-    <h3>
-      Streitbeilegung
-    </h3>
-
-    <p>
-      EU-Plattform zur Online-Streitbeilegung:
-      <a
-        href="https://ec.europa.eu/consumers/odr"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        https://ec.europa.eu/consumers/odr
-      </a>
-    </p>
-
-    <p>
-      Wir sind nicht verpflichtet und nicht bereit, an
-      Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
-      teilzunehmen.
-    </p>
-
-  `
-
-};
-
-
-```javascript
-/* =========================================================
-   LEGAL CONTENT
-   NEXORA DIGITAL — WEBSITE / DIGITAL AGENCY
-========================================================= */
-
-const LEGAL_CONTENT = {
-
-  /* =======================================================
-     DATENSCHUTZERKLÄRUNG
-  ======================================================= */
-
-  privacy: `
-
-    <h2>Datenschutzerklärung (DSGVO)</h2>
 
     <p>
       NEXORA Digital nimmt den Schutz Ihrer personenbezogenen
@@ -4512,8 +4316,9 @@ const LEGAL_CONTENT = {
       Website verarbeitet werden.
     </p>
 
-
-    <h3>1. Verantwortlicher</h3>
+    <h3>
+      1. Verantwortlicher
+    </h3>
 
     <p>
       <strong>Akhmed Ismail Saied</strong><br>
@@ -4530,8 +4335,9 @@ const LEGAL_CONTENT = {
       </a>
     </p>
 
-
-    <h3>2. Welche Daten wir verarbeiten</h3>
+    <h3>
+      2. Welche Daten wir verarbeiten
+    </h3>
 
     <p>
       Je nach Nutzung unserer Website können insbesondere
@@ -4567,7 +4373,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>3. Kontakt- und Projektanfragen</h3>
+    <h3>
+      3. Kontakt- und Projektanfragen
+    </h3>
 
     <p>
       Wenn Sie über unsere Website eine Projektanfrage senden,
@@ -4583,7 +4391,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>4. Website Audit und KI-Funktionen</h3>
+    <h3>
+      4. Website Audit und KI-Funktionen
+    </h3>
 
     <p>
       Unsere Website kann Funktionen für Website-Analysen,
@@ -4605,7 +4415,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>5. Rechtsgrundlagen</h3>
+    <h3>
+      5. Rechtsgrundlagen
+    </h3>
 
     <p>
       Die Verarbeitung personenbezogener Daten erfolgt je nach
@@ -4626,7 +4438,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>6. Speicherdauer</h3>
+    <h3>
+      6. Speicherdauer
+    </h3>
 
     <p>
       Personenbezogene Daten werden nur so lange gespeichert,
@@ -4642,7 +4456,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>7. Weitergabe an Dritte</h3>
+    <h3>
+      7. Weitergabe an Dritte
+    </h3>
 
     <p>
       Personenbezogene Daten werden nicht zu Werbezwecken verkauft.
@@ -4660,7 +4476,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>8. Ihre Rechte</h3>
+    <h3>
+      8. Ihre Rechte
+    </h3>
 
     <p>
       Sie haben im Rahmen der gesetzlichen Voraussetzungen
@@ -4707,7 +4525,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>9. Cookies und lokale Speicherung</h3>
+    <h3>
+      9. Cookies und lokale Speicherung
+    </h3>
 
     <p>
       Unsere Website verwendet nur solche Cookies oder lokale
@@ -4723,7 +4543,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>10. SSL / TLS-Verschlüsselung</h3>
+    <h3>
+      10. SSL / TLS-Verschlüsselung
+    </h3>
 
     <p>
       Diese Website verwendet aus Sicherheitsgründen eine
@@ -4735,12 +4557,14 @@ const LEGAL_CONTENT = {
 
 
   /* =======================================================
-     NUTZUNGSBEDINGUNGEN / AGB
+     TERMS / AGB
   ======================================================= */
 
   terms: `
 
-    <h2>Nutzungsbedingungen (AGB)</h2>
+    <h2>
+      Nutzungsbedingungen (AGB)
+    </h2>
 
     <p>
       Diese Nutzungsbedingungen gelten für die Nutzung der
@@ -4749,7 +4573,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>1. Leistungen</h3>
+    <h3>
+      1. Leistungen
+    </h3>
 
     <p>
       NEXORA Digital bietet insbesondere digitale
@@ -4766,7 +4592,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>2. Angebot und Projektumfang</h3>
+    <h3>
+      2. Angebot und Projektumfang
+    </h3>
 
     <p>
       Ein Projektangebot kann insbesondere Leistungsumfang,
@@ -4781,7 +4609,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>3. Mitwirkung des Kunden</h3>
+    <h3>
+      3. Mitwirkung des Kunden
+    </h3>
 
     <p>
       Der Kunde stellt die für die Durchführung des Projekts
@@ -4797,7 +4627,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>4. KI-generierte Inhalte</h3>
+    <h3>
+      4. KI-generierte Inhalte
+    </h3>
 
     <p>
       Bei einzelnen Leistungen können KI-Systeme zur Analyse,
@@ -4812,7 +4644,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>5. Preise und Zahlung</h3>
+    <h3>
+      5. Preise und Zahlung
+    </h3>
 
     <p>
       Es gelten die im jeweiligen Angebot oder auf der Website
@@ -4831,7 +4665,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>6. Nutzungsrechte</h3>
+    <h3>
+      6. Nutzungsrechte
+    </h3>
 
     <p>
       Nutzungsrechte an individuell erstellten Arbeitsergebnissen
@@ -4845,7 +4681,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>7. Abnahme und Freigabe</h3>
+    <h3>
+      7. Abnahme und Freigabe
+    </h3>
 
     <p>
       Soweit für das Projekt eine Freigabe oder Abnahme vorgesehen
@@ -4854,7 +4692,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>8. Haftung</h3>
+    <h3>
+      8. Haftung
+    </h3>
 
     <p>
       NEXORA Digital haftet nach den gesetzlichen Vorschriften.
@@ -4870,7 +4710,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>9. Beendigung eines Projekts</h3>
+    <h3>
+      9. Beendigung eines Projekts
+    </h3>
 
     <p>
       Die Beendigung oder Kündigung eines laufenden Projekts
@@ -4879,7 +4721,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>10. Anwendbares Recht</h3>
+    <h3>
+      10. Anwendbares Recht
+    </h3>
 
     <p>
       Es gilt das Recht der Bundesrepublik Deutschland, soweit
@@ -4896,14 +4740,18 @@ const LEGAL_CONTENT = {
 
   impressum: `
 
-    <h2>Impressum</h2>
+    <h2>
+      Impressum
+    </h2>
 
     <p>
       Angaben gemäß § 5 DDG
     </p>
 
 
-    <h3>Diensteanbieter / Verantwortlicher</h3>
+    <h3>
+      Diensteanbieter / Verantwortlicher
+    </h3>
 
     <p>
       <strong>Akhmed Ismail Saied</strong><br>
@@ -4914,7 +4762,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>Kontakt</h3>
+    <h3>
+      Kontakt
+    </h3>
 
     <p>
       Website:
@@ -4942,7 +4792,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>Angaben zur Tätigkeit</h3>
+    <h3>
+      Angaben zur Tätigkeit
+    </h3>
 
     <p>
       NEXORA Digital bietet digitale Dienstleistungen an,
@@ -4952,7 +4804,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>Hinweis zu gewerblichen Angaben</h3>
+    <h3>
+      Hinweis zu gewerblichen Angaben
+    </h3>
 
     <p>
       Soweit gesetzlich erforderliche Register-, Steuer-,
@@ -4961,7 +4815,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>Verantwortlichkeit für Inhalte</h3>
+    <h3>
+      Verantwortlichkeit für Inhalte
+    </h3>
 
     <p>
       Als Diensteanbieter sind wir nach den allgemeinen
@@ -4970,7 +4826,9 @@ const LEGAL_CONTENT = {
     </p>
 
 
-    <h3>Streitbeilegung</h3>
+    <h3>
+      Streitbeilegung
+    </h3>
 
     <p>
       Wir sind weder verpflichtet noch grundsätzlich bereit,
@@ -4988,60 +4846,37 @@ const LEGAL_CONTENT = {
    LEGAL MODAL HELPER
 ========================================================= */
 
-function getLegalModal(type) {
+function getLegalModal(
+  type
+) {
 
-  const ids = [
-    `${type}Modal`,
-    type
-  ];
-
-  for (const id of ids) {
-
-    const modal =
-      document.getElementById(id);
-
-    if (modal) {
-      return modal;
-    }
-
-  }
-
-  return null;
+  return document.getElementById(
+    `${type}Modal`
+  );
 
 }
 
 
-function getLegalContentElement(modal) {
+function getLegalContentElement(
+  modal
+) {
 
   if (!modal) {
     return null;
   }
 
-  /*
-    Supports:
-    .modal-body
-    #modal-content
-    .modal-content
-  */
-
-  const selectors = [
-    ".modal-body",
-    "#modal-content",
-    ".modal-content"
-  ];
-
-  for (const selector of selectors) {
-
-    const element =
-      modal.querySelector(selector);
-
-    if (element) {
-      return element;
-    }
-
-  }
-
-  return null;
+  return (
+    modal.querySelector(
+      ".modal-body"
+    ) ||
+    modal.querySelector(
+      "#modal-content"
+    ) ||
+    modal.querySelector(
+      ".modal-content"
+    ) ||
+    modal
+  );
 
 }
 
@@ -5050,15 +4885,19 @@ function getLegalContentElement(modal) {
    OPEN LEGAL MODAL
 ========================================================= */
 
-function openModal(type) {
+function openModal(
+  type
+) {
 
   const modal =
-    getLegalModal(type);
+    getLegalModal(
+      type
+    );
 
   if (!modal) {
 
-    console.warn(
-      `NEXORA: Legal modal not found: ${type}`
+    console.error(
+      `NEXORA: Modal "${type}Modal" not found.`
     );
 
     return;
@@ -5066,15 +4905,17 @@ function openModal(type) {
   }
 
   const content =
-    getLegalContentElement(modal);
+    getLegalContentElement(
+      modal
+    );
 
   const selected =
     LEGAL_CONTENT[type];
 
   if (!selected) {
 
-    console.warn(
-      `NEXORA: Legal content not found: ${type}`
+    console.error(
+      `NEXORA: Legal content "${type}" not found.`
     );
 
     return;
@@ -5107,10 +4948,14 @@ function openModal(type) {
    CLOSE LEGAL MODAL
 ========================================================= */
 
-function closeModal(type) {
+function closeModal(
+  type
+) {
 
   const modal =
-    getLegalModal(type);
+    getLegalModal(
+      type
+    );
 
   if (!modal) {
     return;
@@ -5132,94 +4977,7 @@ function closeModal(type) {
 
 
 /* =========================================================
-   LEGAL MODAL EVENTS
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    document
-      .querySelectorAll(".modal")
-      .forEach(modal => {
-
-        modal.setAttribute(
-          "aria-hidden",
-          "true"
-        );
-
-        modal.addEventListener(
-          "click",
-          event => {
-
-            if (
-              event.target === modal
-            ) {
-
-              modal.classList.remove(
-                "active"
-              );
-
-              modal.setAttribute(
-                "aria-hidden",
-                "true"
-              );
-
-              document.body.style.overflow =
-                "";
-
-            }
-
-          }
-        );
-
-      });
-
-  }
-);
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key !== "Escape"
-    ) {
-      return;
-    }
-
-    document
-      .querySelectorAll(
-        ".modal.active"
-      )
-      .forEach(modal => {
-
-        modal.classList.remove(
-          "active"
-        );
-
-        modal.setAttribute(
-          "aria-hidden",
-          "true"
-        );
-
-      });
-
-    document.body.style.overflow =
-      "";
-
-  }
-);
-```
-
-
-/* =========================================================
-   LEGAL MODAL EVENTS
+   MODAL EVENTS
 ========================================================= */
 
 document.addEventListener(
@@ -5230,39 +4988,42 @@ document.addEventListener(
       .querySelectorAll(
         ".modal"
       )
-      .forEach(modal => {
+      .forEach(
+        modal => {
 
-        modal.setAttribute(
-          "aria-hidden",
-          "true"
-        );
+          modal.setAttribute(
+            "aria-hidden",
+            "true"
+          );
 
-        modal.addEventListener(
-          "click",
-          event => {
+          modal.addEventListener(
+            "click",
+            event => {
 
-            if (
-              event.target === modal
-            ) {
+              if (
+                event.target ===
+                modal
+              ) {
 
-              modal.classList.remove(
-                "active"
-              );
+                modal.classList.remove(
+                  "active"
+                );
 
-              modal.setAttribute(
-                "aria-hidden",
-                "true"
-              );
+                modal.setAttribute(
+                  "aria-hidden",
+                  "true"
+                );
 
-              document.body.style.overflow =
-                "";
+                document.body.style.overflow =
+                  "";
+
+              }
 
             }
+          );
 
-          }
-        );
-
-      });
+        }
+      );
 
   }
 );
@@ -5279,32 +5040,30 @@ document.addEventListener(
     if (
       event.key !== "Escape"
     ) {
-
       return;
-
     }
 
     document
       .querySelectorAll(
         ".modal.active"
       )
-      .forEach(modal => {
+      .forEach(
+        modal => {
 
-        modal.classList.remove(
-          "active"
-        );
+          modal.classList.remove(
+            "active"
+          );
 
-        modal.setAttribute(
-          "aria-hidden",
-          "true"
-        );
+          modal.setAttribute(
+            "aria-hidden",
+            "true"
+          );
 
-      });
+        }
+      );
 
     document.body.style.overflow =
       "";
 
   }
 );
-```
-
