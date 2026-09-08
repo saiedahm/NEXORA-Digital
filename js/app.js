@@ -2727,19 +2727,32 @@ function openModal(type) {
 
     privacy: {
 
-      de: `
-        <h2>Datenschutzerklärung</h2>
-        <p>
-          NEXORA Digital verarbeitet personenbezogene Daten nur
-          im Rahmen der geltenden Datenschutzbestimmungen.
-        </p>
+     de: `
+          <h2>Datenschutzerklärung</h2>
 
-        <h3>Kontakt</h3>
+          <h3>1. Datenschutz auf einen Blick</h3>
+          <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
 
-        <p>
-          info@nexoraonline.de<br>
-          contact@nexoraonline.de
-        </p>
+          <h3>2. Verantwortliche Stelle</h3>
+          <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+          <p>
+            <strong>Akhmed Ismail Saied</strong><br>
+            NEXORA Digital<br>
+            Ehndorfer Str. 130<br>
+            24537 Neumünster<br>
+            Deutschland<br><br>
+            E-Mail: contact@nexoraonline.de
+          </p>
+
+          <h3>3. Datenerfassung auf unserer Website</h3>
+          <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt (z. B. Browsertyp, Betriebssystem, Referrer URL, IP-Adresse).</p>
+
+          <h3>4. Ihre Rechte</h3>
+          <p>Sie haben jederzeit das Recht auf kostenlose Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten.</p>
+
+          <h3>5. SSL- bzw. TLS-Verschlüsselung</h3>
+          <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung.</p>
+        `,
       `,
 
       en: `
