@@ -125,7 +125,7 @@ video{
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 header{
   position:sticky;
@@ -212,7 +212,7 @@ nav a:hover{
 
 /* =========================================================
    LANGUAGE MENU
-   ========================================================= */
+========================================================= */
 
 .language-wrapper{
   position:relative;
@@ -276,7 +276,7 @@ body[dir="rtl"] .language-menu button{
 
 /* =========================================================
    HERO
-   ========================================================= */
+========================================================= */
 
 .hero{
   padding:50px 0 80px;
@@ -462,7 +462,7 @@ h1{
 
 /* =========================================================
    HERO VIDEO
-   ========================================================= */
+========================================================= */
 
 .hero-video-wrapper{
   width:100%;
@@ -507,7 +507,7 @@ h1{
 
 /* =========================================================
    LEGACY / ALTERNATIVE HERO VISUAL
-   ========================================================= */
+========================================================= */
 
 .hero-visual{
   position:relative;
@@ -566,7 +566,7 @@ h1{
 
 /* =========================================================
    HERO STATS
-   ========================================================= */
+========================================================= */
 
 .hero-stats{
   width:min(
@@ -615,7 +615,7 @@ h1{
 
 /* =========================================================
    OLD STATS
-   ========================================================= */
+========================================================= */
 
 .stats{
   margin-top:-25px;
@@ -650,7 +650,7 @@ h1{
 
 /* =========================================================
    GENERAL SECTIONS
-   ========================================================= */
+========================================================= */
 
 section{
   padding:90px 0;
@@ -695,7 +695,7 @@ h2{
 
 /* =========================================================
    SERVICES
-   ========================================================= */
+========================================================= */
 
 .services{
   display:grid;
@@ -752,7 +752,7 @@ h2{
 
 /* =========================================================
    WORKFLOW
-   ========================================================= */
+========================================================= */
 
 .workflow{
   display:grid;
@@ -791,7 +791,7 @@ h2{
 
 /* =========================================================
    AI TEAM
-   ========================================================= */
+========================================================= */
 
 .ai-team-grid{
   display:grid;
@@ -855,7 +855,7 @@ h2{
 
 /* =========================================================
    COMMAND CENTER / DASHBOARD
-   ========================================================= */
+========================================================= */
 
 .dashboard{
   border-radius:28px;
@@ -947,7 +947,7 @@ h2{
 
 /* =========================================================
    ADVERTISING
-   ========================================================= */
+========================================================= */
 
 .advertising-box{
   display:grid;
@@ -1019,7 +1019,7 @@ textarea.input{
 
 /* =========================================================
    PRICING
-   ========================================================= */
+========================================================= */
 
 .pricing-grid{
   display:grid;
@@ -1072,7 +1072,7 @@ textarea.input{
 
 /* =========================================================
    WEBSITE CHECKER
-   ========================================================= */
+========================================================= */
 
 .checker-box{
   padding:28px;
@@ -1088,7 +1088,7 @@ textarea.input{
 
 /* =========================================================
    CLIENT REQUESTS
-   ========================================================= */
+========================================================= */
 
 .requests-grid{
   display:grid;
@@ -1139,7 +1139,7 @@ textarea.input{
 
 /* =========================================================
    ABOUT
-   ========================================================= */
+========================================================= */
 
 .about-box{
   display:grid;
@@ -1165,7 +1165,7 @@ textarea.input{
 
 /* =========================================================
    BOOKING
-   ========================================================= */
+========================================================= */
 
 .booking{
   display:grid;
@@ -1186,7 +1186,7 @@ textarea.input{
 
 /* =========================================================
    DIGITAL INTELLIGENCE
-   ========================================================= */
+========================================================= */
 
 .digital-intelligence-section{
   position:relative;
@@ -1285,7 +1285,7 @@ textarea.input{
 
 /* =========================================================
    FOOTER
-   ========================================================= */
+========================================================= */
 
 footer{
   position:relative;
@@ -1396,7 +1396,7 @@ html[dir="rtl"] .footer-legal-button:hover{
 
 /* =========================================================
    MODALS / LEGAL
-   ========================================================= */
+========================================================= */
 
 .modal{
   display:none;
@@ -1480,8 +1480,436 @@ body[dir="rtl"] .close{
 
 
 /* =========================================================
+   COOKIE CONSENT BANNER
+========================================================= */
+
+.nexora-cookie-banner{
+  position:fixed;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  z-index:9000;
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transform:translateY(
+    calc(100% + 30px)
+  );
+
+  transition:
+    opacity .3s ease,
+    visibility .3s ease,
+    transform .3s ease;
+}
+
+.nexora-cookie-banner.visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+
+.nexora-cookie-inner{
+  width:min(
+    1180px,
+    100%
+  );
+
+  margin:0 auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:28px;
+
+  padding:22px 24px;
+
+  border:1px solid
+    rgba(85,230,255,.20);
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8,23,40,.97),
+      rgba(5,13,25,.97)
+    );
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.48),
+    0 0 0 1px rgba(255,255,255,.02);
+
+  backdrop-filter:blur(22px);
+}
+
+.nexora-cookie-copy{
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.nexora-cookie-title{
+  font-size:17px;
+  font-weight:900;
+  line-height:1.3;
+}
+
+.nexora-cookie-text{
+  max-width:760px;
+  margin-top:8px;
+
+  font-size:12px;
+  line-height:1.7;
+
+  color:var(--muted);
+}
+
+.nexora-cookie-link{
+  margin-top:9px;
+  padding:0;
+
+  border:0;
+  background:transparent;
+
+  color:var(--cyan);
+
+  font-size:12px;
+  font-weight:700;
+
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.nexora-cookie-link:hover{
+  color:#fff;
+}
+
+.nexora-cookie-actions{
+  flex:0 0 auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.nexora-cookie-actions .btn{
+  min-height:46px;
+  padding:0 16px;
+  border-radius:11px;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+
+/* =========================================================
+   COOKIE SETTINGS MODAL
+========================================================= */
+
+.nexora-cookie-settings-modal{
+  position:fixed;
+  inset:0;
+  z-index:9500;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:18px;
+
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(9px);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.nexora-cookie-settings-modal.visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.nexora-cookie-settings-box{
+  position:relative;
+
+  width:min(
+    680px,
+    100%
+  );
+
+  max-height:90vh;
+  overflow:auto;
+
+  padding:32px;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0b1728,
+      #07111f
+    );
+
+  border:1px solid
+    rgba(170,200,255,.18);
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.55);
+}
+
+.nexora-cookie-settings-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+
+  width:40px;
+  height:40px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid
+    rgba(255,255,255,.10);
+
+  border-radius:12px;
+
+  background:
+    rgba(255,255,255,.07);
+
+  color:#fff;
+
+  font-size:23px;
+  line-height:1;
+
+  transition:.2s;
+}
+
+.nexora-cookie-settings-close:hover{
+  background:
+    rgba(255,255,255,.14);
+
+  transform:scale(1.04);
+}
+
+.nexora-cookie-settings-title{
+  margin:0;
+  padding-right:55px;
+
+  font-size:31px;
+  line-height:1.1;
+  letter-spacing:-1px;
+}
+
+.nexora-cookie-settings-text{
+  margin-top:12px;
+
+  color:var(--muted);
+
+  font-size:13px;
+  line-height:1.7;
+}
+
+.nexora-cookie-option{
+  margin-top:14px;
+
+  padding:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  border-radius:17px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  border:1px solid
+    rgba(255,255,255,.07);
+}
+
+.nexora-cookie-option.locked{
+  background:
+    rgba(255,255,255,.025);
+}
+
+.nexora-cookie-option-copy{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.nexora-cookie-option-copy strong{
+  font-size:13px;
+}
+
+.nexora-cookie-option-copy span{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.nexora-cookie-switch{
+  position:relative;
+  display:block;
+  width:52px;
+  min-width:52px;
+  height:30px;
+}
+
+.nexora-cookie-switch input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.nexora-cookie-switch span{
+  position:absolute;
+  inset:0;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.12);
+
+  border:1px solid
+    rgba(255,255,255,.12);
+
+  transition:.25s;
+}
+
+.nexora-cookie-switch span::after{
+  content:"";
+
+  position:absolute;
+  top:4px;
+  left:4px;
+
+  width:20px;
+  height:20px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.25);
+
+  transition:.25s;
+}
+
+.nexora-cookie-switch input:checked + span{
+  background:
+    linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--primary)
+    );
+
+  border-color:
+    rgba(85,230,255,.5);
+}
+
+.nexora-cookie-switch input:checked + span::after{
+  transform:translateX(22px);
+}
+
+.nexora-cookie-switch input:disabled + span{
+  opacity:.65;
+}
+
+.nexora-cookie-save{
+  width:100%;
+  margin-top:20px;
+  min-height:50px;
+  border-radius:12px;
+}
+
+
+/* RTL COOKIE SUPPORT
+========================================================= */
+
+html[dir="rtl"] .nexora-cookie-settings-close{
+  right:auto;
+  left:18px;
+}
+
+html[dir="rtl"] .nexora-cookie-settings-title{
+  padding-right:0;
+  padding-left:55px;
+}
+
+html[dir="rtl"] .nexora-cookie-switch input:checked + span::after{
+  transform:translateX(-22px);
+}
+
+html[dir="rtl"] .nexora-cookie-inner{
+  direction:rtl;
+}
+
+html[dir="rtl"] .nexora-cookie-actions{
+  justify-content:flex-start;
+}
+
+html[dir="rtl"] .nexora-cookie-option{
+  direction:rtl;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.nexora-toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  z-index:99999;
+
+  transform:translateX(-50%);
+
+  max-width:
+    calc(100% - 30px);
+
+  padding:14px 20px;
+
+  border-radius:12px;
+
+  background:#0b1728;
+
+  color:#fff;
+
+  border:1px solid
+    rgba(255,255,255,.15);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+
+  text-align:center;
+
+  line-height:1.5;
+
+  font-size:13px;
+}
+
+
+/* =========================================================
    STATES
-   ========================================================= */
+========================================================= */
 
 .loading{
   opacity:.65;
@@ -1495,7 +1923,7 @@ body[dir="rtl"] .close{
 
 /* =========================================================
    TABLET
-   ========================================================= */
+========================================================= */
 
 @media(max-width:1150px){
 
@@ -1519,6 +1947,15 @@ body[dir="rtl"] .close{
 
   .ai-team-grid{
     grid-template-columns:repeat(2,1fr);
+  }
+
+  .nexora-cookie-inner{
+    align-items:flex-start;
+  }
+
+  .nexora-cookie-actions{
+    width:100%;
+    justify-content:flex-start;
   }
 
 }
@@ -1565,7 +2002,7 @@ body[dir="rtl"] .close{
 
 /* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media(max-width:800px){
 
@@ -1632,6 +2069,43 @@ body[dir="rtl"] .close{
 
   section{
     padding:65px 0;
+  }
+
+  .nexora-cookie-banner{
+    left:10px;
+    right:10px;
+    bottom:10px;
+  }
+
+  .nexora-cookie-inner{
+    flex-direction:column;
+    gap:18px;
+    padding:20px;
+  }
+
+  .nexora-cookie-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    width:100%;
+  }
+
+  .nexora-cookie-actions .btn{
+    width:100%;
+  }
+
+  .nexora-cookie-actions
+  .btn-primary{
+    grid-column:1/-1;
+    order:-1;
+  }
+
+  .nexora-cookie-settings-box{
+    padding:24px 18px;
+    border-radius:19px;
+  }
+
+  .nexora-cookie-option{
+    align-items:flex-start;
   }
 
 }
@@ -1716,6 +2190,19 @@ body[dir="rtl"] .close{
     border-radius:16px;
   }
 
+  .nexora-cookie-actions{
+    grid-template-columns:1fr;
+  }
+
+  .nexora-cookie-actions
+  .btn-primary{
+    grid-column:auto;
+  }
+
+  .nexora-cookie-settings-title{
+    font-size:27px;
+  }
+
 }
 
 @media(max-width:520px){
@@ -1771,6 +2258,41 @@ body[dir="rtl"] .close{
   .footer-bottom{
     flex-direction:column;
     align-items:flex-start;
+  }
+
+  .nexora-cookie-banner{
+    bottom:7px;
+  }
+
+  .nexora-cookie-inner{
+    padding:17px;
+    border-radius:17px;
+  }
+
+  .nexora-cookie-title{
+    font-size:16px;
+  }
+
+  .nexora-cookie-text{
+    font-size:11px;
+  }
+
+  .nexora-cookie-actions .btn{
+    min-height:44px;
+    font-size:11px;
+  }
+
+  .nexora-cookie-settings-modal{
+    padding:10px;
+  }
+
+  .nexora-cookie-settings-box{
+    max-height:92vh;
+    padding:22px 15px;
+  }
+
+  .nexora-cookie-option{
+    padding:15px;
   }
 
 }
