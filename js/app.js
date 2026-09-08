@@ -4489,27 +4489,519 @@ const LEGAL_CONTENT = {
 };
 
 
+```javascript
 /* =========================================================
-   LEGAL MODALS
+   LEGAL CONTENT
+   NEXORA DIGITAL — WEBSITE / DIGITAL AGENCY
+========================================================= */
+
+const LEGAL_CONTENT = {
+
+  /* =======================================================
+     DATENSCHUTZERKLÄRUNG
+  ======================================================= */
+
+  privacy: `
+
+    <h2>Datenschutzerklärung (DSGVO)</h2>
+
+    <p>
+      NEXORA Digital nimmt den Schutz Ihrer personenbezogenen
+      Daten ernst. Nachfolgend informieren wir Sie darüber,
+      welche Daten beim Besuch und bei der Nutzung unserer
+      Website verarbeitet werden.
+    </p>
+
+
+    <h3>1. Verantwortlicher</h3>
+
+    <p>
+      <strong>Akhmed Ismail Saied</strong><br>
+      NEXORA Digital<br>
+      Ehndorfer Str. 130<br>
+      24537 Neumünster<br>
+      Deutschland
+    </p>
+
+    <p>
+      E-Mail:
+      <a href="mailto:contact@nexoraonline.de">
+        contact@nexoraonline.de
+      </a>
+    </p>
+
+
+    <h3>2. Welche Daten wir verarbeiten</h3>
+
+    <p>
+      Je nach Nutzung unserer Website können insbesondere
+      folgende Daten verarbeitet werden:
+    </p>
+
+    <p>
+      <strong>Kontaktdaten:</strong>
+      Name, Unternehmen, E-Mail-Adresse und die von Ihnen
+      freiwillig übermittelten Projektdaten.
+    </p>
+
+    <p>
+      <strong>Projektdaten:</strong>
+      Angaben zu gewünschten Websites, digitalen
+      Dienstleistungen, KI-Integration, Automatisierung,
+      Website-Analysen oder KI-Werbung.
+    </p>
+
+    <p>
+      <strong>Technische Daten:</strong>
+      Informationen, die Ihr Browser bzw. Server technisch
+      übermittelt, soweit dies für den sicheren und stabilen
+      Betrieb der Website erforderlich ist.
+    </p>
+
+    <p>
+      <strong>Sprachpräferenz:</strong>
+      Wenn Sie die Sprachfunktion der Website verwenden,
+      kann Ihre ausgewählte Sprache lokal im Browser gespeichert
+      werden, damit die Website Ihre Auswahl beim nächsten Besuch
+      wiederherstellen kann.
+    </p>
+
+
+    <h3>3. Kontakt- und Projektanfragen</h3>
+
+    <p>
+      Wenn Sie über unsere Website eine Projektanfrage senden,
+      verarbeiten wir die von Ihnen eingegebenen Daten zur
+      Bearbeitung Ihrer Anfrage, zur Kommunikation mit Ihnen
+      und zur Vorbereitung oder Durchführung der gewünschten
+      digitalen Dienstleistung.
+    </p>
+
+    <p>
+      Dazu können insbesondere Name, Unternehmen, E-Mail-Adresse,
+      gewünschte Leistung und Ihre Nachricht gehören.
+    </p>
+
+
+    <h3>4. Website Audit und KI-Funktionen</h3>
+
+    <p>
+      Unsere Website kann Funktionen für Website-Analysen,
+      KI-gestützte Aufgaben, digitale Automatisierung und
+      KI-basierte Werbekampagnen anbieten.
+    </p>
+
+    <p>
+      Die von Ihnen eingegebenen Inhalte werden nur insoweit
+      verarbeitet, wie dies zur Bereitstellung der jeweiligen
+      Funktion oder zur Bearbeitung Ihrer Anfrage erforderlich ist.
+    </p>
+
+    <p>
+      Bitte übermitteln Sie über öffentliche Website-Formulare
+      keine besonderen Kategorien personenbezogener Daten oder
+      andere Informationen, die für die jeweilige Anfrage nicht
+      erforderlich sind.
+    </p>
+
+
+    <h3>5. Rechtsgrundlagen</h3>
+
+    <p>
+      Die Verarbeitung personenbezogener Daten erfolgt je nach
+      Zweck insbesondere auf Grundlage von Art. 6 Abs. 1 lit. b
+      DSGVO, soweit die Verarbeitung zur Durchführung
+      vorvertraglicher Maßnahmen oder eines Vertrags erforderlich ist.
+    </p>
+
+    <p>
+      Soweit die Verarbeitung zur Wahrung unserer berechtigten
+      Interessen erforderlich ist, erfolgt sie auf Grundlage von
+      Art. 6 Abs. 1 lit. f DSGVO.
+    </p>
+
+    <p>
+      Soweit eine Einwilligung erforderlich ist, erfolgt die
+      Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO.
+    </p>
+
+
+    <h3>6. Speicherdauer</h3>
+
+    <p>
+      Personenbezogene Daten werden nur so lange gespeichert,
+      wie dies für den jeweiligen Zweck erforderlich ist oder
+      gesetzliche Aufbewahrungspflichten bestehen.
+    </p>
+
+    <p>
+      Daten aus Projekt- und Kontaktanfragen können für die Dauer
+      der Bearbeitung und der daraus entstehenden Geschäftsbeziehung
+      gespeichert werden. Gesetzliche Aufbewahrungsfristen bleiben
+      unberührt.
+    </p>
+
+
+    <h3>7. Weitergabe an Dritte</h3>
+
+    <p>
+      Personenbezogene Daten werden nicht zu Werbezwecken verkauft.
+      Eine Weitergabe kann erfolgen, wenn dies zur technischen
+      Bereitstellung unserer Website oder unserer beauftragten
+      digitalen Dienstleistungen erforderlich ist oder eine
+      gesetzliche Verpflichtung besteht.
+    </p>
+
+    <p>
+      Eingesetzte technische Dienstleister werden, soweit
+      datenschutzrechtlich erforderlich, angemessen eingebunden
+      und vertraglich zur datenschutzkonformen Verarbeitung
+      verpflichtet.
+    </p>
+
+
+    <h3>8. Ihre Rechte</h3>
+
+    <p>
+      Sie haben im Rahmen der gesetzlichen Voraussetzungen
+      insbesondere folgende Rechte:
+    </p>
+
+    <p>
+      <strong>Art. 15 DSGVO:</strong>
+      Recht auf Auskunft
+    </p>
+
+    <p>
+      <strong>Art. 16 DSGVO:</strong>
+      Recht auf Berichtigung
+    </p>
+
+    <p>
+      <strong>Art. 17 DSGVO:</strong>
+      Recht auf Löschung
+    </p>
+
+    <p>
+      <strong>Art. 18 DSGVO:</strong>
+      Recht auf Einschränkung der Verarbeitung
+    </p>
+
+    <p>
+      <strong>Art. 20 DSGVO:</strong>
+      Recht auf Datenübertragbarkeit
+    </p>
+
+    <p>
+      Sie haben außerdem das Recht, sich bei einer zuständigen
+      Datenschutzaufsichtsbehörde zu beschweren.
+    </p>
+
+    <p>
+      Zuständige Datenschutzaufsichtsbehörde für Schleswig-Holstein:
+    </p>
+
+    <p>
+      Unabhängiges Landeszentrum für Datenschutz
+      Schleswig-Holstein (ULD)
+    </p>
+
+
+    <h3>9. Cookies und lokale Speicherung</h3>
+
+    <p>
+      Unsere Website verwendet nur solche Cookies oder lokale
+      Speichermechanismen, die für den Betrieb der Website,
+      technische Funktionen oder die Speicherung Ihrer
+      Sprachpräferenz erforderlich sind.
+    </p>
+
+    <p>
+      Nicht technisch erforderliche Tracking- oder
+      Marketing-Technologien werden nicht ohne die jeweils
+      erforderliche Einwilligung eingesetzt.
+    </p>
+
+
+    <h3>10. SSL / TLS-Verschlüsselung</h3>
+
+    <p>
+      Diese Website verwendet aus Sicherheitsgründen eine
+      SSL-/TLS-Verschlüsselung, sofern dies vom Hosting- und
+      Transportdienst unterstützt wird.
+    </p>
+
+  `,
+
+
+  /* =======================================================
+     NUTZUNGSBEDINGUNGEN / AGB
+  ======================================================= */
+
+  terms: `
+
+    <h2>Nutzungsbedingungen (AGB)</h2>
+
+    <p>
+      Diese Nutzungsbedingungen gelten für die Nutzung der
+      Website und die Beauftragung von Dienstleistungen von
+      NEXORA Digital.
+    </p>
+
+
+    <h3>1. Leistungen</h3>
+
+    <p>
+      NEXORA Digital bietet insbesondere digitale
+      Dienstleistungen in den Bereichen Webdesign,
+      Website-Modernisierung, KI-Integration, digitale
+      Automatisierung, Website-Analyse und KI-Werbung an.
+    </p>
+
+    <p>
+      Der konkrete Leistungsumfang, Termine, Preise,
+      Zahlungsbedingungen und sonstige Projektbedingungen
+      werden vor Beginn eines kostenpflichtigen Projekts
+      individuell vereinbart.
+    </p>
+
+
+    <h3>2. Angebot und Projektumfang</h3>
+
+    <p>
+      Ein Projektangebot kann insbesondere Leistungsumfang,
+      Zeitrahmen, Vergütung, Zahlungsbedingungen und
+      vereinbarte Änderungen oder Zusatzleistungen enthalten.
+    </p>
+
+    <p>
+      Leistungen, die nicht ausdrücklich Bestandteil des
+      vereinbarten Projektumfangs sind, können als
+      Zusatzleistungen gesondert berechnet werden.
+    </p>
+
+
+    <h3>3. Mitwirkung des Kunden</h3>
+
+    <p>
+      Der Kunde stellt die für die Durchführung des Projekts
+      erforderlichen Informationen, Inhalte, Zugänge und
+      Freigaben rechtzeitig zur Verfügung, soweit diese für
+      das jeweilige Projekt erforderlich sind.
+    </p>
+
+    <p>
+      Verzögerungen aufgrund fehlender oder verspäteter
+      Informationen oder Freigaben können die vereinbarten
+      Projekttermine beeinflussen.
+    </p>
+
+
+    <h3>4. KI-generierte Inhalte</h3>
+
+    <p>
+      Bei einzelnen Leistungen können KI-Systeme zur Analyse,
+      Erstellung, Strukturierung oder Optimierung von Inhalten
+      eingesetzt werden.
+    </p>
+
+    <p>
+      KI-generierte Ergebnisse können Fehler enthalten und werden,
+      soweit für die jeweilige Leistung erforderlich, vor der
+      finalen Verwendung überprüft oder durch den Kunden freigegeben.
+    </p>
+
+
+    <h3>5. Preise und Zahlung</h3>
+
+    <p>
+      Es gelten die im jeweiligen Angebot oder auf der Website
+      angegebenen Preise und Zahlungsbedingungen.
+    </p>
+
+    <p>
+      Bei individuell vereinbarten Projekten können Anzahlungen,
+      Teilzahlungen oder eine Zahlung nach Projektabschluss
+      vereinbart werden.
+    </p>
+
+    <p>
+      Rechnungen sind innerhalb der auf der Rechnung angegebenen
+      Zahlungsfrist zu begleichen.
+    </p>
+
+
+    <h3>6. Nutzungsrechte</h3>
+
+    <p>
+      Nutzungsrechte an individuell erstellten Arbeitsergebnissen
+      werden im jeweiligen Angebot oder Vertrag festgelegt.
+    </p>
+
+    <p>
+      Drittanbieter-Materialien, Schriftarten, Bilder,
+      Software, APIs oder andere lizenzpflichtige Bestandteile
+      können eigenen Lizenzbedingungen unterliegen.
+    </p>
+
+
+    <h3>7. Abnahme und Freigabe</h3>
+
+    <p>
+      Soweit für das Projekt eine Freigabe oder Abnahme vorgesehen
+      ist, erfolgt diese nach Fertigstellung der vereinbarten
+      Leistung bzw. des jeweiligen Projektabschnitts.
+    </p>
+
+
+    <h3>8. Haftung</h3>
+
+    <p>
+      NEXORA Digital haftet nach den gesetzlichen Vorschriften.
+      Die Haftung für Vorsatz und grobe Fahrlässigkeit bleibt
+      unberührt.
+    </p>
+
+    <p>
+      Bei leicht fahrlässiger Verletzung wesentlicher
+      Vertragspflichten gilt die Haftung im gesetzlich zulässigen
+      Umfang auf den vorhersehbaren, typischerweise eintretenden
+      Schaden beschränkt.
+    </p>
+
+
+    <h3>9. Beendigung eines Projekts</h3>
+
+    <p>
+      Die Beendigung oder Kündigung eines laufenden Projekts
+      richtet sich nach der jeweiligen vertraglichen Vereinbarung
+      und den gesetzlichen Vorschriften.
+    </p>
+
+
+    <h3>10. Anwendbares Recht</h3>
+
+    <p>
+      Es gilt das Recht der Bundesrepublik Deutschland, soweit
+      dem keine zwingenden gesetzlichen Verbraucherschutzvorschriften
+      entgegenstehen.
+    </p>
+
+  `,
+
+
+  /* =======================================================
+     IMPRESSUM
+  ======================================================= */
+
+  impressum: `
+
+    <h2>Impressum</h2>
+
+    <p>
+      Angaben gemäß § 5 DDG
+    </p>
+
+
+    <h3>Diensteanbieter / Verantwortlicher</h3>
+
+    <p>
+      <strong>Akhmed Ismail Saied</strong><br>
+      NEXORA Digital<br>
+      Ehndorfer Str. 130<br>
+      24537 Neumünster<br>
+      Deutschland
+    </p>
+
+
+    <h3>Kontakt</h3>
+
+    <p>
+      Website:
+      <a
+        href="https://www.nexoraonline.de"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        www.nexoraonline.de
+      </a>
+    </p>
+
+    <p>
+      E-Mail:
+      <a href="mailto:contact@nexoraonline.de">
+        contact@nexoraonline.de
+      </a>
+    </p>
+
+    <p>
+      Kundenservice:
+      <a href="mailto:info@nexoraonline.de">
+        info@nexoraonline.de
+      </a>
+    </p>
+
+
+    <h3>Angaben zur Tätigkeit</h3>
+
+    <p>
+      NEXORA Digital bietet digitale Dienstleistungen an,
+      insbesondere Webdesign, Website-Modernisierung,
+      KI-Integration, digitale Automatisierung,
+      Website-Analysen und KI-Werbung.
+    </p>
+
+
+    <h3>Hinweis zu gewerblichen Angaben</h3>
+
+    <p>
+      Soweit gesetzlich erforderliche Register-, Steuer-,
+      Umsatzsteuer- oder sonstige Unternehmensangaben vorliegen,
+      werden diese an dieser Stelle ergänzt bzw. aktuell gehalten.
+    </p>
+
+
+    <h3>Verantwortlichkeit für Inhalte</h3>
+
+    <p>
+      Als Diensteanbieter sind wir nach den allgemeinen
+      gesetzlichen Vorschriften für eigene Inhalte auf dieser
+      Website verantwortlich.
+    </p>
+
+
+    <h3>Streitbeilegung</h3>
+
+    <p>
+      Wir sind weder verpflichtet noch grundsätzlich bereit,
+      an Streitbeilegungsverfahren vor einer
+      Verbraucherschlichtungsstelle teilzunehmen, soweit keine
+      gesetzliche Verpflichtung hierzu besteht.
+    </p>
+
+  `
+
+};
+
+
+/* =========================================================
+   LEGAL MODAL HELPER
 ========================================================= */
 
 function getLegalModal(type) {
 
-  const possibleIds = [
+  const ids = [
     `${type}Modal`,
-    type,
-    "modal"
+    type
   ];
 
-  for (
-    const id of possibleIds
-  ) {
+  for (const id of ids) {
 
-    const element =
+    const modal =
       document.getElementById(id);
 
-    if (element) {
-      return element;
+    if (modal) {
+      return modal;
     }
 
   }
@@ -4519,26 +5011,29 @@ function getLegalModal(type) {
 }
 
 
-function getLegalContentElement(
-  modal
-) {
+function getLegalContentElement(modal) {
 
-  if (!modal) return null;
+  if (!modal) {
+    return null;
+  }
+
+  /*
+    Supports:
+    .modal-body
+    #modal-content
+    .modal-content
+  */
 
   const selectors = [
-    "#modal-content",
     ".modal-body",
+    "#modal-content",
     ".modal-content"
   ];
 
-  for (
-    const selector of selectors
-  ) {
+  for (const selector of selectors) {
 
     const element =
-      modal.querySelector(
-        selector
-      );
+      modal.querySelector(selector);
 
     if (element) {
       return element;
@@ -4550,6 +5045,10 @@ function getLegalContentElement(
 
 }
 
+
+/* =========================================================
+   OPEN LEGAL MODAL
+========================================================= */
 
 function openModal(type) {
 
@@ -4559,7 +5058,7 @@ function openModal(type) {
   if (!modal) {
 
     console.warn(
-      `Legal modal not found: ${type}`
+      `NEXORA: Legal modal not found: ${type}`
     );
 
     return;
@@ -4567,9 +5066,7 @@ function openModal(type) {
   }
 
   const content =
-    getLegalContentElement(
-      modal
-    );
+    getLegalContentElement(modal);
 
   const selected =
     LEGAL_CONTENT[type];
@@ -4577,7 +5074,7 @@ function openModal(type) {
   if (!selected) {
 
     console.warn(
-      `Legal content not found: ${type}`
+      `NEXORA: Legal content not found: ${type}`
     );
 
     return;
@@ -4606,12 +5103,18 @@ function openModal(type) {
 }
 
 
+/* =========================================================
+   CLOSE LEGAL MODAL
+========================================================= */
+
 function closeModal(type) {
 
   const modal =
     getLegalModal(type);
 
-  if (!modal) return;
+  if (!modal) {
+    return;
+  }
 
   modal.classList.remove(
     "active"
@@ -4626,6 +5129,93 @@ function closeModal(type) {
     "";
 
 }
+
+
+/* =========================================================
+   LEGAL MODAL EVENTS
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    document
+      .querySelectorAll(".modal")
+      .forEach(modal => {
+
+        modal.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+        modal.addEventListener(
+          "click",
+          event => {
+
+            if (
+              event.target === modal
+            ) {
+
+              modal.classList.remove(
+                "active"
+              );
+
+              modal.setAttribute(
+                "aria-hidden",
+                "true"
+              );
+
+              document.body.style.overflow =
+                "";
+
+            }
+
+          }
+        );
+
+      });
+
+  }
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key !== "Escape"
+    ) {
+      return;
+    }
+
+    document
+      .querySelectorAll(
+        ".modal.active"
+      )
+      .forEach(modal => {
+
+        modal.classList.remove(
+          "active"
+        );
+
+        modal.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+      });
+
+    document.body.style.overflow =
+      "";
+
+  }
+);
+```
 
 
 /* =========================================================
