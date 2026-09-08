@@ -75,87 +75,194 @@
 
 <main id="home">
 
-  <!-- HERO VIDEO + CENTER IMAGE -->
+  ```html
+  <!-- =========================
+       NEXORA HERO SECTION
+       ========================= -->
 
-  <section class="hero">
-    <div class="container">
+  <section id="hero" class="hero-section">
 
-      <div class="hero-visual">
+    <div class="hero-container">
 
-        <div class="hero-content">
+      <!-- Left: Main Hero Content -->
+      <div class="hero-content">
 
-          <div class="eyebrow">
-            <span class="pulse"></span>
-            <span data-i18n="hero_tag">
-              KI-GESTÜTZTE DIGITALE AGENTUR
-            </span>
-          </div>
+        <div class="hero-eyebrow">
+          <span class="pulse"></span>
+          <span data-i18n="hero_tag">
+            KI-GESTÜTZTE DIGITALE AGENTUR
+          </span>
+        </div>
 
-          <h1>
-            <span data-i18n="hero_title_1">Wir gestalten</span>
-            <br>
-            <span
-              class="gradient-text"
-              data-i18n="hero_title_2"
-            >
-              die digitale Zukunft.
-            </span>
-          </h1>
+        <h1 class="hero-title">
 
-          <p
-            class="hero-text"
-            data-i18n="hero_text"
+          <span data-i18n="hero_title_1">
+            Wir gestalten
+          </span>
+
+          <span
+            class="gradient-text"
+            data-i18n="hero_title_2"
           >
-            NEXORA Digital entwickelt moderne Websites,
-            intelligente KI-Lösungen, Automatisierung und
-            AI Advertising für Unternehmen.
-          </p>
+            die digitale Zukunft.
+          </span>
 
-          <div class="hero-buttons">
+        </h1>
 
-            <a
-              href="#checker"
-              class="btn btn-primary"
-              data-i18n="hero_check"
-            >
-              Website kostenlos prüfen
-            </a>
+        <p
+          class="hero-text"
+          data-i18n="hero_text"
+        >
+          NEXORA Digital entwickelt moderne Websites,
+          intelligente KI-Lösungen, Automatisierung und
+          AI Advertising für Unternehmen.
+        </p>
 
-            <a
-              href="#advertising"
-              class="btn btn-ad"
-              data-i18n="hero_ad"
-            >
-              KI-Werbung
-            </a>
 
-            <a
-              href="#requests"
-              class="btn btn-secondary"
-              data-i18n="hero_project"
-            >
-              Projekt starten
-            </a>
+        <!-- Hero Buttons -->
+        <div class="hero-actions">
 
-          </div>
+          <a
+            href="#checker"
+            class="btn btn-primary"
+            data-i18n="hero_check"
+          >
+            Website kostenlos prüfen
+          </a>
+
+          <a
+            href="#requests"
+            class="btn btn-secondary"
+            data-i18n="hero_project"
+          >
+            Projekt starten
+          </a>
 
         </div>
 
-        <!-- Central hero image -->
+      </div>
+
+
+      <!-- Right: Hero Video -->
+      <div class="hero-video-wrapper">
+
+        <div class="hero-video-card">
+
+          <video
+            id="heroVideo"
+            class="hero-video"
+            controls
+            preload="metadata"
+            poster="nexora-hero.png"
+            playsinline
+            aria-label="NEXORA Digital Vorstellungsvideo"
+          >
+
+            <source
+              src="video_1.mp4"
+              type="video/mp4"
+            >
+
+            Ihr Browser unterstützt das HTML5-Videoformat nicht.
+
+          </video>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         HERO STATS
+         ========================= -->
+
+    <div class="hero-stats">
+
+      <div class="hero-stat">
+        <strong>AI</strong>
+        <span>Digital Intelligence</span>
+      </div>
+
+      <div class="hero-stat">
+        <strong>24/7</strong>
+        <span>Automatisierte Systeme</span>
+      </div>
+
+      <div class="hero-stat">
+        <strong>20+</strong>
+        <span>Sprachen</span>
+      </div>
+
+      <div class="hero-stat">
+        <strong>∞</strong>
+        <span>Digitale Möglichkeiten</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       DIGITAL INTELLIGENCE
+       ========================= -->
+
+  <section
+    id="digital-intelligence"
+    class="digital-intelligence-section"
+  >
+
+    <div class="digital-intelligence-container">
+
+      <div class="digital-intelligence-content">
+
+        <span class="section-eyebrow">
+          DIGITAL INTELLIGENCE
+        </span>
+
+        <h2>
+          Intelligenz, die
+          <span>digital arbeitet.</span>
+        </h2>
+
+        <p>
+          NEXORA Digital entwickelt intelligente digitale Systeme,
+          die Prozesse analysieren, Aufgaben automatisieren und
+          Unternehmen dabei unterstützen, schneller und effizienter
+          zu arbeiten.
+        </p>
+
+        <a
+          href="#ai-team"
+          class="digital-intelligence-btn"
+        >
+          AI Team entdecken
+        </a>
+
+      </div>
+
+
+      <div class="digital-intelligence-image-wrapper">
+
         <img
-          src="./nexora-hero.png"
-          alt="NEXORA Digital AI Technology"
-          class="hero-center-image"
+          src="nexora-digital-intelligence.png"
+          alt="NEXORA Digital Intelligence und AI Team"
+          class="digital-intelligence-image"
           width="1200"
           height="800"
-          loading="eager"
+          loading="lazy"
           decoding="async"
         >
 
       </div>
 
     </div>
+
   </section>
+```
+
 
 
   <!-- STATS -->
