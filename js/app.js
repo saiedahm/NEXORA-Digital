@@ -2759,62 +2759,40 @@ function openModal(type) {
       `
 
     },
+impressum: {
+    de: `
+      <h2>Impressum</h2>
 
-    impressum: {
+      <h3>Angaben gemäß § 5 DDG</h3>
+      <p>
+        <strong>Diensteanbieter / Inhaltlich verantwortlich:</strong><br>
+        Akhmed Ismail Saied<br>
+        NEXORA Digital<br>
+        Ehndorfer Str. 130<br>
+        24537 Neumünster<br>
+        Deutschland
+      </p>
 
-      de: `
-        <h2>Impressum</h2>
+      <h3>Kontakt</h3>
+      <p>
+        Website: www.nexoraonline.de<br>
+        E-Mail: contact@nexoraonline.de<br>
+        Kundenservice: info@nexoraonline.de
+      </p>
 
-        <h3>Angaben gemäß § 5 DDG</h3>
+      <h3>Gewerbliche Angaben</h3>
+      <p>
+        Die Plattform befindet sich derzeit im Testbetrieb; Zahlungen laufen ausschließlich über den Stripe-Testmodus, es fließt kein echtes Geld.<br>
+        Mit Umstellung auf den Live-Modus werden Gewerbeanmeldung und Steuernummer (bzw. USt-IdNr. gem. § 27a UStG) hier ergänzt.
+      </p>
 
-        <p>
-          Diensteanbieter & inhaltlich verantwortliche Person:
-        </p>
-
-        <p>
-          Akhmed Ismail Saied<br>
-          Ehndorfer Str. 130<br>
-          24537 Neumünster<br>
-          Deutschland
-        </p>
-
-        <h3>Kontakt</h3>
-
-        <p>
-          Website: www.nexoraonline.de<br>
-          E-Mail Allgemein: info@nexoraonline.de<br>
-          E-Mail Support / Datenschutz: contact@nexoraonline.de
-        </p>
-
-        <h3>Plattformstatus</h3>
-
-        <p>
-          NEXORA Digital befindet sich derzeit in Entwicklung
-          und Testbetrieb. Stripe-Transaktionen werden ausschließlich
-          im Testmodus durchgeführt.
-        </p>
-
-        <p>
-          Gewerbliche Angaben sowie Steuer-/USt.-ID werden ergänzt,
-          sobald der reguläre kommerzielle Betrieb aufgenommen wird.
-        </p>
-      `,
-
-      en: `
-        <h2>Legal Notice</h2>
-
-        <h3>Information pursuant to § 5 DDG</h3>
-
-        <p>
-          Service Provider & responsible person:
-        </p>
-
-        <p>
-          Akhmed Ismail Saied<br>
-          Ehndorfer Str. 130<br>
-          24537 Neumünster<br>
-          Germany
-        </p>
+      <h3>Streitbeilegung</h3>
+      <p>
+        EU-Plattform zur Online-Streitbeilegung: <a href="https://ec.europa.eu/consumers/odr" target="_blank">https://ec.europa.eu/consumers/odr</a><br>
+        Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+    `,
+  },
 
         <h3>Contact</h3>
 
