@@ -1,593 +1,1563 @@
- 
-     <!DOCTYPE html>
+```html
+<!DOCTYPE html>
 <html lang="de" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>NEXORA Digital | AI • Web • Digital Intelligence</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    NEXORA Digital | AI • Web • Digital Intelligence
+  </title>
 
   <meta
     name="description"
-    content="NEXORA Digital entwickelt moderne Websites, KI-Lösungen, Automatisierung und AI Advertising."
+    content="NEXORA Digital entwickelt moderne Websites, KI-Lösungen, Automatisierung und KI-Werbung."
   >
 
-  <link rel="stylesheet" href="css/style.css">
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+
 </head>
+
 
 <body>
 
-<div class="grid"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
+  <div class="grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
 
-<header>
-  <div class="container navbar">
 
-    <a href="#home" class="brand" aria-label="NEXORA Digital Startseite">
-     <img
-  src="nexora-logo.png"
-  alt="NEXORA Digital"
-  class="logo-image"
-  style="border-radius: 50%; object-fit: cover;"
-  width="180"
-  height="auto"
-  loading="eager"
-  decoding="async"
->
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
 
-      <div>
-        <div class="brand-title">NEXORA</div>
-        <div class="brand-sub">DIGITAL INTELLIGENCE</div>
-      </div>
-    </a>
+  <header>
 
-    <nav id="mainNav" aria-label="Hauptnavigation">
-      <a href="#design" data-i18n="nav_design">Design</a>
-      <a href="#requirements" data-i18n="nav_requirements">Anforderungen</a>
-      <a href="#execution" data-i18n="nav_execution">Umsetzung</a>
-      <a href="#ai-team" data-i18n="nav_ai_team">AI Team</a>
-      <a href="#advertising" class="nav-ad">KI-Werbung</a>
-      <a href="#pricing" data-i18n="nav_pricing">Preise</a>
-      <a href="#booking" data-i18n="nav_booking">Termin</a>
-      <a href="#contact" data-i18n="nav_contact">Kontakt</a>
-    </nav>
+    <div class="container navbar">
 
-    <div class="language-wrapper">
-      <button
-        class="language-btn"
-        id="languageButton"
-        type="button"
-        onclick="toggleLanguageMenu()"
-        aria-haspopup="true"
-        aria-expanded="false"
+
+      <!-- BRAND -->
+
+      <a
+        href="#home"
+        class="brand"
+        aria-label="NEXORA Digital Startseite"
       >
-        🇩🇪 DE
-      </button>
-
-      <div class="language-menu" id="languageMenu">
-        <button type="button" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
-      </div>
-    </div>
-
-  </div>
-</header>
-
-
-<main id="home">
-
- 
-  <!-- =========================
-       NEXORA HERO SECTION
-       ========================= -->
-
-  <section id="hero" class="hero-section">
-
-    <div class="hero-container">
-
-      <!-- Left: Main Hero Content -->
-      <div class="hero-content">
-
-        <div class="hero-eyebrow">
-          <span class="pulse"></span>
-          <span data-i18n="hero_tag">
-            KI-GESTÜTZTE DIGITALE AGENTUR
-          </span>
-        </div>
-
-        <h1 class="hero-title">
-
-          <span data-i18n="hero_title_1">
-            Wir gestalten
-          </span>
-
-          <span
-            class="gradient-text"
-            data-i18n="hero_title_2"
-          >
-            die digitale Zukunft.
-          </span>
-
-        </h1>
-
-        <p
-          class="hero-text"
-          data-i18n="hero_text"
-        >
-          NEXORA Digital entwickelt moderne Websites,
-          intelligente KI-Lösungen, Automatisierung und
-          AI Advertising für Unternehmen.
-        </p>
-
-
-        <!-- Hero Buttons -->
-        <div class="hero-actions">
-
-          <a
-            href="#checker"
-            class="btn btn-primary"
-            data-i18n="hero_check"
-          >
-            Website kostenlos prüfen
-          </a>
-
-          <a
-            href="#requests"
-            class="btn btn-secondary"
-            data-i18n="hero_project"
-          >
-            Projekt starten
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <!-- Right: Hero Video -->
-      <div class="hero-video-wrapper">
-
-        <div class="hero-video-card">
-
-          <video
-            id="heroVideo"
-            class="hero-video"
-            controls
-            preload="metadata"
-            poster="nexora-hero.png"
-            playsinline
-            aria-label="NEXORA Digital Vorstellungsvideo"
-          >
-
-            <source
-              src="video_1.mp4"
-              type="video/mp4"
-            >
-
-            Ihr Browser unterstützt das HTML5-Videoformat nicht.
-
-          </video>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================
-         HERO STATS
-         ========================= -->
-
-    <div class="hero-stats">
-
-      <div class="hero-stat">
-        <strong>AI</strong>
-        <span>Digital Intelligence</span>
-      </div>
-
-      <div class="hero-stat">
-        <strong>24/7</strong>
-        <span>Automatisierte Systeme</span>
-      </div>
-
-      <div class="hero-stat">
-        <strong>20+</strong>
-        <span>Sprachen</span>
-      </div>
-
-      <div class="hero-stat">
-        <strong>∞</strong>
-        <span>Digitale Möglichkeiten</span>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       DIGITAL INTELLIGENCE
-       ========================= -->
-
-  <section
-    id="digital-intelligence"
-    class="digital-intelligence-section"
-  >
-
-    <div class="digital-intelligence-container">
-
-      <div class="digital-intelligence-content">
-
-        <span class="section-eyebrow">
-          DIGITAL INTELLIGENCE
-        </span>
-
-        <h2>
-          Intelligenz, die
-          <span>digital arbeitet.</span>
-        </h2>
-
-        <p>
-          NEXORA Digital entwickelt intelligente digitale Systeme,
-          die Prozesse analysieren, Aufgaben automatisieren und
-          Unternehmen dabei unterstützen, schneller und effizienter
-          zu arbeiten.
-        </p>
-
-        <a
-          href="#ai-team"
-          class="digital-intelligence-btn"
-        >
-          AI Team entdecken
-        </a>
-
-      </div>
-
-
-      <div class="digital-intelligence-image-wrapper">
 
         <img
-          src="nexora-digital-intelligence.png"
-          alt="NEXORA Digital Intelligence und AI Team"
-          class="digital-intelligence-image"
-          width="1200"
-          height="800"
-          loading="lazy"
+          src="nexora-logo.png"
+          alt="NEXORA Digital"
+          class="logo-image"
+          style="border-radius: 50%; object-fit: cover;"
+          width="180"
+          height="auto"
+          loading="eager"
           decoding="async"
         >
 
-      </div>
+        <div>
 
-    </div>
+          <div class="brand-title">
+            NEXORA
+          </div>
 
-  </section>
-```
+          <div class="brand-sub">
+            DIGITAL INTELLIGENCE
+          </div>
 
+        </div>
 
-
-  <!-- STATS -->
-
-  <section class="stats">
-    <div class="container stats-grid">
-
-      <div class="stat">
-        <strong>9</strong>
-        <span data-i18n="stat_team">AI Team Mitglieder</span>
-      </div>
-
-      <div class="stat">
-        <strong>14</strong>
-        <span data-i18n="stat_pipeline">Automatisierte Workflow-Stufen</span>
-      </div>
-
-      <div class="stat">
-        <strong>20</strong>
-        <span data-i18n="stat_languages">Sprachen</span>
-      </div>
-
-      <div class="stat">
-        <strong>24/7</strong>
-        <span data-i18n="stat_online">Digital verfügbar</span>
-      </div>
-
-    </div>
-  </section>
+      </a>
 
 
-  <!-- SERVICES -->
+      <!-- NAVIGATION -->
 
-  <section id="design">
-    <div class="container">
+      <nav
+        id="mainNav"
+        aria-label="Hauptnavigation"
+      >
 
-      <div class="section-head">
-        <div class="section-tag">01 / DESIGN</div>
-
-        <h2 data-i18n="design_title">
-          Digitale Erlebnisse für die nächste Generation.
-        </h2>
-
-        <p
-          class="section-description"
-          data-i18n="design_text"
+        <a
+          href="#design"
+          data-i18n="nav_design"
         >
-          Design, Technologie und künstliche Intelligenz
-          werden zu einem digitalen System verbunden.
-        </p>
-      </div>
+          Design
+        </a>
 
-      <div class="services">
+        <a
+          href="#requirements"
+          data-i18n="nav_requirements"
+        >
+          Anforderungen
+        </a>
 
-        <div class="card">
-          <div class="card-icon">◈</div>
-          <h3 data-i18n="service_1_title">Neue Website</h3>
-          <p data-i18n="service_1_text">
-            Moderne, responsive und conversion-orientierte Websites.
-          </p>
-        </div>
+        <a
+          href="#execution"
+          data-i18n="nav_execution"
+        >
+          Umsetzung
+        </a>
 
-        <div class="card">
-          <div class="card-icon">↻</div>
-          <h3 data-i18n="service_2_title">Website Modernisierung</h3>
-          <p data-i18n="service_2_text">
-            Bestehende Websites werden technisch und visuell modernisiert.
-          </p>
-        </div>
+        <a
+          href="#ai-team"
+          data-i18n="nav_ai_team"
+        >
+          AI Team
+        </a>
 
-        <div class="card">
-          <div class="card-icon">✦</div>
-          <h3 data-i18n="service_3_title">KI Integration</h3>
-          <p data-i18n="service_3_text">
-            KI-Assistenten, Automatisierung und intelligente Prozesse.
-          </p>
+        <a
+          href="#advertising"
+          class="nav-ad"
+          data-i18n="hero_ad"
+        >
+          KI-Werbung
+        </a>
+
+        <a
+          href="#pricing"
+          data-i18n="nav_pricing"
+        >
+          Preise
+        </a>
+
+        <a
+          href="#booking"
+          data-i18n="nav_booking"
+        >
+          Termin
+        </a>
+
+        <a
+          href="#contact"
+          data-i18n="nav_contact"
+        >
+          Kontakt
+        </a>
+
+      </nav>
+
+
+      <!-- LANGUAGE SELECTOR -->
+
+      <div class="language-wrapper">
+
+        <button
+          class="language-btn"
+          id="languageButton"
+          type="button"
+          onclick="toggleLanguageMenu()"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          🇩🇪 DE
+        </button>
+
+        <div
+          class="language-menu"
+          id="languageMenu"
+        >
+          <!--
+            app.js builds the complete 20-language menu here.
+          -->
         </div>
 
       </div>
 
     </div>
-  </section>
+
+  </header>
 
 
-  <!-- REQUIREMENTS -->
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
 
-  <section id="requirements">
-    <div class="container">
-
-      <div class="section-head">
-        <div class="section-tag">02 / WORKFLOW</div>
-
-        <h2 data-i18n="requirements_title">
-          Ihre Anforderungen werden zum digitalen Plan.
-        </h2>
-
-        <p
-          class="section-description"
-          data-i18n="requirements_text"
-        >
-          Analyse, Strategie, Design, Entwicklung und Launch
-          werden über einen strukturierten Workflow geführt.
-        </p>
-      </div>
-
-      <div class="workflow">
-
-        <div class="step">
-          <div class="step-number">01</div>
-          <h3 data-i18n="step_1_title">Analyse</h3>
-          <p data-i18n="step_1_text">Unternehmen und Ziel werden analysiert.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">02</div>
-          <h3 data-i18n="step_2_title">Research</h3>
-          <p data-i18n="step_2_text">Markt, Website und Chancen werden untersucht.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">03</div>
-          <h3 data-i18n="step_3_title">Audit</h3>
-          <p data-i18n="step_3_text">Technische und digitale Schwachstellen werden erkannt.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">04</div>
-          <h3 data-i18n="step_4_title">Design</h3>
-          <p data-i18n="step_4_text">Ein individuelles UI/UX-Konzept wird erstellt.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">05</div>
-          <h3 data-i18n="step_5_title">Freigabe</h3>
-          <p data-i18n="step_5_text">Der Kunde bestätigt den nächsten Schritt.</p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
+  <main id="home">
 
 
-  <!-- AI TEAM -->
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
 
-  <section id="ai-team">
-    <div class="container">
+    <section
+      id="hero"
+      class="hero-section"
+    >
 
-      <div class="section-head">
-        <div class="section-tag">03 / NEXORA AI TEAM</div>
+      <div class="hero-container">
 
-        <h2 data-i18n="team_title">
-          Ein virtueller 9-köpfiger AI-Workforce.
-        </h2>
 
-        <p
-          class="section-description"
-          data-i18n="team_text"
-        >
-          Ein AI General Manager koordiniert acht spezialisierte
-          Agenten und verteilt Aufgaben automatisch.
-        </p>
-      </div>
+        <!-- HERO CONTENT -->
 
-      <div class="ai-team-grid">
+        <div class="hero-content">
 
-        <div class="ai-agent manager-agent">
-          <div class="agent-icon">◉</div>
-          <div>
-            <strong>AI GENERAL MANAGER</strong>
-            <span data-i18n="agent_manager">
-              Koordination & Aufgabenverteilung
+          <div class="hero-eyebrow">
+
+            <span class="pulse"></span>
+
+            <span data-i18n="hero_tag">
+              KI-GESTÜTZTE DIGITALE AGENTUR
             </span>
+
           </div>
+
+
+          <h1 class="hero-title">
+
+            <span data-i18n="hero_title_1">
+              Wir gestalten
+            </span>
+
+            <span
+              class="gradient-text"
+              data-i18n="hero_title_2"
+            >
+              die digitale Zukunft.
+            </span>
+
+          </h1>
+
+
+          <p
+            class="hero-text"
+            data-i18n="hero_text"
+          >
+            NEXORA Digital entwickelt moderne Websites,
+            intelligente KI-Lösungen, Automatisierung und
+            AI Advertising für Unternehmen.
+          </p>
+
+
+          <!-- HERO ACTIONS -->
+
+          <div class="hero-actions">
+
+            <a
+              href="#checker"
+              class="btn btn-primary"
+              data-i18n="hero_check"
+            >
+              Website kostenlos prüfen
+            </a>
+
+            <a
+              href="#requests"
+              class="btn btn-secondary"
+              data-i18n="hero_project"
+            >
+              Projekt starten
+            </a>
+
+          </div>
+
         </div>
 
-        <div class="ai-agent">
-          <div class="agent-icon">🔍</div>
-          <div>
-            <strong>LEAD RESEARCH</strong>
-            <span data-i18n="agent_lead">Lead- und Unternehmensanalyse</span>
-          </div>
-        </div>
 
-        <div class="ai-agent">
-          <div class="agent-icon">🌐</div>
-          <div>
-            <strong>WEBSITE AUDIT</strong>
-            <span data-i18n="agent_audit">Website- und SEO-Analyse</span>
-          </div>
-        </div>
+        <!-- HERO VIDEO -->
 
-        <div class="ai-agent">
-          <div class="agent-icon">🎨</div>
-          <div>
-            <strong>DESIGN AGENT</strong>
-            <span data-i18n="agent_design">UI/UX und kreative Konzepte</span>
-          </div>
-        </div>
+        <div class="hero-video-wrapper">
 
-        <div class="ai-agent">
-          <div class="agent-icon">💶</div>
-          <div>
-            <strong>QUOTE GENERATOR</strong>
-            <span data-i18n="agent_quote">Angebote und Preisplanung</span>
-          </div>
-        </div>
+          <div class="hero-video-card">
 
-        <div class="ai-agent">
-          <div class="agent-icon">📣</div>
-          <div>
-            <strong>ADVERTISING AGENT</strong>
-            <span data-i18n="agent_ad">AI Advertising Kampagnen</span>
-          </div>
-        </div>
+            <video
+              id="heroVideo"
+              class="hero-video"
+              controls
+              preload="metadata"
+              poster="nexora-hero.png"
+              playsinline
+              aria-label="NEXORA Digital Vorstellungsvideo"
+            >
 
-        <div class="ai-agent">
-          <div class="agent-icon">⚙️</div>
-          <div>
-            <strong>DEVELOPMENT AGENT</strong>
-            <span data-i18n="agent_dev">Entwicklung und Automatisierung</span>
-          </div>
-        </div>
+              <source
+                src="video_1.mp4"
+                type="video/mp4"
+              >
 
-        <div class="ai-agent">
-          <div class="agent-icon">🧪</div>
-          <div>
-            <strong>QA AGENT</strong>
-            <span data-i18n="agent_qa">Qualitätssicherung</span>
-          </div>
-        </div>
+              Ihr Browser unterstützt das HTML5-Videoformat nicht.
 
-        <div class="ai-agent">
-          <div class="agent-icon">🚀</div>
-          <div>
-            <strong>LAUNCH AGENT</strong>
-            <span data-i18n="agent_launch">Deployment und Launch</span>
+            </video>
+
           </div>
+
         </div>
 
       </div>
 
-    </div>
-  </section>
 
+      <!-- HERO STATS -->
 
-  <!-- COMMAND CENTER -->
+      <div class="hero-stats">
 
-  <section id="dashboard">
-    <div class="container">
+        <div class="hero-stat">
 
-      <div class="section-head">
-        <div class="section-tag">04 / COMMAND CENTER</div>
+          <strong>
+            AI
+          </strong>
 
-        <h2 data-i18n="ai_title">
-          Ihr intelligenter AI Manager.
-        </h2>
+          <span>
+            Digital Intelligence
+          </span>
 
-        <p
-          class="section-description"
-          data-i18n="ai_text"
-        >
-          Schreiben Sie einen Auftrag. Der AI Manager analysiert
-          die Anfrage und weist die passende Aufgabe einem Agenten zu.
-        </p>
-      </div>
-
-      <div class="dashboard">
-
-        <div class="dashboard-header">
-          <strong>NEXORA AI MANAGER</strong>
-          <span class="online">● SYSTEM ONLINE</span>
         </div>
 
-        <div class="dashboard-content">
 
-          <div class="dashboard-cards">
+        <div class="hero-stat">
 
-            <div class="dashboard-card">
-              <span>AI TEAM</span>
-              <strong>9</strong>
+          <strong>
+            24/7
+          </strong>
+
+          <span>
+            Automatisierte Systeme
+          </span>
+
+        </div>
+
+
+        <div class="hero-stat">
+
+          <strong>
+            20+
+          </strong>
+
+          <span>
+            Sprachen
+          </span>
+
+        </div>
+
+
+        <div class="hero-stat">
+
+          <strong>
+            ∞
+          </strong>
+
+          <span>
+            Digitale Möglichkeiten
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         DIGITAL INTELLIGENCE
+    ==================================================== -->
+
+    <section
+      id="digital-intelligence"
+      class="digital-intelligence-section"
+    >
+
+      <div class="digital-intelligence-container">
+
+
+        <div class="digital-intelligence-content">
+
+          <span class="section-eyebrow">
+            DIGITAL INTELLIGENCE
+          </span>
+
+          <h2>
+            Intelligenz, die
+            <span>
+              digital arbeitet.
+            </span>
+          </h2>
+
+          <p>
+            NEXORA Digital entwickelt intelligente digitale Systeme,
+            die Prozesse analysieren, Aufgaben automatisieren und
+            Unternehmen dabei unterstützen, schneller und effizienter
+            zu arbeiten.
+          </p>
+
+          <a
+            href="#ai-team"
+            class="digital-intelligence-btn"
+          >
+            AI Team entdecken
+          </a>
+
+        </div>
+
+
+        <div class="digital-intelligence-image-wrapper">
+
+          <img
+            src="nexora-digital-intelligence.png"
+            alt="NEXORA Digital Intelligence und AI Team"
+            class="digital-intelligence-image"
+            width="1200"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         STATS
+    ==================================================== -->
+
+    <section class="stats">
+
+      <div class="container stats-grid">
+
+        <div class="stat">
+
+          <strong>
+            9
+          </strong>
+
+          <span data-i18n="stat_team">
+            AI Team Mitglieder
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>
+            14
+          </strong>
+
+          <span data-i18n="stat_pipeline">
+            Automatisierte Workflow-Stufen
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>
+            20
+          </strong>
+
+          <span data-i18n="stat_languages">
+            Sprachen
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>
+            24/7
+          </strong>
+
+          <span data-i18n="stat_online">
+            Digital verfügbar
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         DESIGN / SERVICES
+    ==================================================== -->
+
+    <section id="design">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            01 / DESIGN
+          </div>
+
+          <h2 data-i18n="design_title">
+            Digitale Erlebnisse für die nächste Generation.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="design_text"
+          >
+            Design, Technologie und künstliche Intelligenz
+            werden zu einem digitalen System verbunden.
+          </p>
+
+        </div>
+
+
+        <div class="services">
+
+
+          <div class="card">
+
+            <div class="card-icon">
+              ◈
             </div>
 
-            <div class="dashboard-card">
-              <span>PIPELINE</span>
-              <strong>14</strong>
+            <h3 data-i18n="service_1_title">
+              Neue Website
+            </h3>
+
+            <p data-i18n="service_1_text">
+              Moderne, responsive und conversion-orientierte Websites.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-icon">
+              ↻
             </div>
 
-            <div class="dashboard-card">
-              <span>LANGUAGES</span>
-              <strong>20</strong>
+            <h3 data-i18n="service_2_title">
+              Website Modernisierung
+            </h3>
+
+            <p data-i18n="service_2_text">
+              Bestehende Websites werden technisch und visuell modernisiert.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-icon">
+              ✦
             </div>
 
-            <div class="dashboard-card">
-              <span>STATUS</span>
-              <strong>LIVE</strong>
+            <h3 data-i18n="service_3_title">
+              KI Integration
+            </h3>
+
+            <p data-i18n="service_3_text">
+              KI-Assistenten, Automatisierung und intelligente Prozesse.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         REQUIREMENTS
+    ==================================================== -->
+
+    <section id="requirements">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            02 / WORKFLOW
+          </div>
+
+          <h2 data-i18n="requirements_title">
+            Ihre Anforderungen werden zum digitalen Plan.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="requirements_text"
+          >
+            Analyse, Strategie, Design, Entwicklung und Launch
+            werden über einen strukturierten Workflow geführt.
+          </p>
+
+        </div>
+
+
+        <div class="workflow">
+
+
+          <div class="step">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <h3 data-i18n="step_1_title">
+              Analyse
+            </h3>
+
+            <p data-i18n="step_1_text">
+              Unternehmen und Ziel werden analysiert.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <h3 data-i18n="step_2_title">
+              Research
+            </h3>
+
+            <p data-i18n="step_2_text">
+              Markt, Website und Chancen werden untersucht.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <h3 data-i18n="step_3_title">
+              Audit
+            </h3>
+
+            <p data-i18n="step_3_text">
+              Technische und digitale Schwachstellen werden erkannt.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              04
+            </div>
+
+            <h3 data-i18n="step_4_title">
+              Design
+            </h3>
+
+            <p data-i18n="step_4_text">
+              Ein individuelles UI/UX-Konzept wird erstellt.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              05
+            </div>
+
+            <h3 data-i18n="step_5_title">
+              Freigabe
+            </h3>
+
+            <p data-i18n="step_5_text">
+              Der Kunde bestätigt den nächsten Schritt.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         AI TEAM
+    ==================================================== -->
+
+    <section id="ai-team">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            03 / NEXORA AI TEAM
+          </div>
+
+          <h2 data-i18n="team_title">
+            Ein virtueller 9-köpfiger AI-Workforce.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="team_text"
+          >
+            Ein AI General Manager koordiniert acht spezialisierte
+            Agenten und verteilt Aufgaben automatisch.
+          </p>
+
+        </div>
+
+
+        <div class="ai-team-grid">
+
+
+          <div class="ai-agent manager-agent">
+
+            <div class="agent-icon">
+              ◉
+            </div>
+
+            <div>
+
+              <strong>
+                AI GENERAL MANAGER
+              </strong>
+
+              <span data-i18n="agent_manager">
+                Koordination & Aufgabenverteilung
+              </span>
+
             </div>
 
           </div>
 
-          <div class="command-center">
 
-            <strong data-i18n="command_title">
-              AI COMMAND CENTER
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              🔍
+            </div>
+
+            <div>
+
+              <strong>
+                LEAD RESEARCH
+              </strong>
+
+              <span data-i18n="agent_lead">
+                Lead- und Unternehmensanalyse
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              🌐
+            </div>
+
+            <div>
+
+              <strong>
+                WEBSITE AUDIT
+              </strong>
+
+              <span data-i18n="agent_audit">
+                Website- und SEO-Analyse
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              🎨
+            </div>
+
+            <div>
+
+              <strong>
+                DESIGN AGENT
+              </strong>
+
+              <span data-i18n="agent_design">
+                UI/UX und kreative Konzepte
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              💶
+            </div>
+
+            <div>
+
+              <strong>
+                QUOTE GENERATOR
+              </strong>
+
+              <span data-i18n="agent_quote">
+                Angebote und Preisplanung
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              📣
+            </div>
+
+            <div>
+
+              <strong>
+                ADVERTISING AGENT
+              </strong>
+
+              <span data-i18n="agent_ad">
+                AI Advertising Kampagnen
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              ⚙️
+            </div>
+
+            <div>
+
+              <strong>
+                DEVELOPMENT AGENT
+              </strong>
+
+              <span data-i18n="agent_dev">
+                Entwicklung und Automatisierung
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              🧪
+            </div>
+
+            <div>
+
+              <strong>
+                QA AGENT
+              </strong>
+
+              <span data-i18n="agent_qa">
+                Qualitätssicherung
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-agent">
+
+            <div class="agent-icon">
+              🚀
+            </div>
+
+            <div>
+
+              <strong>
+                LAUNCH AGENT
+              </strong>
+
+              <span data-i18n="agent_launch">
+                Deployment und Launch
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         COMMAND CENTER
+    ==================================================== -->
+
+    <section id="dashboard">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            04 / COMMAND CENTER
+          </div>
+
+          <h2 data-i18n="ai_title">
+            Ihr intelligenter AI Manager.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="ai_text"
+          >
+            Schreiben Sie einen Auftrag. Der AI Manager analysiert
+            die Anfrage und weist die passende Aufgabe einem Agenten zu.
+          </p>
+
+        </div>
+
+
+        <div class="dashboard">
+
+          <div class="dashboard-header">
+
+            <strong>
+              NEXORA AI MANAGER
             </strong>
 
-            <textarea
-              id="aiCommand"
-              data-i18n-placeholder="command_placeholder"
-              placeholder="Beschreiben Sie Ihren Auftrag..."
-            ></textarea>
+            <span class="online">
+              ● SYSTEM ONLINE
+            </span>
+
+          </div>
+
+
+          <div class="dashboard-content">
+
+
+            <div class="dashboard-cards">
+
+              <div class="dashboard-card">
+                <span>AI TEAM</span>
+                <strong>9</strong>
+              </div>
+
+              <div class="dashboard-card">
+                <span>PIPELINE</span>
+                <strong>14</strong>
+              </div>
+
+              <div class="dashboard-card">
+                <span>LANGUAGES</span>
+                <strong>20</strong>
+              </div>
+
+              <div class="dashboard-card">
+                <span>STATUS</span>
+                <strong>LIVE</strong>
+              </div>
+
+            </div>
+
+
+            <div class="command-center">
+
+              <strong data-i18n="command_title">
+                AI COMMAND CENTER
+              </strong>
+
+              <textarea
+                id="aiCommand"
+                data-i18n-placeholder="command_placeholder"
+                placeholder="Beschreiben Sie Ihren Auftrag..."
+              ></textarea>
+
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="runAICommand()"
+                data-i18n="ai_run"
+              >
+                Command ausführen
+              </button>
+
+              <div
+                id="aiResponse"
+                class="ai-response"
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         AI ADVERTISING
+    ==================================================== -->
+
+    <section id="advertising">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            05 / AI ADVERTISING
+          </div>
+
+          <h2 data-i18n="advertising_title">
+            KI-Werbung
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="advertising_text"
+          >
+            Beschreiben Sie Ihre gewünschte Werbung. Der AI Manager
+            entwickelt daraus eine Kampagnenstruktur und bereitet
+            die Distribution für geeignete Plattformen vor.
+          </p>
+
+        </div>
+
+
+        <div class="advertising-box">
+
+
+          <div>
+
+            <h3 data-i18n="advertising_form_title">
+              Ihre AI-Werbeanfrage
+            </h3>
+
+
+            <div class="form-grid">
+
+              <input
+                id="adCompany"
+                class="input"
+                data-i18n-placeholder="company_placeholder"
+                placeholder="Unternehmen"
+              >
+
+              <input
+                id="adProduct"
+                class="input"
+                data-i18n-placeholder="product_placeholder"
+                placeholder="Produkt oder Dienstleistung"
+              >
+
+
+              <select
+                id="adGoal"
+                class="input"
+              >
+
+                <option value="brand">
+                  Brand Awareness
+                </option>
+
+                <option value="leads">
+                  Lead Generation
+                </option>
+
+                <option value="sales">
+                  Sales
+                </option>
+
+                <option value="traffic">
+                  Website Traffic
+                </option>
+
+                <option value="launch">
+                  Product Launch
+                </option>
+
+              </select>
+
+
+              <textarea
+                id="adBrief"
+                class="input"
+                data-i18n-placeholder="ad_placeholder"
+                placeholder="Beschreiben Sie Ihre Werbung..."
+              ></textarea>
+
+
+              <div class="platforms">
+
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Instagram"
+                    checked
+                  >
+                  Instagram
+                </label>
+
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Facebook"
+                    checked
+                  >
+                  Facebook
+                </label>
+
+                <label>
+                  <input
+                    type="checkbox"
+                    value="LinkedIn"
+                  >
+                  LinkedIn
+                </label>
+
+                <label>
+                  <input
+                    type="checkbox"
+                    value="TikTok"
+                  >
+                  TikTok
+                </label>
+
+                <label>
+                  <input
+                    type="checkbox"
+                    value="YouTube"
+                  >
+                  YouTube
+                </label>
+
+              </div>
+
+
+              <button
+                class="btn btn-ad"
+                type="button"
+                onclick="createAICampaign()"
+                data-i18n="create_campaign"
+              >
+                AI Kampagne erstellen
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="campaignResult"
+            class="campaign-result"
+          >
+
+            <div
+              class="empty-state"
+              data-i18n="campaign_empty"
+            >
+              Ihre AI-Kampagne wird hier angezeigt.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PRICING
+    ==================================================== -->
+
+    <section id="pricing">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            06 / AI PRICING
+          </div>
+
+          <h2 data-i18n="pricing_title">
+            Transparente digitale Pakete.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="pricing_text"
+          >
+            Der AI Manager kann anhand Ihrer Anforderungen ein
+            individuelles Angebot vorbereiten.
+          </p>
+
+        </div>
+
+
+        <div class="pricing-grid">
+
+
+          <div class="price-card">
+
+            <div class="price-icon">
+              ◈
+            </div>
+
+            <h3 data-i18n="price_1_title">
+              New Website Design
+            </h3>
+
+            <strong>
+              ab €1.490
+            </strong>
+
+            <p data-i18n="price_1_text">
+              Moderne Unternehmenswebsite mit responsive Design.
+            </p>
+
+            <button
+              class="btn btn-secondary"
+              type="button"
+              onclick="selectService('New Website Design')"
+            >
+
+              <span data-i18n="choose">
+                Auswählen
+              </span>
+
+            </button>
+
+          </div>
+
+
+          <div class="price-card featured">
+
+            <div class="price-icon">
+              ↻
+            </div>
+
+            <h3 data-i18n="price_2_title">
+              Website Modernization
+            </h3>
+
+            <strong>
+              ab €990
+            </strong>
+
+            <p data-i18n="price_2_text">
+              Modernisierung einer bestehenden Website.
+            </p>
 
             <button
               class="btn btn-primary"
               type="button"
-              onclick="runAICommand()"
-              data-i18n="ai_run"
+              onclick="selectService('Website Modernization')"
             >
-              Command ausführen
+
+              <span data-i18n="choose">
+                Auswählen
+              </span>
+
             </button>
 
+          </div>
+
+
+          <div class="price-card">
+
+            <div class="price-icon">
+              ✦
+            </div>
+
+            <h3 data-i18n="price_3_title">
+              AI Integration
+            </h3>
+
+            <strong>
+              ab €1.290
+            </strong>
+
+            <p data-i18n="price_3_text">
+              Integration intelligenter KI-Funktionen.
+            </p>
+
+            <button
+              class="btn btn-secondary"
+              type="button"
+              onclick="selectService('AI Integration')"
+            >
+
+              <span data-i18n="choose">
+                Auswählen
+              </span>
+
+            </button>
+
+          </div>
+
+
+          <div class="price-card">
+
+            <div class="price-icon">
+              📣
+            </div>
+
+            <h3 data-i18n="price_4_title">
+              AI Advertising
+            </h3>
+
+            <strong>
+              ab €490
+            </strong>
+
+            <p data-i18n="price_4_text">
+              AI-basierte Kampagnenplanung und Werbematerial.
+            </p>
+
+            <button
+              class="btn btn-ad"
+              type="button"
+              onclick="selectService('AI Advertising')"
+            >
+
+              <span data-i18n="choose">
+                Auswählen
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="pricing-note"
+          data-i18n="pricing_note"
+        >
+          Endpreise werden anhand des Projektumfangs individuell kalkuliert.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         WEBSITE CHECKER
+    ==================================================== -->
+
+    <section id="checker">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            07 / WEBSITE AUDIT
+          </div>
+
+          <h2 data-i18n="checker_title">
+            Prüfen Sie Ihre Website.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="checker_text"
+          >
+            Der Website Audit Agent analysiert technische Basisdaten,
+            SEO-Signale und erkannte Optimierungsmöglichkeiten.
+          </p>
+
+        </div>
+
+
+        <div class="checker-box">
+
+          <input
+            id="auditUrl"
+            class="input"
+            type="url"
+            data-i18n-placeholder="url_placeholder"
+            placeholder="https://ihre-website.de"
+          >
+
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="runWebsiteAudit()"
+            data-i18n="audit_button"
+          >
+            Website analysieren
+          </button>
+
+          <div
+            id="auditResult"
+            class="ai-response"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         CLIENT REQUEST
+    ==================================================== -->
+
+    <section id="requests">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div class="section-tag">
+            08 / CLIENT REQUEST
+          </div>
+
+          <h2 data-i18n="request_title">
+            Starten wir Ihr Projekt.
+          </h2>
+
+          <p
+            class="section-description"
+            data-i18n="request_text"
+          >
+            Senden Sie Ihre Anfrage direkt an den NEXORA AI Manager.
+          </p>
+
+        </div>
+
+
+        <div class="requests-grid">
+
+
+          <div class="form-card">
+
+            <h3 data-i18n="form_title">
+              Projekt anfragen
+            </h3>
+
+
+            <form
+              id="projectForm"
+              class="form-grid"
+            >
+
+              <input
+                id="clientName"
+                class="input"
+                required
+                data-i18n-placeholder="name_placeholder"
+                placeholder="Name / Unternehmen"
+              >
+
+              <input
+                id="clientEmail"
+                type="email"
+                class="input"
+                required
+                data-i18n-placeholder="email_placeholder"
+                placeholder="E-Mail"
+              >
+
+
+              <select
+                id="serviceType"
+                class="input"
+              >
+
+                <option value="New Website Design">
+                  New Website
+                </option>
+
+                <option value="Website Modernization">
+                  Website Modernization
+                </option>
+
+                <option value="AI Integration">
+                  AI Integration
+                </option>
+
+                <option value="AI Advertising">
+                  AI Advertising
+                </option>
+
+                <option value="Digital Automation">
+                  Digital Automation
+                </option>
+
+              </select>
+
+
+              <textarea
+                id="clientMessage"
+                class="input"
+                required
+                data-i18n-placeholder="message_placeholder"
+                placeholder="Erzählen Sie uns von Ihrem Projekt..."
+              ></textarea>
+
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-i18n="form_send"
+              >
+                Anfrage senden
+              </button>
+
+            </form>
+
+          </div>
+
+
+          <div class="request-list">
+
+            <h3 data-i18n="pipeline_title">
+              14-Stage Pipeline
+            </h3>
+
             <div
-              id="aiResponse"
-              class="ai-response"
+              id="pipelineContainer"
             ></div>
 
           </div>
@@ -596,693 +1566,457 @@
 
       </div>
 
-    </div>
-  </section>
+    </section>
 
 
-  <!-- ADVERTISING -->
+    <!-- ===================================================
+         EXECUTION
+    ==================================================== -->
 
-  <section id="advertising">
-    <div class="container">
+    <section id="execution">
 
-      <div class="section-head">
-        <div class="section-tag">05 / AI ADVERTISING</div>
+      <div class="container">
 
-        <h2 data-i18n="advertising_title">
-          KI-Werbung
-        </h2>
+        <div class="section-head">
 
-        <p
-          class="section-description"
-          data-i18n="advertising_text"
-        >
-          Beschreiben Sie Ihre gewünschte Werbung. Der AI Manager
-          entwickelt daraus eine Kampagnenstruktur und bereitet
-          die Distribution für geeignete Plattformen vor.
-        </p>
-      </div>
-
-      <div class="advertising-box">
-
-        <div>
-          <h3 data-i18n="advertising_form_title">
-            Ihre AI-Werbeanfrage
-          </h3>
-
-          <div class="form-grid">
-
-            <input
-              id="adCompany"
-              class="input"
-              data-i18n-placeholder="company_placeholder"
-              placeholder="Unternehmen"
-            >
-
-            <input
-              id="adProduct"
-              class="input"
-              data-i18n-placeholder="product_placeholder"
-              placeholder="Produkt oder Dienstleistung"
-            >
-
-            <select id="adGoal" class="input">
-              <option value="brand">Brand Awareness</option>
-              <option value="leads">Lead Generation</option>
-              <option value="sales">Sales</option>
-              <option value="traffic">Website Traffic</option>
-              <option value="launch">Product Launch</option>
-            </select>
-
-            <textarea
-              id="adBrief"
-              class="input"
-              data-i18n-placeholder="ad_placeholder"
-              placeholder="Beschreiben Sie Ihre Werbung..."
-            ></textarea>
-
-            <div class="platforms">
-              <label><input type="checkbox" value="Instagram" checked> Instagram</label>
-              <label><input type="checkbox" value="Facebook" checked> Facebook</label>
-              <label><input type="checkbox" value="LinkedIn"> LinkedIn</label>
-              <label><input type="checkbox" value="TikTok"> TikTok</label>
-              <label><input type="checkbox" value="YouTube"> YouTube</label>
-            </div>
-
-            <button
-              class="btn btn-ad"
-              type="button"
-              onclick="createAICampaign()"
-              data-i18n="create_campaign"
-            >
-              AI Kampagne erstellen
-            </button>
-
+          <div class="section-tag">
+            09 / EXECUTION
           </div>
+
+          <h2 data-i18n="execution_title">
+            Von der Anfrage bis zum Launch.
+          </h2>
+
         </div>
+
 
         <div
-          id="campaignResult"
-          class="campaign-result"
-        >
-          <div class="empty-state" data-i18n="campaign_empty">
-            Ihre AI-Kampagne wird hier angezeigt.
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- PRICING -->
-
-  <section id="pricing">
-    <div class="container">
-
-      <div class="section-head">
-        <div class="section-tag">06 / AI PRICING</div>
-
-        <h2 data-i18n="pricing_title">
-          Transparente digitale Pakete.
-        </h2>
-
-        <p
-          class="section-description"
-          data-i18n="pricing_text"
-        >
-          Der AI Manager kann anhand Ihrer Anforderungen ein
-          individuelles Angebot vorbereiten.
-        </p>
-      </div>
-
-      <div class="pricing-grid">
-
-        <div class="price-card">
-          <div class="price-icon">◈</div>
-          <h3 data-i18n="price_1_title">New Website Design</h3>
-          <strong>ab €1.490</strong>
-          <p data-i18n="price_1_text">
-            Moderne Unternehmenswebsite mit responsive Design.
-          </p>
-          <button
-            class="btn btn-secondary"
-            type="button"
-            onclick="selectService('New Website Design')"
-          >
-            <span data-i18n="choose">Auswählen</span>
-          </button>
-        </div>
-
-        <div class="price-card featured">
-          <div class="price-icon">↻</div>
-          <h3 data-i18n="price_2_title">Website Modernization</h3>
-          <strong>ab €990</strong>
-          <p data-i18n="price_2_text">
-            Modernisierung einer bestehenden Website.
-          </p>
-          <button
-            class="btn btn-primary"
-            type="button"
-            onclick="selectService('Website Modernization')"
-          >
-            <span data-i18n="choose">Auswählen</span>
-          </button>
-        </div>
-
-        <div class="price-card">
-          <div class="price-icon">✦</div>
-          <h3 data-i18n="price_3_title">AI Integration</h3>
-          <strong>ab €1.290</strong>
-          <p data-i18n="price_3_text">
-            Integration intelligenter KI-Funktionen.
-          </p>
-          <button
-            class="btn btn-secondary"
-            type="button"
-            onclick="selectService('AI Integration')"
-          >
-            <span data-i18n="choose">Auswählen</span>
-          </button>
-        </div>
-
-        <div class="price-card">
-          <div class="price-icon">📣</div>
-          <h3 data-i18n="price_4_title">AI Advertising</h3>
-          <strong>ab €490</strong>
-          <p data-i18n="price_4_text">
-            AI-basierte Kampagnenplanung und Werbematerial.
-          </p>
-          <button
-            class="btn btn-ad"
-            type="button"
-            onclick="selectService('AI Advertising')"
-          >
-            <span data-i18n="choose">Auswählen</span>
-          </button>
-        </div>
-
-      </div>
-
-      <div class="pricing-note" data-i18n="pricing_note">
-        Endpreise werden anhand des Projektumfangs individuell kalkuliert.
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- WEBSITE CHECKER -->
-
-  <section id="checker">
-    <div class="container">
-
-      <div class="section-head">
-        <div class="section-tag">07 / WEBSITE AUDIT</div>
-
-        <h2 data-i18n="checker_title">
-          Prüfen Sie Ihre Website.
-        </h2>
-
-        <p
-          class="section-description"
-          data-i18n="checker_text"
-        >
-          Der Website Audit Agent analysiert technische Basisdaten,
-          SEO-Signale und erkannte Optimierungsmöglichkeiten.
-        </p>
-      </div>
-
-      <div class="checker-box">
-
-        <input
-          id="auditUrl"
-          class="input"
-          type="url"
-          data-i18n-placeholder="url_placeholder"
-          placeholder="https://ihre-website.de"
-        >
-
-        <button
-          class="btn btn-primary"
-          type="button"
-          onclick="runWebsiteAudit()"
-          data-i18n="audit_button"
-        >
-          Website analysieren
-        </button>
-
-        <div
-          id="auditResult"
-          class="ai-response"
+          class="workflow workflow-large"
+          id="executionPipeline"
         ></div>
 
       </div>
 
-    </div>
-  </section>
+    </section>
 
 
-  <!-- REQUEST -->
+    <!-- ===================================================
+         BOOKING
+    ==================================================== -->
 
-  <section id="requests">
-    <div class="container">
+    <section id="booking">
 
-      <div class="section-head">
-        <div class="section-tag">08 / CLIENT REQUEST</div>
+      <div class="container">
 
-        <h2 data-i18n="request_title">
-          Starten wir Ihr Projekt.
-        </h2>
+        <div class="booking">
 
-        <p
-          class="section-description"
-          data-i18n="request_text"
-        >
-          Senden Sie Ihre Anfrage direkt an den NEXORA AI Manager.
-        </p>
-      </div>
 
-      <div class="requests-grid">
+          <div>
 
-        <div class="form-card">
+            <div class="section-tag">
+              BOOKING
+            </div>
 
-          <h3 data-i18n="form_title">
-            Projekt anfragen
-          </h3>
+            <h2 data-i18n="booking_title">
+              Buchen Sie ein kostenloses Erstgespräch.
+            </h2>
 
-          <form id="projectForm" class="form-grid">
-
-            <input
-              id="clientName"
-              class="input"
-              required
-              data-i18n-placeholder="name_placeholder"
-              placeholder="Name / Unternehmen"
+            <p
+              class="section-description"
+              data-i18n="booking_text"
             >
+              Lassen Sie uns über Ihre digitale Zukunft sprechen.
+            </p>
 
-            <input
-              id="clientEmail"
-              type="email"
-              class="input"
-              required
-              data-i18n-placeholder="email_placeholder"
-              placeholder="E-Mail"
-            >
+          </div>
 
-            <select id="serviceType" class="input">
-              <option value="New Website Design">New Website</option>
-              <option value="Website Modernization">Website Modernization</option>
-              <option value="AI Integration">AI Integration</option>
-              <option value="AI Advertising">AI Advertising</option>
-              <option value="Digital Automation">Digital Automation</option>
-            </select>
 
-            <textarea
-              id="clientMessage"
-              class="input"
-              required
-              data-i18n-placeholder="message_placeholder"
-              placeholder="Erzählen Sie uns von Ihrem Projekt..."
-            ></textarea>
-
-            <button
-              type="submit"
-              class="btn btn-primary"
-              data-i18n="form_send"
-            >
-              Anfrage senden
-            </button>
-
-          </form>
-
-        </div>
-
-        <div class="request-list">
-
-          <h3 data-i18n="pipeline_title">
-            14-Stage Pipeline
-          </h3>
-
-          <div id="pipelineContainer"></div>
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="bookMeeting()"
+            data-i18n="booking_button"
+          >
+            Termin buchen
+          </button>
 
         </div>
 
       </div>
 
-    </div>
-  </section>
+    </section>
 
 
-  <!-- EXECUTION -->
+    <!-- ===================================================
+         CONTACT
+    ==================================================== -->
 
-  <section id="execution">
-    <div class="container">
+    <section id="contact">
 
-      <div class="section-head">
-        <div class="section-tag">09 / EXECUTION</div>
+      <div class="container">
 
-        <h2 data-i18n="execution_title">
-          Von der Anfrage bis zum Launch.
-        </h2>
+        <div class="booking">
+
+
+          <div>
+
+            <div class="section-tag">
+              CONTACT
+            </div>
+
+            <h2 data-i18n="contact_title">
+              Let's build the future.
+            </h2>
+
+            <p class="section-description">
+              NEXORA Digital<br>
+              AI • WEB • AUTOMATION
+            </p>
+
+          </div>
+
+
+          <a
+            href="mailto:info@nexoraonline.de"
+            class="btn btn-secondary"
+          >
+            info@nexoraonline.de
+          </a>
+
+        </div>
+
       </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer>
+
+    <div class="container footer-content">
+
+      <div class="footer-grid">
+
+
+        <!-- FOOTER BRAND -->
+
+        <div>
+
+          <img
+            src="nexora-logo.png"
+            alt="NEXORA Digital"
+            class="logo-image"
+            style="border-radius: 50%; object-fit: cover;"
+            width="180"
+            height="auto"
+            loading="lazy"
+            decoding="async"
+          >
+
+
+          <p class="footer-text">
+
+            AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION
+
+            <br><br>
+
+            www.nexoraonline.de
+
+            <br>
+
+            info@nexoraonline.de
+
+            <br>
+
+            contact@nexoraonline.de
+
+          </p>
+
+        </div>
+
+
+        <!-- FOOTER COMPANY -->
+
+        <div>
+
+          <div
+            class="footer-title"
+            data-i18n="footer_company"
+          >
+            NEXORA DIGITAL
+          </div>
+
+
+          <div class="footer-links">
+
+            <a
+              href="#design"
+              data-i18n="nav_design"
+            >
+              Design
+            </a>
+
+            <a
+              href="#ai-team"
+              data-i18n="nav_ai_team"
+            >
+              AI Team
+            </a>
+
+            <a
+              href="#pricing"
+              data-i18n="nav_pricing"
+            >
+              Preise
+            </a>
+
+            <a
+              href="#advertising"
+              data-i18n="hero_ad"
+            >
+              KI-Werbung
+            </a>
+
+            <a
+              href="#contact"
+              data-i18n="nav_contact"
+            >
+              Kontakt
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- FOOTER LEGAL -->
+
+        <div>
+
+          <div
+            class="footer-title"
+            data-i18n="footer_legal"
+          >
+            LEGAL
+          </div>
+
+
+          <div class="footer-links">
+
+
+            <a
+              href="#"
+              onclick="openModal('privacy'); return false;"
+              data-i18n="privacy"
+            >
+              Datenschutz (DSGVO)
+            </a>
+
+
+            <a
+              href="#"
+              onclick="openModal('privacy'); return false;"
+              data-i18n="privacy_policy"
+            >
+              Datenschutzerklärung
+            </a>
+
+
+            <a
+              href="#"
+              onclick="openModal('terms'); return false;"
+              data-i18n="terms"
+            >
+              Nutzungsbedingungen (AGB)
+            </a>
+
+
+            <a
+              href="#"
+              onclick="openModal('impressum'); return false;"
+              data-i18n="impressum"
+            >
+              Impressum
+            </a>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- FOOTER BOTTOM -->
+
+      <div class="footer-bottom">
+
+
+        <div>
+
+          ©
+          <span id="year"></span>
+          NEXORA Digital.
+
+          <span data-i18n="rights">
+            Alle Rechte vorbehalten.
+          </span>
+
+        </div>
+
+
+        <div>
+          www.nexoraonline.de
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =====================================================
+       PRIVACY MODAL
+  ====================================================== -->
+
+  <div
+    id="privacyModal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="privacyModalTitle"
+  >
+
+    <div class="modal-box">
+
+
+      <button
+        class="close"
+        type="button"
+        onclick="closeModal('privacy')"
+        aria-label="Datenschutzerklärung schließen"
+      >
+        ×
+      </button>
+
 
       <div
-        class="workflow workflow-large"
-        id="executionPipeline"
-      ></div>
+        class="modal-body"
+        id="privacyModalContent"
+      >
 
-    </div>
-  </section>
-
-
-  <!-- BOOKING -->
-
-  <section id="booking">
-    <div class="container">
-
-      <div class="booking">
-
-        <div>
-          <div class="section-tag">BOOKING</div>
-
-          <h2 data-i18n="booking_title">
-            Buchen Sie ein kostenloses Erstgespräch.
-          </h2>
-
-          <p
-            class="section-description"
-            data-i18n="booking_text"
-          >
-            Lassen Sie uns über Ihre digitale Zukunft sprechen.
-          </p>
-        </div>
-
-        <button
-          class="btn btn-primary"
-          type="button"
-          onclick="bookMeeting()"
-          data-i18n="booking_button"
-        >
-          Termin buchen
-        </button>
+        <h2 id="privacyModalTitle">
+          Datenschutzerklärung (DSGVO)
+        </h2>
 
       </div>
 
     </div>
-  </section>
+
+  </div>
 
 
-  <!-- CONTACT -->
+  <!-- =====================================================
+       TERMS / AGB MODAL
+  ====================================================== -->
 
-  <section id="contact">
-    <div class="container">
-
-      <div class="booking">
-
-        <div>
-          <div class="section-tag">CONTACT</div>
-
-          <h2 data-i18n="contact_title">
-            Let's build the future.
-          </h2>
-
-          <p class="section-description">
-            NEXORA Digital<br>
-            AI • WEB • AUTOMATION
-          </p>
-        </div>
-
-        <a
-          href="mailto:info@nexoraonline.de"
-          class="btn btn-secondary"
-        >
-          info@nexoraonline.de
-        </a>
-
-      </div>
-
-    </div>
-  </section>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-  <!-- Footer background image -->
   <div
-src="nexora-logo.png"
+    id="termsModal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
     aria-hidden="true"
-  ></div>
+    aria-labelledby="termsModalTitle"
+  >
 
-  <div class="container footer-content">
-
-    <div class="footer-grid">
-
-      <div>
-
-       <img
-  src="nexora-logo.png"
-  alt="NEXORA Digital"
-  class="logo-image"
-  style="border-radius: 50%; object-fit: cover;"
-  width="180"
-  height="auto"
-  loading="eager"
-  decoding="async"
->
-
-        <p class="footer-text">
-          AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION
-          <br><br>
-          www.nexoraonline.de
-          <br>
-          info@nexoraonline.de
-          <br>
-          contact@nexoraonline.de
-        </p>
-
-      </div>
+    <div class="modal-box">
 
 
-      <div>
-
-        <div class="footer-title" data-i18n="footer_company">
-          NEXORA DIGITAL
-        </div>
-
-        <div class="footer-links">
-          <a href="#design" data-i18n="nav_design">Design</a>
-          <a href="#ai-team" data-i18n="nav_ai_team">AI Team</a>
-          <a href="#pricing" data-i18n="nav_pricing">Preise</a>
-          <a href="#advertising">KI-Werbung</a>
-          <a href="#contact" data-i18n="nav_contact">Kontakt</a>
-        </div>
-
-      </div>
+      <button
+        class="close"
+        type="button"
+        onclick="closeModal('terms')"
+        aria-label="Nutzungsbedingungen schließen"
+      >
+        ×
+      </button>
 
 
-      <div>
+      <div
+        class="modal-body"
+        id="termsModalContent"
+      >
 
-        <div class="footer-title" data-i18n="footer_legal">
-          LEGAL
-        </div>
-
-        <div class="footer-links">
-
-      <a
-  href="javascript:void(0)"
-  onclick="openModal('privacy'); return false;"
-  data-i18n="privacy"
->
-  Datenschutzerklärung
-</a>
-
-<a
-  href="javascript:void(0)"
-  onclick="openModal('impressum'); return false;"
-  data-i18n="impressum"
->
-  Impressum
-</a>
-
-<a
-  href="javascript:void(0)"
-  onclick="openModal('terms'); return false;"
-  data-i18n="terms"
->
-  Terms & Conditions
-</a>
-        </div>
+        <h2 id="termsModalTitle">
+          Nutzungsbedingungen (AGB)
+        </h2>
 
       </div>
 
     </div>
 
-    <div class="footer-bottom">
+  </div>
 
-      <div>
-        © <span id="year"></span>
-        NEXORA Digital.
-        <span data-i18n="rights">Alle Rechte vorbehalten.</span>
-      </div>
 
-      <div>
-        www.nexoraonline.de
+  <!-- =====================================================
+       IMPRESSUM MODAL
+  ====================================================== -->
+
+  <div
+    id="impressumModal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="impressumModalTitle"
+  >
+
+    <div class="modal-box">
+
+
+      <button
+        class="close"
+        type="button"
+        onclick="closeModal('impressum')"
+        aria-label="Impressum schließen"
+      >
+        ×
+      </button>
+
+
+      <div
+        class="modal-body"
+        id="impressumModalContent"
+      >
+
+        <h2 id="impressumModalTitle">
+          Impressum
+        </h2>
+
       </div>
 
     </div>
 
   </div>
 
-</footer>
 
+  <!-- =====================================================
+       APPLICATION
+  ====================================================== -->
 
-<!-- LEGAL MODALS -->
-
-<div id="privacy" class="modal">
-  <div class="modal-box">
-    <button
-      class="close"
-      type="button"
-      onclick="closeModal('privacy')"
-      aria-label="Datenschutzerklärung schließen"
-    >
-      ×
-    </button>
-   <div id="privacyContent">
-  <h2>Datenschutzerklärung</h2>
-
-  <h3>1. Datenschutz auf einen Blick</h3>
-  <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
-
-  <h3>2. Verantwortliche Stelle</h3>
-  <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
-  <p>
-    <strong>Akhmed Ismail Saied</strong><br>
-    NEXORA Digital<br>
-    Ehndorfer Str. 130<br>
-    24537 Neumünster<br>
-    Deutschland<br><br>
-    E-Mail: contact@nexoraonline.de
-  </p>
-
-  <h3>3. Datenerfassung auf unserer Website</h3>
-  <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt (z. B. Browsertyp, Betriebssystem, Referrer URL, IP-Adresse).</p>
-
-  <h3>4. Ihre Rechte</h3>
-  <p>Sie haben jederzeit das Recht auf kostenlose Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten.</p>
-
-  <h3>5. SSL- bzw. TLS-Verschlüsselung</h3>
-  <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung.</p>
-</div>
-  </div>
-</div>
-
-<div id="impressum" class="modal">
-  <div class="modal-box">
-    <button
-      class="close"
-      type="button"
-      onclick="closeModal('impressum')"
-      aria-label="Impressum schließen"
-    >
-      ×
-    </button>
-    <div id="impressumContent"></div>
-  </div>
-</div>
-
-<div id="terms" class="modal">
-  <div class="modal-box">
-    <button
-      class="close"
-      type="button"
-      onclick="closeModal('terms')"
-      aria-label="Terms & Conditions schließen"
-    >
-      ×
-    </button>
-    <div id="termsContent"></div>
-  </div>
-</div>
-
-
-<script src="./js/app.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const video = document.getElementById("heroVideo");
-    const playButton = document.getElementById("videoPlayButton");
-    const languageButton = document.getElementById("languageButton");
-    const languageMenu = document.getElementById("languageMenu");
-
-    if (video) {
-      video.removeAttribute("autoplay");
-      video.autoplay = false;
-      video.preload = "metadata";
-
-      video.addEventListener("play", function () {
-        if (playButton) {
-          playButton.style.display = "none";
-          playButton.setAttribute("aria-hidden", "true");
-        }
-      });
-
-      video.addEventListener("pause", function () {
-        if (playButton) {
-          playButton.style.display = "";
-          playButton.setAttribute("aria-hidden", "false");
-        }
-      });
-
-      video.addEventListener("ended", function () {
-        if (playButton) {
-          playButton.style.display = "";
-          playButton.setAttribute("aria-hidden", "false");
-        }
-      });
-    }
-
-    if (languageButton && languageMenu) {
-      languageButton.addEventListener("click", function () {
-        const isOpen = languageMenu.classList.toggle("open");
-        languageButton.setAttribute("aria-expanded", String(isOpen));
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!event.target.closest(".language-wrapper")) {
-          languageMenu.classList.remove("open");
-          languageButton.setAttribute("aria-expanded", "false");
-        }
-      });
-    }
-
-    const yearElement = document.getElementById("year");
-    if (yearElement) {
-      yearElement.textContent = new Date().getFullYear();
-    }
-  });
-
-  function toggleHeroVideo() {
-    const video = document.getElementById("heroVideo");
-
-    if (!video) {
-      return;
-    }
-
-    if (video.paused || video.ended) {
-      video.play().catch(function () {
-        video.controls = true;
-      });
-    } else {
-      video.pause();
-    }
-  }
-</script>
+  <script src="./js/app.js"></script>
 
 </body>
+
 </html>
+```
+
