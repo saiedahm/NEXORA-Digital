@@ -2708,24 +2708,12 @@ function bookMeeting() {
 ========================================================= */
 
 function openModal(type) {
-
-  const modal =
-    document.getElementById(
-      type
-    );
-
-  if (!modal) return;
-
-  const content =
-    modal.querySelector(
-      ".modal-box > div:last-child"
-    );
-
-  if (!content) return;
-
+  const modal = document.getElementById('modal'); // أو اسم المودال لديك
+  const modalContent = document.getElementById('modal-content');
+  
   const legal = {
-
     privacy: {
+      de: `
 
      de: `
           <h2>Datenschutzerklärung</h2>
