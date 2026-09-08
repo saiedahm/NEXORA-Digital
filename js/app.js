@@ -320,7 +320,60 @@ const DE_TRANSLATION = {
     "Nutzungsbedingungen (AGB)",
 
   rights:
-    "Alle Rechte vorbehalten."
+    "Alle Rechte vorbehalten.",
+
+
+  /* =======================================================
+     COOKIE CONSENT
+  ======================================================= */
+
+  cookie_title:
+    "Wir verwenden Cookies",
+
+  cookie_text:
+    "Wir verwenden notwendige Cookies und lokale Speicherfunktionen, damit diese Website sicher und zuverlässig funktioniert. Nicht notwendige Analyse- oder Marketing-Technologien werden nur nach Ihrer Einwilligung aktiviert.",
+
+  cookie_accept:
+    "Alle akzeptieren",
+
+  cookie_necessary:
+    "Nur notwendige",
+
+  cookie_settings:
+    "Einstellungen",
+
+  cookie_close:
+    "Schließen",
+
+  cookie_settings_title:
+    "Cookie-Einstellungen",
+
+  cookie_settings_text:
+    "Sie können auswählen, welche optionalen Technologien Sie zulassen möchten.",
+
+  cookie_necessary_title:
+    "Notwendige Technologien",
+
+  cookie_necessary_text:
+    "Erforderlich für grundlegende Funktionen, Sicherheit, Spracheinstellungen und die Speicherung Ihrer Consent-Auswahl.",
+
+  cookie_analytics_title:
+    "Analyse / Statistik",
+
+  cookie_analytics_text:
+    "Ermöglicht optionale statistische Messungen und die Analyse der Nutzung dieser Website.",
+
+  cookie_marketing_title:
+    "Marketing",
+
+  cookie_marketing_text:
+    "Ermöglicht optionale Marketing- und Werbetechnologien.",
+
+  cookie_save:
+    "Auswahl speichern",
+
+  cookie_privacy:
+    "Datenschutzerklärung"
 };
 
 
@@ -583,7 +636,55 @@ const EN_TRANSLATION = {
     "Terms & Conditions",
 
   rights:
-    "All Rights Reserved."
+    "All Rights Reserved.",
+
+  cookie_title:
+    "We use cookies",
+
+  cookie_text:
+    "We use necessary cookies and local storage functions so this website can work securely and reliably. Optional analytics or marketing technologies are activated only with your consent.",
+
+  cookie_accept:
+    "Accept all",
+
+  cookie_necessary:
+    "Necessary only",
+
+  cookie_settings:
+    "Settings",
+
+  cookie_close:
+    "Close",
+
+  cookie_settings_title:
+    "Cookie Settings",
+
+  cookie_settings_text:
+    "Choose which optional technologies you allow.",
+
+  cookie_necessary_title:
+    "Necessary technologies",
+
+  cookie_necessary_text:
+    "Required for core functions, security, language preferences and storing your consent choice.",
+
+  cookie_analytics_title:
+    "Analytics / Statistics",
+
+  cookie_analytics_text:
+    "Allows optional statistical measurement and analysis of website usage.",
+
+  cookie_marketing_title:
+    "Marketing",
+
+  cookie_marketing_text:
+    "Allows optional marketing and advertising technologies.",
+
+  cookie_save:
+    "Save selection",
+
+  cookie_privacy:
+    "Privacy Policy"
 };
 
 
@@ -618,7 +719,7 @@ const AR_TRANSLATION = {
     "فحص الموقع مجاناً",
 
   hero_ad:
-    "KI-Werbung",
+    "الإعلانات بالذكاء الاصطناعي",
 
   hero_project:
     "ابدأ مشروعك",
@@ -717,7 +818,7 @@ const AR_TRANSLATION = {
     "العروض والأسعار",
 
   agent_ad:
-    "حملات KI-Werbung",
+    "حملات الإعلانات بالذكاء الاصطناعي",
 
   agent_dev:
     "التطوير والأتمتة",
@@ -744,13 +845,13 @@ const AR_TRANSLATION = {
     "تنفيذ الأمر",
 
   advertising_title:
-    "KI-Werbung",
+    "الإعلانات بالذكاء الاصطناعي",
 
   advertising_text:
     "صف الإعلان الذي تريده وسيقوم مدير AI ببناء هيكل الحملة وتجهيزها للمنصات المناسبة.",
 
   advertising_form_title:
-    "طلب KI-Werbung",
+    "طلب إعلان بالذكاء الاصطناعي",
 
   company_placeholder:
     "الشركة",
@@ -846,7 +947,55 @@ const AR_TRANSLATION = {
     "الشروط والأحكام",
 
   rights:
-    "جميع الحقوق محفوظة."
+    "جميع الحقوق محفوظة.",
+
+  cookie_title:
+    "نستخدم ملفات تعريف الارتباط",
+
+  cookie_text:
+    "نستخدم ملفات الارتباط الضرورية والتخزين المحلي لكي يعمل الموقع بشكل آمن وموثوق. لا يتم تفعيل تقنيات التحليل أو التسويق الاختيارية إلا بعد موافقتك.",
+
+  cookie_accept:
+    "قبول الكل",
+
+  cookie_necessary:
+    "الضرورية فقط",
+
+  cookie_settings:
+    "الإعدادات",
+
+  cookie_close:
+    "إغلاق",
+
+  cookie_settings_title:
+    "إعدادات ملفات الارتباط",
+
+  cookie_settings_text:
+    "اختر التقنيات الاختيارية التي تسمح بها.",
+
+  cookie_necessary_title:
+    "التقنيات الضرورية",
+
+  cookie_necessary_text:
+    "مطلوبة للوظائف الأساسية والأمان وإعدادات اللغة وحفظ اختيار الموافقة.",
+
+  cookie_analytics_title:
+    "التحليل والإحصاءات",
+
+  cookie_analytics_text:
+    "تسمح بالقياس الإحصائي الاختياري وتحليل استخدام الموقع.",
+
+  cookie_marketing_title:
+    "التسويق",
+
+  cookie_marketing_text:
+    "تسمح بتقنيات التسويق والإعلانات الاختيارية.",
+
+  cookie_save:
+    "حفظ الاختيار",
+
+  cookie_privacy:
+    "بيان الخصوصية"
 };
 
 
@@ -878,7 +1027,7 @@ const LANGUAGE_OVERRIDES = {
       "Auditer gratuitement le site",
 
     hero_ad:
-      "KI-Werbung",
+      "Publicité IA",
 
     hero_project:
       "Démarrer le projet",
@@ -899,7 +1048,7 @@ const LANGUAGE_OVERRIDES = {
       "Exécuter",
 
     advertising_title:
-      "KI-Werbung",
+      "Publicité IA",
 
     company_placeholder:
       "Entreprise",
@@ -944,7 +1093,55 @@ const LANGUAGE_OVERRIDES = {
       "Réserver un rendez-vous",
 
     contact_title:
-      "Construisons le futur."
+      "Construisons le futur.",
+
+    cookie_title:
+      "Nous utilisons des cookies",
+
+    cookie_text:
+      "Nous utilisons des cookies nécessaires et des fonctions de stockage local pour assurer le fonctionnement sécurisé et fiable du site. Les technologies optionnelles d'analyse ou de marketing ne sont activées qu'avec votre consentement.",
+
+    cookie_accept:
+      "Tout accepter",
+
+    cookie_necessary:
+      "Nécessaires uniquement",
+
+    cookie_settings:
+      "Paramètres",
+
+    cookie_close:
+      "Fermer",
+
+    cookie_settings_title:
+      "Paramètres des cookies",
+
+    cookie_settings_text:
+      "Choisissez les technologies optionnelles que vous autorisez.",
+
+    cookie_necessary_title:
+      "Technologies nécessaires",
+
+    cookie_necessary_text:
+      "Nécessaires pour les fonctions principales, la sécurité, la langue et l'enregistrement de votre consentement.",
+
+    cookie_analytics_title:
+      "Analyse / Statistiques",
+
+    cookie_analytics_text:
+      "Permet des mesures statistiques et une analyse facultative de l'utilisation du site.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Permet les technologies facultatives de marketing et de publicité.",
+
+    cookie_save:
+      "Enregistrer",
+
+    cookie_privacy:
+      "Politique de confidentialité"
   },
 
   es: {
@@ -969,7 +1166,7 @@ const LANGUAGE_OVERRIDES = {
       "Auditoría web gratuita",
 
     hero_ad:
-      "KI-Werbung",
+      "Publicidad IA",
 
     hero_project:
       "Iniciar proyecto",
@@ -990,7 +1187,7 @@ const LANGUAGE_OVERRIDES = {
       "Ejecutar comando",
 
     advertising_title:
-      "KI-Werbung",
+      "Publicidad IA",
 
     company_placeholder:
       "Empresa",
@@ -1035,7 +1232,55 @@ const LANGUAGE_OVERRIDES = {
       "Reservar cita",
 
     contact_title:
-      "Construyamos el futuro."
+      "Construyamos el futuro.",
+
+    cookie_title:
+      "Utilizamos cookies",
+
+    cookie_text:
+      "Utilizamos cookies necesarias y funciones de almacenamiento local para que el sitio funcione de forma segura y fiable. Las tecnologías opcionales de análisis o marketing solo se activan con su consentimiento.",
+
+    cookie_accept:
+      "Aceptar todo",
+
+    cookie_necessary:
+      "Solo necesarias",
+
+    cookie_settings:
+      "Configuración",
+
+    cookie_close:
+      "Cerrar",
+
+    cookie_settings_title:
+      "Configuración de cookies",
+
+    cookie_settings_text:
+      "Elija qué tecnologías opcionales permite.",
+
+    cookie_necessary_title:
+      "Tecnologías necesarias",
+
+    cookie_necessary_text:
+      "Necesarias para las funciones básicas, la seguridad, el idioma y el almacenamiento de su elección de consentimiento.",
+
+    cookie_analytics_title:
+      "Análisis / Estadísticas",
+
+    cookie_analytics_text:
+      "Permite mediciones estadísticas y análisis opcionales del uso del sitio.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Permite tecnologías opcionales de marketing y publicidad.",
+
+    cookie_save:
+      "Guardar selección",
+
+    cookie_privacy:
+      "Política de privacidad"
   },
 
   it: {
@@ -1060,7 +1305,7 @@ const LANGUAGE_OVERRIDES = {
       "Controllo gratuito del sito",
 
     hero_ad:
-      "KI-Werbung",
+      "Pubblicità IA",
 
     hero_project:
       "Inizia il progetto",
@@ -1081,7 +1326,7 @@ const LANGUAGE_OVERRIDES = {
       "Esegui comando",
 
     advertising_title:
-      "KI-Werbung",
+      "Pubblicità IA",
 
     company_placeholder:
       "Azienda",
@@ -1126,7 +1371,55 @@ const LANGUAGE_OVERRIDES = {
       "Prenota appuntamento",
 
     contact_title:
-      "Costruiamo il futuro."
+      "Costruiamo il futuro.",
+
+    cookie_title:
+      "Utilizziamo i cookie",
+
+    cookie_text:
+      "Utilizziamo cookie necessari e funzioni di archiviazione locale per garantire un funzionamento sicuro e affidabile del sito. Le tecnologie opzionali di analisi o marketing vengono attivate solo con il tuo consenso.",
+
+    cookie_accept:
+      "Accetta tutto",
+
+    cookie_necessary:
+      "Solo necessari",
+
+    cookie_settings:
+      "Impostazioni",
+
+    cookie_close:
+      "Chiudi",
+
+    cookie_settings_title:
+      "Impostazioni cookie",
+
+    cookie_settings_text:
+      "Scegli quali tecnologie opzionali autorizzare.",
+
+    cookie_necessary_title:
+      "Tecnologie necessarie",
+
+    cookie_necessary_text:
+      "Necessarie per funzioni di base, sicurezza, lingua e memorizzazione della scelta del consenso.",
+
+    cookie_analytics_title:
+      "Analisi / Statistiche",
+
+    cookie_analytics_text:
+      "Consente misurazioni statistiche e analisi facoltative dell'utilizzo del sito.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Consente tecnologie facoltative di marketing e pubblicità.",
+
+    cookie_save:
+      "Salva selezione",
+
+    cookie_privacy:
+      "Informativa sulla privacy"
   },
 
   nl: {
@@ -1151,7 +1444,7 @@ const LANGUAGE_OVERRIDES = {
       "Gratis website-audit",
 
     hero_ad:
-      "KI-Werbung",
+      "AI-advertising",
 
     hero_project:
       "Project starten",
@@ -1172,7 +1465,7 @@ const LANGUAGE_OVERRIDES = {
       "Opdracht uitvoeren",
 
     advertising_title:
-      "KI-Werbung",
+      "AI-advertising",
 
     company_placeholder:
       "Bedrijf",
@@ -1217,7 +1510,55 @@ const LANGUAGE_OVERRIDES = {
       "Afspraak boeken",
 
     contact_title:
-      "Laten we de toekomst bouwen."
+      "Laten we de toekomst bouwen.",
+
+    cookie_title:
+      "Wij gebruiken cookies",
+
+    cookie_text:
+      "We gebruiken noodzakelijke cookies en lokale opslagfuncties zodat deze website veilig en betrouwbaar werkt. Optionele analyse- of marketingtechnologieën worden alleen met uw toestemming geactiveerd.",
+
+    cookie_accept:
+      "Alles accepteren",
+
+    cookie_necessary:
+      "Alleen noodzakelijke",
+
+    cookie_settings:
+      "Instellingen",
+
+    cookie_close:
+      "Sluiten",
+
+    cookie_settings_title:
+      "Cookie-instellingen",
+
+    cookie_settings_text:
+      "Kies welke optionele technologieën u toestaat.",
+
+    cookie_necessary_title:
+      "Noodzakelijke technologieën",
+
+    cookie_necessary_text:
+      "Nodig voor basisfuncties, beveiliging, taalvoorkeuren en het opslaan van uw toestemmingskeuze.",
+
+    cookie_analytics_title:
+      "Analyse / Statistieken",
+
+    cookie_analytics_text:
+      "Maakt optionele statistische metingen en analyse van websitegebruik mogelijk.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Maakt optionele marketing- en reclametechnologieën mogelijk.",
+
+    cookie_save:
+      "Selectie opslaan",
+
+    cookie_privacy:
+      "Privacybeleid"
   },
 
   pl: {
@@ -1242,7 +1583,7 @@ const LANGUAGE_OVERRIDES = {
       "Bezpłatny audyt strony",
 
     hero_ad:
-      "KI-Werbung",
+      "Reklama AI",
 
     hero_project:
       "Rozpocznij projekt",
@@ -1263,7 +1604,7 @@ const LANGUAGE_OVERRIDES = {
       "Wykonaj polecenie",
 
     advertising_title:
-      "KI-Werbung",
+      "Reklama AI",
 
     company_placeholder:
       "Firma",
@@ -1308,7 +1649,55 @@ const LANGUAGE_OVERRIDES = {
       "Umów spotkanie",
 
     contact_title:
-      "Budujmy przyszłość."
+      "Budujmy przyszłość.",
+
+    cookie_title:
+      "Używamy plików cookie",
+
+    cookie_text:
+      "Używamy niezbędnych plików cookie i funkcji pamięci lokalnej, aby strona działała bezpiecznie i niezawodnie. Opcjonalne technologie analityczne i marketingowe są aktywowane tylko za Twoją zgodą.",
+
+    cookie_accept:
+      "Akceptuj wszystkie",
+
+    cookie_necessary:
+      "Tylko niezbędne",
+
+    cookie_settings:
+      "Ustawienia",
+
+    cookie_close:
+      "Zamknij",
+
+    cookie_settings_title:
+      "Ustawienia plików cookie",
+
+    cookie_settings_text:
+      "Wybierz opcjonalne technologie, na które zezwalasz.",
+
+    cookie_necessary_title:
+      "Technologie niezbędne",
+
+    cookie_necessary_text:
+      "Wymagane do podstawowych funkcji, bezpieczeństwa, języka i zapisania wyboru zgody.",
+
+    cookie_analytics_title:
+      "Analityka / Statystyki",
+
+    cookie_analytics_text:
+      "Umożliwia opcjonalne pomiary statystyczne i analizę korzystania ze strony.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Umożliwia opcjonalne technologie marketingowe i reklamowe.",
+
+    cookie_save:
+      "Zapisz wybór",
+
+    cookie_privacy:
+      "Polityka prywatności"
   },
 
   tr: {
@@ -1333,7 +1722,7 @@ const LANGUAGE_OVERRIDES = {
       "Ücretsiz web sitesi analizi",
 
     hero_ad:
-      "KI-Werbung",
+      "AI Reklamcılık",
 
     hero_project:
       "Projeyi başlat",
@@ -1354,7 +1743,7 @@ const LANGUAGE_OVERRIDES = {
       "Komutu çalıştır",
 
     advertising_title:
-      "KI-Werbung",
+      "AI Reklamcılık",
 
     company_placeholder:
       "Şirket",
@@ -1399,7 +1788,55 @@ const LANGUAGE_OVERRIDES = {
       "Randevu al",
 
     contact_title:
-      "Geleceği birlikte inşa edelim."
+      "Geleceği birlikte inşa edelim.",
+
+    cookie_title:
+      "Çerezleri kullanıyoruz",
+
+    cookie_text:
+      "Web sitesinin güvenli ve güvenilir şekilde çalışması için gerekli çerezleri ve yerel depolama işlevlerini kullanıyoruz. İsteğe bağlı analiz veya pazarlama teknolojileri yalnızca izninizle etkinleştirilir.",
+
+    cookie_accept:
+      "Tümünü kabul et",
+
+    cookie_necessary:
+      "Yalnızca gerekli",
+
+    cookie_settings:
+      "Ayarlar",
+
+    cookie_close:
+      "Kapat",
+
+    cookie_settings_title:
+      "Çerez ayarları",
+
+    cookie_settings_text:
+      "İzin verdiğiniz isteğe bağlı teknolojileri seçin.",
+
+    cookie_necessary_title:
+      "Gerekli teknolojiler",
+
+    cookie_necessary_text:
+      "Temel işlevler, güvenlik, dil tercihleri ve izin seçiminizin saklanması için gereklidir.",
+
+    cookie_analytics_title:
+      "Analiz / İstatistik",
+
+    cookie_analytics_text:
+      "İsteğe bağlı istatistiksel ölçüm ve site kullanım analizine izin verir.",
+
+    cookie_marketing_title:
+      "Pazarlama",
+
+    cookie_marketing_text:
+      "İsteğe bağlı pazarlama ve reklam teknolojilerine izin verir.",
+
+    cookie_save:
+      "Seçimi kaydet",
+
+    cookie_privacy:
+      "Gizlilik Politikası"
   },
 
   pt: {
@@ -1424,7 +1861,7 @@ const LANGUAGE_OVERRIDES = {
       "Auditoria gratuita do site",
 
     hero_ad:
-      "KI-Werbung",
+      "Publicidade com IA",
 
     hero_project:
       "Iniciar projeto",
@@ -1445,7 +1882,7 @@ const LANGUAGE_OVERRIDES = {
       "Executar comando",
 
     advertising_title:
-      "KI-Werbung",
+      "Publicidade com IA",
 
     company_placeholder:
       "Empresa",
@@ -1490,7 +1927,55 @@ const LANGUAGE_OVERRIDES = {
       "Agendar reunião",
 
     contact_title:
-      "Vamos construir o futuro."
+      "Vamos construir o futuro.",
+
+    cookie_title:
+      "Utilizamos cookies",
+
+    cookie_text:
+      "Utilizamos cookies necessários e funções de armazenamento local para garantir que este site funcione de forma segura e confiável. Tecnologias opcionais de análise ou marketing só são ativadas com o seu consentimento.",
+
+    cookie_accept:
+      "Aceitar tudo",
+
+    cookie_necessary:
+      "Apenas necessários",
+
+    cookie_settings:
+      "Definições",
+
+    cookie_close:
+      "Fechar",
+
+    cookie_settings_title:
+      "Definições de cookies",
+
+    cookie_settings_text:
+      "Escolha as tecnologias opcionais que autoriza.",
+
+    cookie_necessary_title:
+      "Tecnologias necessárias",
+
+    cookie_necessary_text:
+      "Necessárias para funções básicas, segurança, idioma e armazenamento da sua escolha de consentimento.",
+
+    cookie_analytics_title:
+      "Análise / Estatísticas",
+
+    cookie_analytics_text:
+      "Permite medições estatísticas e análise opcional do uso do site.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Permite tecnologias opcionais de marketing e publicidade.",
+
+    cookie_save:
+      "Guardar seleção",
+
+    cookie_privacy:
+      "Política de privacidade"
   },
 
   ru: {
@@ -1515,7 +2000,7 @@ const LANGUAGE_OVERRIDES = {
       "Бесплатный аудит сайта",
 
     hero_ad:
-      "KI-Werbung",
+      "Реклама с ИИ",
 
     hero_project:
       "Начать проект",
@@ -1536,7 +2021,7 @@ const LANGUAGE_OVERRIDES = {
       "Выполнить команду",
 
     advertising_title:
-      "KI-Werbung",
+      "Реклама с ИИ",
 
     company_placeholder:
       "Компания",
@@ -1581,7 +2066,55 @@ const LANGUAGE_OVERRIDES = {
       "Забронировать встречу",
 
     contact_title:
-      "Создадим будущее вместе."
+      "Создадим будущее вместе.",
+
+    cookie_title:
+      "Мы используем файлы cookie",
+
+    cookie_text:
+      "Мы используем необходимые файлы cookie и локальное хранилище для безопасной и надёжной работы сайта. Необязательные аналитические или маркетинговые технологии активируются только с вашего согласия.",
+
+    cookie_accept:
+      "Принять всё",
+
+    cookie_necessary:
+      "Только необходимые",
+
+    cookie_settings:
+      "Настройки",
+
+    cookie_close:
+      "Закрыть",
+
+    cookie_settings_title:
+      "Настройки cookie",
+
+    cookie_settings_text:
+      "Выберите, какие необязательные технологии вы разрешаете.",
+
+    cookie_necessary_title:
+      "Необходимые технологии",
+
+    cookie_necessary_text:
+      "Необходимы для основных функций, безопасности, языка и сохранения вашего выбора согласия.",
+
+    cookie_analytics_title:
+      "Аналитика / Статистика",
+
+    cookie_analytics_text:
+      "Позволяет использовать необязательные статистические измерения и анализ использования сайта.",
+
+    cookie_marketing_title:
+      "Маркетинг",
+
+    cookie_marketing_text:
+      "Позволяет использовать необязательные маркетинговые и рекламные технологии.",
+
+    cookie_save:
+      "Сохранить выбор",
+
+    cookie_privacy:
+      "Политика конфиденциальности"
   },
 
   uk: {
@@ -1606,7 +2139,7 @@ const LANGUAGE_OVERRIDES = {
       "Безкоштовний аудит сайту",
 
     hero_ad:
-      "KI-Werbung",
+      "Реклама з ШІ",
 
     hero_project:
       "Почати проєкт",
@@ -1627,7 +2160,7 @@ const LANGUAGE_OVERRIDES = {
       "Виконати команду",
 
     advertising_title:
-      "KI-Werbung",
+      "Реклама з ШІ",
 
     company_placeholder:
       "Компанія",
@@ -1672,7 +2205,55 @@ const LANGUAGE_OVERRIDES = {
       "Забронювати зустріч",
 
     contact_title:
-      "Створюймо майбутнє разом."
+      "Створюймо майбутнє разом.",
+
+    cookie_title:
+      "Ми використовуємо файли cookie",
+
+    cookie_text:
+      "Ми використовуємо необхідні файли cookie та локальне сховище для безпечної та надійної роботи сайту. Необов'язкові аналітичні чи маркетингові технології активуються лише за вашою згодою.",
+
+    cookie_accept:
+      "Прийняти все",
+
+    cookie_necessary:
+      "Лише необхідні",
+
+    cookie_settings:
+      "Налаштування",
+
+    cookie_close:
+      "Закрити",
+
+    cookie_settings_title:
+      "Налаштування cookie",
+
+    cookie_settings_text:
+      "Виберіть необов'язкові технології, які ви дозволяєте.",
+
+    cookie_necessary_title:
+      "Необхідні технології",
+
+    cookie_necessary_text:
+      "Потрібні для основних функцій, безпеки, мови та збереження вашого вибору згоди.",
+
+    cookie_analytics_title:
+      "Аналітика / Статистика",
+
+    cookie_analytics_text:
+      "Дозволяє необов'язкові статистичні вимірювання та аналіз використання сайту.",
+
+    cookie_marketing_title:
+      "Маркетинг",
+
+    cookie_marketing_text:
+      "Дозволяє необов'язкові маркетингові та рекламні технології.",
+
+    cookie_save:
+      "Зберегти вибір",
+
+    cookie_privacy:
+      "Політика конфіденційності"
   },
 
   zh: {
@@ -1697,7 +2278,7 @@ const LANGUAGE_OVERRIDES = {
       "免费网站审核",
 
     hero_ad:
-      "KI-Werbung",
+      "AI 广告",
 
     hero_project:
       "开始项目",
@@ -1718,7 +2299,7 @@ const LANGUAGE_OVERRIDES = {
       "执行命令",
 
     advertising_title:
-      "KI-Werbung",
+      "AI 广告",
 
     company_placeholder:
       "公司",
@@ -1763,7 +2344,55 @@ const LANGUAGE_OVERRIDES = {
       "预约会议",
 
     contact_title:
-      "共同打造未来。"
+      "共同打造未来。",
+
+    cookie_title:
+      "我们使用 Cookie",
+
+    cookie_text:
+      "我们使用必要的 Cookie 和本地存储功能，以确保网站安全可靠地运行。可选的分析或营销技术仅在获得您的同意后启用。",
+
+    cookie_accept:
+      "全部接受",
+
+    cookie_necessary:
+      "仅必要功能",
+
+    cookie_settings:
+      "设置",
+
+    cookie_close:
+      "关闭",
+
+    cookie_settings_title:
+      "Cookie 设置",
+
+    cookie_settings_text:
+      "选择您允许的可选技术。",
+
+    cookie_necessary_title:
+      "必要技术",
+
+    cookie_necessary_text:
+      "用于基本功能、安全、语言设置以及保存您的同意选择。",
+
+    cookie_analytics_title:
+      "分析 / 统计",
+
+    cookie_analytics_text:
+      "允许可选的网站统计和使用分析。",
+
+    cookie_marketing_title:
+      "营销",
+
+    cookie_marketing_text:
+      "允许可选的营销和广告技术。",
+
+    cookie_save:
+      "保存选择",
+
+    cookie_privacy:
+      "隐私政策"
   },
 
   ja: {
@@ -1788,7 +2417,7 @@ const LANGUAGE_OVERRIDES = {
       "無料ウェブサイト監査",
 
     hero_ad:
-      "KI-Werbung",
+      "AI広告",
 
     hero_project:
       "プロジェクトを開始",
@@ -1809,7 +2438,7 @@ const LANGUAGE_OVERRIDES = {
       "コマンド実行",
 
     advertising_title:
-      "KI-Werbung",
+      "AI広告",
 
     company_placeholder:
       "会社名",
@@ -1854,7 +2483,55 @@ const LANGUAGE_OVERRIDES = {
       "予約する",
 
     contact_title:
-      "未来を一緒につくりましょう。"
+      "未来を一緒につくりましょう。",
+
+    cookie_title:
+      "Cookieを使用しています",
+
+    cookie_text:
+      "このウェブサイトを安全かつ安定して機能させるため、必要なCookieとローカルストレージを使用しています。任意の分析・マーケティング技術は同意後にのみ有効になります。",
+
+    cookie_accept:
+      "すべて許可",
+
+    cookie_necessary:
+      "必要なもののみ",
+
+    cookie_settings:
+      "設定",
+
+    cookie_close:
+      "閉じる",
+
+    cookie_settings_title:
+      "Cookie設定",
+
+    cookie_settings_text:
+      "許可する任意の技術を選択してください。",
+
+    cookie_necessary_title:
+      "必要な技術",
+
+    cookie_necessary_text:
+      "基本機能、安全性、言語設定、同意選択の保存に必要です。",
+
+    cookie_analytics_title:
+      "分析 / 統計",
+
+    cookie_analytics_text:
+      "任意の統計測定とウェブサイト利用分析を許可します。",
+
+    cookie_marketing_title:
+      "マーケティング",
+
+    cookie_marketing_text:
+      "任意のマーケティングおよび広告技術を許可します。",
+
+    cookie_save:
+      "選択を保存",
+
+    cookie_privacy:
+      "プライバシーポリシー"
   },
 
   ko: {
@@ -1879,7 +2556,7 @@ const LANGUAGE_OVERRIDES = {
       "무료 웹사이트 감사",
 
     hero_ad:
-      "KI-Werbung",
+      "AI 광고",
 
     hero_project:
       "프로젝트 시작",
@@ -1900,7 +2577,7 @@ const LANGUAGE_OVERRIDES = {
       "명령 실행",
 
     advertising_title:
-      "KI-Werbung",
+      "AI 광고",
 
     company_placeholder:
       "회사",
@@ -1945,7 +2622,55 @@ const LANGUAGE_OVERRIDES = {
       "미팅 예약",
 
     contact_title:
-      "미래를 함께 만들어갑시다."
+      "미래를 함께 만들어갑시다.",
+
+    cookie_title:
+      "쿠키를 사용합니다",
+
+    cookie_text:
+      "이 웹사이트의 안전하고 안정적인 작동을 위해 필요한 쿠키와 로컬 저장 기능을 사용합니다. 선택적 분석 또는 마케팅 기술은 동의한 경우에만 활성화됩니다.",
+
+    cookie_accept:
+      "모두 허용",
+
+    cookie_necessary:
+      "필수 항목만",
+
+    cookie_settings:
+      "설정",
+
+    cookie_close:
+      "닫기",
+
+    cookie_settings_title:
+      "쿠키 설정",
+
+    cookie_settings_text:
+      "허용할 선택적 기술을 선택하세요.",
+
+    cookie_necessary_title:
+      "필수 기술",
+
+    cookie_necessary_text:
+      "기본 기능, 보안, 언어 설정 및 동의 선택 저장에 필요합니다.",
+
+    cookie_analytics_title:
+      "분석 / 통계",
+
+    cookie_analytics_text:
+      "선택적 통계 측정 및 웹사이트 사용 분석을 허용합니다.",
+
+    cookie_marketing_title:
+      "마케팅",
+
+    cookie_marketing_text:
+      "선택적 마케팅 및 광고 기술을 허용합니다.",
+
+    cookie_save:
+      "선택 저장",
+
+    cookie_privacy:
+      "개인정보 처리방침"
   },
 
   hi: {
@@ -1970,7 +2695,7 @@ const LANGUAGE_OVERRIDES = {
       "मुफ़्त वेबसाइट ऑडिट",
 
     hero_ad:
-      "KI-Werbung",
+      "AI विज्ञापन",
 
     hero_project:
       "प्रोजेक्ट शुरू करें",
@@ -1991,7 +2716,7 @@ const LANGUAGE_OVERRIDES = {
       "कमांड चलाएँ",
 
     advertising_title:
-      "KI-Werbung",
+      "AI विज्ञापन",
 
     company_placeholder:
       "कंपनी",
@@ -2036,7 +2761,55 @@ const LANGUAGE_OVERRIDES = {
       "अपॉइंटमेंट बुक करें",
 
     contact_title:
-      "आइए भविष्य बनाएँ।"
+      "आइए भविष्य बनाएँ।",
+
+    cookie_title:
+      "हम कुकीज़ का उपयोग करते हैं",
+
+    cookie_text:
+      "हम वेबसाइट को सुरक्षित और विश्वसनीय रूप से चलाने के लिए आवश्यक कुकीज़ और स्थानीय स्टोरेज सुविधाओं का उपयोग करते हैं। वैकल्पिक विश्लेषण या मार्केटिंग तकनीकें केवल आपकी सहमति से सक्रिय होती हैं।",
+
+    cookie_accept:
+      "सभी स्वीकार करें",
+
+    cookie_necessary:
+      "केवल आवश्यक",
+
+    cookie_settings:
+      "सेटिंग्स",
+
+    cookie_close:
+      "बंद करें",
+
+    cookie_settings_title:
+      "कुकी सेटिंग्स",
+
+    cookie_settings_text:
+      "चुनें कि आप किन वैकल्पिक तकनीकों की अनुमति देते हैं।",
+
+    cookie_necessary_title:
+      "आवश्यक तकनीकें",
+
+    cookie_necessary_text:
+      "मूल कार्यों, सुरक्षा, भाषा और आपकी सहमति की पसंद को सहेजने के लिए आवश्यक।",
+
+    cookie_analytics_title:
+      "विश्लेषण / आँकड़े",
+
+    cookie_analytics_text:
+      "वैकल्पिक सांख्यिकीय मापन और वेबसाइट उपयोग विश्लेषण की अनुमति देता है।",
+
+    cookie_marketing_title:
+      "मार्केटिंग",
+
+    cookie_marketing_text:
+      "वैकल्पिक मार्केटिंग और विज्ञापन तकनीकों की अनुमति देता है।",
+
+    cookie_save:
+      "चयन सहेजें",
+
+    cookie_privacy:
+      "गोपनीयता नीति"
   },
 
   sv: {
@@ -2061,7 +2834,7 @@ const LANGUAGE_OVERRIDES = {
       "Gratis webbplatsgranskning",
 
     hero_ad:
-      "KI-Werbung",
+      "AI-reklam",
 
     hero_project:
       "Starta projekt",
@@ -2082,7 +2855,7 @@ const LANGUAGE_OVERRIDES = {
       "Kör kommando",
 
     advertising_title:
-      "KI-Werbung",
+      "AI-reklam",
 
     company_placeholder:
       "Företag",
@@ -2127,7 +2900,55 @@ const LANGUAGE_OVERRIDES = {
       "Boka möte",
 
     contact_title:
-      "Låt oss bygga framtiden."
+      "Låt oss bygga framtiden.",
+
+    cookie_title:
+      "Vi använder cookies",
+
+    cookie_text:
+      "Vi använder nödvändiga cookies och lokal lagring för att webbplatsen ska fungera säkert och tillförlitligt. Valfria analys- eller marknadsföringstekniker aktiveras endast med ditt samtycke.",
+
+    cookie_accept:
+      "Acceptera alla",
+
+    cookie_necessary:
+      "Endast nödvändiga",
+
+    cookie_settings:
+      "Inställningar",
+
+    cookie_close:
+      "Stäng",
+
+    cookie_settings_title:
+      "Cookie-inställningar",
+
+    cookie_settings_text:
+      "Välj vilka valfria tekniker du tillåter.",
+
+    cookie_necessary_title:
+      "Nödvändiga tekniker",
+
+    cookie_necessary_text:
+      "Krävs för grundläggande funktioner, säkerhet, språk och lagring av ditt samtycke.",
+
+    cookie_analytics_title:
+      "Analys / Statistik",
+
+    cookie_analytics_text:
+      "Tillåter valfri statistisk mätning och analys av webbplatsanvändning.",
+
+    cookie_marketing_title:
+      "Marknadsföring",
+
+    cookie_marketing_text:
+      "Tillåter valfria tekniker för marknadsföring och annonsering.",
+
+    cookie_save:
+      "Spara val",
+
+    cookie_privacy:
+      "Integritetspolicy"
   },
 
   da: {
@@ -2152,7 +2973,7 @@ const LANGUAGE_OVERRIDES = {
       "Gratis website-audit",
 
     hero_ad:
-      "KI-Werbung",
+      "AI-annoncering",
 
     hero_project:
       "Start projekt",
@@ -2173,7 +2994,7 @@ const LANGUAGE_OVERRIDES = {
       "Kør kommando",
 
     advertising_title:
-      "KI-Werbung",
+      "AI-annoncering",
 
     company_placeholder:
       "Virksomhed",
@@ -2218,7 +3039,55 @@ const LANGUAGE_OVERRIDES = {
       "Book møde",
 
     contact_title:
-      "Lad os bygge fremtiden."
+      "Lad os bygge fremtiden.",
+
+    cookie_title:
+      "Vi bruger cookies",
+
+    cookie_text:
+      "Vi bruger nødvendige cookies og lokal lagring, så hjemmesiden fungerer sikkert og pålideligt. Valgfrie analyse- eller marketingteknologier aktiveres kun med dit samtykke.",
+
+    cookie_accept:
+      "Accepter alle",
+
+    cookie_necessary:
+      "Kun nødvendige",
+
+    cookie_settings:
+      "Indstillinger",
+
+    cookie_close:
+      "Luk",
+
+    cookie_settings_title:
+      "Cookie-indstillinger",
+
+    cookie_settings_text:
+      "Vælg hvilke valgfrie teknologier du tillader.",
+
+    cookie_necessary_title:
+      "Nødvendige teknologier",
+
+    cookie_necessary_text:
+      "Nødvendige for grundlæggende funktioner, sikkerhed, sprog og lagring af dit samtykke.",
+
+    cookie_analytics_title:
+      "Analyse / Statistik",
+
+    cookie_analytics_text:
+      "Tillader valgfri statistisk måling og analyse af brugen af hjemmesiden.",
+
+    cookie_marketing_title:
+      "Marketing",
+
+    cookie_marketing_text:
+      "Tillader valgfrie marketing- og reklameteknologier.",
+
+    cookie_save:
+      "Gem valg",
+
+    cookie_privacy:
+      "Privatlivspolitik"
   },
 
   no: {
@@ -2243,7 +3112,7 @@ const LANGUAGE_OVERRIDES = {
       "Gratis nettsideanalyse",
 
     hero_ad:
-      "KI-Werbung",
+      "AI-reklame",
 
     hero_project:
       "Start prosjekt",
@@ -2264,7 +3133,7 @@ const LANGUAGE_OVERRIDES = {
       "Kjør kommando",
 
     advertising_title:
-      "KI-Werbung",
+      "AI-reklame",
 
     company_placeholder:
       "Bedrift",
@@ -2309,7 +3178,55 @@ const LANGUAGE_OVERRIDES = {
       "Bestill møte",
 
     contact_title:
-      "La oss bygge fremtiden."
+      "La oss bygge fremtiden.",
+
+    cookie_title:
+      "Vi bruker informasjonskapsler",
+
+    cookie_text:
+      "Vi bruker nødvendige informasjonskapsler og lokal lagring for at nettstedet skal fungere sikkert og pålitelig. Valgfrie analyse- eller markedsføringsteknologier aktiveres bare med ditt samtykke.",
+
+    cookie_accept:
+      "Godta alle",
+
+    cookie_necessary:
+      "Kun nødvendige",
+
+    cookie_settings:
+      "Innstillinger",
+
+    cookie_close:
+      "Lukk",
+
+    cookie_settings_title:
+      "Informasjonskapselinnstillinger",
+
+    cookie_settings_text:
+      "Velg hvilke valgfrie teknologier du tillater.",
+
+    cookie_necessary_title:
+      "Nødvendige teknologier",
+
+    cookie_necessary_text:
+      "Nødvendig for grunnleggende funksjoner, sikkerhet, språk og lagring av samtykkevalget ditt.",
+
+    cookie_analytics_title:
+      "Analyse / Statistikk",
+
+    cookie_analytics_text:
+      "Tillater valgfri statistisk måling og analyse av nettstedbruk.",
+
+    cookie_marketing_title:
+      "Markedsføring",
+
+    cookie_marketing_text:
+      "Tillater valgfrie markedsførings- og reklameteknologier.",
+
+    cookie_save:
+      "Lagre valg",
+
+    cookie_privacy:
+      "Personvernerklæring"
   },
 
   fi: {
@@ -2334,7 +3251,7 @@ const LANGUAGE_OVERRIDES = {
       "Ilmainen verkkosivuston auditointi",
 
     hero_ad:
-      "KI-Werbung",
+      "AI-mainonta",
 
     hero_project:
       "Aloita projekti",
@@ -2355,7 +3272,7 @@ const LANGUAGE_OVERRIDES = {
       "Suorita komento",
 
     advertising_title:
-      "KI-Werbung",
+      "AI-mainonta",
 
     company_placeholder:
       "Yritys",
@@ -2400,7 +3317,55 @@ const LANGUAGE_OVERRIDES = {
       "Varaa tapaaminen",
 
     contact_title:
-      "Rakennetaan tulevaisuus yhdessä."
+      "Rakennetaan tulevaisuus yhdessä.",
+
+    cookie_title:
+      "Käytämme evästeitä",
+
+    cookie_text:
+      "Käytämme välttämättömiä evästeitä ja paikallista tallennustilaa, jotta sivusto toimii turvallisesti ja luotettavasti. Valinnaiset analytiikka- ja markkinointitekniikat aktivoidaan vain suostumuksellasi.",
+
+    cookie_accept:
+      "Hyväksy kaikki",
+
+    cookie_necessary:
+      "Vain välttämättömät",
+
+    cookie_settings:
+      "Asetukset",
+
+    cookie_close:
+      "Sulje",
+
+    cookie_settings_title:
+      "Evästeasetukset",
+
+    cookie_settings_text:
+      "Valitse, mitkä valinnaiset tekniikat sallit.",
+
+    cookie_necessary_title:
+      "Välttämättömät tekniikat",
+
+    cookie_necessary_text:
+      "Tarvitaan perustoimintoihin, turvallisuuteen, kieliasetuksiin ja suostumusvalinnan tallentamiseen.",
+
+    cookie_analytics_title:
+      "Analytiikka / Tilastot",
+
+    cookie_analytics_text:
+      "Sallii valinnaisen tilastollisen mittauksen ja verkkosivuston käytön analysoinnin.",
+
+    cookie_marketing_title:
+      "Markkinointi",
+
+    cookie_marketing_text:
+      "Sallii valinnaiset markkinointi- ja mainosteknologiat.",
+
+    cookie_save:
+      "Tallenna valinta",
+
+    cookie_privacy:
+      "Tietosuojakäytäntö"
   }
 
 };
@@ -2416,18 +3381,20 @@ const TRANSLATIONS = {
   ar: AR_TRANSLATION
 };
 
-Object.keys(LANGUAGES).forEach(language => {
+Object.keys(LANGUAGES).forEach(
+  language => {
 
-  if (!TRANSLATIONS[language]) {
+    if (!TRANSLATIONS[language]) {
 
-    TRANSLATIONS[language] = {
-      ...EN_TRANSLATION,
-      ...(LANGUAGE_OVERRIDES[language] || {})
-    };
+      TRANSLATIONS[language] = {
+        ...EN_TRANSLATION,
+        ...(LANGUAGE_OVERRIDES[language] || {})
+      };
+
+    }
 
   }
-
-});
+);
 
 
 /* =========================================================
@@ -2435,11 +3402,33 @@ Object.keys(LANGUAGES).forEach(language => {
 ========================================================= */
 
 let currentLanguage =
-  localStorage.getItem("nexora_language") || "de";
+  localStorage.getItem(
+    "nexora_language"
+  ) || "de";
 
 if (!LANGUAGES[currentLanguage]) {
   currentLanguage = "de";
 }
+
+
+/* =========================================================
+   COOKIE CONSENT
+========================================================= */
+
+const COOKIE_CONSENT_KEY =
+  "nexora_cookie_consent_v1";
+
+const COOKIE_PREFERENCES_KEY =
+  "nexora_cookie_preferences_v1";
+
+let cookiePreferences = {
+  necessary: true,
+  analytics: false,
+  marketing: false
+};
+
+let cookieBannerInitialized =
+  false;
 
 
 /* =========================================================
@@ -2451,11 +3440,15 @@ document.addEventListener(
   async () => {
 
     const year =
-      document.getElementById("year");
+      document.getElementById(
+        "year"
+      );
 
     if (year) {
+
       year.textContent =
         new Date().getFullYear();
+
     }
 
     buildLanguageMenu();
@@ -2465,6 +3458,8 @@ document.addEventListener(
     );
 
     renderPipeline();
+
+    initializeCookieConsent();
 
     const form =
       document.getElementById(
@@ -2525,6 +3520,46 @@ document.addEventListener(
       }
     );
 
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          const menu =
+            document.getElementById(
+              "languageMenu"
+            );
+
+          const button =
+            document.getElementById(
+              "languageButton"
+            );
+
+          if (menu) {
+
+            menu.classList.remove(
+              "active"
+            );
+
+          }
+
+          if (button) {
+
+            button.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+          }
+
+        }
+
+      }
+    );
+
     await refreshSystemStatus();
 
   }
@@ -2556,7 +3591,8 @@ function buildLanguageMenu() {
           "button"
         );
 
-      button.type = "button";
+      button.type =
+        "button";
 
       button.dataset.language =
         code;
@@ -2691,19 +3727,21 @@ async function setLanguage(
 
   }
 
+  updateCookieConsentLanguage();
+
   try {
 
     await fetch(
       `${API_BASE}/language`,
       {
-        method: "POST",
+        method:"POST",
 
-        headers: {
+        headers:{
           "Content-Type":
             "application/json"
         },
 
-        body: JSON.stringify({
+        body:JSON.stringify({
           language:
             currentLanguage
         })
@@ -2756,7 +3794,6 @@ function applyLanguage(
 
   }
 
-
   document
     .querySelectorAll(
       "[data-i18n]"
@@ -2783,7 +3820,6 @@ function applyLanguage(
 
       }
     );
-
 
   document
     .querySelectorAll(
@@ -2812,7 +3848,6 @@ function applyLanguage(
       }
     );
 
-
   const button =
     document.getElementById(
       "languageButton"
@@ -2824,7 +3859,6 @@ function applyLanguage(
       `${metadata.flag} ${language.toUpperCase()}`;
 
   }
-
 
   const titles = {
 
@@ -2899,6 +3933,8 @@ function applyLanguage(
   );
 
   renderPipeline();
+
+  updateCookieConsentLanguage();
 
 }
 
@@ -2981,7 +4017,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "الإعلانات بالذكاء الاصطناعي"
       ],
       [
         "Digital Automation",
@@ -3004,7 +4040,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Publicité IA"
       ],
       [
         "Digital Automation",
@@ -3027,7 +4063,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Publicidad IA"
       ],
       [
         "Digital Automation",
@@ -3050,7 +4086,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Pubblicità IA"
       ],
       [
         "Digital Automation",
@@ -3073,7 +4109,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI-advertising"
       ],
       [
         "Digital Automation",
@@ -3096,7 +4132,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Reklama AI"
       ],
       [
         "Digital Automation",
@@ -3119,7 +4155,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI reklamcılığı"
       ],
       [
         "Digital Automation",
@@ -3142,7 +4178,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Publicidade com IA"
       ],
       [
         "Digital Automation",
@@ -3165,7 +4201,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Реклама с ИИ"
       ],
       [
         "Digital Automation",
@@ -3188,7 +4224,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "Реклама з ШІ"
       ],
       [
         "Digital Automation",
@@ -3211,7 +4247,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI 广告"
       ],
       [
         "Digital Automation",
@@ -3234,7 +4270,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI広告"
       ],
       [
         "Digital Automation",
@@ -3257,7 +4293,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI 광고"
       ],
       [
         "Digital Automation",
@@ -3280,7 +4316,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI विज्ञापन"
       ],
       [
         "Digital Automation",
@@ -3303,7 +4339,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI-reklam"
       ],
       [
         "Digital Automation",
@@ -3326,7 +4362,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI-annoncering"
       ],
       [
         "Digital Automation",
@@ -3349,7 +4385,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI-reklame"
       ],
       [
         "Digital Automation",
@@ -3372,7 +4408,7 @@ function updateServiceOptions(
       ],
       [
         "AI Advertising",
-        "KI-Werbung"
+        "AI-mainonta"
       ],
       [
         "Digital Automation",
@@ -3386,10 +4422,14 @@ function updateServiceOptions(
     options[language] ||
     options.en;
 
-  select.innerHTML = "";
+  const currentValue =
+    select.value;
+
+  select.innerHTML =
+    "";
 
   list.forEach(
-    ([value, label]) => {
+    ([value,label]) => {
 
       const option =
         document.createElement(
@@ -3408,6 +4448,21 @@ function updateServiceOptions(
 
     }
   );
+
+  const matchingOption =
+    [...select.options]
+      .find(
+        option =>
+          option.value ===
+          currentValue
+      );
+
+  if (matchingOption) {
+
+    select.value =
+      currentValue;
+
+  }
 
 }
 
@@ -3444,7 +4499,11 @@ function toggleHeroVideo() {
       .catch(() => {
 
         showToast(
-          "Video could not be started."
+          currentLanguage === "de"
+            ? "Video konnte nicht gestartet werden."
+            : currentLanguage === "ar"
+              ? "تعذر تشغيل الفيديو."
+              : "Video could not be started."
         );
 
       });
@@ -3454,8 +4513,10 @@ function toggleHeroVideo() {
     video.pause();
 
     if (button) {
+
       button.textContent =
         "▶";
+
     }
 
   }
@@ -3515,14 +4576,14 @@ async function runAICommand() {
       await fetch(
         `${API_BASE}/command`,
         {
-          method: "POST",
+          method:"POST",
 
-          headers: {
+          headers:{
             "Content-Type":
               "application/json"
           },
 
-          body: JSON.stringify({
+          body:JSON.stringify({
             command,
             language:
               currentLanguage
@@ -3645,14 +4706,14 @@ async function createAICampaign() {
       await fetch(
         `${API_BASE}/advertising`,
         {
-          method: "POST",
+          method:"POST",
 
-          headers: {
+          headers:{
             "Content-Type":
               "application/json"
           },
 
-          body: JSON.stringify({
+          body:JSON.stringify({
             company,
             product,
             goal,
@@ -3751,14 +4812,14 @@ async function runWebsiteAudit() {
       await fetch(
         `${API_BASE}/audit`,
         {
-          method: "POST",
+          method:"POST",
 
-          headers: {
+          headers:{
             "Content-Type":
               "application/json"
           },
 
-          body: JSON.stringify({
+          body:JSON.stringify({
             url,
             language:
               currentLanguage
@@ -3866,9 +4927,9 @@ async function submitProject(
       await fetch(
         `${API_BASE}/clients`,
         {
-          method: "POST",
+          method:"POST",
 
-          headers: {
+          headers:{
             "Content-Type":
               "application/json"
           },
@@ -3984,7 +5045,9 @@ function renderPipeline(
     !pipeline &&
     !execution
   ) {
+
     return;
+
   }
 
   const stages = [
@@ -4017,7 +5080,7 @@ function renderPipeline(
       "";
 
     stages.forEach(
-      (stage, index) => {
+      (stage,index) => {
 
         const number =
           index + 1;
@@ -4036,26 +5099,28 @@ function renderPipeline(
           );
 
         const percent =
-          Math.round(
-            Math.max(
-              0,
-              Math.min(
-                100,
-                (
-                  (
-                    currentStage - 1
-                  ) /
-                  (
-                    stages.length - 1
+          stages.length > 1
+            ? Math.round(
+                Math.max(
+                  0,
+                  Math.min(
+                    100,
+                    (
+                      (
+                        currentStage - 1
+                      ) /
+                      (
+                        stages.length - 1
+                      )
+                    ) * 100
                   )
-                ) * 100
+                )
               )
-            )
-          );
+            : 100;
 
         item.innerHTML = `
           <strong>
-            ${String(number).padStart(2, "0")}
+            ${String(number).padStart(2,"0")}
             — ${stage}
           </strong>
 
@@ -4089,7 +5154,7 @@ function renderPipeline(
       "";
 
     stages.forEach(
-      (stage, index) => {
+      (stage,index) => {
 
         const item =
           document.createElement(
@@ -4101,7 +5166,7 @@ function renderPipeline(
 
         item.innerHTML = `
           <div class="step-number">
-            ${String(index + 1).padStart(2, "0")}
+            ${String(index + 1).padStart(2,"0")}
           </div>
 
           <h3>
@@ -4237,35 +5302,8 @@ function showToast(
   toast.textContent =
     message;
 
-  toast.style.position =
-    "fixed";
-
-  toast.style.bottom =
-    "25px";
-
-  toast.style.left =
-    "50%";
-
-  toast.style.transform =
-    "translateX(-50%)";
-
-  toast.style.zIndex =
-    "99999";
-
-  toast.style.padding =
-    "14px 20px";
-
-  toast.style.borderRadius =
-    "12px";
-
-  toast.style.background =
-    "#0b1728";
-
-  toast.style.color =
-    "#fff";
-
-  toast.style.border =
-    "1px solid rgba(255,255,255,.15)";
+  toast.className =
+    "nexora-toast";
 
   document.body.appendChild(
     toast
@@ -4273,7 +5311,9 @@ function showToast(
 
   setTimeout(
     () => {
+
       toast.remove();
+
     },
     3000
   );
@@ -4294,14 +5334,963 @@ function bookMeeting() {
 
 
 /* =========================================================
+   COOKIE CONSENT — STORAGE
+========================================================= */
+
+function getStoredCookieConsent() {
+
+  try {
+
+    const value =
+      localStorage.getItem(
+        COOKIE_CONSENT_KEY
+      );
+
+    return value === "true";
+
+  } catch {
+
+    return false;
+
+  }
+
+}
+
+
+function getStoredCookiePreferences() {
+
+  try {
+
+    const raw =
+      localStorage.getItem(
+        COOKIE_PREFERENCES_KEY
+      );
+
+    if (!raw) {
+
+      return {
+        ...cookiePreferences
+      };
+
+    }
+
+    const parsed =
+      JSON.parse(
+        raw
+      );
+
+    return {
+
+      necessary:true,
+
+      analytics:
+        Boolean(
+          parsed.analytics
+        ),
+
+      marketing:
+        Boolean(
+          parsed.marketing
+        )
+
+    };
+
+  } catch {
+
+    return {
+      ...cookiePreferences
+    };
+
+  }
+
+}
+
+
+function saveCookiePreferences(
+  preferences
+) {
+
+  cookiePreferences = {
+
+    necessary:true,
+
+    analytics:
+      Boolean(
+        preferences.analytics
+      ),
+
+    marketing:
+      Boolean(
+        preferences.marketing
+      )
+
+  };
+
+  try {
+
+    localStorage.setItem(
+      COOKIE_PREFERENCES_KEY,
+      JSON.stringify(
+        cookiePreferences
+      )
+    );
+
+    localStorage.setItem(
+      COOKIE_CONSENT_KEY,
+      "true"
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "NEXORA cookie storage unavailable:",
+      error
+    );
+
+  }
+
+  applyCookiePreferences();
+
+}
+
+
+function clearCookieConsent() {
+
+  try {
+
+    localStorage.removeItem(
+      COOKIE_CONSENT_KEY
+    );
+
+    localStorage.removeItem(
+      COOKIE_PREFERENCES_KEY
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Unable to clear cookie consent:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — INITIALIZE
+========================================================= */
+
+function initializeCookieConsent() {
+
+  if (cookieBannerInitialized) {
+    return;
+  }
+
+  cookieBannerInitialized =
+    true;
+
+  cookiePreferences =
+    getStoredCookiePreferences();
+
+  createCookieConsentUI();
+
+  if (!getStoredCookieConsent()) {
+
+    setTimeout(
+      () => {
+        showCookieBanner();
+      },
+      250
+    );
+
+  }
+
+  applyCookiePreferences();
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — UI
+========================================================= */
+
+function createCookieConsentUI() {
+
+  if (
+    document.getElementById(
+      "nexoraCookieBanner"
+    )
+  ) {
+
+    return;
+
+  }
+
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+  wrapper.id =
+    "nexoraCookieBanner";
+
+  wrapper.className =
+    "nexora-cookie-banner";
+
+  wrapper.setAttribute(
+    "role",
+    "dialog"
+  );
+
+  wrapper.setAttribute(
+    "aria-modal",
+    "false"
+  );
+
+  wrapper.setAttribute(
+    "aria-labelledby",
+    "nexoraCookieTitle"
+  );
+
+  wrapper.innerHTML = `
+
+    <div class="nexora-cookie-inner">
+
+      <div class="nexora-cookie-copy">
+
+        <div
+          id="nexoraCookieTitle"
+          class="nexora-cookie-title"
+        ></div>
+
+        <div
+          id="nexoraCookieText"
+          class="nexora-cookie-text"
+        ></div>
+
+        <button
+          id="nexoraCookiePrivacy"
+          type="button"
+          class="nexora-cookie-link"
+        ></button>
+
+      </div>
+
+      <div class="nexora-cookie-actions">
+
+        <button
+          id="nexoraCookieNecessary"
+          type="button"
+          class="btn btn-secondary"
+        ></button>
+
+        <button
+          id="nexoraCookieSettings"
+          type="button"
+          class="btn btn-secondary"
+        ></button>
+
+        <button
+          id="nexoraCookieAccept"
+          type="button"
+          class="btn btn-primary"
+        ></button>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.body.appendChild(
+    wrapper
+  );
+
+
+  const accept =
+    document.getElementById(
+      "nexoraCookieAccept"
+    );
+
+  const necessary =
+    document.getElementById(
+      "nexoraCookieNecessary"
+    );
+
+  const settings =
+    document.getElementById(
+      "nexoraCookieSettings"
+    );
+
+  const privacy =
+    document.getElementById(
+      "nexoraCookiePrivacy"
+    );
+
+  if (accept) {
+
+    accept.addEventListener(
+      "click",
+      () => {
+
+        saveCookiePreferences({
+          necessary:true,
+          analytics:true,
+          marketing:true
+        });
+
+        hideCookieBanner();
+
+      }
+    );
+
+  }
+
+  if (necessary) {
+
+    necessary.addEventListener(
+      "click",
+      () => {
+
+        saveCookiePreferences({
+          necessary:true,
+          analytics:false,
+          marketing:false
+        });
+
+        hideCookieBanner();
+
+      }
+    );
+
+  }
+
+  if (settings) {
+
+    settings.addEventListener(
+      "click",
+      () => {
+
+        openCookieSettings();
+
+      }
+    );
+
+  }
+
+  if (privacy) {
+
+    privacy.addEventListener(
+      "click",
+      () => {
+
+        if (
+          typeof openModal ===
+          "function"
+        ) {
+
+          openModal(
+            "privacy"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+  buildCookieSettingsModal();
+
+  updateCookieConsentLanguage();
+
+}
+
+
+function buildCookieSettingsModal() {
+
+  if (
+    document.getElementById(
+      "nexoraCookieSettingsModal"
+    )
+  ) {
+
+    return;
+
+  }
+
+  const modal =
+    document.createElement(
+      "div"
+    );
+
+  modal.id =
+    "nexoraCookieSettingsModal";
+
+  modal.className =
+    "nexora-cookie-settings-modal";
+
+  modal.setAttribute(
+    "role",
+    "dialog"
+  );
+
+  modal.setAttribute(
+    "aria-modal",
+    "true"
+  );
+
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  modal.innerHTML = `
+
+    <div class="nexora-cookie-settings-box">
+
+      <button
+        id="nexoraCookieSettingsClose"
+        type="button"
+        class="nexora-cookie-settings-close"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+      <h2
+        id="nexoraCookieSettingsTitle"
+        class="nexora-cookie-settings-title"
+      ></h2>
+
+      <p
+        id="nexoraCookieSettingsText"
+        class="nexora-cookie-settings-text"
+      ></p>
+
+      <div class="nexora-cookie-option locked">
+
+        <div class="nexora-cookie-option-copy">
+
+          <strong
+            id="nexoraCookieNecessaryTitle"
+          ></strong>
+
+          <span
+            id="nexoraCookieNecessaryText"
+          ></span>
+
+        </div>
+
+        <label class="nexora-cookie-switch">
+
+          <input
+            type="checkbox"
+            checked
+            disabled
+          >
+
+          <span></span>
+
+        </label>
+
+      </div>
+
+      <div class="nexora-cookie-option">
+
+        <div class="nexora-cookie-option-copy">
+
+          <strong
+            id="nexoraCookieAnalyticsTitle"
+          ></strong>
+
+          <span
+            id="nexoraCookieAnalyticsText"
+          ></span>
+
+        </div>
+
+        <label class="nexora-cookie-switch">
+
+          <input
+            id="nexoraCookieAnalytics"
+            type="checkbox"
+          >
+
+          <span></span>
+
+        </label>
+
+      </div>
+
+      <div class="nexora-cookie-option">
+
+        <div class="nexora-cookie-option-copy">
+
+          <strong
+            id="nexoraCookieMarketingTitle"
+          ></strong>
+
+          <span
+            id="nexoraCookieMarketingText"
+          ></span>
+
+        </div>
+
+        <label class="nexora-cookie-switch">
+
+          <input
+            id="nexoraCookieMarketing"
+            type="checkbox"
+          >
+
+          <span></span>
+
+        </label>
+
+      </div>
+
+      <button
+        id="nexoraCookieSave"
+        type="button"
+        class="btn btn-primary nexora-cookie-save"
+      ></button>
+
+    </div>
+
+  `;
+
+  document.body.appendChild(
+    modal
+  );
+
+
+  const close =
+    document.getElementById(
+      "nexoraCookieSettingsClose"
+    );
+
+  const save =
+    document.getElementById(
+      "nexoraCookieSave"
+    );
+
+
+  if (close) {
+
+    close.addEventListener(
+      "click",
+      closeCookieSettings
+    );
+
+  }
+
+
+  if (save) {
+
+    save.addEventListener(
+      "click",
+      () => {
+
+        const analytics =
+          document.getElementById(
+            "nexoraCookieAnalytics"
+          )?.checked ||
+          false;
+
+        const marketing =
+          document.getElementById(
+            "nexoraCookieMarketing"
+          )?.checked ||
+          false;
+
+        saveCookiePreferences({
+
+          necessary:true,
+
+          analytics,
+
+          marketing
+
+        });
+
+        closeCookieSettings();
+
+        hideCookieBanner();
+
+      }
+    );
+
+  }
+
+
+  modal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        modal
+      ) {
+
+        closeCookieSettings();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — LANGUAGE
+========================================================= */
+
+function updateCookieConsentLanguage() {
+
+  const dictionary =
+    TRANSLATIONS[
+      currentLanguage
+    ] ||
+    TRANSLATIONS.en;
+
+  const map = {
+
+    nexoraCookieTitle:
+      dictionary.cookie_title,
+
+    nexoraCookieText:
+      dictionary.cookie_text,
+
+    nexoraCookieAccept:
+      dictionary.cookie_accept,
+
+    nexoraCookieNecessary:
+      dictionary.cookie_necessary,
+
+    nexoraCookieSettings:
+      dictionary.cookie_settings,
+
+    nexoraCookiePrivacy:
+      dictionary.cookie_privacy,
+
+    nexoraCookieSettingsTitle:
+      dictionary.cookie_settings_title,
+
+    nexoraCookieSettingsText:
+      dictionary.cookie_settings_text,
+
+    nexoraCookieNecessaryTitle:
+      dictionary.cookie_necessary_title,
+
+    nexoraCookieNecessaryText:
+      dictionary.cookie_necessary_text,
+
+    nexoraCookieAnalyticsTitle:
+      dictionary.cookie_analytics_title,
+
+    nexoraCookieAnalyticsText:
+      dictionary.cookie_analytics_text,
+
+    nexoraCookieMarketingTitle:
+      dictionary.cookie_marketing_title,
+
+    nexoraCookieMarketingText:
+      dictionary.cookie_marketing_text,
+
+    nexoraCookieSave:
+      dictionary.cookie_save
+
+  };
+
+  Object.entries(
+    map
+  ).forEach(
+    ([id,text]) => {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+      if (
+        element &&
+        typeof text ===
+          "string"
+      ) {
+
+        element.textContent =
+          text;
+
+      }
+
+    }
+  );
+
+  const modal =
+    document.getElementById(
+      "nexoraCookieSettingsModal"
+    );
+
+  if (modal) {
+
+    const close =
+      modal.querySelector(
+        "#nexoraCookieSettingsClose"
+      );
+
+    if (close) {
+
+      close.setAttribute(
+        "aria-label",
+        dictionary.cookie_close ||
+        "Close"
+      );
+
+    }
+
+    modal.setAttribute(
+      "dir",
+      LANGUAGES[
+        currentLanguage
+      ]?.rtl
+        ? "rtl"
+        : "ltr"
+    );
+
+  }
+
+  const banner =
+    document.getElementById(
+      "nexoraCookieBanner"
+    );
+
+  if (banner) {
+
+    banner.setAttribute(
+      "dir",
+      LANGUAGES[
+        currentLanguage
+      ]?.rtl
+        ? "rtl"
+        : "ltr"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — BANNER
+========================================================= */
+
+function showCookieBanner() {
+
+  const banner =
+    document.getElementById(
+      "nexoraCookieBanner"
+    );
+
+  if (!banner) {
+    return;
+  }
+
+  banner.classList.add(
+    "visible"
+  );
+
+  updateCookieConsentLanguage();
+
+}
+
+
+function hideCookieBanner() {
+
+  const banner =
+    document.getElementById(
+      "nexoraCookieBanner"
+    );
+
+  if (!banner) {
+    return;
+  }
+
+  banner.classList.remove(
+    "visible"
+  );
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — SETTINGS
+========================================================= */
+
+function openCookieSettings() {
+
+  const modal =
+    document.getElementById(
+      "nexoraCookieSettingsModal"
+    );
+
+  if (!modal) {
+    return;
+  }
+
+  cookiePreferences =
+    getStoredCookiePreferences();
+
+  const analytics =
+    document.getElementById(
+      "nexoraCookieAnalytics"
+    );
+
+  const marketing =
+    document.getElementById(
+      "nexoraCookieMarketing"
+    );
+
+  if (analytics) {
+
+    analytics.checked =
+      Boolean(
+        cookiePreferences.analytics
+      );
+
+  }
+
+  if (marketing) {
+
+    marketing.checked =
+      Boolean(
+        cookiePreferences.marketing
+      );
+
+  }
+
+  updateCookieConsentLanguage();
+
+  modal.classList.add(
+    "visible"
+  );
+
+  modal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+function closeCookieSettings() {
+
+  const modal =
+    document.getElementById(
+      "nexoraCookieSettingsModal"
+    );
+
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove(
+    "visible"
+  );
+
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — OPEN SETTINGS LATER
+========================================================= */
+
+function openCookiePreferences() {
+
+  initializeCookieConsent();
+
+  showCookieBanner();
+
+  openCookieSettings();
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — APPLY PREFERENCES
+========================================================= */
+
+function applyCookiePreferences() {
+
+  const preferences =
+    cookiePreferences ||
+    getStoredCookiePreferences();
+
+  /*
+    Necessary storage remains enabled.
+
+    Optional scripts can be connected here later:
+      preferences.analytics
+      preferences.marketing
+
+    The website does not load optional tracking
+    or marketing libraries automatically.
+  */
+
+  document.documentElement.dataset.cookieAnalytics =
+    preferences.analytics
+      ? "granted"
+      : "denied";
+
+  document.documentElement.dataset.cookieMarketing =
+    preferences.marketing
+      ? "granted"
+      : "denied";
+
+}
+
+
+/* =========================================================
+   COOKIE CONSENT — RESET
+========================================================= */
+
+function resetCookieConsent() {
+
+  clearCookieConsent();
+
+  cookiePreferences = {
+
+    necessary:true,
+    analytics:false,
+    marketing:false
+
+  };
+
+  initializeCookieConsent();
+  showCookieBanner();
+
+}
+
+
+/* =========================================================
    LEGAL CONTENT
 ========================================================= */
 
 const LEGAL_CONTENT = {
-
-  /* =======================================================
-     PRIVACY
-  ======================================================= */
 
   privacy: `
 
@@ -4372,7 +6361,6 @@ const LEGAL_CONTENT = {
       wiederherstellen kann.
     </p>
 
-
     <h3>
       3. Kontakt- und Projektanfragen
     </h3>
@@ -4389,7 +6377,6 @@ const LEGAL_CONTENT = {
       Dazu können insbesondere Name, Unternehmen, E-Mail-Adresse,
       gewünschte Leistung und Ihre Nachricht gehören.
     </p>
-
 
     <h3>
       4. Website Audit und KI-Funktionen
@@ -4414,7 +6401,6 @@ const LEGAL_CONTENT = {
       erforderlich sind.
     </p>
 
-
     <h3>
       5. Rechtsgrundlagen
     </h3>
@@ -4437,7 +6423,6 @@ const LEGAL_CONTENT = {
       Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO.
     </p>
 
-
     <h3>
       6. Speicherdauer
     </h3>
@@ -4454,7 +6439,6 @@ const LEGAL_CONTENT = {
       gespeichert werden. Gesetzliche Aufbewahrungsfristen bleiben
       unberührt.
     </p>
-
 
     <h3>
       7. Weitergabe an Dritte
@@ -4474,7 +6458,6 @@ const LEGAL_CONTENT = {
       und vertraglich zur datenschutzkonformen Verarbeitung
       verpflichtet.
     </p>
-
 
     <h3>
       8. Ihre Rechte
@@ -4524,24 +6507,21 @@ const LEGAL_CONTENT = {
       Schleswig-Holstein (ULD)
     </p>
 
-
     <h3>
       9. Cookies und lokale Speicherung
     </h3>
 
     <p>
-      Unsere Website verwendet nur solche Cookies oder lokale
-      Speichermechanismen, die für den Betrieb der Website,
-      technische Funktionen oder die Speicherung Ihrer
-      Sprachpräferenz erforderlich sind.
+      Unsere Website verwendet notwendige lokale Speichermechanismen
+      für Funktionen wie Spracheinstellungen und die Speicherung
+      Ihrer Cookie-Einwilligungsentscheidung.
     </p>
 
     <p>
-      Nicht technisch erforderliche Tracking- oder
+      Nicht technisch erforderliche Analyse- oder
       Marketing-Technologien werden nicht ohne die jeweils
-      erforderliche Einwilligung eingesetzt.
+      erforderliche Einwilligung aktiviert.
     </p>
-
 
     <h3>
       10. SSL / TLS-Verschlüsselung
@@ -4555,11 +6535,6 @@ const LEGAL_CONTENT = {
 
   `,
 
-
-  /* =======================================================
-     TERMS / AGB
-  ======================================================= */
-
   terms: `
 
     <h2>
@@ -4571,7 +6546,6 @@ const LEGAL_CONTENT = {
       Website und die Beauftragung von Dienstleistungen von
       NEXORA Digital.
     </p>
-
 
     <h3>
       1. Leistungen
@@ -4591,7 +6565,6 @@ const LEGAL_CONTENT = {
       individuell vereinbart.
     </p>
 
-
     <h3>
       2. Angebot und Projektumfang
     </h3>
@@ -4607,7 +6580,6 @@ const LEGAL_CONTENT = {
       vereinbarten Projektumfangs sind, können als
       Zusatzleistungen gesondert berechnet werden.
     </p>
-
 
     <h3>
       3. Mitwirkung des Kunden
@@ -4626,7 +6598,6 @@ const LEGAL_CONTENT = {
       Projekttermine beeinflussen.
     </p>
 
-
     <h3>
       4. KI-generierte Inhalte
     </h3>
@@ -4642,7 +6613,6 @@ const LEGAL_CONTENT = {
       soweit für die jeweilige Leistung erforderlich, vor der
       finalen Verwendung überprüft oder durch den Kunden freigegeben.
     </p>
-
 
     <h3>
       5. Preise und Zahlung
@@ -4664,7 +6634,6 @@ const LEGAL_CONTENT = {
       Zahlungsfrist zu begleichen.
     </p>
 
-
     <h3>
       6. Nutzungsrechte
     </h3>
@@ -4680,7 +6649,6 @@ const LEGAL_CONTENT = {
       können eigenen Lizenzbedingungen unterliegen.
     </p>
 
-
     <h3>
       7. Abnahme und Freigabe
     </h3>
@@ -4690,7 +6658,6 @@ const LEGAL_CONTENT = {
       ist, erfolgt diese nach Fertigstellung der vereinbarten
       Leistung bzw. des jeweiligen Projektabschnitts.
     </p>
-
 
     <h3>
       8. Haftung
@@ -4709,7 +6676,6 @@ const LEGAL_CONTENT = {
       Schaden beschränkt.
     </p>
 
-
     <h3>
       9. Beendigung eines Projekts
     </h3>
@@ -4719,7 +6685,6 @@ const LEGAL_CONTENT = {
       richtet sich nach der jeweiligen vertraglichen Vereinbarung
       und den gesetzlichen Vorschriften.
     </p>
-
 
     <h3>
       10. Anwendbares Recht
@@ -4733,11 +6698,6 @@ const LEGAL_CONTENT = {
 
   `,
 
-
-  /* =======================================================
-     IMPRESSUM
-  ======================================================= */
-
   impressum: `
 
     <h2>
@@ -4747,7 +6707,6 @@ const LEGAL_CONTENT = {
     <p>
       Angaben gemäß § 5 DDG
     </p>
-
 
     <h3>
       Diensteanbieter / Verantwortlicher
@@ -4760,7 +6719,6 @@ const LEGAL_CONTENT = {
       24537 Neumünster<br>
       Deutschland
     </p>
-
 
     <h3>
       Kontakt
@@ -4791,7 +6749,6 @@ const LEGAL_CONTENT = {
       </a>
     </p>
 
-
     <h3>
       Angaben zur Tätigkeit
     </h3>
@@ -4803,7 +6760,6 @@ const LEGAL_CONTENT = {
       Website-Analysen und KI-Werbung.
     </p>
 
-
     <h3>
       Hinweis zu gewerblichen Angaben
     </h3>
@@ -4814,7 +6770,6 @@ const LEGAL_CONTENT = {
       werden diese an dieser Stelle ergänzt bzw. aktuell gehalten.
     </p>
 
-
     <h3>
       Verantwortlichkeit für Inhalte
     </h3>
@@ -4824,7 +6779,6 @@ const LEGAL_CONTENT = {
       gesetzlichen Vorschriften für eigene Inhalte auf dieser
       Website verantwortlich.
     </p>
-
 
     <h3>
       Streitbeilegung
@@ -5062,8 +7016,55 @@ document.addEventListener(
         }
       );
 
+    closeCookieSettings();
+
     document.body.style.overflow =
       "";
 
   }
 );
+
+
+/* =========================================================
+   EXPOSE GLOBAL ACTIONS
+   Required by inline HTML onclick handlers
+========================================================= */
+
+window.toggleLanguageMenu =
+  toggleLanguageMenu;
+
+window.setLanguage =
+  setLanguage;
+
+window.toggleHeroVideo =
+  toggleHeroVideo;
+
+window.runAICommand =
+  runAICommand;
+
+window.createAICampaign =
+  createAICampaign;
+
+window.runWebsiteAudit =
+  runWebsiteAudit;
+
+window.submitProject =
+  submitProject;
+
+window.selectService =
+  selectService;
+
+window.bookMeeting =
+  bookMeeting;
+
+window.openModal =
+  openModal;
+
+window.closeModal =
+  closeModal;
+
+window.openCookiePreferences =
+  openCookiePreferences;
+
+window.resetCookieConsent =
+  resetCookieConsent; 
