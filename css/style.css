@@ -1169,3 +1169,494 @@ footer{
   }
 
 }
+```css
+/* =========================================================
+   NEXORA DIGITAL
+   NEW HERO + VIDEO + DIGITAL INTELLIGENCE
+   ========================================================= */
+
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  padding: 90px 0 0;
+  overflow: hidden;
+}
+
+.hero-container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(420px, 0.95fr);
+
+  align-items: center;
+  gap: 70px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.hero-content {
+  max-width: 650px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 22px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0;
+
+  font-size: clamp(46px, 6vw, 78px);
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+  font-weight: 800;
+}
+
+.hero-title > span {
+  display: block;
+}
+
+.hero-title .gradient-text {
+  margin-top: 8px;
+}
+
+.hero-text {
+  max-width: 600px;
+
+  margin: 28px 0 0;
+
+  font-size: 18px;
+  line-height: 1.75;
+
+  opacity: 0.78;
+}
+
+
+/* =========================================================
+   HERO ACTION BUTTONS
+   ========================================================= */
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin-top: 34px;
+}
+
+.hero-actions .btn {
+  min-height: 52px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 24px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.hero-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO VIDEO
+   ========================================================= */
+
+.hero-video-wrapper {
+  width: 100%;
+}
+
+.hero-video-card {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background: #080808;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.35);
+
+  aspect-ratio: 16 / 10;
+}
+
+.hero-video {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  background: #050505;
+}
+
+
+/* =========================================================
+   HERO STATS
+   ========================================================= */
+
+.hero-stats {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: 80px auto 0;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.hero-stat {
+  min-height: 120px;
+
+  padding: 25px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.hero-stat + .hero-stat {
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.hero-stat strong {
+  font-size: 30px;
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+.hero-stat span {
+  margin-top: 10px;
+
+  font-size: 12px;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  opacity: 0.58;
+}
+
+
+/* =========================================================
+   DIGITAL INTELLIGENCE SECTION
+   ========================================================= */
+
+.digital-intelligence-section {
+  position: relative;
+
+  width: 100%;
+
+  padding: 120px 0;
+}
+
+.digital-intelligence-container {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 0.85fr)
+    minmax(0, 1.15fr);
+
+  align-items: center;
+
+  gap: 80px;
+}
+
+.digital-intelligence-content {
+  max-width: 560px;
+}
+
+.section-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  opacity: 0.6;
+}
+
+.digital-intelligence-content h2 {
+  margin: 0;
+
+  font-size: clamp(38px, 5vw, 62px);
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+.digital-intelligence-content h2 span {
+  display: block;
+}
+
+.digital-intelligence-content p {
+  margin: 26px 0 0;
+
+  font-size: 17px;
+
+  line-height: 1.8;
+
+  opacity: 0.72;
+}
+
+
+/* =========================================================
+   DIGITAL INTELLIGENCE BUTTON
+   ========================================================= */
+
+.digital-intelligence-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 30px;
+
+  min-height: 50px;
+
+  padding: 0 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 10px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.digital-intelligence-btn:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   DIGITAL INTELLIGENCE IMAGE
+   ========================================================= */
+
+.digital-intelligence-image-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: #080808;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.30);
+}
+
+.digital-intelligence-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: cover;
+
+  transition: transform 0.6s ease;
+}
+
+.digital-intelligence-image-wrapper:hover
+.digital-intelligence-image {
+  transform: scale(1.025);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 980px) {
+
+  .hero-section {
+    padding-top: 65px;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .hero-content {
+    max-width: 760px;
+  }
+
+  .hero-video-wrapper {
+    max-width: 760px;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+
+    margin-top: 60px;
+  }
+
+  .hero-stat:nth-child(3) {
+    border-top:
+      1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .digital-intelligence-container {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .digital-intelligence-content {
+    max-width: 760px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .hero-section {
+    padding-top: 45px;
+  }
+
+  .hero-container,
+  .hero-stats,
+  .digital-intelligence-container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 13vw, 58px);
+  }
+
+  .hero-text {
+    font-size: 16px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-video-card {
+    border-radius: 16px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+
+    margin-top: 50px;
+  }
+
+  .hero-stat {
+    min-height: 100px;
+
+    padding: 18px 10px;
+  }
+
+  .hero-stat strong {
+    font-size: 25px;
+  }
+
+  .hero-stat span {
+    font-size: 10px;
+  }
+
+  .hero-stat:nth-child(3),
+  .hero-stat:nth-child(4) {
+    border-top:
+      1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .hero-stat:nth-child(odd) {
+    border-left: none;
+  }
+
+  .digital-intelligence-section {
+    padding: 80px 0;
+  }
+
+  .digital-intelligence-content h2 {
+    font-size: 40px;
+  }
+
+  .digital-intelligence-image-wrapper {
+    border-radius: 16px;
+  }
+}
+```
