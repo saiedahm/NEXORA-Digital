@@ -4,6 +4,22 @@
     { "src": "server.js", "use": "@vercel/node" },
     { "src": "api/static.js", "use": "@vercel/node" }
   ],
+  "functions": {
+    "api/static.js": {
+      "includeFiles": [
+        "css/**",
+        "js/**",
+        "*.png",
+        "*.jpg",
+        "*.jpeg",
+        "*.svg",
+        "*.webp",
+        "*.ico",
+        "*.mp4",
+        "*.webm"
+      ]
+    }
+  },
   "routes": [
     { "src": "/api/(.*)", "dest": "server.js" },
     { "src": "/css/(.*)", "dest": "api/static.js?path=css/$1" },
