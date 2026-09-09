@@ -23,7 +23,31 @@ const path = require("path");
 const fs = require("fs");
 const Database = require("better-sqlite3");
 const OpenAI = require("openai");
+"use strict";
 
+/*
+  NEXORA Digital AI Backend
+
+  Install:
+  npm install express cors helmet dotenv openai
+
+  Start:
+  node server.js
+
+  Required .env:
+  OPENAI_API_KEY=your_openai_api_key
+  PORT=3000
+*/
+
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const path = require("path");
+const fs = require("fs");
+// const Database = require("better-sqlite3");
+const OpenAI = require("openai");
 const app = express();
 
 const PORT =
