@@ -7,41 +7,34 @@ const cors = require("cors");
 const helmet = require("helmet");
 const path = require("path");
 const fs = require("fs");
-// const Database = require("better-sqlite3");
 const OpenAI = require("openai");
 
 const app = express();
 
-const PORT =
-  Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || 3000);
+const ROOT = __dirname;
 
-const ROOT =
-  __dirname;
+const PUBLIC_DIR = fs.existsSync(path.join(ROOT, "public"))
+  ? path.join(ROOT, "public")
+  : ROOT;
 
-const PUBLIC_DIR =
-  fs.existsSync(
-    path.join(ROOT, "public")
-  )
-    ? path.join(ROOT, "public")
-    : ROOT;
+const INDEX_FILE = path.join(PUBLIC_DIR, "index.html");
 
-const INDEX_FILE =
-  path.join(
-    PUBLIC_DIR,
-    "index.html"
-  );
+// ===== VERCEL COMPATIBLE DUMMY DATABASE =====
+const db = {
+  prepare: () => ({
+    run: () => ({ lastInsertRowid: 1 }),
+    get: () => ({ count: 0 }),
+    all: () => []
+  }),
+  exec: () => {},
+  pragma: () => {}
+};
+// ============================================
 
-const DB_FILE =
-  path.join(
-    ROOT,
-    "nexora_enterprise.db"
-  );
-
-const db =
-  new Database(DB_FILE);
-
-db.pragma("journal_mode = WAL");
-db.pragma("foreign_keys = ON");
+/* =========================
+   SECURITY / MIDDLEWARE
+========================= */
 
 
 /* =========================
