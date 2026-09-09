@@ -36,44 +36,37 @@ const db = {
    SECURITY / MIDDLEWARE
 ========================= */
 
-
-/* =========================
-   SECURITY / MIDDLEWARE
-========================= */
-
 app.disable("x-powered-by");
 
 app.use(
   helmet({
-    contentSecurityPolicy:false
+    contentSecurityPolicy: false
   })
 );
 
 app.use(
   cors({
-    origin:
-      process.env.CORS_ORIGIN
-        ? process.env.CORS_ORIGIN
-            .split(",")
-            .map(item => item.trim())
-            .filter(Boolean)
-        : true
+    origin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN
+          .split(",")
+          .map(item => item.trim())
+          .filter(Boolean)
+      : true
   })
 );
 
 app.use(
   express.json({
-    limit:"2mb"
+    limit: "2mb"
   })
 );
 
 app.use(
   express.urlencoded({
-    extended:true,
-    limit:"2mb"
+    extended: true,
+    limit: "2mb"
   })
 );
-
 
 /* =========================
    OPENAI
