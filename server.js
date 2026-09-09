@@ -60,6 +60,15 @@ app.use(
     limit: "2mb"
   })
 );
+/* =========================
+   STATIC FILES & FRONTEND
+========================= */
+app.use(express.static(PUBLIC_DIR));
+app.use(express.static(path.join(ROOT, "public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(INDEX_FILE);
+});
 
 app.use(
   express.urlencoded({
