@@ -1346,64 +1346,25 @@ const LEGAL = {
 function openModal(type) {
 
   const ids = {
-
-    privacy:
-      "privacyModal",
-
-    terms:
-      "termsModal",
-
-    impressum:
-      "impressumModal"
-
+    privacy: "privacyModal",
+    terms: "termsModal",
+    impressum: "impressumModal"
   };
-
-
-  const contentIds = {
-
-    privacy:
-      "privacyModalContent",
-
-    terms:
-      "termsModalContent",
-
-    impressum:
-      "impressumModalContent"
-
-  };
-
 
   const modal =
-    $("#" + ids[type]);
+    document.getElementById(ids[type]);
 
-
-  const body =
-    $("#" + contentIds[type]);
-
-
-  if (!modal || !body)
+  if (!modal) {
     return;
+  }
 
-
-  const data =
-    LEGAL[type];
-
-
-  body.innerHTML =
-    `<h2>${data[0]}</h2>
-     <p>${data[1]}</p>`;
-
-
-  modal.classList.add(
-    "is-open"
-  );
-
+  modal.classList.add("is-open");
+  modal.classList.add("active");
 
   modal.setAttribute(
     "aria-hidden",
     "false"
   );
-
 
   document.body.classList.add(
     "modal-open"
