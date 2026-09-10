@@ -1815,18 +1815,7 @@ function isBlockedIP(ip) {
 
   return true;
 }
-      res.json({
-        success: true,
-        runId: id,
-        agent: knownAgent,
-        status: 'COMPLETED',
-        result: ai
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+      
 
 /* =========================================================
    PAYMENT
