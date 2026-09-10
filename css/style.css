@@ -2904,3 +2904,17 @@ body.modal-open{
       0 25px 55px rgba(0,0,0,.35)
     );
 }
+/* إصلاح صندوق الكتابة وتناسقه مع الأزرار */
+textarea {
+    width: 100% !important; /* ليصبح بنفس عرض الأزرار */
+    max-width: 100%;
+    min-height: 100px; /* ليعطيك مساحة مريحة للكتابة */
+    margin-top: 15px !important; /* لمنع التداخل مع النص العلوي */
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px; /* لجعل الحواف دائرية متناسقة */
+    background-color: #111420; /* خلفية داكنة تناسب موقعك */
+    color: #ffffff; /* لون كتابة أبيض */
+    box-sizing: border-box;
+    display: block;
+}
