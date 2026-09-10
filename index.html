@@ -2672,126 +2672,201 @@ body.nexora-modal-open{overflow:hidden}
   </div>
 
 
-  <!-- =====================================================
-       PRIVACY MODAL
-  ====================================================== -->
+<!-- =====================================================
+     FOOTER LEGAL
+====================================================== -->
 
-  <div class="modal-body" id="privacyModalContent">
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-    aria-labelledby="privacyModalTitle"
+<div>
+  <div
+    class="footer-title"
+    data-i18n="footer_legal"
   >
+    LEGAL
+  </div>
 
-    <div class="modal-box">
+  <div class="footer-links">
 
-      <button
-        class="close"
-        type="button"
-        onclick="closeModal('privacy')"
-        aria-label="Datenschutzerklärung schließen"
-      >
-        ×
-      </button>
+    <button
+      type="button"
+      class="footer-legal-button"
+      onclick="openModal('privacy')"
+      data-i18n="privacy"
+    >
+      Datenschutz (DSGVO)
+    </button>
+
+    <button
+      type="button"
+      class="footer-legal-button"
+      onclick="openModal('privacy')"
+      data-i18n="privacy_policy"
+    >
+      Datenschutzerklärung
+    </button>
+
+    <button
+      type="button"
+      class="footer-legal-button"
+      onclick="openModal('terms')"
+      data-i18n="terms"
+    >
+      Nutzungsbedingungen (AGB)
+    </button>
+
+    <button
+      type="button"
+      class="footer-legal-button"
+      onclick="openModal('impressum')"
+      data-i18n="impressum"
+    >
+      Impressum
+    </button>
+
+    <button
+      type="button"
+      class="footer-legal-button"
+      onclick="openCookiePreferences()"
+      data-i18n="cookie_settings"
+    >
+      Cookie-Einstellungen
+    </button>
+
+  </div>
+</div>
 
 
-      <div
-        class="modal-body"
-        id="privacyModalContent"
-      >
+<!-- =====================================================
+     PRIVACY MODAL
+====================================================== -->
 
-        <h2 id="privacyModalTitle">
-          Datenschutzerklärung (DSGVO)
-        </h2>
+<div
+  class="modal"
+  id="privacyModal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="privacyModalTitle"
+>
 
-      </div>
+  <div class="modal-box">
+
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('privacy')"
+      aria-label="Datenschutzerklärung schließen"
+    >
+      ×
+    </button>
+
+    <div
+      class="modal-body"
+      id="privacyModalContent"
+    >
+
+      <h2 id="privacyModalTitle">
+        Datenschutzerklärung (DSGVO)
+      </h2>
+
+      <p>
+        Datenschutzerklärung von NEXORA Digital.
+      </p>
 
     </div>
 
   </div>
 
-
-  <!-- =====================================================
-       TERMS / AGB MODAL
-  ====================================================== -->
-
-<div class="modal-body" id="termsModalContent">
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-    aria-labelledby="termsModalTitle"
-  >
-
-    <div class="modal-box">
-
-      <button
-        class="close"
-        type="button"
-        onclick="closeModal('terms')"
-        aria-label="Nutzungsbedingungen schließen"
-      >
-        ×
-      </button>
+</div>
 
 
-      <div
-        class="modal-body"
-        id="termsModalContent"
-      >
+<!-- =====================================================
+     TERMS / AGB MODAL
+====================================================== -->
 
-        <h2 id="termsModalTitle">
-          Nutzungsbedingungen (AGB)
-        </h2>
+<div
+  class="modal"
+  id="termsModal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="termsModalTitle"
+>
 
-      </div>
+  <div class="modal-box">
 
-    </div>
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('terms')"
+      aria-label="Nutzungsbedingungen schließen"
+    >
+      ×
+    </button>
 
-  </div>
+    <div
+      class="modal-body"
+      id="termsModalContent"
+    >
 
+      <h2 id="termsModalTitle">
+        Nutzungsbedingungen (AGB)
+      </h2>
 
-  <!-- =====================================================
-       IMPRESSUM MODAL
-  ====================================================== -->
-
- <div class="modal-body" id="impressumModalContent">
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-    aria-labelledby="impressumModalTitle"
-  >
-
-    <div class="modal-box">
-
-      <button
-        class="close"
-        type="button"
-        onclick="closeModal('impressum')"
-        aria-label="Impressum schließen"
-      >
-        ×
-      </button>
-
-
-      <div
-        class="modal-body"
-        id="impressumModalContent"
-      >
-
-        <h2 id="impressumModalTitle">
-          Impressum
-        </h2>
-
-      </div>
+      <p>
+        Nutzungsbedingungen von NEXORA Digital.
+      </p>
 
     </div>
 
   </div>
 
+</div>
 
+
+<!-- =====================================================
+     IMPRESSUM MODAL
+====================================================== -->
+
+<div
+  class="modal"
+  id="impressumModal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="impressumModalTitle"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('impressum')"
+      aria-label="Impressum schließen"
+    >
+      ×
+    </button>
+
+    <div
+      class="modal-body"
+      id="impressumModalContent"
+    >
+
+      <h2 id="impressumModalTitle">
+        Impressum
+      </h2>
+
+      <p>
+        NEXORA Digital<br>
+        Web: www.nexoraonline.de<br>
+        E-Mail: info@nexoraonline.de
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
   <!-- =====================================================
        APPLICATION
   ====================================================== -->
