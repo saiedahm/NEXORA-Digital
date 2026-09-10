@@ -1,4 +1,4 @@
- {
+{
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "builds": [
@@ -48,6 +48,14 @@
     },
     {
       "src": "*.webm",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.mp3",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.wav",
       "use": "@vercel/static"
     }
   ],
