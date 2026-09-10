@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="de" dir="ltr">
 
 <head>
@@ -22,6 +22,56 @@
     rel="stylesheet"
     href="css/style.css"
   >
+
+<style id="nexora-subscribe-modal-css">
+.nexora-subscribe-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;font-family:inherit}
+.nexora-subscribe-modal.is-open{display:flex}
+.nexora-subscribe-backdrop{position:absolute;inset:0;background:radial-gradient(circle at 25% 50%,rgba(42,113,255,.16),transparent 38%),radial-gradient(circle at 78% 50%,rgba(135,63,255,.14),transparent 42%),rgba(2,5,14,.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nexora-subscribe-box{position:relative;z-index:2;width:min(980px,100%);min-height:570px;display:grid;grid-template-columns:minmax(0,43%) minmax(0,57%);overflow:hidden;border:1px solid rgba(117,153,255,.28);border-radius:28px;background:linear-gradient(135deg,rgba(11,16,31,.98),rgba(7,10,22,.97));box-shadow:0 35px 100px rgba(0,0,0,.68),0 0 70px rgba(70,104,255,.14),inset 0 1px 0 rgba(255,255,255,.05);transform:translateY(12px) scale(.985);opacity:0;transition:transform .28s ease,opacity .28s ease}
+.nexora-subscribe-modal.is-open .nexora-subscribe-box{transform:translateY(0) scale(1);opacity:1}
+.nexora-subscribe-content{position:relative;padding:54px 48px 42px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 15% 10%,rgba(65,104,255,.13),transparent 32%),linear-gradient(180deg,rgba(255,255,255,.015),transparent)}
+.nexora-subscribe-content:before{content:"";position:absolute;left:48px;top:28px;width:110px;height:1px;background:linear-gradient(90deg,#5d8dff,transparent)}
+.nexora-subscribe-brand{margin-bottom:24px;color:#f7f9ff;font-size:22px;font-weight:800;letter-spacing:.18em}
+.nexora-subscribe-brand small{display:block;margin-top:6px;color:#7896d9;font-size:8px;font-weight:700;letter-spacing:.34em}
+.nexora-subscribe-content h2{margin:0 0 12px;color:#fff;font-size:clamp(32px,4vw,46px);line-height:1.05;letter-spacing:-.035em}
+.nexora-subscribe-content>p{max-width:420px;margin:0 0 26px;color:rgba(222,229,247,.72);font-size:14px;line-height:1.7}
+.nexora-auth-list{display:grid;gap:10px;max-width:430px}
+.nexora-auth-button{width:100%;min-height:50px;display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid rgba(145,164,215,.22);border-radius:12px;background:rgba(255,255,255,.045);color:#f5f7ff;font:600 14px/1 inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.nexora-auth-button:hover{transform:translateY(-1px);border-color:rgba(100,145,255,.62);background:rgba(67,103,255,.10);box-shadow:0 10px 28px rgba(40,74,180,.14)}
+.nexora-auth-button:focus-visible{outline:2px solid #75a0ff;outline-offset:3px}
+.nexora-auth-icon{width:22px;height:22px;display:grid;place-items:center;flex:0 0 22px;color:#fff;font-size:15px;font-weight:800}
+.nexora-auth-google .nexora-auth-icon{color:#fff;background:conic-gradient(from -45deg,#4285f4 0 25%,#34a853 25% 50%,#fbbc05 50% 75%,#ea4335 75%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nexora-auth-email{border-color:rgba(87,130,255,.48);background:linear-gradient(135deg,rgba(45,89,255,.20),rgba(108,63,255,.16))}
+.nexora-subscribe-terms{max-width:430px!important;margin-top:18px!important;margin-bottom:0!important;color:rgba(177,189,220,.56)!important;font-size:11px!important;line-height:1.6!important}
+.nexora-subscribe-terms button{padding:0;border:0;background:none;color:#8baeff;cursor:pointer;text-decoration:underline;font:inherit}
+.nexora-subscribe-close{position:absolute;z-index:5;top:18px;right:18px;width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(4,7,16,.72);color:#dce5ff;font:300 26px/1 Arial,sans-serif;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.nexora-subscribe-close:hover{transform:rotate(90deg);border-color:rgba(116,151,255,.55);background:rgba(40,61,120,.75)}
+.nexora-subscribe-close:focus-visible{outline:2px solid #75a0ff;outline-offset:3px}
+.nexora-subscribe-visual{position:relative;min-height:570px;overflow:hidden;background:#061027}
+.nexora-subscribe-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.12) contrast(1.06) brightness(.84);transform:scale(1.015)}
+.nexora-subscribe-visual:before{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(7,10,22,.90) 0%,rgba(7,10,22,.35) 25%,transparent 58%),linear-gradient(180deg,rgba(21,33,84,.10),rgba(30,15,70,.50))}
+.nexora-subscribe-visual-shade{position:absolute;z-index:2;inset:0;background:radial-gradient(circle at 75% 30%,rgba(83,129,255,.24),transparent 30%),radial-gradient(circle at 60% 78%,rgba(158,69,255,.24),transparent 34%);mix-blend-mode:screen}
+.nexora-subscribe-visual-copy{position:absolute;z-index:3;left:34px;right:34px;bottom:32px;display:flex;flex-direction:column;gap:8px;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.55)}
+.nexora-subscribe-badge{width:max-content;padding:7px 11px;border:1px solid rgba(137,167,255,.34);border-radius:999px;background:rgba(9,17,45,.48);color:#9bb8ff;font-size:9px;font-weight:800;letter-spacing:.18em}
+.nexora-subscribe-visual-copy strong{font-size:19px;letter-spacing:.08em}
+.nexora-subscribe-visual-copy span:last-child{color:rgba(235,240,255,.76);font-size:12px;line-height:1.5}
+body.nexora-modal-open{overflow:hidden}
+@media(max-width:820px){.nexora-subscribe-box{grid-template-columns:1fr;width:min(560px,100%);min-height:0;max-height:calc(100vh - 32px);overflow:auto}.nexora-subscribe-visual{min-height:260px;order:-1}.nexora-subscribe-content{padding:36px 28px 30px}.nexora-subscribe-content:before{left:28px}.nexora-subscribe-visual-copy{left:24px;right:24px;bottom:22px}}
+@media(max-width:480px){.nexora-subscribe-modal{padding:12px}.nexora-subscribe-box{border-radius:20px;max-height:calc(100vh - 24px)}.nexora-subscribe-visual{min-height:220px}.nexora-subscribe-content{padding:30px 20px 24px}.nexora-subscribe-content:before{left:20px}.nexora-subscribe-brand{font-size:18px}.nexora-subscribe-content h2{font-size:32px}.nexora-subscribe-close{top:10px;right:10px}}
+
+.nexora-email-auth{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+.nexora-email-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;padding:4px;border-radius:12px;background:rgba(255,255,255,.045)}
+.nexora-email-tabs button{border:0;background:transparent;color:rgba(255,255,255,.58);padding:9px 8px;border-radius:9px;cursor:pointer;font:inherit;font-size:13px}
+.nexora-email-tabs button.is-active{background:rgba(88,70,255,.22);color:#fff}
+.nexora-auth-label{display:block;margin:10px 0 6px;color:rgba(255,255,255,.72);font-size:12px}
+.nexora-auth-input{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.24);color:#fff;border-radius:11px;padding:12px 13px;outline:none}
+.nexora-auth-input:focus{border-color:rgba(110,100,255,.85);box-shadow:0 0 0 3px rgba(86,73,255,.13)}
+.nexora-auth-submit{width:100%;margin-top:13px;border:0;border-radius:11px;padding:12px;background:linear-gradient(135deg,#5d52ff,#287cff);color:#fff;font-weight:700;cursor:pointer}
+.nexora-auth-back{width:100%;margin-top:8px;border:0;background:transparent;color:rgba(255,255,255,.65);padding:8px;cursor:pointer}
+.nexora-auth-status{min-height:18px;margin-top:8px;font-size:12px;line-height:1.45;color:rgba(255,255,255,.72)}
+.nexora-auth-status.error{color:#ff9aaf}.nexora-auth-status.success{color:#8ff0c2}
+</style>
+
 </head>
 
 
@@ -245,6 +295,9 @@
             <a
               href="#requests"
               class="btn btn-secondary"
+              id="nexoraSubscribeBtn"
+              aria-haspopup="dialog"
+              aria-controls="nexoraSubscribeModal"
               data-i18n="hero_project"
             >
               Projekt starten
@@ -909,8 +962,6 @@
       </div>
 
     </section>
-
-
     <!-- ===================================================
          COMMAND CENTER
     ==================================================== -->
@@ -1685,8 +1736,6 @@
 
 
   </main>
-
-
   <!-- =====================================================
        FOOTER
   ====================================================== -->
@@ -1890,6 +1939,307 @@
   </footer>
 
 
+  <!-- NEXORA PREMIUM START / LOGIN MODAL -->
+
+  <div
+    id="nexoraSubscribeModal"
+    class="nexora-subscribe-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="nexoraSubscribeTitle"
+  >
+
+    <div
+      class="nexora-subscribe-backdrop"
+      data-nexora-subscribe-close
+    ></div>
+
+
+    <div class="nexora-subscribe-box">
+
+      <button
+        type="button"
+        class="nexora-subscribe-close"
+        id="nexoraSubscribeClose"
+        aria-label="Fenster schließen"
+      >
+        ×
+      </button>
+
+
+      <div class="nexora-subscribe-content">
+
+        <div class="nexora-subscribe-brand">
+          NEXORA
+          <small>
+            DIGITAL INTELLIGENCE
+          </small>
+        </div>
+
+
+        <h2 id="nexoraSubscribeTitle">
+          Jetzt starten
+        </h2>
+
+
+        <p>
+          Loggen Sie sich ein oder erstellen Sie Ihr Konto,
+          um mit NEXORA Digital zu starten.
+        </p>
+
+
+        <div class="nexora-auth-list">
+
+          <button
+            type="button"
+            class="nexora-auth-button nexora-auth-google"
+            data-auth-provider="Google"
+          >
+            <span
+              class="nexora-auth-icon"
+              aria-hidden="true"
+            >
+              G
+            </span>
+            Continue with Google
+          </button>
+
+
+          <button
+            type="button"
+            class="nexora-auth-button"
+            data-auth-provider="Facebook"
+          >
+            <span
+              class="nexora-auth-icon"
+              aria-hidden="true"
+            >
+              f
+            </span>
+            Continue with Facebook
+          </button>
+
+
+          <button
+            type="button"
+            class="nexora-auth-button"
+            data-auth-provider="Apple"
+          >
+            <span
+              class="nexora-auth-icon"
+              aria-hidden="true"
+            >
+              ●
+            </span>
+            Continue with Apple
+          </button>
+
+
+          <button
+            type="button"
+            class="nexora-auth-button nexora-auth-email"
+            id="nexoraEmailStart"
+          >
+            <span
+              class="nexora-auth-icon"
+              aria-hidden="true"
+            >
+              ✉
+            </span>
+            Mit E-Mail starten
+          </button>
+
+
+          <div
+            class="nexora-email-auth"
+            id="nexoraEmailAuth"
+            hidden
+          >
+
+            <div
+              class="nexora-email-tabs"
+              role="tablist"
+              aria-label="E-Mail Anmeldung"
+            >
+
+              <button
+                type="button"
+                class="is-active"
+                id="nexoraLoginTab"
+                role="tab"
+                aria-selected="true"
+              >
+                Anmelden
+              </button>
+
+
+              <button
+                type="button"
+                id="nexoraRegisterTab"
+                role="tab"
+                aria-selected="false"
+              >
+                Konto erstellen
+              </button>
+
+            </div>
+
+
+            <form
+              id="nexoraAuthForm"
+              novalidate
+            >
+
+              <label
+                class="nexora-auth-label"
+                for="nexoraAuthName"
+                id="nexoraAuthNameLabel"
+                hidden
+              >
+                Name
+              </label>
+
+
+              <input
+                class="nexora-auth-input"
+                id="nexoraAuthName"
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder="Name"
+                hidden
+              >
+
+
+              <label
+                class="nexora-auth-label"
+                for="nexoraAuthEmail"
+              >
+                E-Mail-Adresse
+              </label>
+
+
+              <input
+                class="nexora-auth-input"
+                id="nexoraAuthEmail"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="E-Mail-Adresse"
+                required
+              >
+
+
+              <label
+                class="nexora-auth-label"
+                for="nexoraAuthPassword"
+              >
+                Passwort
+              </label>
+
+
+              <input
+                class="nexora-auth-input"
+                id="nexoraAuthPassword"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Mindestens 8 Zeichen"
+                minlength="8"
+                required
+              >
+
+
+              <button
+                class="nexora-auth-submit"
+                id="nexoraAuthSubmit"
+                type="submit"
+              >
+                Anmelden
+              </button>
+
+
+              <button
+                class="nexora-auth-back"
+                id="nexoraAuthBack"
+                type="button"
+              >
+                ← Zurück
+              </button>
+
+
+              <div
+                class="nexora-auth-status"
+                id="nexoraAuthStatus"
+                role="status"
+                aria-live="polite"
+              ></div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+
+        <p class="nexora-subscribe-terms">
+
+          Mit dem Start stimmen Sie den
+
+          <button
+            type="button"
+            id="nexoraTermsLink"
+          >
+            Nutzungsbedingungen
+          </button>
+
+          und der Datenschutzerklärung zu.
+
+        </p>
+
+      </div>
+
+
+      <div class="nexora-subscribe-visual">
+
+        <img
+          src="nexora-digital-intelligence.png"
+          alt="NEXORA Digital Intelligence"
+          class="nexora-subscribe-image"
+          loading="eager"
+          decoding="async"
+        >
+
+
+        <div class="nexora-subscribe-visual-shade"></div>
+
+
+        <div class="nexora-subscribe-visual-copy">
+
+          <span class="nexora-subscribe-badge">
+            NEXORA AI
+          </span>
+
+
+          <strong>
+            AI • WEB • AUTOMATION
+          </strong>
+
+
+          <span>
+            Build the future with intelligent digital systems.
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <!-- =====================================================
        PRIVACY MODAL
   ====================================================== -->
@@ -2018,7 +2368,659 @@
   ====================================================== -->
 
   <script src="./js/app.js"></script>
+<script id="nexora-subscribe-modal-js">
+(function(){
+  function initNexoraSubscribeModal(){
+    const openButton=document.getElementById('nexoraSubscribeBtn');
+    const modal=document.getElementById('nexoraSubscribeModal');
+    const closeButton=document.getElementById('nexoraSubscribeClose');
+    const emailButton=document.getElementById('nexoraEmailStart');
+    const termsButton=document.getElementById('nexoraTermsLink');
+
+    if(!openButton||!modal||!closeButton)return;
+
+    let lastFocusedElement=null;
+
+    function openModal(){
+      lastFocusedElement=document.activeElement;
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden','false');
+
+      document.body.classList.add('nexora-modal-open');
+
+      setTimeout(function(){
+        closeButton.focus();
+      },30);
+    }
+
+
+    function closeModal(){
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden','true');
+
+      document.body.classList.remove('nexora-modal-open');
+
+      if(
+        lastFocusedElement &&
+        typeof lastFocusedElement.focus==='function'
+      ){
+        setTimeout(function(){
+          lastFocusedElement.focus();
+        },0);
+      }
+    }
+
+
+    openButton.addEventListener(
+      'click',
+      function(e){
+        e.preventDefault();
+        openModal();
+      }
+    );
+
+
+    closeButton.addEventListener(
+      'click',
+      closeModal
+    );
+
+
+    modal.addEventListener(
+      'click',
+      function(e){
+
+        if(
+          e.target.matches(
+            '[data-nexora-subscribe-close]'
+          )
+        ){
+          closeModal();
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      'keydown',
+      function(e){
+
+        if(
+          !modal.classList.contains('is-open')
+        ){
+          return;
+        }
+
+
+        if(e.key==='Escape'){
+
+          e.preventDefault();
+
+          closeModal();
+
+          return;
+        }
+
+
+        if(e.key==='Tab'){
+
+          const items=
+            modal.querySelectorAll(
+              'button:not([disabled]),a[href],input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
+            );
+
+
+          if(!items.length){
+            return;
+          }
+
+
+          const first=items[0];
+          const last=items[items.length-1];
+
+
+          if(
+            e.shiftKey &&
+            document.activeElement===first
+          ){
+
+            e.preventDefault();
+
+            last.focus();
+
+          }
+          else if(
+            !e.shiftKey &&
+            document.activeElement===last
+          ){
+
+            e.preventDefault();
+
+            first.focus();
+
+          }
+
+        }
+
+      }
+    );
+
+
+    modal
+      .querySelectorAll('[data-auth-provider]')
+      .forEach(
+        function(btn){
+
+          btn.addEventListener(
+            'click',
+            function(){
+
+              const provider=
+                btn.getAttribute(
+                  'data-auth-provider'
+                );
+
+
+              alert(
+                provider+
+                '-Login ist im Design vorbereitet. Für die echte Anmeldung müssen die OAuth-Zugangsdaten des Providers noch im Backend verbunden werden.'
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    const emailAuth=
+      document.getElementById(
+        'nexoraEmailAuth'
+      );
+
+    const loginTab=
+      document.getElementById(
+        'nexoraLoginTab'
+      );
+
+    const registerTab=
+      document.getElementById(
+        'nexoraRegisterTab'
+      );
+
+    const authForm=
+      document.getElementById(
+        'nexoraAuthForm'
+      );
+
+    const authName=
+      document.getElementById(
+        'nexoraAuthName'
+      );
+
+    const authNameLabel=
+      document.getElementById(
+        'nexoraAuthNameLabel'
+      );
+
+    const authEmail=
+      document.getElementById(
+        'nexoraAuthEmail'
+      );
+
+    const authPassword=
+      document.getElementById(
+        'nexoraAuthPassword'
+      );
+
+    const authSubmit=
+      document.getElementById(
+        'nexoraAuthSubmit'
+      );
+
+    const authBack=
+      document.getElementById(
+        'nexoraAuthBack'
+      );
+
+    const authStatus=
+      document.getElementById(
+        'nexoraAuthStatus'
+      );
+
+
+    let authMode='login';
+
+
+    function setAuthStatus(
+      message,
+      type
+    ){
+
+      if(!authStatus)return;
+
+      authStatus.textContent=
+        message||'';
+
+      authStatus.className=
+        'nexora-auth-status '+
+        (type||'');
+
+    }
+
+
+    function setAuthMode(mode){
+
+      authMode=mode;
+
+      const register=
+        mode==='register';
+
+
+      if(emailAuth){
+        emailAuth.hidden=false;
+      }
+
+
+      if(loginTab){
+
+        loginTab.classList.toggle(
+          'is-active',
+          !register
+        );
+
+        loginTab.setAttribute(
+          'aria-selected',
+          String(!register)
+        );
+
+      }
+
+
+      if(registerTab){
+
+        registerTab.classList.toggle(
+          'is-active',
+          register
+        );
+
+        registerTab.setAttribute(
+          'aria-selected',
+          String(register)
+        );
+
+      }
+
+
+      if(authName){
+
+        authName.hidden=
+          !register;
+
+        authName.required=
+          register;
+
+      }
+
+
+      if(authNameLabel){
+
+        authNameLabel.hidden=
+          !register;
+
+      }
+
+
+      if(authPassword){
+
+        authPassword.autocomplete=
+          register
+            ? 'new-password'
+            : 'current-password';
+
+      }
+
+
+      if(authSubmit){
+
+        authSubmit.textContent=
+          register
+            ? 'Konto erstellen'
+            : 'Anmelden';
+
+      }
+
+
+      setAuthStatus('');
+
+    }
+
+
+    async function submitAuth(event){
+
+      event.preventDefault();
+
+      setAuthStatus('');
+
+
+      const email=
+        (authEmail?.value||'')
+        .trim();
+
+      const password=
+        authPassword?.value||'';
+
+      const name=
+        (authName?.value||'')
+        .trim();
+
+
+      if(
+        !email ||
+        !email.includes('@')
+      ){
+
+        setAuthStatus(
+          'Bitte eine gültige E-Mail-Adresse eingeben.',
+          'error'
+        );
+
+        return;
+      }
+
+
+      if(password.length<8){
+
+        setAuthStatus(
+          'Das Passwort muss mindestens 8 Zeichen haben.',
+          'error'
+        );
+
+        return;
+      }
+
+
+      if(
+        authMode==='register' &&
+        !name
+      ){
+
+        setAuthStatus(
+          'Bitte Ihren Namen eingeben.',
+          'error'
+        );
+
+        return;
+      }
+
+
+      if(authSubmit){
+
+        authSubmit.disabled=
+          true;
+
+      }
+
+
+      try{
+
+        const response=
+          await fetch(
+            '/api/auth?action='+
+            (
+              authMode==='register'
+                ? 'register'
+                : 'login'
+            ),
+            {
+              method:'POST',
+
+              headers:{
+                'Content-Type':
+                  'application/json'
+              },
+
+              credentials:
+                'same-origin',
+
+              body:
+                JSON.stringify({
+                  email,
+                  password,
+                  name
+                })
+            }
+          );
+
+
+        const data=
+          await response
+            .json()
+            .catch(
+              function(){
+                return {};
+              }
+            );
+
+
+        if(
+          !response.ok ||
+          !data.success
+        ){
+
+          throw new Error(
+            data.message ||
+            'Die Anmeldung konnte nicht verarbeitet werden.'
+          );
+
+        }
+
+
+        setAuthStatus(
+          'Erfolgreich angemeldet. Willkommen bei NEXORA Digital.',
+          'success'
+        );
+
+
+        setTimeout(
+          function(){
+            closeModal();
+          },
+          650
+        );
+
+
+      }
+      catch(error){
+
+        setAuthStatus(
+          error.message ||
+          'Fehler bei der Anmeldung.',
+          'error'
+        );
+
+      }
+      finally{
+
+        if(authSubmit){
+
+          authSubmit.disabled=
+            false;
+
+        }
+
+      }
+
+    }
+
+
+    if(emailButton){
+
+      emailButton.addEventListener(
+        'click',
+        function(){
+
+          if(emailAuth){
+
+            emailAuth.hidden=
+              false;
+
+            setAuthMode(
+              'login'
+            );
+
+
+            setTimeout(
+              function(){
+
+                if(authEmail){
+
+                  authEmail.focus();
+
+                }
+
+              },
+              40
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    if(loginTab){
+
+      loginTab.addEventListener(
+        'click',
+        function(){
+
+          setAuthMode(
+            'login'
+          );
+
+        }
+      );
+
+    }
+
+
+    if(registerTab){
+
+      registerTab.addEventListener(
+        'click',
+        function(){
+
+          setAuthMode(
+            'register'
+          );
+
+        }
+      );
+
+    }
+
+
+    if(authForm){
+
+      authForm.addEventListener(
+        'submit',
+        submitAuth
+      );
+
+    }
+
+
+    if(authBack){
+
+      authBack.addEventListener(
+        'click',
+        function(){
+
+          if(emailAuth){
+
+            emailAuth.hidden=
+              true;
+
+          }
+
+
+          setAuthStatus('');
+
+
+          if(emailButton){
+
+            emailButton.focus();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    if(termsButton){
+
+      termsButton.addEventListener(
+        'click',
+        function(){
+
+          closeModal();
+
+
+          if(
+            typeof window.openModal===
+            'function'
+          ){
+
+            setTimeout(
+              function(){
+
+                window.openModal(
+                  'terms'
+                );
+
+              },
+              50
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+  }
+
+
+  if(
+    document.readyState===
+    'loading'
+  ){
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      initNexoraSubscribeModal
+    );
+
+  }
+  else{
+
+    initNexoraSubscribeModal();
+
+  }
+
+})();
+</script>
+
 
 </body>
 
 </html>
+ 
