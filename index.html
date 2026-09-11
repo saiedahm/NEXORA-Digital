@@ -3420,75 +3420,74 @@ body.nexora-modal-open{
   </div>
 
 
-  <!-- =====================================================
-       IMPRESSUM MODAL
-  ====================================================== -->
+<!-- =====================================================
+     IMPRESSUM MODAL
+====================================================== -->
 
-  <div
-    class="nexora-legal-modal"
-    id="impressumModal"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-    aria-labelledby="impressumModalTitle"
-    data-legal-modal="impressum"
-  >
+<div
+  id="impressumModal"
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="impressumModalTitle"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      type="button"
+      onclick="closeModal('impressum')"
+      aria-label="Impressum schließen"
+    >
+      ×
+    </button>
 
     <div
-      class="nexora-legal-box"
-      role="document"
+      class="modal-body"
+      id="impressumModalContent"
     >
 
-      <div class="nexora-legal-header">
+      <h2 id="impressumModalTitle">
+        Impressum
+      </h2>
 
-        <h2
-          class="nexora-legal-title"
-          id="impressumModalTitle"
-        >
-          Impressum
-        </h2>
+      <div class="legal-content">
 
-        <button
-          type="button"
-          class="nexora-legal-close"
-          onclick="closeModal('impressum')"
-          aria-label="Fenster schließen"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-      <div class="nexora-legal-body">
-
-        <h3>
-          Angaben zum Anbieter
-        </h3>
+        <h3>Angaben zum Anbieter</h3>
 
         <p>
-          <span class="nexora-legal-label">
-            NEXORA Digital
-          </span>
-          <br>
-          Web: www.nexoraonline.de
-          <br>
-          E-Mail: info@nexoraonline.de
+          <strong>NEXORA Digital</strong><br>
+          Akhmed Ismail Saied<br>
+          Ehndorfer Str. 130<br>
+          24537 Neumünster<br>
+          Deutschland
         </p>
 
+        <p>
+          <strong>Web:</strong>
+          www.nexoraonline.de<br>
 
-        <h3>
-          Kontakt
-        </h3>
+          <strong>E-Mail:</strong>
+          info@nexoraonline.de
+        </p>
+
+        <h3>Kontakt</h3>
 
         <p>
-          E-Mail:
-          <br>
-          info@nexoraonline.de
-          <br><br>
+          <strong>E-Mail:</strong><br>
+          info@nexoraonline.de<br>
           contact@nexoraonline.de
         </p>
 
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
         <h3>
           Hinweis
