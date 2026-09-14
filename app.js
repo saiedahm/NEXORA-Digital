@@ -77,84 +77,126 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const teamMembers = [
     {
-      icon: "◈",
-      name: "General Manager",
-      description:
-        "Koordiniert digitale Projekte, Prioritäten, Prozesse und die strategische Ausrichtung."
-    },
-    {
-      icon: "✦",
-      name: "Design Agent",
-      description:
-        "Entwickelt moderne UX/UI-Systeme, visuelle Konzepte und hochwertige digitale Erlebnisse."
-    },
-    {
-      icon: "⌘",
-      name: "Development Agent",
-      description:
-        "Strukturiert und entwickelt performante Websites, Schnittstellen und digitale Systeme."
-    },
-    {
-      icon: "◎",
-      name: "Advertising Agent",
-      description:
-        "Unterstützt bei KI-Werbung, Kampagnenplanung, Content und digitaler Sichtbarkeit."
-    },
-    {
-      icon: "✓",
-      name: "QA Agent",
-      description:
-        "Prüft Funktionen, responsive Verhalten, Benutzererlebnis und technische Qualität."
-    },
-    {
-      icon: "⌁",
-      name: "Website Audit Agent",
-      description:
-        "Analysiert Websites hinsichtlich Performance, Struktur, UX, SEO und Optimierungspotenzial."
-    },
-    {
-      icon: "⚙",
-      name: "Automation Agent",
-      description:
-        "Entwickelt intelligente Workflows zur Reduzierung manueller und wiederkehrender Aufgaben."
-    },
-    {
-      icon: "⌬",
-      name: "AI Integration Agent",
-      description:
-        "Plant und integriert KI-Funktionen in bestehende digitale Prozesse und Plattformen."
-    },
-    {
-      icon: "∞",
-      name: "Digital Intelligence Agent",
-      description:
-        "Verbindet Daten, Automatisierung und intelligente Systeme zu einer skalierbaren digitalen Struktur."
-    }
-  ];
-
-  if (teamGrid) {
-
-    teamGrid.innerHTML = teamMembers
-      .map((member) => `
-        <article class="team-card">
-
-          <div class="team-icon" aria-hidden="true">
-            ${member.icon}
-          </div>
-
-          <h3>${member.name}</h3>
-
-          <p>
-            ${member.description}
-          </p>
-
-        </article>
-      `)
-      .join("");
-
+     const teamMembers = [
+  {
+    icon: "◈",
+    name: "Dr. Mark Weber",
+    role: "Geschäftsführender CEO",
+    description: "Strategie, Führung und Vision"
+  },
+  {
+    icon: "⚙",
+    name: "Sarah Wagner",
+    role: "Operations & Executive Assistant",
+    description: "Abläufe, Koordination und Support"
+  },
+  {
+    icon: "◎",
+    name: "Lena Schmidt",
+    role: "Management & Kundenempfang",
+    description: "Erstkontakt, Organisation und Kommunikation"
+  },
+  {
+    icon: "€",
+    name: "Thomas Hoffmann",
+    role: "CFO",
+    description: "Finanzen, Kalkulation und Controlling"
+  },
+  {
+    icon: "§",
+    name: "RA Matthias Klein",
+    role: "Legal & GDPR",
+    description: "Recht, Datenschutz und Compliance"
+  },
+  {
+    icon: "✦",
+    name: "Alexander Kirsch",
+    role: "UI/UX Design Engineer",
+    description: "Designsysteme, UX und Prototyping"
+  },
+  {
+    icon: "◉",
+    name: "Yasemin Yilmaz",
+    role: "KI-Marketing & Advertising",
+    description: "Kampagnen, Content und Performance"
+  },
+  {
+    icon: "⌘",
+    name: "David Miller",
+    role: "AI Systems Engineer",
+    description: "Software, Integrationen und KI-Workflows"
+  },
+  {
+    icon: "∞",
+    name: "Michael Schulz",
+    role: "Infrastructure & Cybersecurity",
+    description: "Infrastruktur, Sicherheit und Betrieb"
   }
+];
 
+if (teamGrid) {
 
+  teamGrid.innerHTML = teamMembers
+    .map((member) => `
+      <article class="team-card">
+
+        <div class="team-icon" aria-hidden="true">
+          ${member.icon}
+        </div>
+
+        <h3>${member.name}</h3>
+
+        <p>
+          <strong>${member.role}</strong><br>
+          ${member.description}
+        </p>
+
+        <button
+          type="button"
+          class="btn ghost ai-team-button"
+          data-ai-name="${member.name}"
+          data-ai-role="${member.role}"
+        >
+          Mit ${member.name} sprechen
+        </button>
+
+      </article>
+    `)
+    .join("");
+
+  teamGrid.addEventListener("click", (event) => {
+
+    const button =
+      event.target.closest("[data-ai-name]");
+
+    if (!button) return;
+
+    const contactForm =
+      document.getElementById("contactForm");
+
+    const messageField =
+      contactForm
+        ? contactForm.querySelector('[name="message"]')
+        : null;
+
+    if (messageField) {
+      messageField.value =
+        `Ich möchte mit ${button.dataset.aiName} (${button.dataset.aiRole}) über mein Projekt sprechen.`;
+    }
+
+    const contact =
+      document.getElementById("kontakt");
+
+    if (contact) {
+      contact.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+  });
+
+} 
   /* =======================================================
      PRICING
      ======================================================= */
