@@ -1,45 +1,36 @@
-# NEXORA Future Showcase
+# NEXORA DIGITAL
 
-A standalone 60-second cinematic experience for NEXORA Digital.
+Static UX/UI concept for NEXORA DIGITAL — AI, Web, Automation and Digital Transformation.
 
-## Important
-This package is designed to live beside the main website. It does NOT require replacing or editing the root `index.html`.
+## Structure
 
-Recommended repository structure:
+- `index.html` — main page
+- `assets/css/style.css` — visual design and responsive layout
+- `assets/js/app.js` — navigation, team, pricing, modal, video and form interactions
+- `assets/images/` — local image assets
+- `assets/icons/` — favicon files
+- `assets/video/` — local video and audio assets
+- `vercel.json` — optional Vercel configuration
 
-NEXORA/
-├── index.html                 # existing main site — untouched
-└── nexora-future-showcase/
-    ├── index.html
-    ├── css/
-    │   └── cinematic.css
-    ├── js/
-    │   └── cinematic.js
-    └── assets/
-        ├── audio/
-        │   └── nexora-future.mp3
-        ├── images/
-        └── fonts/
+## Run locally
 
-## URL
-After upload, the showcase should be available at:
+Open `index.html` in a browser, or use a local server:
 
-https://www.nexoraonline.de/nexora-future-showcase/
+```bash
+python -m http.server 8080
+```
 
-## Run
-Open the folder through a web server. A local server is recommended because browser security policies can affect media and CDN loading.
+Then visit `http://localhost:8080`.
 
-## Experience
-- 60-second cinematic timeline
-- AI website creation
-- Website modernization
-- AI team concept
-- NEXORA Command Center
-- Fullscreen mode
-- Original 60-second synthetic futuristic soundtrack
-- Three.js particle/city visual system
-- GSAP scene timing
-- Responsive large-screen layout
+## Production requirements
 
-## Music
-`assets/audio/nexora-future.mp3` is an original synthetic soundtrack generated for this demo. It can later be replaced with a professionally mastered WAV/MP3 without changing the visual code, as long as the filename/path is preserved.
+For a real production platform, connect a secure backend for:
+- Stripe Checkout and invoices
+- Email delivery
+- Authentication and consent records
+- GDPR-compliant data storage
+- AES-256 encryption at rest
+- Multi-tenant sandboxing
+- AI APIs and admin dashboard
+
+Never place secret API keys in frontend JavaScript.

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXORA DIGITAL – KI, Web, Automation und digitale Transformation aus Neumünster.">
+  <meta name="theme-color" content="#0f172a">
+  <title>NEXORA DIGITAL — AI • WEB • AUTOMATION</title>
+  <link rel="icon" href="assets/icons/favicon.png" type="image/png">
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="NEXORA DIGITAL Startseite">
+    <img src="assets/images/nexora-logo.png" alt="NEXORA DIGITAL Logo">
+    <span>NEXORA <b>DIGITAL</b></span>
+  </a>
+  <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+  <nav class="nav" aria-label="Hauptnavigation">
+    <a href="#design">Design</a><a href="#team">AI Team</a><a href="#preise">Preise</a>
+    <a href="#werbung">KI-Werbung</a><a href="#kontakt">Kontakt</a>
+    <select id="language" aria-label="Sprache"><option value="de">Deutsch</option><option value="en">English</option></select>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero section">
+    <div class="hero-copy">
+      <p class="eyebrow">NEXORA DIGITAL / NEUMÜNSTER, DE</p>
+      <h1>Die digitale Zukunft beginnt <span>jetzt.</span></h1>
+      <p class="lead">Du bist hier in der Welt moderner künstlicher Intelligenz, eleganter Websites und intelligenter Automatisierung.</p>
+      <div class="actions"><a class="btn primary" href="#kontakt">Projekt starten</a><button class="btn ghost" id="openVideo">NEXORA Film ansehen ▶</button></div>
+      <div class="trust-row"><span>✦ DSGVO-orientiert</span><span>✦ KI-gestützt</span><span>✦ 24/7 Support-Konzept</span></div>
+    </div>
+    <div class="hero-art"><img src="assets/images/nexora-hero.png" alt="Abstrakte digitale NEXORA Architektur"></div>
+  </section>
+
+  <section class="indicators section">
+    <div><strong>AI</strong><span>Intelligente Systeme</span></div><div><strong>24/7</strong><span>Digitale Erreichbarkeit</span></div><div><strong>∞</strong><span>Skalierbare Ideen</span></div>
+  </section>
+
+  <section id="design" class="section split">
+    <div><img class="feature-image" src="assets/images/nexora-middle.png" alt="NEXORA digitale Arbeitswelt"></div>
+    <div><p class="eyebrow">DESIGN & DEVELOPMENT</p><h2>Digitale Erlebnisse mit Charakter.</h2><p>Von der ersten Idee bis zum Launch entwickeln wir klare, schnelle und responsive digitale Produkte – mit einem starken Fokus auf UX/UI, Automatisierung und messbare Ergebnisse.</p><ul class="check-list"><li>Responsive Webdesign</li><li>UI/UX-Konzeption</li><li>AI-Integration und Workflows</li><li>Modernes Branding</li></ul></div>
+  </section>
+
+  <section id="team" class="section">
+    <div class="section-heading"><p class="eyebrow">AI OPERATING TEAM</p><h2>Neun spezialisierte Rollen. Eine gemeinsame Mission.</h2><p>Die Rollen bleiben klar getrennt und arbeiten innerhalb eines definierten Betriebskonzepts zusammen.</p></div>
+    <div class="team-grid" id="teamGrid"></div>
+  </section>
+
+  <section id="preise" class="section">
+    <div class="section-heading"><p class="eyebrow">EUROPEAN PRICING</p><h2>Transparente Pakete für deinen nächsten Schritt.</h2></div>
+    <div class="pricing-grid" id="pricingGrid"></div>
+  </section>
+
+  <section id="werbung" class="section split reverse">
+    <div><p class="eyebrow">KI-WERBUNG</p><h2>Mehr Sichtbarkeit. Weniger Routine.</h2><p>Konzeption, Content-Workflows und Kampagnenplanung mit intelligenten Werkzeugen. Die tatsächliche Ausführung und Freigabe erfolgt kontrolliert durch autorisierte Personen.</p><a class="btn primary" href="#kontakt">Werbeprojekt anfragen</a></div>
+    <div><img class="feature-image" src="assets/images/nexora-bottom.png" alt="Abstrakte NEXORA Zukunftsvisualisierung"></div>
+  </section>
+
+  <section id="kontakt" class="section contact-section">
+    <div><p class="eyebrow">KONTAKT</p><h2>Erzähl uns von deinem Projekt.</h2><p>Fülle das Formular aus. Die Anfrage wird lokal validiert und kann anschließend an ein angebundenes Backend übergeben werden.</p></div>
+    <form id="contactForm" class="contact-form">
+      <label>Name<input name="name" required maxlength="100" placeholder="Dein Name"></label>
+      <label>E-Mail<input name="email" type="email" required maxlength="160" placeholder="name@beispiel.de"></label>
+      <label>Service<select name="service" required><option value="">Bitte wählen</option><option>Neues Website-Design</option><option>Website-Update</option><option>AI-Integration</option><option>KI-Werbung</option><option>Wartung</option></select></label>
+      <label>Nachricht<textarea name="message" required maxlength="2000" placeholder="Was möchtest du umsetzen?"></textarea></label>
+      <label class="consent"><input type="checkbox" name="consent" required> Ich akzeptiere die Hinweise zum Datenschutz.</label>
+      <button class="btn primary" type="submit">Anfrage vorbereiten</button><p id="formStatus" role="status"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <div><a class="brand" href="#top"><img src="assets/images/nexora-logo.png" alt=""> <span>NEXORA <b>DIGITAL</b></span></a><p>AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION</p></div>
+  <div><p>www.nexoraonline.de<br>info@nexoraonline.de<br>contact@nexoraonline.de</p></div>
+  <div class="legal-links"><button data-modal="legal">LEGAL</button><button data-modal="privacy">Datenschutz (DSGVO)</button><button data-modal="terms">AGB</button><button data-modal="impressum">Impressum</button></div>
+  <small>© <span id="year"></span> NEXORA DIGITAL. Alle Rechte vorbehalten.</small>
+</footer>
+
+<div class="modal" id="modal" aria-hidden="true"><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="closeModal" aria-label="Schließen">×</button><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
+<div class="modal" id="videoModal" aria-hidden="true"><div class="modal-card video-card"><button class="modal-close" id="closeVideo" aria-label="Schließen">×</button><h2>NEXORA Future Film</h2><video id="mainVideo" controls preload="metadata" poster="assets/images/nexora-hero.png"><source src="assets/video/video_1.mp4" type="video/mp4">Dein Browser unterstützt kein HTML5-Video.</video></div></div>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
