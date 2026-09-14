@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const teamMembers = [
     {
-     const teamMembers = [
+    const teamMembers = [
   {
     icon: "◈",
     name: "Dr. Mark Weber",
@@ -132,72 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     role: "Infrastructure & Cybersecurity",
     description: "Infrastruktur, Sicherheit und Betrieb"
   }
-];
-
-if (teamGrid) {
-
-  teamGrid.innerHTML = teamMembers
-    .map((member) => `
-      <article class="team-card">
-
-        <div class="team-icon" aria-hidden="true">
-          ${member.icon}
-        </div>
-
-        <h3>${member.name}</h3>
-
-        <p>
-          <strong>${member.role}</strong><br>
-          ${member.description}
-        </p>
-
-        <button
-          type="button"
-          class="btn ghost ai-team-button"
-          data-ai-name="${member.name}"
-          data-ai-role="${member.role}"
-        >
-          Mit ${member.name} sprechen
-        </button>
-
-      </article>
-    `)
-    .join("");
-
-  teamGrid.addEventListener("click", (event) => {
-
-    const button =
-      event.target.closest("[data-ai-name]");
-
-    if (!button) return;
-
-    const contactForm =
-      document.getElementById("contactForm");
-
-    const messageField =
-      contactForm
-        ? contactForm.querySelector('[name="message"]')
-        : null;
-
-    if (messageField) {
-      messageField.value =
-        `Ich möchte mit ${button.dataset.aiName} (${button.dataset.aiRole}) über mein Projekt sprechen.`;
-    }
-
-    const contact =
-      document.getElementById("kontakt");
-
-    if (contact) {
-      contact.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-
-  });
-
-} 
-  /* =======================================================
+];  /* =======================================================
      PRICING
      ======================================================= */
 
