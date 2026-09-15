@@ -1,48 +1,111 @@
-<!doctype html>
 
-<html lang="de">
+<!doctype html>
+<html lang="de" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NEXORA DIGITAL – KI, Web, Automation und digitale Transformation aus Neumünster.">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="NEXORA Digital – KI, Web, Automation und digitale Transformation aus Neumünster."
+  >
+
   <meta name="theme-color" content="#0f172a">
+
   <title>NEXORA DIGITAL — AI • WEB • AUTOMATION</title>
 
-  <link rel="icon" href="assetsimagesnexora-logo.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link
+    rel="icon"
+    href="assetsimagesnexora-logo.png"
+    type="image/png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/style.css"
+  >
 </head>
 
 <body>
 
 <header class="site-header">
-  <a class="brand" href="#top" aria-label="NEXORA DIGITAL Startseite">
-    <img src="assetsimagesnexora-logo.png" alt="NEXORA DIGITAL Logo">
-    <span>NEXORA <b>DIGITAL</b></span>
+
+  <a
+    class="brand"
+    href="#top"
+    aria-label="NEXORA DIGITAL Startseite"
+  >
+    <img
+      src="assetsimagesnexora-logo.png"
+      alt="NEXORA DIGITAL Logo"
+    >
+
+    <span>
+      NEXORA <b>DIGITAL</b>
+    </span>
   </a>
 
-<button
- class="menu-toggle"
- aria-label="Menü öffnen"
- aria-expanded="false"
- type="button">
-☰ </button>
+  <button
+    class="menu-toggle"
+    type="button"
+    aria-label="Menü öffnen"
+    aria-expanded="false"
+  >
+    ☰
+  </button>
 
-  <nav class="nav" aria-label="Hauptnavigation">
-    <a href="#design">Design</a>
-    <a href="#team">AI Team</a>
-    <a href="#preise">Preise</a>
-    <a href="#werbung">KI-Werbung</a>
-    <a href="#kontakt">Kontakt</a>
+  <nav
+    class="nav"
+    aria-label="Hauptnavigation"
+  >
 
-```
-<select id="language" aria-label="Sprache">
-  <option value="de">Deutsch</option>
-  <option value="en">English</option>
-</select>
-```
+    <a href="#design" data-i18n="nav_design">
+      Design
+    </a>
+
+    <a href="#team" data-i18n="nav_team">
+      AI Team
+    </a>
+
+    <a href="#preise" data-i18n="nav_prices">
+      Preise
+    </a>
+
+    <a href="#werbung" data-i18n="nav_ads">
+      KI-Werbung
+    </a>
+
+    <a href="#kontakt" data-i18n="nav_contact">
+      Kontakt
+    </a>
+
+    <!-- 20 LANGUAGES -->
+    <div class="language-wrap">
+
+      <button
+        id="languageButton"
+        class="language-button"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        🇩🇪 DE <span>▾</span>
+      </button>
+
+      <div
+        id="languageMenu"
+        class="language-menu"
+        role="menu"
+        aria-label="Sprachauswahl"
+      ></div>
+
+    </div>
 
   </nav>
+
 </header>
+
 
 <main id="top">
 
@@ -50,571 +113,753 @@
 
   <section class="hero section">
 
-```
-<div class="hero-copy">
+    <div class="hero-copy">
 
-  <p class="eyebrow">
-    NEXORA DIGITAL / NEUMÜNSTER, DE
-  </p>
+      <p class="eyebrow">
+        NEXORA DIGITAL / NEUMÜNSTER, DE
+      </p>
 
-  <h1>
-    Die digitale Zukunft beginnt
-    <span>jetzt.</span>
-  </h1>
+      <h1>
+        <span data-i18n="hero_title">
+          Die digitale Zukunft beginnt
+        </span>
 
-  <p class="lead">
-    Du bist hier in der Welt moderner künstlicher Intelligenz,
-    eleganter Websites und intelligenter Automatisierung.
-  </p>
+        <span data-i18n="hero_now">
+          jetzt.
+        </span>
+      </h1>
 
-  <div class="actions">
+      <p
+        class="lead"
+        data-i18n="hero_text"
+      >
+        Du bist hier in der Welt moderner künstlicher
+        Intelligenz, eleganter Websites und intelligenter
+        Automatisierung.
+      </p>
 
-    <a class="btn primary" href="#kontakt">
-      Projekt starten
-    </a>
+      <div class="actions">
 
-    <button
-      class="btn ghost"
-      id="openVideo"
-      type="button">
-      NEXORA Film ansehen ▶
-    </button>
+        <a
+          class="btn primary"
+          href="#kontakt"
+          data-i18n="start_project"
+        >
+          Projekt starten
+        </a>
 
-  </div>
+        <button
+          class="btn ghost"
+          id="openVideo"
+          type="button"
+          data-i18n="watch_film"
+        >
+          NEXORA Film ansehen ▶
+        </button>
 
-  <div class="trust-row">
-    <span>✦ DSGVO-orientiert</span>
-    <span>✦ KI-gestützt</span>
-    <span>✦ 24/7 Support-Konzept</span>
-  </div>
+      </div>
 
-</div>
+      <div class="trust-row">
 
-<div class="hero-art">
-  <img
-    src="assetsimagesnexora-hero.png"
-    alt="Abstrakte digitale NEXORA Architektur">
-</div>
-```
+        <span>✦ DSGVO-orientiert</span>
+
+        <span>✦ KI-gestützt</span>
+
+        <span>✦ 24/7 Support-Konzept</span>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-art">
+
+      <img
+        src="assetsimagesnexora-hero.png"
+        alt="NEXORA digitale Architektur"
+      >
+
+    </div>
 
   </section>
+
 
   <!-- INDICATORS -->
 
   <section class="indicators section">
 
-```
-<div>
-  <strong>AI</strong>
-  <span>Intelligente Systeme</span>
-</div>
+    <div>
+      <strong>AI</strong>
+      <span data-i18n="indicator_ai">
+        Intelligente Systeme
+      </span>
+    </div>
 
-<div>
-  <strong>24/7</strong>
-  <span>Digitale Erreichbarkeit</span>
-</div>
+    <div>
+      <strong>24/7</strong>
+      <span data-i18n="indicator_247">
+        Digitale Erreichbarkeit
+      </span>
+    </div>
 
-<div>
-  <strong>∞</strong>
-  <span>Skalierbare Ideen</span>
-</div>
-```
+    <div>
+      <strong>20</strong>
+      <span data-i18n="indicator_languages">
+        Sprachen
+      </span>
+    </div>
 
   </section>
+
 
   <!-- DESIGN -->
 
-  <section id="design" class="section split">
+  <section
+    id="design"
+    class="section split"
+  >
 
-```
-<div>
-  <img
-    class="feature-image"
-    src="assetsimagesnexora-hero.png"
-    alt="NEXORA digitale Arbeitswelt">
-</div>
+    <div>
 
-<div>
+      <img
+        class="feature-image"
+        src="assetsimagesnexora-hero.png"
+        alt="NEXORA digitale Arbeitswelt"
+      >
 
-  <p class="eyebrow">
-    DESIGN &amp; DEVELOPMENT
-  </p>
+    </div>
 
-  <h2>
-    Digitale Erlebnisse mit Charakter.
-  </h2>
+    <div>
 
-  <p>
-    Von der ersten Idee bis zum Launch entwickeln wir klare,
-    schnelle und responsive digitale Produkte – mit einem starken
-    Fokus auf UX/UI, Automatisierung und messbare Ergebnisse.
-  </p>
+      <p class="eyebrow">
+        DESIGN & DEVELOPMENT
+      </p>
 
-  <ul class="check-list">
-    <li>Responsive Webdesign</li>
-    <li>UI/UX-Konzeption</li>
-    <li>AI-Integration und Workflows</li>
-    <li>Modernes Branding</li>
-  </ul>
+      <h2 data-i18n="design_title">
+        Digitale Erlebnisse mit Charakter.
+      </h2>
 
-</div>
-```
+      <p data-i18n="design_text">
+        Von der ersten Idee bis zum Launch entwickeln wir
+        klare, schnelle und responsive digitale Produkte –
+        mit Fokus auf UX/UI, Automatisierung und messbare
+        Ergebnisse.
+      </p>
+
+      <ul class="check-list">
+
+        <li>Responsive Webdesign</li>
+
+        <li>UI/UX-Konzeption</li>
+
+        <li>AI-Integration und Workflows</li>
+
+        <li>Modernes Branding</li>
+
+      </ul>
+
+    </div>
 
   </section>
+
 
   <!-- AI TEAM -->
 
-  <section id="team" class="section">
+  <section
+    id="team"
+    class="section"
+  >
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-  <p class="eyebrow">
-    AI OPERATING TEAM
-  </p>
+      <p class="eyebrow">
+        AI OPERATING TEAM
+      </p>
 
-  <h2>
-    Neun spezialisierte Rollen. Eine gemeinsame Mission.
-  </h2>
+      <h2 data-i18n="team_title">
+        Neun spezialisierte Rollen.
+        Eine gemeinsame Mission.
+      </h2>
 
-  <p>
-    Die Rollen bleiben klar getrennt und arbeiten innerhalb
-    eines definierten Betriebskonzepts zusammen.
-  </p>
+      <p data-i18n="team_text">
+        Jeder AI-Verantwortliche hat eine klare Aufgabe.
+        Mit dem Pfeil können Sie sofort den jeweiligen
+        AI-Dialog öffnen.
+      </p>
 
-</div>
+    </div>
 
-<div
-  class="team-grid"
-  id="teamGrid">
-</div>
-```
+    <div
+      class="team-grid"
+      id="teamGrid"
+    ></div>
 
   </section>
+
 
   <!-- PRICING -->
 
-  <section id="preise" class="section">
+  <section
+    id="preise"
+    class="section"
+  >
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-  <p class="eyebrow">
-    EUROPEAN PRICING
-  </p>
+      <p class="eyebrow">
+        EUROPEAN PRICING
+      </p>
 
-  <h2>
-    Transparente Pakete für deinen nächsten Schritt.
-  </h2>
+      <h2 data-i18n="pricing_title">
+        Transparente Pakete für deinen nächsten Schritt.
+      </h2>
 
-</div>
+      <p data-i18n="pricing_text">
+        Wähle ein Paket. Danach öffnet sich direkt die
+        Zahlungs- und Informationsansicht.
+      </p>
 
-<div
-  class="pricing-grid"
-  id="pricingGrid">
-</div>
-```
+    </div>
 
-  </section>
-
-  <!-- KI-WERBUNG -->
-
-  <section id="werbung" class="section split reverse">
-
-```
-<div>
-
-  <p class="eyebrow">
-    KI-WERBUNG
-  </p>
-
-  <h2>
-    Mehr Sichtbarkeit. Weniger Routine.
-  </h2>
-
-  <p>
-    Konzeption, Content-Workflows und Kampagnenplanung mit
-    intelligenten Werkzeugen. Die tatsächliche Ausführung und
-    Freigabe erfolgt kontrolliert durch autorisierte Personen.
-  </p>
-
-  <a class="btn primary" href="#kontakt">
-    Werbeprojekt anfragen
-  </a>
-
-</div>
-
-<div>
-
-  <img
-    class="feature-image"
-    src="assetsimagesnexora-bottom.png"
-    alt="Abstrakte NEXORA Zukunftsvisualisierung">
-
-</div>
-```
+    <div
+      class="pricing-grid"
+      id="pricingGrid"
+    ></div>
 
   </section>
 
-  <!-- KONTAKT -->
 
-  <section id="kontakt" class="section contact-section">
+  <!-- KI WERBUNG -->
 
-```
-<div>
+  <section
+    id="werbung"
+    class="section split reverse"
+  >
 
-  <p class="eyebrow">
-    KONTAKT
-  </p>
+    <div>
 
-  <h2>
-    Erzähl uns von deinem Projekt.
-  </h2>
+      <p class="eyebrow">
+        KI-WERBUNG
+      </p>
 
-  <p>
-    Fülle das Formular aus. Die Anfrage wird lokal validiert
-    und kann anschließend an ein angebundenes Backend
-    übergeben werden.
-  </p>
+      <h2 data-i18n="ads_title">
+        Mehr Sichtbarkeit. Weniger Routine.
+      </h2>
 
-</div>
+      <p data-i18n="ads_text">
+        Konzeption, Content-Workflows und Kampagnenplanung
+        mit intelligenten Werkzeugen.
+      </p>
 
-<form
-  id="contactForm"
-  class="contact-form">
+      <button
+        class="btn primary"
+        type="button"
+        data-ai-agent="advertising"
+        data-i18n="talk_ads"
+      >
+        Mit Advertising AI sprechen →
+      </button>
 
-  <label>
-    Name
+    </div>
 
-    <input
-      name="name"
-      required
-      maxlength="100"
-      placeholder="Dein Name">
-  </label>
+    <div>
 
-  <label>
-    E-Mail
+      <img
+        class="feature-image"
+        src="assetsimagesnexora-bottom.png"
+        alt="NEXORA Zukunftsvisualisierung"
+      >
 
-    <input
-      name="email"
-      type="email"
-      required
-      maxlength="160"
-      placeholder="name@beispiel.de">
-  </label>
+    </div>
 
-  <label>
-    Service
+  </section>
 
-    <select
-      name="service"
-      required>
 
-      <option value="">
-        Bitte wählen
-      </option>
+  <!-- CONTACT -->
 
-      <option>
-        Neues Website-Design
-      </option>
+  <section
+    id="kontakt"
+    class="section contact-section"
+  >
 
-      <option>
-        Website-Update
-      </option>
+    <div>
 
-      <option>
-        AI-Integration
-      </option>
+      <p class="eyebrow">
+        KONTAKT
+      </p>
 
-      <option>
-        KI-Werbung
-      </option>
+      <h2 data-i18n="contact_title">
+        Erzähl uns von deinem Projekt.
+      </h2>
 
-      <option>
-        Wartung
-      </option>
+      <p data-i18n="contact_text">
+        Sende deine Anfrage. Die Oberfläche validiert
+        die Angaben und öffnet anschließend deinen
+        E-Mail-Client.
+      </p>
 
-    </select>
+    </div>
 
-  </label>
 
-  <label>
-    Nachricht
+    <form
+      id="contactForm"
+      class="contact-form"
+    >
 
-    <textarea
-      name="message"
-      required
-      maxlength="2000"
-      placeholder="Was möchtest du umsetzen?"></textarea>
+      <label>
+        Name
 
-  </label>
+        <input
+          name="name"
+          required
+          maxlength="100"
+          placeholder="Dein Name"
+        >
 
-  <label class="consent">
+      </label>
 
-    <input
-      type="checkbox"
-      name="consent"
-      required>
 
-    Ich akzeptiere die Hinweise zum Datenschutz.
+      <label>
+        E-Mail
 
-  </label>
+        <input
+          name="email"
+          type="email"
+          required
+          maxlength="160"
+          placeholder="name@beispiel.de"
+        >
 
-  <button
-    class="btn primary"
-    type="submit">
+      </label>
 
-    Anfrage vorbereiten
 
-  </button>
+      <label>
+        Service
 
-  <p
-    id="formStatus"
-    role="status">
-  </p>
+        <select
+          name="service"
+          required
+        >
 
-</form>
-```
+          <option value="">
+            Bitte wählen
+          </option>
+
+          <option>
+            Neues Website-Design
+          </option>
+
+          <option>
+            Website-Update
+          </option>
+
+          <option>
+            AI-Integration
+          </option>
+
+          <option>
+            KI-Werbung
+          </option>
+
+          <option>
+            Wartung
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+        Nachricht
+
+        <textarea
+          name="message"
+          required
+          maxlength="2000"
+          placeholder="Was möchtest du umsetzen?"
+        ></textarea>
+
+      </label>
+
+
+      <label class="consent">
+
+        <input
+          type="checkbox"
+          name="consent"
+          required
+        >
+
+        Ich akzeptiere die Hinweise zum Datenschutz.
+
+      </label>
+
+
+      <button
+        class="btn primary"
+        type="submit"
+        data-i18n="send_request"
+      >
+        Anfrage vorbereiten
+      </button>
+
+
+      <p
+        id="formStatus"
+        role="status"
+      ></p>
+
+    </form>
 
   </section>
 
 </main>
 
-<!-- FOOTER -->
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
 
 <footer class="footer">
 
-  <div>
+  <div class="footer-brand">
 
-```
-<a class="brand" href="#top">
+    <a
+      class="brand"
+      href="#top"
+    >
 
-  <img
-    src="assetsimagesnexora-logo.png"
-    alt="">
+      <img
+        src="assetsimagesnexora-logo.png"
+        alt="NEXORA DIGITAL"
+      >
 
-  <span>
-    NEXORA <b>DIGITAL</b>
-  </span>
+      <span>
+        NEXORA <b>DIGITAL</b>
+      </span>
 
-</a>
+    </a>
 
-<p>
-  AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION
-</p>
-```
+    <p>
+      AI • WEB • AUTOMATION • DIGITAL TRANSFORMATION
+    </p>
+
+  </div>
+
+
+  <div class="footer-contact">
+
+    <p>
+      www.nexoraonline.de<br>
+      info@nexoraonline.de<br>
+      contact@nexoraonline.de
+    </p>
 
   </div>
 
-  <div>
 
-```
-<p>
-  www.nexoraonline.de<br>
-  info@nexoraonline.de<br>
-  contact@nexoraonline.de
-</p>
-```
-
-  </div>
+  <!-- VERTICAL LEGAL -->
 
   <div class="legal-links">
 
-```
-<button type="button" data-modal="legal">
-  LEGAL
-</button>
+    <strong>LEGAL</strong>
 
-<button type="button" data-modal="privacy">
-  Datenschutz (DSGVO)
-</button>
+    <button
+      type="button"
+      data-modal="legal"
+    >
+      LEGAL
+    </button>
 
-<button type="button" data-modal="terms">
-  AGB
-</button>
+    <button
+      type="button"
+      data-modal="privacy"
+    >
+      Datenschutz (DSGVO)
+    </button>
 
-<button type="button" data-modal="impressum">
-  Impressum
-</button>
-```
+    <button
+      type="button"
+      data-modal="terms"
+    >
+      Nutzungsbedingungen (AGB)
+    </button>
+
+    <button
+      type="button"
+      data-modal="impressum"
+    >
+      Impressum
+    </button>
 
   </div>
 
+
   <small>
     © <span id="year"></span>
-    NEXORA DIGITAL. Alle Rechte vorbehalten.
+    NEXORA DIGITAL.
+    Alle Rechte vorbehalten.
   </small>
 
 </footer>
 
-<!-- LEGAL MODAL -->
+
+<!-- =====================================================
+     LEGAL MODAL
+====================================================== -->
 
 <div
   class="modal"
   id="modal"
-  aria-hidden="true">
+  aria-hidden="true"
+>
 
-  <div
-    class="modal-card"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modalTitle">
+  <div class="modal-card">
 
-```
-<button
-  class="modal-close"
-  id="closeModal"
-  aria-label="Schließen"
-  type="button">
-  ×
-</button>
+    <button
+      class="modal-close"
+      id="closeModal"
+      type="button"
+    >
+      ×
+    </button>
 
-<h2 id="modalTitle"></h2>
+    <h2 id="modalTitle"></h2>
 
-<div id="modalBody"></div>
-```
+    <div id="modalBody"></div>
 
   </div>
 
 </div>
 
-<!-- VIDEO MODAL -->
+
+<!-- =====================================================
+     VIDEO
+====================================================== -->
 
 <div
   class="modal"
   id="videoModal"
-  aria-hidden="true">
+  aria-hidden="true"
+>
 
   <div class="modal-card video-card">
 
-```
-<button
-  class="modal-close"
-  id="closeVideo"
-  aria-label="Schließen"
-  type="button">
-  ×
-</button>
+    <button
+      class="modal-close"
+      id="closeVideo"
+      type="button"
+    >
+      ×
+    </button>
 
-<h2>
-  NEXORA Future Film
-</h2>
+    <h2>
+      NEXORA Future Film
+    </h2>
 
-<video
-  id="mainVideo"
-  controls
-  preload="metadata"
-  poster="assetsimagesnexora-hero.png">
+    <video
+      id="mainVideo"
+      controls
+      preload="metadata"
+      playsinline
+      poster="assetsimagesnexora-hero.png"
+    >
 
-  <source
-    src="assetsvideovideo_1.mp4"
-    type="video/mp4">
+      <source
+        src="assetsvideovideo_1.mp4"
+        type="video/mp4"
+      >
 
-  Dein Browser unterstützt kein HTML5-Video.
+      Dein Browser unterstützt kein HTML5-Video.
 
-</video>
-```
+    </video>
 
   </div>
 
 </div>
 
-<!-- AI CHAT MODAL -->
+
+<!-- =====================================================
+     AI CHAT
+====================================================== -->
 
 <div
   class="modal ai-chat-modal"
   id="aiChatModal"
-  aria-hidden="true">
+  aria-hidden="true"
+>
 
   <div
     class="modal-card ai-chat-card"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="aiChatTitle">
+  >
 
-```
-<button
-  class="modal-close"
-  id="closeAIChat"
-  aria-label="Chat schließen"
-  type="button">
-  ×
-</button>
+    <button
+      class="modal-close"
+      id="closeAIChat"
+      type="button"
+    >
+      ×
+    </button>
 
-<div class="ai-chat-header">
 
-  <div class="ai-avatar" id="aiAvatar">
-    AI
-  </div>
+    <div class="ai-chat-header">
 
-  <div>
-    <p class="eyebrow">
-      NEXORA AI TEAM
-    </p>
+      <div
+        class="ai-avatar"
+        id="aiAvatar"
+      >
+        AI
+      </div>
 
-    <h2 id="aiChatTitle">
-      AI Assistant
-    </h2>
+      <div>
 
-    <p id="aiChatRole">
-      Digitale Beratung
-    </p>
+        <p class="eyebrow">
+          NEXORA AI TEAM
+        </p>
+
+        <h2 id="aiChatTitle">
+          AI Assistant
+        </h2>
+
+        <p id="aiChatRole">
+          Digitale Beratung
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="ai-chat-messages"
+      id="aiChatMessages"
+      aria-live="polite"
+    ></div>
+
+
+    <form
+      class="ai-chat-form"
+      id="aiChatForm"
+    >
+
+      <input
+        id="aiChatInput"
+        maxlength="1000"
+        autocomplete="off"
+        placeholder="Ihre Nachricht..."
+        required
+      >
+
+      <button
+        class="btn primary"
+        type="submit"
+      >
+        Senden
+      </button>
+
+    </form>
+
   </div>
 
 </div>
+
+
+<!-- =====================================================
+     PAYMENT
+====================================================== -->
 
 <div
-  class="ai-chat-messages"
-  id="aiChatMessages"
-  aria-live="polite">
-</div>
+  class="modal payment-modal"
+  id="paymentModal"
+  aria-hidden="true"
+>
 
-<form
-  class="ai-chat-form"
-  id="aiChatForm">
+  <div class="modal-card payment-card">
 
-  <input
-    id="aiChatInput"
-    type="text"
-    maxlength="1000"
-    autocomplete="off"
-    placeholder="Ihre Nachricht..."
-    required>
+    <button
+      class="modal-close"
+      id="closePayment"
+      type="button"
+    >
+      ×
+    </button>
 
-  <button
-    class="btn primary"
-    type="submit">
-    Senden
-  </button>
+    <p class="eyebrow">
+      NEXORA PAYMENT
+    </p>
 
-</form>
+    <h2 id="paymentTitle">
+      Zahlungsinformationen
+    </h2>
 
-<div class="ai-chat-actions">
+    <p id="paymentDescription"></p>
 
-  <button
-    type="button"
-    class="btn ghost"
-    id="aiRequestService">
-    Service anfragen
-  </button>
 
-  <button
-    type="button"
-    class="btn ghost"
-    id="aiBackContact">
-    Kontaktformular
-  </button>
+    <div class="payment-options">
 
-</div>
-```
+
+      <div class="payment-option">
+
+        <strong>
+          Stripe
+        </strong>
+
+        <span>
+          Sichere Kartenzahlung über Stripe.
+        </span>
+
+        <button
+          id="stripeButton"
+          class="btn primary"
+          type="button"
+        >
+          Stripe öffnen
+        </button>
+
+      </div>
+
+
+      <div class="payment-option">
+
+        <strong>
+          Banküberweisung
+        </strong>
+
+        <span>
+          Die Überweisung wird nach Prüfung
+          der offiziellen Bankdaten verarbeitet.
+        </span>
+
+        <div class="bank-placeholder">
+
+          Bankverbindung:
+          wird nach Hinterlegung der offiziellen
+          IBAN/BIC angezeigt.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <p class="payment-note">
+
+      Hinweis: Der echte Stripe Payment Link
+      und die echte IBAN/BIC müssen vom
+      Kontoinhaber hinterlegt werden.
+
+    </p>
 
   </div>
 
 </div>
+
 
 <script src="assets/js/app.js"></script>
 
 </body>
 </html>
-
