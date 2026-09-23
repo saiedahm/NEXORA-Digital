@@ -1,6 +1,7 @@
- import { auth } from "@/lib/auth/auth";
+
+import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/db/client";
-import { AI_AGENTS } from "@/lib/ai/agents";
+import { AGENTS } from "@/lib/ai/agents";
 import { NextResponse } from "next/server";
 
 export async function POST() {
@@ -42,10 +43,10 @@ export async function POST() {
   let created = 0;
   let updated = 0;
 
-  for (const agent of AI_AGENTS) {
+  for (const agent of AGENTS) {
     const existing = await prisma.aiAgent.findUnique({
       where: {
-        key: agent.key,
+        key: agent.id,
       },
       select: {
         id: true,
@@ -54,23 +55,27 @@ export async function POST() {
 
     await prisma.aiAgent.upsert({
       where: {
-        key: agent.key,
+        key: agent.id,
       },
       update: {
         name: agent.name,
         role: agent.role,
-        department: agent.department,
-        systemPrompt: agent.systemPrompt,
-        permissions: agent.permissions,
+        department: agent.role,
+        systemPrompt: `You are ${agent.name}, the NEXORA DIGITAL ${agent.role}. Follow the NEXORA AI constitution and use only authorized tools.`,
+        permissions: {
+          tools: agent.tools,
+        },
         tools: agent.tools,
       },
       create: {
-        key: agent.key,
+        key: agent.id,
         name: agent.name,
         role: agent.role,
-        department: agent.department,
-        systemPrompt: agent.systemPrompt,
-        permissions: agent.permissions,
+        department: agent.role,
+        systemPrompt: `You are ${agent.name}, the NEXORA DIGITAL ${agent.role}. Follow the NEXORA AI constitution and use only authorized tools.`,
+        permissions: {
+          tools: agent.tools,
+        },
         tools: agent.tools,
         status: "OFFLINE",
       },
@@ -87,6 +92,6 @@ export async function POST() {
     success: true,
     created,
     updated,
-    total: AI_AGENTS.length,
+    total: AGENTS.length,
   });
 }
