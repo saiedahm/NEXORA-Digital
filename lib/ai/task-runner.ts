@@ -1,10 +1,17 @@
- import { prisma } from "@/lib/db/client";
+
+import { prisma } from "@/lib/db/client";
 import { assertTaskExecutionAllowed } from "@/lib/ai/task-execution-gate";
 import { buildAgentSystemPrompt } from "@/lib/ai/execution-context";
 import {
   getAIProvider,
   ProviderNotConfiguredError,
 } from "@/lib/ai/provider";
+import { z } from "zod";
+
+const aiTaskOutputSchema = z.object({
+  result: z.unknown(),
+  summary: z.string().min(1),
+});
 
 export async function runAiTask(
   organizationId: string,
@@ -29,6 +36,14 @@ export async function runAiTask(
     organizationId,
     taskId
   );
+
+  if (task.status === "IN_PROGRESS") {
+    throw new Error("Task is already running.");
+  }
+
+  if (task.status === "COMPLETED") {
+    throw new Error("Task is already completed.");
+  }
 
   const systemPrompt = buildAgentSystemPrompt(
     task.agent.key
@@ -71,16 +86,15 @@ export async function runAiTask(
           `Task: ${task.title}`,
           `Description: ${task.description}`,
           `Input: ${JSON.stringify(task.input ?? {})}`,
+          "",
+          "Return valid JSON with exactly these fields:",
+          "- result: the actual task result",
+          "- summary: a concise summary of what was actually completed",
+          "",
+          "Do not claim completion if the requested work was not actually performed.",
         ].join("\n"),
       },
-      {
-        parse(value: unknown) {
-          return value as {
-            result?: unknown;
-            summary?: string;
-          };
-        },
-      } as never
+      aiTaskOutputSchema
     );
 
     const completedTask = await prisma.aiTask.update({
@@ -89,9 +103,26 @@ export async function runAiTask(
       },
       data: {
         status: "COMPLETED",
-        output: response.output as object,
+        output: response.output,
         completedAt: new Date(),
         tokensUsed: response.usage.totalTokens,
+      },
+    });
+
+    await prisma.aiUsage.create({
+      data: {
+        provider:
+          process.env.AI_PROVIDER ?? "unknown",
+        model: response.usage.model,
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        totalTokens: response.usage.totalTokens,
+        duration: response.usage.durationMs,
+        status: "COMPLETED",
+        taskId: task.id,
+        agentId: task.agentId,
+        organizationId,
+        projectId: task.projectId,
       },
     });
 
@@ -107,6 +138,7 @@ export async function runAiTask(
           taskId: task.id,
           agentId: task.agent.key,
           totalTokens: response.usage.totalTokens,
+          model: response.usage.model,
         },
       },
     });
