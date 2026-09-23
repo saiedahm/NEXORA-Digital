@@ -11,6 +11,7 @@
     "prisma:generate": "prisma generate",
     "prisma:validate": "prisma validate",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "tsx prisma/seed.ts",
     "test": "vitest run"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "eslint": "^9.35.0",
     "eslint-config-next": "^15.5.3",
     "tailwindcss": "^4.1.13",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   }
