@@ -26,6 +26,10 @@ body {
   font-family: Inter, system-ui, sans-serif;
 }
 
+a {
+  color: inherit;
+}
+
 .brand-logo {
   display: inline-flex;
   align-items: center;
@@ -60,7 +64,7 @@ body {
   display: block;
 }
 
-.hero-video:after {
+.hero-video::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -77,7 +81,7 @@ body {
 
 .container {
   max-width: 1180px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .card {
@@ -95,4 +99,4 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-} 
+}
