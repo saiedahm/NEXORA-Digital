@@ -1,7 +1,5 @@
- import { z } from "zod";
-import {
-  OpenAIProvider,
-} from "@/lib/ai/providers/openai";
+import { z } from "zod";
+import { OpenAIProvider } from "@/lib/ai/providers/openai";
 
 export type AIRequest = {
   system: string;
@@ -45,7 +43,9 @@ export class AIProviderRequestError extends Error {
 }
 
 export function getAIProvider(): AIProvider {
-  const provider = process.env.AI_PROVIDER?.trim().toLowerCase();
+  const provider = process.env.AI_PROVIDER
+    ?.trim()
+    .toLowerCase();
 
   if (!provider) {
     throw new ProviderNotConfiguredError(
@@ -53,11 +53,13 @@ export function getAIProvider(): AIProvider {
     );
   }
 
-  if (provider === "openai") {
-    return new OpenAIProvider();
-  }
+  switch (provider) {
+    case "openai":
+      return new OpenAIProvider();
 
-  throw new ProviderNotConfiguredError(
-    `Unsupported AI provider: ${provider}`
-  );
+    default:
+      throw new ProviderNotConfiguredError(
+        `Unsupported AI provider: ${provider}`
+      );
+  }
 }
