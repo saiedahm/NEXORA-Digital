@@ -1,4 +1,7 @@
  import { z } from "zod";
+import {
+  OpenAIProvider,
+} from "@/lib/ai/providers/openai";
 
 export type AIRequest = {
   system: string;
@@ -42,7 +45,19 @@ export class AIProviderRequestError extends Error {
 }
 
 export function getAIProvider(): AIProvider {
+  const provider = process.env.AI_PROVIDER?.trim().toLowerCase();
+
+  if (!provider) {
+    throw new ProviderNotConfiguredError(
+      "AI_PROVIDER is not configured."
+    );
+  }
+
+  if (provider === "openai") {
+    return new OpenAIProvider();
+  }
+
   throw new ProviderNotConfiguredError(
-    "No AI provider has been configured yet."
+    `Unsupported AI provider: ${provider}`
   );
 }
