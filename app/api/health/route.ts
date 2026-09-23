@@ -1,24 +1,20 @@
- import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { checkDatabaseHealth } from "@/lib/db/health";
 
 export async function GET() {
   const database = await checkDatabaseHealth();
 
+  const healthy = database.ok;
+
   return NextResponse.json(
     {
-      status: database ? "ok" : "degraded",
-      service: "NEXORA DIGITAL",
-      checks: {
-        application: "ok",
-        database: database ? "ok" : "error",
-      },
+      ok: healthy,
+      service: "nexora-digital",
       timestamp: new Date().toISOString(),
+      database,
     },
     {
-      status: database ? 200 : 503,
-      headers: {
-        "Cache-Control": "no-store",
-      },
+      status: healthy ? 200 : 503,
     }
   );
 }
