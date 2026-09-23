@@ -11,8 +11,27 @@ type CreateTaskInput = {
   input?: Record<string, unknown>;
 };
 
-export async function createAiTask(input: CreateTaskInput) {
-  const agent = await ensureAgentExists(input.agentId);
+export async function createAiTask(
+  input: CreateTaskInput
+) {
+  const project = await prisma.project.findFirst({
+    where: {
+      id: input.projectId,
+      organizationId: input.organizationId,
+    },
+    select: {
+      id: true,
+      organizationId: true,
+    },
+  });
+
+  if (!project) {
+    throw new Error("Project not found.");
+  }
+
+  const agent = await ensureAgentExists(
+    input.agentId
+  );
 
   const task = await prisma.aiTask.create({
     data: {
@@ -49,10 +68,24 @@ export async function getProjectTasks(
   organizationId: string,
   projectId: string
 ) {
+  const project = await prisma.project.findFirst({
+    where: {
+      id: projectId,
+      organizationId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!project) {
+    throw new Error("Project not found.");
+  }
+
   return prisma.aiTask.findMany({
     where: {
       organizationId,
-      projectId,
+      projectId: project.id,
     },
     include: {
       agent: true,
@@ -80,6 +113,8 @@ export async function getTaskById(
     include: {
       agent: true,
       project: true,
+      dependencies: true,
+      dependents: true,
     },
   });
 }
@@ -108,7 +143,7 @@ export async function updateTaskStatus(
   });
 
   if (!task) {
-    throw new Error("Task not found");
+    throw new Error("Task not found.");
   }
 
   const now = new Date();
@@ -124,7 +159,8 @@ export async function updateTaskStatus(
           ? now
           : task.startedAt,
       completedAt:
-        status === "COMPLETED" || status === "FAILED"
+        status === "COMPLETED" ||
+        status === "FAILED"
           ? now
           : task.completedAt,
     },
