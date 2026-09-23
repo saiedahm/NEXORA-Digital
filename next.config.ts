@@ -1,4 +1,8 @@
- /// <reference types="next" />
-/// <reference types="next/image-types/global" />
+ import type { NextConfig } from "next";
 
-// NOTE: This file should not be edited
+const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  reactStrictMode: true
+};
+
+export default nextConfig;
