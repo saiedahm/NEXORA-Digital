@@ -1,3 +1,4 @@
+ ```ts
 import { prisma } from "@/lib/db/client";
 import { getStripe } from "@/lib/payments/stripe";
 
@@ -126,10 +127,10 @@ export async function createProjectCheckout(
         },
 
         success_url:
-          `${appUrl}/projects/${project.id}?payment=success`,
+          `${appUrl}/dashboard/${project.id}?payment=success`,
 
         cancel_url:
-          `${appUrl}/projects/${project.id}?payment=cancelled`,
+          `${appUrl}/dashboard/${project.id}?payment=cancelled`,
       });
 
     await prisma.payment.update({
@@ -160,3 +161,4 @@ export async function createProjectCheckout(
     throw error;
   }
 }
+```
