@@ -16,8 +16,12 @@ export async function GET(
 
   if (!session?.user?.id) {
     return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
+      {
+        error: "Unauthorized",
+      },
+      {
+        status: 401,
+      }
     );
   }
 
@@ -38,8 +42,12 @@ export async function GET(
 
   if (!membership) {
     return NextResponse.json(
-      { error: "Organization not found." },
-      { status: 404 }
+      {
+        error: "Organization not found.",
+      },
+      {
+        status: 404,
+      }
     );
   }
 
@@ -60,14 +68,20 @@ export async function GET(
 
   if (!project) {
     return NextResponse.json(
-      { error: "Project not found." },
-      { status: 404 }
+      {
+        error: "Project not found.",
+      },
+      {
+        status: 404,
+      }
     );
   }
 
   const payments = await prisma.payment.findMany({
     where: {
-      organizationId: membership.organizationId,
+      organizationId:
+        membership.organizationId,
+      projectId: project.id,
     },
     orderBy: {
       createdAt: "desc",
@@ -75,10 +89,12 @@ export async function GET(
     take: 20,
     select: {
       id: true,
+      projectId: true,
       amountCents: true,
       currency: true,
       status: true,
       stripeCheckoutSessionId: true,
+      stripeSubscriptionId: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -88,4 +104,4 @@ export async function GET(
     project,
     payments,
   });
-} 
+}
