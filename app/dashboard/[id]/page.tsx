@@ -1,4 +1,6 @@
-import Link from "next/link";
+ import Link from "next/link";
+import { auth } from "@/lib/auth/auth";
+import { prisma } from "@/lib/db/client";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -6,65 +8,100 @@ type ProjectPageProps = {
   }>;
 };
 
-type Project = {
-  id: string;
-  name: string;
-  description: string | null;
-  type: string | null;
-  status: string;
-  paymentStatus: string;
-  executionUnlocked: boolean;
-  progress: number;
-};
-
-type Task = {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
-  priority: number;
-  agent: {
-    id: string;
-    name: string;
-    key: string;
-    role: string;
-  };
-};
-
-async function getProject(id: string) {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ||
-    "http://localhost:3000";
-
-  const response = await fetch(
-    `${baseUrl}/api/projects/${id}`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!response.ok) {
-    return null;
-  }
-
-  const data = await response.json();
-
-  return data.project as Project & {
-    tasks: Task[];
-  };
-}
-
 export default async function ProjectPage({
   params,
 }: ProjectPageProps) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return (
+      <main className="min-h-screen bg-[#050816] px-6 py-20 text-white">
+        <div className="container">
+          <h1 className="text-3xl font-bold">
+            Login required
+          </h1>
+
+          <Link
+            href="/login"
+            className="mt-6 inline-block text-[#00D9FF] hover:underline"
+          >
+            Go to Login
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   const { id } = await params;
 
-  const project = await getProject(id);
+  const membership =
+    await prisma.organizationMember.findFirst({
+      where: {
+        userId: session.user.id,
+      },
+      orderBy: {
+        id: "asc",
+      },
+      select: {
+        organizationId: true,
+      },
+    });
+
+  if (!membership) {
+    return (
+      <main className="min-h-screen bg-[#050816] px-6 py-20 text-white">
+        <div className="container">
+          <h1 className="text-3xl font-bold">
+            Organization not found
+          </h1>
+
+          <Link
+            href="/dashboard"
+            className="mt-6 inline-block text-[#00D9FF] hover:underline"
+          >
+            Back to Dashboard
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  const project = await prisma.project.findFirst({
+    where: {
+      id,
+      organizationId: membership.organizationId,
+      customerId: session.user.id,
+    },
+    include: {
+      tasks: {
+        include: {
+          agent: {
+            select: {
+              id: true,
+              key: true,
+              name: true,
+              role: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      },
+
+      activities: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 50,
+      },
+    },
+  });
 
   if (!project) {
     return (
       <main className="min-h-screen bg-[#050816] px-6 py-20 text-white">
-        <div className="mx-auto max-w-1180px">
+        <div className="container">
           <h1 className="text-3xl font-bold">
             Project not found
           </h1>
@@ -80,11 +117,10 @@ export default async function ProjectPage({
     );
   }
 
-  const tasks = project.tasks ?? [];
-
   return (
     <main className="min-h-screen bg-[#050816] text-white">
-      <div className="mx-auto max-w-1180px px-6 py-12">
+      <div className="container px-6 py-12">
+
         <Link
           href="/dashboard"
           className="text-sm text-[#00D9FF] hover:underline"
@@ -93,6 +129,7 @@ export default async function ProjectPage({
         </Link>
 
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-[#00D9FF]">
               NEXORA PROJECT
@@ -118,13 +155,16 @@ export default async function ProjectPage({
               {project.status}
             </div>
           </div>
+
         </div>
 
         <section className="mt-10 grid gap-5 md:grid-cols-4">
+
           <div className="card p-5">
             <div className="text-sm text-[#A7B0C0]">
               Type
             </div>
+
             <div className="mt-2 font-semibold">
               {project.type || "Not specified"}
             </div>
@@ -134,6 +174,7 @@ export default async function ProjectPage({
             <div className="text-sm text-[#A7B0C0]">
               Payment
             </div>
+
             <div className="mt-2 font-semibold">
               {project.paymentStatus}
             </div>
@@ -143,6 +184,7 @@ export default async function ProjectPage({
             <div className="text-sm text-[#A7B0C0]">
               Execution
             </div>
+
             <div className="mt-2 font-semibold">
               {project.executionUnlocked
                 ? "Unlocked"
@@ -154,14 +196,18 @@ export default async function ProjectPage({
             <div className="text-sm text-[#A7B0C0]">
               Progress
             </div>
+
             <div className="mt-2 font-semibold">
               {project.progress}%
             </div>
           </div>
+
         </section>
 
         <section className="mt-10 card p-6">
+
           <div className="flex items-center justify-between">
+
             <div>
               <h2 className="text-2xl font-bold">
                 AI Tasks
@@ -173,24 +219,28 @@ export default async function ProjectPage({
             </div>
 
             <span className="rounded-full border border-[#202A46] px-3 py-1 text-xs">
-              {tasks.length} tasks
+              {project.tasks.length} tasks
             </span>
+
           </div>
 
           <div className="mt-6 grid gap-4">
-            {tasks.length === 0 && (
+
+            {project.tasks.length === 0 && (
               <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-6 text-[#A7B0C0]">
                 No AI tasks have been created for this
                 project yet.
               </div>
             )}
 
-            {tasks.map((task) => (
+            {project.tasks.map((task) => (
               <div
                 key={task.id}
                 className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5"
               >
+
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+
                   <div>
                     <h3 className="font-semibold">
                       {task.title}
@@ -210,9 +260,11 @@ export default async function ProjectPage({
                       {task.agent.role}
                     </div>
                   </div>
+
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-2 text-xs">
+
                   <span className="rounded-full border border-[#202A46] px-3 py-1">
                     {task.status}
                   </span>
@@ -220,13 +272,18 @@ export default async function ProjectPage({
                   <span className="rounded-full border border-[#202A46] px-3 py-1">
                     Priority {task.priority}
                   </span>
+
                 </div>
+
               </div>
             ))}
+
           </div>
+
         </section>
 
         <section className="mt-10 card p-6">
+
           <h2 className="text-2xl font-bold">
             Execution
           </h2>
@@ -238,8 +295,10 @@ export default async function ProjectPage({
           </p>
 
           <div className="mt-5 rounded-xl border border-[#202A46] bg-[#070B1C] p-5">
+
             {project.executionUnlocked ? (
               <div>
+
                 <div className="font-semibold text-[#00D9FF]">
                   Execution unlocked
                 </div>
@@ -249,9 +308,11 @@ export default async function ProjectPage({
                   Tasks can now be executed through the
                   NEXORA AI workflow.
                 </p>
+
               </div>
             ) : (
               <div>
+
                 <div className="font-semibold">
                   Execution locked
                 </div>
@@ -260,11 +321,64 @@ export default async function ProjectPage({
                   Complete the required payment before AI
                   task execution can begin.
                 </p>
+
               </div>
             )}
+
           </div>
+
         </section>
+
+        <section className="mt-10 card p-6">
+
+          <h2 className="text-2xl font-bold">
+            Activity
+          </h2>
+
+          <p className="mt-2 text-sm text-[#A7B0C0]">
+            Recent project events recorded by NEXORA.
+          </p>
+
+          <div className="mt-6 grid gap-3">
+
+            {project.activities.length === 0 && (
+              <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5 text-sm text-[#A7B0C0]">
+                No activity has been recorded yet.
+              </div>
+            )}
+
+            {project.activities.map((activity) => (
+              <div
+                key={activity.id}
+                className="rounded-xl border border-[#202A46] bg-[#070B1C] p-4"
+              >
+
+                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+
+                  <div>
+                    <div className="text-sm font-semibold">
+                      {activity.eventType}
+                    </div>
+
+                    <div className="mt-1 text-sm text-[#A7B0C0]">
+                      {activity.message}
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-[#667085]">
+                    {activity.createdAt.toLocaleString()}
+                  </div>
+
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+
+        </section>
+
       </div>
     </main>
   );
-} 
+}
