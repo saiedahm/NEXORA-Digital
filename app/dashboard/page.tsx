@@ -77,7 +77,8 @@ export default function DashboardPage() {
         },
         body: JSON.stringify({
           name: name.trim(),
-          description: description.trim() || undefined,
+          description:
+            description.trim() || undefined,
           type: type.trim() || undefined,
         }),
       });
@@ -111,8 +112,10 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen bg-[#050816] text-white">
-      <div className="mx-auto max-w-1180px px-6 py-12">
+      <div className="container px-6 py-12">
+
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-[#00D9FF]">
               NEXORA DIGITAL
@@ -133,9 +136,11 @@ export default function DashboardPage() {
           >
             Back to website
           </Link>
+
         </div>
 
         <section className="mt-10 grid gap-5 md:grid-cols-3">
+
           <div className="card p-6">
             <div className="text-sm text-[#A7B0C0]">
               Projects
@@ -170,9 +175,11 @@ export default function DashboardPage() {
                 : "Locked"}
             </div>
           </div>
+
         </section>
 
         <section className="mt-10 card p-6">
+
           <h2 className="text-2xl font-bold">
             Create a project
           </h2>
@@ -181,6 +188,7 @@ export default function DashboardPage() {
             onSubmit={createProject}
             className="mt-6 grid gap-4"
           >
+
             <input
               value={name}
               onChange={(event) =>
@@ -227,11 +235,15 @@ export default function DashboardPage() {
                 ? "Creating..."
                 : "Create Project"}
             </button>
+
           </form>
+
         </section>
 
         <section className="mt-10">
+
           <div className="flex items-center justify-between">
+
             <h2 className="text-2xl font-bold">
               Your Projects
             </h2>
@@ -241,23 +253,28 @@ export default function DashboardPage() {
                 Loading...
               </span>
             )}
+
           </div>
 
           <div className="mt-6 grid gap-5">
-            {!loading && projects.length === 0 && (
-              <div className="card p-8 text-center text-[#A7B0C0]">
-                No projects yet. Create your first
-                NEXORA project above.
-              </div>
-            )}
+
+            {!loading &&
+              projects.length === 0 && (
+                <div className="card p-8 text-center text-[#A7B0C0]">
+                  No projects yet. Create your first
+                  NEXORA project above.
+                </div>
+              )}
 
             {projects.map((project) => (
               <Link
                 key={project.id}
-                href={`/projects/${project.id}`}
+                href={`/dashboard/${project.id}`}
                 className="card block p-6 transition hover:border-[#00D9FF]"
               >
+
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+
                   <div>
                     <h3 className="text-xl font-semibold">
                       {project.name}
@@ -271,6 +288,7 @@ export default function DashboardPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2 text-xs">
+
                     <span className="rounded-full border border-[#202A46] px-3 py-1">
                       {project.status}
                     </span>
@@ -285,18 +303,23 @@ export default function DashboardPage() {
                         ? "Execution unlocked"
                         : "Execution locked"}
                     </span>
+
                   </div>
+
                 </div>
 
                 <div className="mt-5">
+
                   <div className="mb-2 flex justify-between text-xs text-[#A7B0C0]">
                     <span>Progress</span>
+
                     <span>
                       {project.progress}%
                     </span>
                   </div>
 
                   <div className="h-2 overflow-hidden rounded-full bg-[#202A46]">
+
                     <div
                       className="h-full bg-[#00D9FF] transition-all"
                       style={{
@@ -309,12 +332,18 @@ export default function DashboardPage() {
                         )}%`,
                       }}
                     />
+
                   </div>
+
                 </div>
+
               </Link>
             ))}
+
           </div>
+
         </section>
+
       </div>
     </main>
   );
