@@ -1,4 +1,5 @@
- import { NextResponse } from "next/server";
+```ts
+import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 import { prisma } from "@/lib/db/client";
@@ -109,9 +110,21 @@ export async function POST(request: Request) {
             where: {
               id: paymentId,
               organizationId,
+              projectId,
             },
             data: {
               status: "PROCESSING",
+            },
+          });
+
+          await prisma.stripeWebhookEvent.update({
+            where: {
+              eventId: event.id,
+            },
+            data: {
+              processed: true,
+              processedAt: new Date(),
+              error: null,
             },
           });
 
@@ -143,13 +156,16 @@ export async function POST(request: Request) {
             },
             data: {
               status: "PAID",
+
               stripeCheckoutSessionId:
                 session.id,
+
               stripeCustomerId:
                 typeof session.customer ===
                 "string"
                   ? session.customer
                   : null,
+
               stripeSubscriptionId:
                 typeof session.subscription ===
                 "string"
@@ -174,12 +190,18 @@ export async function POST(request: Request) {
             data: {
               organizationId,
               projectId,
-              eventType: "PAYMENT_CONFIRMED",
+              eventType:
+                "PAYMENT_CONFIRMED",
+
               message:
                 "Stripe payment confirmed. Project execution unlocked.",
+
               metadata: {
                 paymentId: payment.id,
-                checkoutSessionId: session.id,
+
+                checkoutSessionId:
+                  session.id,
+
                 subscriptionId:
                   typeof session.subscription ===
                   "string"
@@ -324,3 +346,5 @@ export async function POST(request: Request) {
     );
   }
 }
+```
+ 
