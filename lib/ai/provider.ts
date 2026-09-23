@@ -1,4 +1,4 @@
-import { z } from "zod";
+ import { z } from "zod";
 
 export type AIRequest = {
   system: string;
@@ -28,12 +28,21 @@ export interface AIProvider {
 }
 
 export class ProviderNotConfiguredError extends Error {
-  constructor() {
-    super("AI provider is not configured");
+  constructor(message = "AI provider is not configured") {
+    super(message);
     this.name = "ProviderNotConfiguredError";
   }
 }
 
+export class AIProviderRequestError extends Error {
+  constructor(message = "AI provider request failed") {
+    super(message);
+    this.name = "AIProviderRequestError";
+  }
+}
+
 export function getAIProvider(): AIProvider {
-  throw new ProviderNotConfiguredError();
-} 
+  throw new ProviderNotConfiguredError(
+    "No AI provider has been configured yet."
+  );
+}
