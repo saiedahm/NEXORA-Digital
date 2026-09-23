@@ -1,11 +1,11 @@
-
-import { prisma } from "@/lib/db/client";
+ import { prisma } from "@/lib/db/client";
 import { assertTaskExecutionAllowed } from "@/lib/ai/task-execution-gate";
 import { buildAgentSystemPrompt } from "@/lib/ai/execution-context";
 import {
   getAIProvider,
   ProviderNotConfiguredError,
 } from "@/lib/ai/provider";
+import { getAIModel } from "@/lib/ai/model-selection";
 import { z } from "zod";
 
 const aiTaskOutputSchema = z.object({
@@ -15,7 +15,8 @@ const aiTaskOutputSchema = z.object({
 
 export async function runAiTask(
   organizationId: string,
-  taskId: string
+  taskId: string,
+  complexity: "default" | "complex" = "default"
 ) {
   const task = await prisma.aiTask.findFirst({
     where: {
@@ -49,6 +50,8 @@ export async function runAiTask(
     task.agent.key
   );
 
+  const model = getAIModel(complexity);
+
   await prisma.aiTask.update({
     where: {
       id: task.id,
@@ -71,6 +74,8 @@ export async function runAiTask(
       metadata: {
         taskId: task.id,
         agentId: task.agent.key,
+        model,
+        complexity,
       },
     },
   });
@@ -93,6 +98,7 @@ export async function runAiTask(
           "",
           "Do not claim completion if the requested work was not actually performed.",
         ].join("\n"),
+        model,
       },
       aiTaskOutputSchema
     );
@@ -139,6 +145,7 @@ export async function runAiTask(
           agentId: task.agent.key,
           totalTokens: response.usage.totalTokens,
           model: response.usage.model,
+          complexity,
         },
       },
     });
@@ -175,6 +182,8 @@ export async function runAiTask(
           taskId: task.id,
           agentId: task.agent.key,
           error: message,
+          model,
+          complexity,
         },
       },
     });
