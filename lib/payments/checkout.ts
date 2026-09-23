@@ -20,6 +20,7 @@ export async function createProjectCheckout(
       id: true,
       name: true,
       paymentStatus: true,
+      executionUnlocked: true,
     },
   });
 
@@ -27,8 +28,13 @@ export async function createProjectCheckout(
     throw new Error("Project not found.");
   }
 
-  if (project.paymentStatus === "PAID") {
-    throw new Error("Project has already been paid.");
+  if (
+    project.paymentStatus === "PAID" &&
+    project.executionUnlocked
+  ) {
+    throw new Error(
+      "Project has already been paid and unlocked."
+    );
   }
 
   const plan = await prisma.pricingPlan.findFirst({
@@ -36,15 +42,20 @@ export async function createProjectCheckout(
       id: input.planId,
       active: true,
     },
+    select: {
+      id: true,
+      name: true,
+      monthlyCents: true,
+    },
   });
 
   if (!plan) {
     throw new Error("Pricing plan not found.");
   }
 
-  if (!plan.monthlyCents) {
+  if (!plan.monthlyCents || plan.monthlyCents <= 0) {
     throw new Error(
-      "The selected pricing plan does not have a monthly price."
+      "The selected pricing plan does not have a valid monthly price."
     );
   }
 
@@ -62,6 +73,7 @@ export async function createProjectCheckout(
   const payment = await prisma.payment.create({
     data: {
       organizationId: input.organizationId,
+      projectId: project.id,
       amountCents: plan.monthlyCents,
       currency: "eur",
       status: "PENDING",
@@ -69,33 +81,56 @@ export async function createProjectCheckout(
   });
 
   try {
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      customer_email: input.customerEmail,
-      line_items: [
-        {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: `NEXORA DIGITAL — ${plan.name}`,
-              description: `Payment for project: ${project.name}`,
+    const session =
+      await stripe.checkout.sessions.create({
+        mode: "subscription",
+
+        customer_email: input.customerEmail,
+
+        line_items: [
+          {
+            price_data: {
+              currency: "eur",
+
+              product_data: {
+                name: `NEXORA DIGITAL — ${plan.name}`,
+                description:
+                  `Monthly plan for project: ${project.name}`,
+              },
+
+              unit_amount: plan.monthlyCents,
+
+              recurring: {
+                interval: "month",
+              },
             },
-            unit_amount: plan.monthlyCents,
+
+            quantity: 1,
           },
-          quantity: 1,
+        ],
+
+        metadata: {
+          paymentId: payment.id,
+          organizationId: input.organizationId,
+          projectId: project.id,
+          planId: plan.id,
         },
-      ],
-      metadata: {
-        paymentId: payment.id,
-        organizationId: input.organizationId,
-        projectId: project.id,
-        planId: plan.id,
-      },
-      success_url:
-        `${appUrl}/projects/${project.id}?payment=success`,
-      cancel_url:
-        `${appUrl}/projects/${project.id}?payment=cancelled`,
-    });
+
+        subscription_data: {
+          metadata: {
+            paymentId: payment.id,
+            organizationId: input.organizationId,
+            projectId: project.id,
+            planId: plan.id,
+          },
+        },
+
+        success_url:
+          `${appUrl}/projects/${project.id}?payment=success`,
+
+        cancel_url:
+          `${appUrl}/projects/${project.id}?payment=cancelled`,
+      });
 
     await prisma.payment.update({
       where: {
@@ -124,4 +159,4 @@ export async function createProjectCheckout(
 
     throw error;
   }
-} 
+}
