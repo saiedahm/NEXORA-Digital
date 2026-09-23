@@ -1,4 +1,4 @@
- import Link from "next/link";
+import Link from "next/link";
 
 type BrandLogoProps = {
   width?: number;
@@ -9,7 +9,7 @@ type BrandLogoProps = {
 export function BrandLogo({
   width = 150,
   className = "",
-  linkToHome = true
+  linkToHome = true,
 }: BrandLogoProps) {
   const logo = (
     <img
@@ -18,12 +18,16 @@ export function BrandLogo({
       className={`nexora-logo ${className}`}
       style={{
         width: `${width}px`,
-        height: "auto"
+        height: "auto",
       }}
     />
   );
 
-  return linkToHome ? (
+  if (!linkToHome) {
+    return logo;
+  }
+
+  return (
     <Link
       href="/"
       aria-label="NEXORA DIGITAL Home"
@@ -31,7 +35,5 @@ export function BrandLogo({
     >
       {logo}
     </Link>
-  ) : (
-    logo
   );
 }
