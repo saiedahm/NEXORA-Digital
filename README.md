@@ -1,36 +1,25 @@
 # NEXORA DIGITAL
 
-Static UX/UI concept for NEXORA DIGITAL — AI, Web, Automation and Digital Transformation.
+Production-oriented Next.js foundation for the NEXORA DIGITAL AI Digital Agency Operating System.
 
-## Structure
+## Architecture
+- Next.js App Router / React / TypeScript
+- PostgreSQL + Prisma
+- Real AI provider abstraction
+- Multi-tenant agent/task model
+- Stripe payment gate
+- PWA foundation
+- Vercel web + Hetzner workers/services
 
-- `index.html` — main page
-- `assets/css/style.css` — visual design and responsive layout
-- `assets/js/app.js` — navigation, team, pricing, modal, video and form interactions
-- `assets/images/` — local image assets
-- `assets/icons/` — favicon files
-- `assets/video/` — local video and audio assets
-- `vercel.json` — optional Vercel configuration
+## Required services
+PostgreSQL, an AI provider, Stripe, Redis-compatible queue, S3-compatible storage, email provider, and authentication secrets are external runtime dependencies. No secrets belong in Git.
 
-## Run locally
+## Run
+1. Copy `.env.example` to `.env` and provide real values.
+2. Install dependencies.
+3. Run `npm run prisma:generate`.
+4. Run `npm run prisma:validate`.
+5. Apply migrations against a configured PostgreSQL database.
+6. Run `npm run dev`.
 
-Open `index.html` in a browser, or use a local server:
-
-```bash
-python -m http.server 8080
-```
-
-Then visit `http://localhost:8080`.
-
-## Production requirements
-
-For a real production platform, connect a secure backend for:
-- Stripe Checkout and invoices
-- Email delivery
-- Authentication and consent records
-- GDPR-compliant data storage
-- AES-256 encryption at rest
-- Multi-tenant sandboxing
-- AI APIs and admin dashboard
-
-Never place secret API keys in frontend JavaScript.
+The repository intentionally does not claim production completion until the external services and the full acceptance test are configured and executed.
