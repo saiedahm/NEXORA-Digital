@@ -1,7 +1,10 @@
  import { prisma } from "@/lib/db/client";
 import { assertTaskExecutionAllowed } from "@/lib/ai/task-execution-gate";
-import { getAgentDefinition } from "@/lib/ai/agent-registry";
-import { getAIProvider, ProviderNotConfiguredError } from "@/lib/ai/provider";
+import { buildAgentSystemPrompt } from "@/lib/ai/execution-context";
+import {
+  getAIProvider,
+  ProviderNotConfiguredError,
+} from "@/lib/ai/provider";
 
 export async function runAiTask(
   organizationId: string,
@@ -27,13 +30,9 @@ export async function runAiTask(
     taskId
   );
 
-  const agentDefinition = getAgentDefinition(task.agent.key);
-
-  if (!agentDefinition) {
-    throw new Error(
-      `Agent definition not found: ${task.agent.key}`
-    );
-  }
+  const systemPrompt = buildAgentSystemPrompt(
+    task.agent.key
+  );
 
   await prisma.aiTask.update({
     where: {
@@ -66,13 +65,7 @@ export async function runAiTask(
 
     const response = await provider.generate(
       {
-        system: [
-          `You are ${agentDefinition.name}.`,
-          `Role: ${agentDefinition.role}.`,
-          `Authorized tools: ${agentDefinition.tools.join(", ")}.`,
-          "Follow the NEXORA AI constitution.",
-          "Do not claim work was completed unless it was actually completed.",
-        ].join("\n"),
+        system: systemPrompt,
         user: [
           `Project: ${task.project.name}`,
           `Task: ${task.title}`,
@@ -80,8 +73,6 @@ export async function runAiTask(
           `Input: ${JSON.stringify(task.input ?? {})}`,
         ].join("\n"),
       },
-      // The provider implementation will define the final structured output schema.
-      // This temporary schema accepts a structured result without inventing completion.
       {
         parse(value: unknown) {
           return value as {
