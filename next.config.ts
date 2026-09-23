@@ -2,7 +2,7 @@
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  reactStrictMode: true
+  reactStrictMode: true,
 };
 
 export default nextConfig;
