@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth/auth";
+ import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/db/client";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -107,4 +107,4 @@ export async function POST(request: Request) {
     },
     { status: 201 }
   );
-} 
+}
