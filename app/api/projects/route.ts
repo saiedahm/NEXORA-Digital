@@ -6,6 +6,7 @@ import { z } from "zod";
 const createProjectSchema = z.object({
   name: z.string().min(2).max(120),
   description: z.string().max(5000).optional(),
+  type: z.string().max(100).optional(),
 });
 
 async function getUserOrganization(userId: string) {
@@ -32,11 +33,13 @@ export async function GET() {
     );
   }
 
-  const membership = await getUserOrganization(session.user.id);
+  const membership = await getUserOrganization(
+    session.user.id
+  );
 
   if (!membership) {
     return NextResponse.json(
-      { error: "Organization not found" },
+      { error: "Organization not found." },
       { status: 404 }
     );
   }
@@ -66,23 +69,35 @@ export async function POST(request: Request) {
     );
   }
 
-  const membership = await getUserOrganization(session.user.id);
+  const membership = await getUserOrganization(
+    session.user.id
+  );
 
   if (!membership) {
     return NextResponse.json(
-      { error: "Organization not found" },
+      { error: "Organization not found." },
       { status: 404 }
     );
   }
 
-  const body = await request.json();
+  let body: unknown;
 
-  const parsed = createProjectSchema.safeParse(body);
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { error: "Invalid JSON body." },
+      { status: 400 }
+    );
+  }
+
+  const parsed =
+    createProjectSchema.safeParse(body);
 
   if (!parsed.success) {
     return NextResponse.json(
       {
-        error: "Invalid project data",
+        error: "Invalid project data.",
         details: parsed.error.flatten(),
       },
       { status: 400 }
@@ -91,13 +106,30 @@ export async function POST(request: Request) {
 
   const project = await prisma.project.create({
     data: {
-      organizationId: membership.organizationId,
+      organizationId:
+        membership.organizationId,
       customerId: session.user.id,
       name: parsed.data.name,
-      description: parsed.data.description ?? null,
+      description:
+        parsed.data.description ?? null,
+      type: parsed.data.type ?? null,
       status: "DRAFT",
       paymentStatus: "PENDING",
       executionUnlocked: false,
+      progress: 0,
+    },
+  });
+
+  await prisma.aiActivity.create({
+    data: {
+      organizationId:
+        membership.organizationId,
+      projectId: project.id,
+      eventType: "PROJECT_CREATED",
+      message: `Project "${project.name}" was created.`,
+      metadata: {
+        projectId: project.id,
+      },
     },
   });
 
