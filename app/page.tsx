@@ -41,7 +41,6 @@ const plans = [
 export default function Home() {
   return (
     <main>
-      {/* HERO VIDEO */}
       <section
         className="hero-video"
         aria-label="NEXORA DIGITAL hero"
@@ -63,7 +62,6 @@ export default function Home() {
         </video>
       </section>
 
-      {/* HEADER */}
       <header className="sticky top-0 z-10 border-b border-[#202A46] bg-[#050816]/90 backdrop-blur">
         <div className="container flex items-center justify-between px-6 py-4">
           <BrandLogo width={155} />
@@ -77,7 +75,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* MAIN HERO */}
       <section className="section">
         <div className="container grid gap-10 md:grid-cols-2 md:items-center">
           <div>
@@ -96,8 +93,8 @@ export default function Home() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg text-[#A7B0C0]">
-              NEXORA DIGITAL connects real AI agents, real workflows,
-              real tools and real project execution.
+              NEXORA DIGITAL connects real AI agents, real
+              workflows, real tools and real project execution.
             </p>
           </div>
 
@@ -111,7 +108,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
       <section
         id="how"
         className="section bg-[#070b1c]"
@@ -140,7 +136,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI TEAM */}
       <section
         id="team"
         className="section"
@@ -174,7 +169,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
       <section
         id="services"
         className="section bg-[#070b1c]"
@@ -204,7 +198,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRICING */}
       <section
         id="pricing"
         className="section"
@@ -233,7 +226,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="border-t border-[#202A46] px-6 py-12">
         <div className="container flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <BrandLogo width={135} />
