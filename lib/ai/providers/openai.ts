@@ -5,6 +5,7 @@ import {
   type AIRequest,
   type AIResponse,
 } from "@/lib/ai/provider";
+import { getAIConfig } from "@/lib/ai/config";
 
 type OpenAIResponse = {
   choices?: Array<{
@@ -24,21 +25,11 @@ export class OpenAIProvider implements AIProvider {
     request: AIRequest,
     schema: z.ZodType<T>
   ): Promise<AIResponse<T>> {
-    const apiKey = process.env.AI_API_KEY;
+    const config = getAIConfig();
 
-    if (!apiKey) {
-      throw new AIProviderRequestError(
-        "AI_API_KEY is not configured."
-      );
-    }
-
-    const model =
-      request.model ||
-      process.env.AI_MODEL_DEFAULT ||
-      "gpt-5";
+    const model = request.model || config.defaultModel;
 
     const startedAt = Date.now();
-
     const controller = new AbortController();
 
     const timeout = setTimeout(
@@ -48,12 +39,12 @@ export class OpenAIProvider implements AIProvider {
 
     try {
       const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
+        `${config.baseUrl}/chat/completions`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${config.apiKey}`,
           },
           body: JSON.stringify({
             model,
@@ -79,33 +70,31 @@ export class OpenAIProvider implements AIProvider {
         const errorText = await response.text();
 
         throw new AIProviderRequestError(
-          `OpenAI request failed (${response.status}): ${errorText}`
+          `AI provider request failed (${response.status}): ${errorText}`
         );
       }
 
-      const data =
-        (await response.json()) as OpenAIResponse;
+      const data = (await response.json()) as OpenAIResponse;
 
-      const content =
-        data.choices?.[0]?.message?.content;
+      const content = data.choices?.[0]?.message?.content;
 
       if (!content) {
         throw new AIProviderRequestError(
-          "OpenAI returned an empty response."
+          "AI provider returned an empty response."
         );
       }
 
-      let parsedJson: unknown;
+      let json: unknown;
 
       try {
-        parsedJson = JSON.parse(content);
+        json = JSON.parse(content);
       } catch {
         throw new AIProviderRequestError(
-          "OpenAI returned invalid JSON."
+          "AI provider returned invalid JSON."
         );
       }
 
-      const output = schema.parse(parsedJson);
+      const output = schema.parse(json);
 
       const inputTokens =
         data.usage?.prompt_tokens ?? 0;
@@ -137,17 +126,23 @@ export class OpenAIProvider implements AIProvider {
         error.name === "AbortError"
       ) {
         throw new AIProviderRequestError(
-          "OpenAI request timed out."
+          "AI provider request timed out."
+        );
+      }
+
+      if (error instanceof z.ZodError) {
+        throw new AIProviderRequestError(
+          "AI provider returned data that does not match the required schema."
         );
       }
 
       throw new AIProviderRequestError(
         error instanceof Error
           ? error.message
-          : "Unknown OpenAI provider error."
+          : "Unknown AI provider error."
       );
     } finally {
       clearTimeout(timeout);
     }
   }
-} 
+}
