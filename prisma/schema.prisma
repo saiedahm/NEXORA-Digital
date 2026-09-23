@@ -1,0 +1,398 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  GUEST
+  CUSTOMER
+  ORGANIZATION_OWNER
+  ORGANIZATION_MEMBER
+  PLATFORM_ADMINISTRATOR
+  SUPPORT_ADMINISTRATOR
+  FINANCE_ADMINISTRATOR
+}
+
+enum ProjectStatus {
+  DRAFT
+  AWAITING_PAYMENT
+  PAYMENT_PROCESSING
+  READY_FOR_AI
+  PLANNING
+  RESEARCH
+  STRATEGY
+  DESIGN
+  DEVELOPMENT
+  SEO
+  MARKETING
+  QA
+  NEEDS_APPROVAL
+  DELIVERING
+  COMPLETED
+  PAUSED
+  CANCELLED
+}
+
+enum TaskStatus {
+  QUEUED
+  ASSIGNED
+  IN_PROGRESS
+  BLOCKED
+  NEEDS_APPROVAL
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum AgentStatus {
+  AVAILABLE
+  WORKING
+  WAITING
+  NEEDS_APPROVAL
+  ERROR
+  OFFLINE
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+  EXPIRED
+  CANCELLED
+  PARTIALLY_REFUNDED
+  REFUNDED
+  DISPUTED
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  PENDING
+  ACTIVE
+  PAST_DUE
+  PAUSED
+  CANCELLED
+  EXPIRED
+}
+
+enum LegalType {
+  TERMS
+  PRIVACY
+  COOKIES
+  WITHDRAWAL
+  AI_POLICY
+  DATA_PROCESSING
+  SUBPROCESSORS
+  IMPRINT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  role         UserRole @default(CUSTOMER)
+  language     String   @default("de-DE")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  memberships  OrganizationMember[]
+  projects     Project[]
+  consents     ConsentRecord[]
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members   OrganizationMember[]
+  projects  Project[]
+}
+
+model OrganizationMember {
+  id             String       @id @default(cuid())
+  organizationId String
+  userId         String
+  role           UserRole     @default(ORGANIZATION_MEMBER)
+
+  organization Organization @relation(
+    fields: [organizationId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  user User @relation(
+    fields: [userId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+}
+
+model Project {
+  id                   String        @id @default(cuid())
+  organizationId       String
+  customerId            String
+  name                  String
+  description           String?
+  type                  String?
+  status                ProjectStatus @default(DRAFT)
+  priority              Int           @default(0)
+
+  paymentStatus         PaymentStatus  @default(PENDING)
+  executionUnlocked     Boolean        @default(false)
+  progress              Int           @default(0)
+
+  projectBrief         Json?
+  strategy             Json?
+  designSpecification  Json?
+  technicalSpecification Json?
+  deploymentInformation Json?
+
+  estimatedStart       DateTime?
+  estimatedCompletion  DateTime?
+  actualStartedAt      DateTime?
+  completedAt          DateTime?
+
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  organization Organization @relation(
+    fields: [organizationId],
+    references: [id],
+    onDelete: Restrict
+  )
+
+  customer User @relation(
+    fields: [customerId],
+    references: [id],
+    onDelete: Restrict
+  )
+
+  tasks      AiTask[]
+  activities AiActivity[]
+
+  @@index([organizationId, status])
+}
+
+model AiAgent {
+  id           String      @id @default(cuid())
+  key          String      @unique
+  name         String
+  role         String
+  department   String
+  systemPrompt String
+  permissions  Json
+  tools        Json
+  status       AgentStatus @default(OFFLINE)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tasks AiTask[]
+}
+
+model AiTask {
+  id             String     @id @default(cuid())
+  organizationId String
+  projectId      String
+  agentId        String
+
+  title          String
+  description    String
+  priority       Int        @default(0)
+  status         TaskStatus @default(QUEUED)
+
+  input          Json?
+  output         Json?
+  error          String?
+
+  startedAt      DateTime?
+  completedAt    DateTime?
+
+  retryCount     Int        @default(0)
+
+  tokensUsed     Int?
+  estimatedCost  Decimal?
+  actualCost     Decimal?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  project Project @relation(
+    fields: [projectId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  agent AiAgent @relation(
+    fields: [agentId],
+    references: [id],
+    onDelete: Restrict
+  )
+
+  dependencies TaskDependency[] @relation("task")
+  dependents   TaskDependency[] @relation("dependency")
+
+  @@index([organizationId, status])
+  @@index([projectId, status])
+}
+
+model TaskDependency {
+  id           String @id @default(cuid())
+  taskId       String
+  dependencyId String
+
+  task AiTask @relation(
+    "task",
+    fields: [taskId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  dependency AiTask @relation(
+    "dependency",
+    fields: [dependencyId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  @@unique([taskId, dependencyId])
+}
+
+model AiActivity {
+  id             String   @id @default(cuid())
+  organizationId String
+  projectId      String
+  agentId        String?
+  taskId         String?
+
+  eventType      String
+  message        String
+  metadata       Json?
+
+  createdAt      DateTime @default(now())
+
+  project Project @relation(
+    fields: [projectId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  @@index([organizationId, createdAt])
+}
+
+model AiUsage {
+  id             String   @id @default(cuid())
+  provider       String
+  model          String
+
+  inputTokens    Int
+  outputTokens   Int
+  totalTokens    Int
+  duration       Int
+
+  estimatedCost  Decimal?
+  status         String
+
+  taskId         String
+  agentId        String
+  organizationId String
+  projectId      String
+
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, createdAt])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  organizationId       String
+  planId               String
+  status               SubscriptionStatus
+
+  customerId           String?
+  stripeSubscriptionId String?
+
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@index([organizationId, status])
+}
+
+model PricingPlan {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+
+  monthlyCents Int?
+  yearlyCents  Int?
+
+  active      Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  organizationId        String
+  amountCents           Int
+  currency              String
+  status                PaymentStatus
+
+  stripeCustomerId      String?
+  stripeSubscriptionId  String?
+  stripePaymentIntentId String?
+  stripeInvoiceId       String?
+  stripeCheckoutSessionId String?
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([organizationId, status])
+}
+
+model LegalDocument {
+  id          String    @id @default(cuid())
+  title       String
+  type        LegalType
+  language    String
+  version     String
+  content     String
+
+  publishedAt DateTime?
+  active      Boolean   @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([type, language, active])
+}
+
+model ConsentRecord {
+  id         String   @id @default(cuid())
+  userId     String
+  documentId String
+
+  acceptedAt DateTime @default(now())
+
+  user User @relation(
+    fields: [userId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  document LegalDocument @relation(
+    fields: [documentId],
+    references: [id],
+    onDelete: Restrict
+  )
+} 
