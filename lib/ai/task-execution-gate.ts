@@ -33,12 +33,30 @@ export async function assertTaskExecutionAllowed(
   organizationId: string,
   taskId: string
 ): Promise<void> {
-  const allowed = await canExecuteTask(
-    organizationId,
-    taskId
-  );
+  const task = await prisma.aiTask.findFirst({
+    where: {
+      id: taskId,
+      organizationId,
+    },
+    select: {
+      id: true,
+      project: {
+        select: {
+          paymentStatus: true,
+          executionUnlocked: true,
+        },
+      },
+    },
+  });
 
-  if (!allowed) {
+  if (!task) {
+    throw new Error("Task not found.");
+  }
+
+  if (
+    task.project.paymentStatus !== "PAID" ||
+    task.project.executionUnlocked !== true
+  ) {
     throw new Error(
       "Task execution is locked. Payment must be completed and execution must be unlocked."
     );
