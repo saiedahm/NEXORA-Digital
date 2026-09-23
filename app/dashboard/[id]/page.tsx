@@ -1,6 +1,9 @@
- import Link from "next/link";
+```tsx
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/db/client";
+import { createProjectCheckout } from "@/lib/payments/checkout";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -17,9 +20,7 @@ export default async function ProjectPage({
     return (
       <main className="min-h-screen bg-[#050816] px-6 py-20 text-white">
         <div className="container">
-          <h1 className="text-3xl font-bold">
-            Login required
-          </h1>
+          <h1 className="text-3xl font-bold">Login required</h1>
 
           <Link
             href="/login"
@@ -34,18 +35,17 @@ export default async function ProjectPage({
 
   const { id } = await params;
 
-  const membership =
-    await prisma.organizationMember.findFirst({
-      where: {
-        userId: session.user.id,
-      },
-      orderBy: {
-        id: "asc",
-      },
-      select: {
-        organizationId: true,
-      },
-    });
+  const membership = await prisma.organizationMember.findFirst({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      id: "asc",
+    },
+    select: {
+      organizationId: true,
+    },
+  });
 
   if (!membership) {
     return (
@@ -88,12 +88,17 @@ export default async function ProjectPage({
           createdAt: "asc",
         },
       },
-
       activities: {
         orderBy: {
           createdAt: "desc",
         },
         take: 50,
+      },
+      payments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 10,
       },
     },
   });
@@ -117,6 +122,95 @@ export default async function ProjectPage({
     );
   }
 
+  const pricingPlans = await prisma.pricingPlan.findMany({
+    where: {
+      active: true,
+      monthlyCents: {
+        gt: 0,
+      },
+    },
+    orderBy: {
+      monthlyCents: "asc",
+    },
+    select: {
+      id: true,
+      key: true,
+      name: true,
+      monthlyCents: true,
+    },
+  });
+
+  async function startCheckout(formData: FormData) {
+    "use server";
+
+    const currentSession = await auth();
+
+    if (!currentSession?.user?.id) {
+      redirect("/login");
+    }
+
+    const planId = String(formData.get("planId") ?? "").trim();
+
+    if (!planId) {
+      throw new Error("Please select a pricing plan.");
+    }
+
+    const currentMembership =
+      await prisma.organizationMember.findFirst({
+        where: {
+          userId: currentSession.user.id,
+        },
+        orderBy: {
+          id: "asc",
+        },
+        select: {
+          organizationId: true,
+        },
+      });
+
+    if (!currentMembership) {
+      throw new Error("Organization not found.");
+    }
+
+    const currentProject = await prisma.project.findFirst({
+      where: {
+        id,
+        organizationId: currentMembership.organizationId,
+        customerId: currentSession.user.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!currentProject) {
+      throw new Error("Project not found.");
+    }
+
+    const customerEmail = currentSession.user.email;
+
+    if (!customerEmail) {
+      throw new Error(
+        "Your account does not have an email address."
+      );
+    }
+
+    const checkout = await createProjectCheckout({
+      organizationId: currentMembership.organizationId,
+      projectId: currentProject.id,
+      planId,
+      customerEmail,
+    });
+
+    if (!checkout.checkoutUrl) {
+      throw new Error(
+        "Stripe checkout URL was not created."
+      );
+    }
+
+    redirect(checkout.checkoutUrl);
+  }
+
   return (
     <main className="min-h-screen bg-[#050816] text-white">
       <div className="container px-6 py-12">
@@ -129,7 +223,6 @@ export default async function ProjectPage({
         </Link>
 
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-[#00D9FF]">
               NEXORA PROJECT
@@ -155,7 +248,6 @@ export default async function ProjectPage({
               {project.status}
             </div>
           </div>
-
         </div>
 
         <section className="mt-10 grid gap-5 md:grid-cols-4">
@@ -204,10 +296,109 @@ export default async function ProjectPage({
 
         </section>
 
+        {!project.executionUnlocked && (
+          <section className="mt-10 card p-6">
+
+            <div>
+              <p className="text-sm uppercase tracking-[0.2em] text-[#00D9FF]">
+                PAYMENT
+              </p>
+
+              <h2 className="mt-2 text-2xl font-bold">
+                Activate your NEXORA project
+              </h2>
+
+              <p className="mt-3 max-w-2xl text-[#A7B0C0]">
+                Select a plan and continue securely with
+                Stripe. AI execution will remain locked
+                until the payment is confirmed.
+              </p>
+            </div>
+
+            {pricingPlans.length === 0 ? (
+              <div className="mt-6 rounded-xl border border-[#202A46] bg-[#070B1C] p-5 text-[#A7B0C0]">
+                No active pricing plans are available yet.
+              </div>
+            ) : (
+              <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+                {pricingPlans.map((plan) => (
+                  <form
+                    key={plan.id}
+                    action={startCheckout}
+                    className="rounded-2xl border border-[#202A46] bg-[#070B1C] p-6"
+                  >
+
+                    <div className="text-lg font-semibold">
+                      {plan.name}
+                    </div>
+
+                    <div className="mt-4 text-3xl font-bold">
+                      €{(plan.monthlyCents / 100).toFixed(2)}
+                      <span className="ml-1 text-sm font-normal text-[#667085]">
+                        / month
+                      </span>
+                    </div>
+
+                    <p className="mt-2 text-xs uppercase tracking-wider text-[#667085]">
+                      {plan.key}
+                    </p>
+
+                    <input
+                      type="hidden"
+                      name="planId"
+                      value={plan.id}
+                    />
+
+                    <button
+                      type="submit"
+                      className="mt-6 w-full rounded-xl bg-[#00D9FF] px-5 py-3 font-semibold text-[#050816] transition hover:opacity-90"
+                    >
+                      Continue to secure payment
+                    </button>
+
+                  </form>
+                ))}
+
+              </div>
+            )}
+
+          </section>
+        )}
+
+        {project.executionUnlocked && (
+          <section className="mt-10 card p-6">
+
+            <p className="text-sm uppercase tracking-[0.2em] text-[#00D9FF]">
+              EXECUTION
+            </p>
+
+            <h2 className="mt-2 text-2xl font-bold">
+              AI execution unlocked
+            </h2>
+
+            <p className="mt-3 max-w-2xl text-[#A7B0C0]">
+              Payment has been confirmed and this project
+              is now authorized for NEXORA AI execution.
+            </p>
+
+            <div className="mt-5 rounded-xl border border-[#202A46] bg-[#070B1C] p-5">
+              <div className="font-semibold text-[#00D9FF]">
+                Execution ready
+              </div>
+
+              <p className="mt-2 text-sm text-[#A7B0C0]">
+                AI tasks can now be processed through the
+                NEXORA workflow.
+              </p>
+            </div>
+
+          </section>
+        )}
+
         <section className="mt-10 card p-6">
 
           <div className="flex items-center justify-between">
-
             <div>
               <h2 className="text-2xl font-bold">
                 AI Tasks
@@ -221,7 +412,6 @@ export default async function ProjectPage({
             <span className="rounded-full border border-[#202A46] px-3 py-1 text-xs">
               {project.tasks.length} tasks
             </span>
-
           </div>
 
           <div className="mt-6 grid gap-4">
@@ -285,45 +475,48 @@ export default async function ProjectPage({
         <section className="mt-10 card p-6">
 
           <h2 className="text-2xl font-bold">
-            Execution
+            Payment history
           </h2>
 
-          <p className="mt-3 text-[#A7B0C0]">
-            AI execution becomes available only after
-            payment is confirmed and the project is
-            unlocked.
+          <p className="mt-2 text-sm text-[#A7B0C0]">
+            Payments associated with this project.
           </p>
 
-          <div className="mt-5 rounded-xl border border-[#202A46] bg-[#070B1C] p-5">
+          <div className="mt-6 grid gap-3">
 
-            {project.executionUnlocked ? (
-              <div>
-
-                <div className="font-semibold text-[#00D9FF]">
-                  Execution unlocked
-                </div>
-
-                <p className="mt-2 text-sm text-[#A7B0C0]">
-                  The project has passed the payment gate.
-                  Tasks can now be executed through the
-                  NEXORA AI workflow.
-                </p>
-
-              </div>
-            ) : (
-              <div>
-
-                <div className="font-semibold">
-                  Execution locked
-                </div>
-
-                <p className="mt-2 text-sm text-[#A7B0C0]">
-                  Complete the required payment before AI
-                  task execution can begin.
-                </p>
-
+            {project.payments.length === 0 && (
+              <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5 text-sm text-[#A7B0C0]">
+                No payments have been created for this
+                project yet.
               </div>
             )}
+
+            {project.payments.map((payment) => (
+              <div
+                key={payment.id}
+                className="rounded-xl border border-[#202A46] bg-[#070B1C] p-4"
+              >
+
+                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+
+                  <div>
+                    <div className="text-sm font-semibold">
+                      {payment.status}
+                    </div>
+
+                    <div className="mt-1 text-xs text-[#667085]">
+                      {payment.currency.toUpperCase()}
+                    </div>
+                  </div>
+
+                  <div className="font-semibold">
+                    €{(payment.amountCents / 100).toFixed(2)}
+                  </div>
+
+                </div>
+
+              </div>
+            ))}
 
           </div>
 
@@ -382,3 +575,5 @@ export default async function ProjectPage({
     </main>
   );
 }
+```
+ 
