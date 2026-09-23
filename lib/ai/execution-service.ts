@@ -4,7 +4,8 @@ import { runAiTask } from "@/lib/ai/task-runner";
 export async function executeProjectTask(
   organizationId: string,
   projectId: string,
-  taskId: string
+  taskId: string,
+  complexity: "default" | "complex" = "default"
 ) {
   const project = await prisma.project.findFirst({
     where: {
@@ -19,7 +20,7 @@ export async function executeProjectTask(
   });
 
   if (!project) {
-    throw new Error("Project not found");
+    throw new Error("Project not found.");
   }
 
   if (
@@ -44,19 +45,20 @@ export async function executeProjectTask(
   });
 
   if (!task) {
-    throw new Error("Task not found");
+    throw new Error("Task not found.");
   }
 
   if (task.status === "IN_PROGRESS") {
-    throw new Error("Task is already running");
+    throw new Error("Task is already running.");
   }
 
   if (task.status === "COMPLETED") {
-    throw new Error("Task is already completed");
+    throw new Error("Task is already completed.");
   }
 
   return runAiTask(
     organizationId,
-    task.id
+    task.id,
+    complexity
   );
-} 
+}
