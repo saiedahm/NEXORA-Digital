@@ -1,4 +1,4 @@
- import { auth } from "@/lib/auth/auth";
+import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/db/client";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -7,6 +7,20 @@ const createProjectSchema = z.object({
   name: z.string().min(2).max(120),
   description: z.string().max(5000).optional(),
 });
+
+async function getUserOrganization(userId: string) {
+  return prisma.organizationMember.findFirst({
+    where: {
+      userId,
+    },
+    orderBy: {
+      id: "asc",
+    },
+    select: {
+      organizationId: true,
+    },
+  });
+}
 
 export async function GET() {
   const session = await auth();
@@ -18,9 +32,19 @@ export async function GET() {
     );
   }
 
+  const membership = await getUserOrganization(session.user.id);
+
+  if (!membership) {
+    return NextResponse.json(
+      { error: "Organization not found" },
+      { status: 404 }
+    );
+  }
+
   const projects = await prisma.project.findMany({
     where: {
-      ownerId: session.user.id,
+      organizationId: membership.organizationId,
+      customerId: session.user.id,
     },
     orderBy: {
       createdAt: "desc",
@@ -42,7 +66,17 @@ export async function POST(request: Request) {
     );
   }
 
+  const membership = await getUserOrganization(session.user.id);
+
+  if (!membership) {
+    return NextResponse.json(
+      { error: "Organization not found" },
+      { status: 404 }
+    );
+  }
+
   const body = await request.json();
+
   const parsed = createProjectSchema.safeParse(body);
 
   if (!parsed.success) {
@@ -57,9 +91,13 @@ export async function POST(request: Request) {
 
   const project = await prisma.project.create({
     data: {
+      organizationId: membership.organizationId,
+      customerId: session.user.id,
       name: parsed.data.name,
       description: parsed.data.description ?? null,
-      ownerId: session.user.id,
+      status: "DRAFT",
+      paymentStatus: "PENDING",
+      executionUnlocked: false,
     },
   });
 
@@ -69,4 +107,4 @@ export async function POST(request: Request) {
     },
     { status: 201 }
   );
-}
+} 
