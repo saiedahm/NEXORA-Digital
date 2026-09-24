@@ -23,3 +23,5 @@ PostgreSQL, an AI provider, Stripe, Redis-compatible queue, S3-compatible storag
 6. Run `npm run dev`.
 
 The repository intentionally does not claim production completion until the external services and the full acceptance test are configured and executed.
+
+<!-- Vercel deployment trigger -->
