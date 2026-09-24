@@ -15,6 +15,20 @@ type PricingPlanItem = {
   monthlyCents: number;
 };
 
+type ProjectTaskItem = {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  priority: number;
+  agent: {
+    id: string;
+    key: string;
+    name: string;
+    role: string;
+  };
+};
+
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const session = await auth();
 
@@ -266,7 +280,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {project.tasks.length === 0 && (
               <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-6 text-[#A7B0C0]">No AI tasks have been created for this project yet.</div>
             )}
-            {project.tasks.map((task) => (
+            {project.tasks.map((task: ProjectTaskItem) => (
               <div key={task.id} className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5">
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                   <div>
