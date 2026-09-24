@@ -1,4 +1,3 @@
-```ts
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -6,35 +5,27 @@ import { prisma } from "@/lib/db/client";
 import { getStripe } from "@/lib/payments/stripe";
 
 export const runtime = "nodejs";
+
+export async function POST(request: Request) {
   const signature = request.headers.get("stripe-signature");
 
   if (!signature) {
     return NextResponse.json(
-      {
-        error: "Missing Stripe signature.",
-      },
-      {
-        status: 400,
-      }
+      { error: "Missing Stripe signature." },
+      { status: 400 }
     );
   }
 
-  const webhookSecret =
-    process.env.STRIPE_WEBHOOK_SECRET?.trim();
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET?.trim();
 
   if (!webhookSecret) {
     return NextResponse.json(
-      {
-        error: "Stripe webhook secret is not configured.",
-      },
-      {
-        status: 500,
-      }
+      { error: "Stripe webhook secret is not configured." },
+      { status: 500 }
     );
   }
 
   const body = await request.text();
-
   const stripe = getStripe();
 
   let event: Stripe.Event;
@@ -47,27 +38,17 @@ export const runtime = "nodejs";
     );
   } catch {
     return NextResponse.json(
-      {
-        error: "Invalid Stripe webhook signature.",
-      },
-      {
-        status: 400,
-      }
+      { error: "Invalid Stripe webhook signature." },
+      { status: 400 }
     );
   }
 
-  const existingEvent =
-    await prisma.stripeWebhookEvent.findUnique({
-      where: {
-        eventId: event.id,
-      },
-    });
+  const existingEvent = await prisma.stripeWebhookEvent.findUnique({
+    where: { eventId: event.id },
+  });
 
   if (existingEvent?.processed) {
-    return NextResponse.json({
-      received: true,
-      duplicate: true,
-    });
+    return NextResponse.json({ received: true, duplicate: true });
   }
 
   if (!existingEvent) {
@@ -83,26 +64,13 @@ export const runtime = "nodejs";
   try {
     switch (event.type) {
       case "checkout.session.completed": {
-        const session =
-          event.data.object as Stripe.Checkout.Session;
+        const session = event.data.object as Stripe.Checkout.Session;
+        const paymentId = session.metadata?.paymentId;
+        const projectId = session.metadata?.projectId;
+        const organizationId = session.metadata?.organizationId;
 
-        const paymentId =
-          session.metadata?.paymentId;
-
-        const projectId =
-          session.metadata?.projectId;
-
-        const organizationId =
-          session.metadata?.organizationId;
-
-        if (
-          !paymentId ||
-          !projectId ||
-          !organizationId
-        ) {
-          throw new Error(
-            "Missing payment metadata."
-          );
+        if (!paymentId || !projectId || !organizationId) {
+          throw new Error("Missing payment metadata.");
         }
 
         if (session.payment_status !== "paid") {
@@ -112,15 +80,11 @@ export const runtime = "nodejs";
               organizationId,
               projectId,
             },
-            data: {
-              status: "PROCESSING",
-            },
+            data: { status: "PROCESSING" },
           });
 
           await prisma.stripeWebhookEvent.update({
-            where: {
-              eventId: event.id,
-            },
+            where: { eventId: event.id },
             data: {
               processed: true,
               processedAt: new Date(),
@@ -134,46 +98,34 @@ export const runtime = "nodejs";
           });
         }
 
-        const payment =
-          await prisma.payment.findFirst({
-            where: {
-              id: paymentId,
-              organizationId,
-              projectId,
-            },
-          });
+        const payment = await prisma.payment.findFirst({
+          where: {
+            id: paymentId,
+            organizationId,
+            projectId,
+          },
+        });
 
         if (!payment) {
-          throw new Error(
-            "Payment not found."
-          );
+          throw new Error("Payment not found.");
         }
 
         await prisma.$transaction([
           prisma.payment.update({
-            where: {
-              id: payment.id,
-            },
+            where: { id: payment.id },
             data: {
               status: "PAID",
-
-              stripeCheckoutSessionId:
-                session.id,
-
+              stripeCheckoutSessionId: session.id,
               stripeCustomerId:
-                typeof session.customer ===
-                "string"
+                typeof session.customer === "string"
                   ? session.customer
                   : null,
-
               stripeSubscriptionId:
-                typeof session.subscription ===
-                "string"
+                typeof session.subscription === "string"
                   ? session.subscription
                   : null,
             },
           }),
-
           prisma.project.updateMany({
             where: {
               id: projectId,
@@ -185,36 +137,25 @@ export const runtime = "nodejs";
               status: "READY_FOR_AI",
             },
           }),
-
           prisma.aiActivity.create({
             data: {
               organizationId,
               projectId,
-              eventType:
-                "PAYMENT_CONFIRMED",
-
+              eventType: "PAYMENT_CONFIRMED",
               message:
                 "Stripe payment confirmed. Project execution unlocked.",
-
               metadata: {
                 paymentId: payment.id,
-
-                checkoutSessionId:
-                  session.id,
-
+                checkoutSessionId: session.id,
                 subscriptionId:
-                  typeof session.subscription ===
-                  "string"
+                  typeof session.subscription === "string"
                     ? session.subscription
                     : null,
               },
             },
           }),
-
           prisma.stripeWebhookEvent.update({
-            where: {
-              eventId: event.id,
-            },
+            where: { eventId: event.id },
             data: {
               processed: true,
               processedAt: new Date(),
@@ -227,30 +168,21 @@ export const runtime = "nodejs";
       }
 
       case "checkout.session.expired": {
-        const session =
-          event.data.object as Stripe.Checkout.Session;
-
-        const paymentId =
-          session.metadata?.paymentId;
+        const session = event.data.object as Stripe.Checkout.Session;
+        const paymentId = session.metadata?.paymentId;
 
         if (paymentId) {
           await prisma.payment.updateMany({
             where: {
               id: paymentId,
-              status: {
-                not: "PAID",
-              },
+              status: { not: "PAID" },
             },
-            data: {
-              status: "EXPIRED",
-            },
+            data: { status: "EXPIRED" },
           });
         }
 
         await prisma.stripeWebhookEvent.update({
-          where: {
-            eventId: event.id,
-          },
+          where: { eventId: event.id },
           data: {
             processed: true,
             processedAt: new Date(),
@@ -262,32 +194,24 @@ export const runtime = "nodejs";
       }
 
       case "invoice.payment_failed": {
-        const invoice =
-          event.data.object as Stripe.Invoice;
-
+        const invoice = event.data.object as Stripe.Invoice;
         const subscriptionId =
-          typeof invoice.subscription ===
-          "string"
+          typeof invoice.subscription === "string"
             ? invoice.subscription
             : null;
 
         if (subscriptionId) {
           await prisma.payment.updateMany({
             where: {
-              stripeSubscriptionId:
-                subscriptionId,
+              stripeSubscriptionId: subscriptionId,
               status: "PAID",
             },
-            data: {
-              status: "FAILED",
-            },
+            data: { status: "FAILED" },
           });
         }
 
         await prisma.stripeWebhookEvent.update({
-          where: {
-            eventId: event.id,
-          },
+          where: { eventId: event.id },
           data: {
             processed: true,
             processedAt: new Date(),
@@ -300,9 +224,7 @@ export const runtime = "nodejs";
 
       default: {
         await prisma.stripeWebhookEvent.update({
-          where: {
-            eventId: event.id,
-          },
+          where: { eventId: event.id },
           data: {
             processed: true,
             processedAt: new Date(),
@@ -312,9 +234,7 @@ export const runtime = "nodejs";
       }
     }
 
-    return NextResponse.json({
-      received: true,
-    });
+    return NextResponse.json({ received: true });
   } catch (error) {
     const message =
       error instanceof Error
@@ -322,29 +242,18 @@ export const runtime = "nodejs";
         : "Webhook processing failed.";
 
     await prisma.stripeWebhookEvent.update({
-      where: {
-        eventId: event.id,
-      },
+      where: { eventId: event.id },
       data: {
         processed: false,
         error: message,
       },
     });
 
-    console.error(
-      "Stripe webhook processing error:",
-      error
-    );
+    console.error("Stripe webhook processing error:", error);
 
     return NextResponse.json(
-      {
-        error: "Webhook processing failed.",
-      },
-      {
-        status: 500,
-      }
+      { error: "Webhook processing failed." },
+      { status: 500 }
     );
   }
 }
-```
- 
