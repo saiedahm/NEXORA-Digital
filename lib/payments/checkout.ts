@@ -1,4 +1,3 @@
- ```ts
 import { prisma } from "@/lib/db/client";
 import { getStripe } from "@/lib/payments/stripe";
 
@@ -62,8 +61,7 @@ export async function createProjectCheckout(
 
   const stripe = getStripe();
 
-  const appUrl =
-    process.env.NEXT_PUBLIC_APP_URL?.trim();
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
 
   if (!appUrl) {
     throw new Error(
@@ -82,56 +80,42 @@ export async function createProjectCheckout(
   });
 
   try {
-    const session =
-      await stripe.checkout.sessions.create({
-        mode: "subscription",
-
-        customer_email: input.customerEmail,
-
-        line_items: [
-          {
-            price_data: {
-              currency: "eur",
-
-              product_data: {
-                name: `NEXORA DIGITAL — ${plan.name}`,
-                description:
-                  `Monthly plan for project: ${project.name}`,
-              },
-
-              unit_amount: plan.monthlyCents,
-
-              recurring: {
-                interval: "month",
-              },
+    const session = await stripe.checkout.sessions.create({
+      mode: "subscription",
+      customer_email: input.customerEmail,
+      line_items: [
+        {
+          price_data: {
+            currency: "eur",
+            product_data: {
+              name: `NEXORA DIGITAL — ${plan.name}`,
+              description: `Monthly plan for project: ${project.name}`,
             },
-
-            quantity: 1,
+            unit_amount: plan.monthlyCents,
+            recurring: {
+              interval: "month",
+            },
           },
-        ],
-
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        paymentId: payment.id,
+        organizationId: input.organizationId,
+        projectId: project.id,
+        planId: plan.id,
+      },
+      subscription_data: {
         metadata: {
           paymentId: payment.id,
           organizationId: input.organizationId,
           projectId: project.id,
           planId: plan.id,
         },
-
-        subscription_data: {
-          metadata: {
-            paymentId: payment.id,
-            organizationId: input.organizationId,
-            projectId: project.id,
-            planId: plan.id,
-          },
-        },
-
-        success_url:
-          `${appUrl}/dashboard/${project.id}?payment=success`,
-
-        cancel_url:
-          `${appUrl}/dashboard/${project.id}?payment=cancelled`,
-      });
+      },
+      success_url: `${appUrl}/dashboard/${project.id}?payment=success`,
+      cancel_url: `${appUrl}/dashboard/${project.id}?payment=cancelled`,
+    });
 
     await prisma.payment.update({
       where: {
@@ -161,4 +145,3 @@ export async function createProjectCheckout(
     throw error;
   }
 }
-```
