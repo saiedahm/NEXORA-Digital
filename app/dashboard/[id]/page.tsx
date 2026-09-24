@@ -213,7 +213,6 @@ export default async function ProjectPage({
   return (
     <main className="min-h-screen bg-[#050816] text-white">
       <div className="container px-6 py-12">
-
         <Link
           href="/dashboard"
           className="text-sm text-[#00D9FF] hover:underline"
@@ -250,54 +249,37 @@ export default async function ProjectPage({
         </div>
 
         <section className="mt-10 grid gap-5 md:grid-cols-4">
-
           <div className="card p-5">
-            <div className="text-sm text-[#A7B0C0]">
-              Type
-            </div>
-
+            <div className="text-sm text-[#A7B0C0]">Type</div>
             <div className="mt-2 font-semibold">
               {project.type || "Not specified"}
             </div>
           </div>
 
           <div className="card p-5">
-            <div className="text-sm text-[#A7B0C0]">
-              Payment
-            </div>
-
+            <div className="text-sm text-[#A7B0C0]">Payment</div>
             <div className="mt-2 font-semibold">
               {project.paymentStatus}
             </div>
           </div>
 
           <div className="card p-5">
-            <div className="text-sm text-[#A7B0C0]">
-              Execution
-            </div>
-
+            <div className="text-sm text-[#A7B0C0]">Execution</div>
             <div className="mt-2 font-semibold">
-              {project.executionUnlocked
-                ? "Unlocked"
-                : "Locked"}
+              {project.executionUnlocked ? "Unlocked" : "Locked"}
             </div>
           </div>
 
           <div className="card p-5">
-            <div className="text-sm text-[#A7B0C0]">
-              Progress
-            </div>
-
+            <div className="text-sm text-[#A7B0C0]">Progress</div>
             <div className="mt-2 font-semibold">
               {project.progress}%
             </div>
           </div>
-
         </section>
 
         {!project.executionUnlocked && (
           <section className="mt-10 card p-6">
-
             <div>
               <p className="text-sm uppercase tracking-[0.2em] text-[#00D9FF]">
                 PAYMENT
@@ -308,9 +290,8 @@ export default async function ProjectPage({
               </h2>
 
               <p className="mt-3 max-w-2xl text-[#A7B0C0]">
-                Select a plan and continue securely with
-                Stripe. AI execution will remain locked
-                until the payment is confirmed.
+                Select a plan and continue securely with Stripe. AI execution
+                will remain locked until the payment is confirmed.
               </p>
             </div>
 
@@ -320,17 +301,13 @@ export default async function ProjectPage({
               </div>
             ) : (
               <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-
                 {pricingPlans.map((plan) => (
                   <form
                     key={plan.id}
                     action={startCheckout}
                     className="rounded-2xl border border-[#202A46] bg-[#070B1C] p-6"
                   >
-
-                    <div className="text-lg font-semibold">
-                      {plan.name}
-                    </div>
+                    <div className="text-lg font-semibold">{plan.name}</div>
 
                     <div className="mt-4 text-3xl font-bold">
                       €{(plan.monthlyCents / 100).toFixed(2)}
@@ -355,19 +332,15 @@ export default async function ProjectPage({
                     >
                       Continue to secure payment
                     </button>
-
                   </form>
                 ))}
-
               </div>
             )}
-
           </section>
         )}
 
         {project.executionUnlocked && (
           <section className="mt-10 card p-6">
-
             <p className="text-sm uppercase tracking-[0.2em] text-[#00D9FF]">
               EXECUTION
             </p>
@@ -377,8 +350,8 @@ export default async function ProjectPage({
             </h2>
 
             <p className="mt-3 max-w-2xl text-[#A7B0C0]">
-              Payment has been confirmed and this project
-              is now authorized for NEXORA AI execution.
+              Payment has been confirmed and this project is now authorized
+              for NEXORA AI execution.
             </p>
 
             <div className="mt-5 rounded-xl border border-[#202A46] bg-[#070B1C] p-5">
@@ -387,22 +360,16 @@ export default async function ProjectPage({
               </div>
 
               <p className="mt-2 text-sm text-[#A7B0C0]">
-                AI tasks can now be processed through the
-                NEXORA workflow.
+                AI tasks can now be processed through the NEXORA workflow.
               </p>
             </div>
-
           </section>
         )}
 
         <section className="mt-10 card p-6">
-
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold">
-                AI Tasks
-              </h2>
-
+              <h2 className="text-2xl font-bold">AI Tasks</h2>
               <p className="mt-2 text-sm text-[#A7B0C0]">
                 Tasks assigned to the NEXORA AI managers.
               </p>
@@ -414,11 +381,9 @@ export default async function ProjectPage({
           </div>
 
           <div className="mt-6 grid gap-4">
-
             {project.tasks.length === 0 && (
               <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-6 text-[#A7B0C0]">
-                No AI tasks have been created for this
-                project yet.
+                No AI tasks have been created for this project yet.
               </div>
             )}
 
@@ -427,14 +392,9 @@ export default async function ProjectPage({
                 key={task.id}
                 className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5"
               >
-
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-
                   <div>
-                    <h3 className="font-semibold">
-                      {task.title}
-                    </h3>
-
+                    <h3 className="font-semibold">{task.title}</h3>
                     <p className="mt-2 text-sm text-[#A7B0C0]">
                       {task.description}
                     </p>
@@ -444,49 +404,35 @@ export default async function ProjectPage({
                     <div className="text-sm font-semibold">
                       {task.agent.name}
                     </div>
-
                     <div className="mt-1 text-xs text-[#667085]">
                       {task.agent.role}
                     </div>
                   </div>
-
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-2 text-xs">
-
                   <span className="rounded-full border border-[#202A46] px-3 py-1">
                     {task.status}
                   </span>
-
                   <span className="rounded-full border border-[#202A46] px-3 py-1">
                     Priority {task.priority}
                   </span>
-
                 </div>
-
               </div>
             ))}
-
           </div>
-
         </section>
 
         <section className="mt-10 card p-6">
-
-          <h2 className="text-2xl font-bold">
-            Payment history
-          </h2>
-
+          <h2 className="text-2xl font-bold">Payment history</h2>
           <p className="mt-2 text-sm text-[#A7B0C0]">
             Payments associated with this project.
           </p>
 
           <div className="mt-6 grid gap-3">
-
             {project.payments.length === 0 && (
               <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5 text-sm text-[#A7B0C0]">
-                No payments have been created for this
-                project yet.
+                No payments have been created for this project yet.
               </div>
             )}
 
@@ -495,14 +441,11 @@ export default async function ProjectPage({
                 key={payment.id}
                 className="rounded-xl border border-[#202A46] bg-[#070B1C] p-4"
               >
-
                 <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-
                   <div>
                     <div className="text-sm font-semibold">
                       {payment.status}
                     </div>
-
                     <div className="mt-1 text-xs text-[#667085]">
                       {payment.currency.toUpperCase()}
                     </div>
@@ -511,28 +454,19 @@ export default async function ProjectPage({
                   <div className="font-semibold">
                     €{(payment.amountCents / 100).toFixed(2)}
                   </div>
-
                 </div>
-
               </div>
             ))}
-
           </div>
-
         </section>
 
         <section className="mt-10 card p-6">
-
-          <h2 className="text-2xl font-bold">
-            Activity
-          </h2>
-
+          <h2 className="text-2xl font-bold">Activity</h2>
           <p className="mt-2 text-sm text-[#A7B0C0]">
             Recent project events recorded by NEXORA.
           </p>
 
           <div className="mt-6 grid gap-3">
-
             {project.activities.length === 0 && (
               <div className="rounded-xl border border-[#202A46] bg-[#070B1C] p-5 text-sm text-[#A7B0C0]">
                 No activity has been recorded yet.
@@ -544,14 +478,11 @@ export default async function ProjectPage({
                 key={activity.id}
                 className="rounded-xl border border-[#202A46] bg-[#070B1C] p-4"
               >
-
                 <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-
                   <div>
                     <div className="text-sm font-semibold">
                       {activity.eventType}
                     </div>
-
                     <div className="mt-1 text-sm text-[#A7B0C0]">
                       {activity.message}
                     </div>
@@ -560,16 +491,11 @@ export default async function ProjectPage({
                   <div className="text-xs text-[#667085]">
                     {activity.createdAt.toLocaleString()}
                   </div>
-
                 </div>
-
               </div>
             ))}
-
           </div>
-
         </section>
-
       </div>
     </main>
   );
