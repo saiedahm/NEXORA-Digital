@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LegalComplianceGate } from "@/components/legal/LegalComplianceGate";
 
 export const metadata: Metadata = {
   title: "NEXORA DIGITAL",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body>
+        {children}
+        <LegalComplianceGate />
+      </body>
     </html>
   );
 }
