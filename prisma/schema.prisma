@@ -120,11 +120,7 @@ model OrganizationMember {
   userId         String
   role           UserRole @default(ORGANIZATION_MEMBER)
 
-  organization Organization @relation(
-    fields: [organizationId],
-    references: [id],
-    onDelete: Cascade
-  )
+ organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   user User @relation(
     fields: [userId],
