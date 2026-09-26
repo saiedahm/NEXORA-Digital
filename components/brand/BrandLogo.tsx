@@ -6,6 +6,9 @@ type BrandLogoProps = {
   linkToHome?: boolean;
 };
 
+const LOGO_SRC =
+  "https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png";
+
 export function BrandLogo({
   width = 150,
   className = "",
@@ -13,26 +16,20 @@ export function BrandLogo({
 }: BrandLogoProps) {
   const logo = (
     <img
-      src="/assets/images/nexora-logo.png"
+      src={LOGO_SRC}
       alt="NEXORA DIGITAL"
       className={`nexora-logo ${className}`}
-      style={{
-        width: `${width}px`,
-        height: "auto",
-      }}
+      width={width}
+      height={Math.round(width * 0.32)}
+      style={{ width: `${width}px`, height: "auto" }}
+      loading="eager"
     />
   );
 
-  if (!linkToHome) {
-    return logo;
-  }
+  if (!linkToHome) return logo;
 
   return (
-    <Link
-      href="/"
-      aria-label="NEXORA DIGITAL Home"
-      className="brand-logo"
-    >
+    <Link href="/" aria-label="NEXORA DIGITAL Home" className="brand-logo">
       {logo}
     </Link>
   );
