@@ -1,6 +1,9 @@
- import { auth } from "@/lib/auth/auth";
+import NextAuth from "next-auth";
+import authConfig from "@/lib/auth/auth.config";
 
-export default auth((request) => {
+export const { auth: middleware } = NextAuth(authConfig);
+
+export default middleware((request) => {
   const isLoggedIn = Boolean(request.auth);
 
   const isProtectedRoute =
@@ -10,12 +13,7 @@ export default auth((request) => {
 
   if (isProtectedRoute && !isLoggedIn) {
     const loginUrl = new URL("/login", request.nextUrl.origin);
-
-    loginUrl.searchParams.set(
-      "callbackUrl",
-      request.nextUrl.pathname
-    );
-
+    loginUrl.searchParams.set("callbackUrl", request.nextUrl.pathname);
     return Response.redirect(loginUrl);
   }
 });
