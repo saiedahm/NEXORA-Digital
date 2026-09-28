@@ -91,6 +91,8 @@ export function HomeClient() {
   const [messages, setMessages] = useState<string[]>([]);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [videoMuted, setVideoMuted] = useState(true);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const t = useMemo(() => translations[language] ?? translations.de, [language]);
 
@@ -105,6 +107,30 @@ export function HomeClient() {
     video.muted = !video.muted;
     setVideoMuted(video.muted);
   }
+  function startVoiceInput() {
+    if (typeof window === "undefined") return;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      window.alert("Spracherkennung wird von diesem Browser nicht unterstützt.");
+      return;
+    }
+    if (isListening) { recognitionRef.current?.stop(); return; }
+    const recognition = new SpeechRecognition();
+    recognition.lang = language === "de" ? "de-DE" : language === "ar" ? "ar-SA" : language === "fr" ? "fr-FR" : language === "es" ? "es-ES" : language === "it" ? "it-IT" : language === "nl" ? "nl-NL" : language === "pl" ? "pl-PL" : language === "tr" ? "tr-TR" : language === "pt" ? "pt-PT" : language === "ru" ? "ru-RU" : language === "zh" ? "zh-CN" : language === "ja" ? "ja-JP" : "en-US";
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.maxAlternatives = 1;
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results).map((result: any) => result[0]?.transcript ?? "").join("");
+      setMessage((current) => `${current}${current ? " " : ""}${transcript}`.trim());
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+  }
+
   function submitMessage() {
     const clean = message.trim();
     if (!clean) return;
@@ -162,7 +188,7 @@ export function HomeClient() {
 
       <section id="pricing" className="section section-alt"><div className="container"><div className="section-heading"><p className="eyebrow">{t.pricingEyebrow}</p><h2>{t.pricingTitle}</h2><p>{t.pricingDescription}</p></div><div className="pricing-grid">{plans.map(([name, price], index) => <article className={`card pricing-card ${index === 1 ? "featured" : ""}`} key={name}>{index === 1 && <span className="featured-label">{t.popular}</span>}<h3>{name}</h3><div className="price">{price}</div><button className="plan-button" type="button" onClick={() => openAgent("Alex")}>{t.choose}</button></article>)}</div></div></section>
 
-      {activeAgent && <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setActiveAgent(null); }}><section className="ai-dialog" role="dialog" aria-modal="true" aria-labelledby="ai-dialog-title"><div className="ai-dialog-head"><div><span className="eyebrow">NEXORA AI</span><h2 id="ai-dialog-title">{activeAgent}</h2></div><button className="dialog-close" type="button" onClick={() => setActiveAgent(null)} aria-label={t.close}>×</button></div><div className="chat-window">{messages.map((item, index) => <p className={item.startsWith("You:") ? "chat-user" : "chat-agent"} key={`${item}-${index}`}>{item}</p>)}</div><div className="chat-form"><input value={message} onChange={(event) => setMessage(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") submitMessage(); }} placeholder={t.chatPlaceholder} aria-label={t.chatPlaceholder} /><button type="button" onClick={submitMessage}>{t.send}</button></div></section></div>}
+      {activeAgent && <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setActiveAgent(null); }}><section className="ai-dialog" role="dialog" aria-modal="true" aria-labelledby="ai-dialog-title"><div className="ai-dialog-head"><div><span className="eyebrow">NEXORA AI</span><h2 id="ai-dialog-title">{activeAgent}</h2></div><button className="dialog-close" type="button" onClick={() => setActiveAgent(null)} aria-label={t.close}>×</button></div><div className="chat-window">{messages.map((item, index) => <p className={item.startsWith("You:") ? "chat-user" : "chat-agent"} key={`${item}-${index}`}>{item}</p>)}</div><div className="chat-form"><input value={message} onChange={(event) => setMessage(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") submitMessage(); }} placeholder={t.chatPlaceholder} aria-label={t.chatPlaceholder} /><button className={`voice-button ${isListening ? "listening" : ""}`} type="button" onClick={startVoiceInput} aria-label={isListening ? "Stop voice input" : "Voice input"} title={isListening ? "Stop voice input" : "Voice input"}>{isListening ? "■" : "🎙️"}</button><button type="button" onClick={submitMessage}>{t.send}</button></div></section></div>}
     </main>
   );
 }
