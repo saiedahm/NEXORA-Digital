@@ -4,6 +4,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const EMAIL_API_URL = "https://api.resend.com/emails";
+const CUSTOMER_INBOX = "info@digital-future.ai";
 
 export async function POST(request: Request) {
   try {
@@ -23,10 +24,9 @@ export async function POST(request: Request) {
     }
 
     const apiKey = process.env.EMAIL_API_KEY;
-    const adminEmail = process.env.CONTACT_ADMIN_EMAIL;
     const fromEmail = process.env.CONTACT_FROM_EMAIL;
 
-    if (!apiKey || !adminEmail || !fromEmail) {
+    if (!apiKey || !fromEmail) {
       console.error("Contact email configuration is incomplete.");
       return NextResponse.json({ error: "Email service is not configured" }, { status: 503 });
     }
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         from: fromEmail,
-        to: [adminEmail],
+        to: [CUSTOMER_INBOX],
         reply_to: email,
         subject: `NEXORA Kontakt: ${subject}`,
         text: `E-Mail des Kunden: ${email}\n\n${message}`,
