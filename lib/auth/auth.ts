@@ -45,7 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     async signIn({ user }) {
-      if (!user.email) {
+      if (!user.email || !user.id) {
         return false;
       }
 
@@ -56,6 +56,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       });
 
       if (!existingUser) {
+        await prisma.organization.create({
+          data: {
+            name: `${user.name ?? "NEXORA"} Organization`,
+            members: {
+              create: {
+                userId: user.id,
+                role: "ORGANIZATION_OWNER",
+              },
+            },
+          },
+        });
+
         return true;
       }
 
