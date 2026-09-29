@@ -1,3 +1,4 @@
+@import "./footer-fix.css";
 @import "tailwindcss";
 
 :root { --bg:#050816; --bg-alt:#080d20; --primary:#6c63ff; --accent:#00d9ff; --text:#fff; --muted:#a7b0c0; --card:rgba(11,16,34,.86); --border:rgba(80,101,150,.35); }
