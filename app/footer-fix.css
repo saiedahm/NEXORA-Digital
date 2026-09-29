@@ -1,0 +1,5 @@
+/* Keep one authoritative legal footer.
+   ContactSection still owns the contact form, while LegalComplianceGate owns the legal footer. */
+.nexora-footer {
+  display: none !important;
+}
