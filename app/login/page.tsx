@@ -1,89 +1,89 @@
-import { signIn } from "@/lib/auth/auth";
+"use client";
+
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
+  const params = useSearchParams();
+  const verified = params.get("verified");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  async function login() {
+    setError("");
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      callbackUrl: "/dashboard",
+    });
+
+    if (result?.error) {
+      setError("Email or password is incorrect, or your email has not been confirmed yet.");
+      return;
+    }
+
+    window.location.href = result?.url || "/dashboard";
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
       <section className="card w-full max-w-md p-8 text-center">
         <h1 className="text-3xl font-bold">Welcome to NEXORA DIGITAL</h1>
+        <p className="mt-3 text-[#A7B0C0]">Sign in with your email and password.</p>
 
-        <p className="mt-3 text-[#A7B0C0]">
-          Sign in to access your NEXORA workspace.
-        </p>
+        {verified === "1" && (
+          <p className="mt-4 rounded-xl border border-cyan-400/30 bg-cyan-400/10 p-3 text-sm text-cyan-300">
+            Email confirmed successfully. You can now sign in.
+          </p>
+        )}
+
+        {verified === "0" && (
+          <p className="mt-4 rounded-xl border border-red-400/30 bg-red-400/10 p-3 text-sm text-red-300">
+            This confirmation link is invalid or expired.
+          </p>
+        )}
+
+        {error && (
+          <p className="mt-4 rounded-xl border border-red-400/30 bg-red-400/10 p-3 text-sm text-red-300">
+            {error}
+          </p>
+        )}
 
         <div className="mt-8 flex flex-col gap-4">
-          <form
-            action={async () => {
-              "use server";
-              await signIn("google", {
-                redirectTo: "/dashboard",
-              });
-            }}
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email address"
+            autoComplete="email"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            autoComplete="current-password"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
+          />
+          <button
+            type="button"
+            onClick={login}
+            className="w-full rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-black transition hover:bg-cyan-300"
           >
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-white px-5 py-3 font-semibold text-black transition hover:opacity-90"
-            >
-              Continue with Google
-            </button>
-          </form>
+            Sign in with email
+          </button>
 
-          <form
-            action={async () => {
-              "use server";
-              await signIn("facebook", {
-                redirectTo: "/dashboard",
-              });
-            }}
+          <Link
+            href="/register"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
           >
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-[#1877F2] px-5 py-3 font-semibold text-white transition hover:opacity-90"
-            >
-              Continue with Facebook
-            </button>
-          </form>
-
-          <div className="my-2 flex items-center gap-3 text-[#A7B0C0]">
-            <span className="h-px flex-1 bg-white/10" />
-            <span>or</span>
-            <span className="h-px flex-1 bg-white/10" />
-          </div>
-
-          <form
-            action={async (formData: FormData) => {
-              "use server";
-              const email = String(formData.get("email") ?? "").trim();
-
-              if (!email) {
-                return;
-              }
-
-              await signIn("email", {
-                email,
-                redirectTo: "/dashboard",
-              });
-            }}
-            className="flex flex-col gap-3"
-          >
-            <input
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="Enter your email address"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none transition placeholder:text-[#7F8999] focus:border-cyan-400"
-            />
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-black transition hover:bg-cyan-300"
-            >
-              Send magic link by email
-            </button>
-          </form>
-
-          <p className="text-sm text-[#A7B0C0]">
-            We will send a secure sign-in link to your email. No password is required.
-          </p>
+            Create a new account
+          </Link>
         </div>
       </section>
     </main>
