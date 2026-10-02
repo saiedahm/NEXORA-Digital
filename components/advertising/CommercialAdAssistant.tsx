@@ -183,7 +183,7 @@ export function CommercialAdAssistant() {
             {paymentMessage && <span style={{color:"#fff",border:"1px solid rgba(255,255,255,.5)",borderRadius:999,padding:"7px 12px",fontSize:12}}>{paymentMessage}</span>}
           </div>
 
-          <div style={{display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:14}}>
+          <div className="commercial-ad-grid" style={{display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:14}}>
             {slots.map((slot) => {
               const ad = adBySpace.get(slot.id);
               return (
@@ -248,7 +248,7 @@ export function CommercialAdAssistant() {
               </>
             ) : (
               <>
-                <div style={{display:"grid",gridTemplateColumns:"minmax(0,1.2fr) minmax(240px,.8fr)",gap:18}}>
+                <div className="commercial-ad-preview-grid" style={{display:"grid",gridTemplateColumns:"minmax(0,1.2fr) minmax(240px,.8fr)",gap:18}}>
                   <div style={{padding:20,border:"1px solid rgba(255,255,255,.28)",borderRadius:14}}>
                     <h3 style={{color:"#fff",marginTop:0}}>نتيجة NEXORA AI</h3>
                     <p style={{whiteSpace:"pre-wrap",lineHeight:1.7}}>{preview.reply}</p>
