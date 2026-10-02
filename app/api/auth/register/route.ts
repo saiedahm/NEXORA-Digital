@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "You must accept the terms." }, { status: 400 });
     }
 
-    if (!process.env.EMAIL_SERVER_HOST || !process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
+    if (!process.env.EMAIL_API_KEY && (!process.env.EMAIL_SERVER_HOST || !process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD)) {
       console.error("NEXORA email service is not configured in the deployment environment.");
       return NextResponse.json({ error: "Email confirmation is temporarily unavailable. Please try again later." }, { status: 503 });
     }
