@@ -4,8 +4,9 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function LoginPage() {
+function LoginForm() {
   const params = useSearchParams();
   const verified = params.get("verified");
   const [email, setEmail] = useState("");
@@ -87,5 +88,14 @@ export default function LoginPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<main className="flex min-h-screen items-center justify-center px-6"><section className="card w-full max-w-md p-8 text-center">Loading...</section></main>}>
+      <LoginForm />
+    </Suspense>
   );
 }
