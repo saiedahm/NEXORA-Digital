@@ -12,15 +12,15 @@ export default function RegisterPage() {
 
   async function register() {
     setMessage("");
-    if (password !== confirm) {
-      setMessage("Passwords do not match.");
-      return;
-    }
+    if (!email.trim()) { setMessage("Please enter your email address."); return; }
+    if (password.length < 8) { setMessage("Password must contain at least 8 characters."); return; }
+    if (password !== confirm) { setMessage("Passwords do not match."); return; }
+    if (!terms) { setMessage("Please accept the NEXORA terms and conditions."); return; }
 
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, termsAccepted: terms }),
+      body: JSON.stringify({ email: email.trim(), password, termsAccepted: terms }),
     });
 
     const data = await response.json();
@@ -28,56 +28,33 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
-      <section className="card w-full max-w-md p-8 text-center">
-        <h1 className="text-3xl font-bold">Create your NEXORA account</h1>
-        <p className="mt-3 text-[#A7B0C0]">Accept the terms, create your password, then confirm your email.</p>
+    <main className="nexora-auth-page">
+      <section className="nexora-auth-card nexora-register-card">
+        <div className="nexora-auth-logo" aria-hidden="true">N</div>
+        <p className="nexora-auth-kicker">NEXORA DIGITAL</p>
+        <h1>Create your account</h1>
+        <p className="nexora-auth-subtitle">Become a NEXORA customer with your email address.</p>
 
-        <div className="mt-8 flex flex-col gap-4">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email address"
-            autoComplete="email"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password (minimum 8 characters)"
-            autoComplete="new-password"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
-          />
-          <input
-            type="password"
-            value={confirm}
-            onChange={(e) => setConfirm(e.target.value)}
-            placeholder="Confirm password"
-            autoComplete="new-password"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
-          />
+        <div className="nexora-auth-form">
+          <label htmlFor="register-email">Email address</label>
+          <input id="register-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
+          <label htmlFor="register-password">Password</label>
+          <input id="register-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Minimum 8 characters" autoComplete="new-password" />
+          <label htmlFor="register-confirm">Confirm password</label>
+          <input id="register-confirm" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder="Repeat your password" autoComplete="new-password" />
 
-          <label className="flex items-start gap-3 text-left text-sm text-[#A7B0C0]">
-            <input type="checkbox" checked={terms} onChange={(e) => setTerms(e.target.checked)} className="mt-1" />
+          <label className="nexora-auth-check">
+            <input type="checkbox" checked={terms} onChange={(e) => setTerms(e.target.checked)} />
             <span>I accept the NEXORA terms and conditions.</span>
           </label>
 
-          <button
-            type="button"
-            onClick={register}
-            className="w-full rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-black transition hover:bg-cyan-300"
-          >
-            Create account
-          </button>
-
-          {message && <p className="rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-[#A7B0C0]">{message}</p>}
-
-          <Link href="/login" className="text-sm text-cyan-300 hover:underline">
-            Back to sign in
-          </Link>
+          <button type="button" onClick={register}>Create customer account</button>
         </div>
+
+        {message && <p className="nexora-auth-message">{message}</p>}
+
+        <Link href="/login" className="nexora-auth-secondary">Already have an account? Sign in</Link>
+        <Link href="/" className="nexora-auth-back">← Back to NEXORA</Link>
       </section>
     </main>
   );
