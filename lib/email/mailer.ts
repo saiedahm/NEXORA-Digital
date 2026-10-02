@@ -15,41 +15,46 @@ function smtpTransporter() {
 }
 
 async function sendMailMessage(args: { to: string; subject: string; text: string; html?: string }) {
-  const apiKey = process.env.EMAIL_API_KEY;
-  const from = process.env.EMAIL_FROM || process.env.CONTACT_FROM_EMAIL || process.env.EMAIL_SERVER_USER;
+  const host = process.env.EMAIL_SERVER_HOST;
+  const user = process.env.EMAIL_SERVER_USER;
+  const pass = process.env.EMAIL_SERVER_PASSWORD;
+  const from = process.env.EMAIL_FROM || process.env.CONTACT_FROM_EMAIL || user;
 
-  if (!from) throw new Error("NEXORA sender email is not configured.");
-
-  if (apiKey) {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [args.to],
-        subject: args.subject,
-        text: args.text,
-        ...(args.html ? { html: args.html } : {}),
-      }),
+  if (host && user && pass) {
+    await smtpTransporter().sendMail({
+      from,
+      to: args.to,
+      subject: args.subject,
+      text: args.text,
+      html: args.html,
     });
-
-    if (!response.ok) {
-      const details = await response.text();
-      throw new Error(`NEXORA email API failed: ${response.status} ${details}`);
-    }
     return;
   }
 
-  await smtpTransporter().sendMail({
-    from,
-    to: args.to,
-    subject: args.subject,
-    text: args.text,
-    html: args.html,
+  const apiKey = process.env.EMAIL_API_KEY;
+  if (!apiKey) throw new Error("NEXORA email service is not configured.");
+
+  if (!from) throw new Error("NEXORA sender email is not configured.");
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [args.to],
+      subject: args.subject,
+      text: args.text,
+      ...(args.html ? { html: args.html } : {}),
+    }),
   });
+
+  if (!response.ok) {
+    const details = await response.text();
+    throw new Error(`NEXORA email API failed: ${response.status} ${details}`);
+  }
 }
 
 function publicBaseUrl(requestOrigin?: string) {
