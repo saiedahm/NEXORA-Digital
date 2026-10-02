@@ -39,7 +39,7 @@ function LoginForm() {
   return (
     <main className="nexora-auth-page">
       <section className="nexora-auth-card">
-        <div className="nexora-auth-logo" aria-hidden="true">N</div>
+        <div className="nexora-auth-logo"><img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/nexora-logo.png" alt="NEXORA DIGITAL" /></div>
         <p className="nexora-auth-kicker">NEXORA DIGITAL</p>
         <h1>Welcome back</h1>
         <p className="nexora-auth-subtitle">Sign in to your NEXORA customer account.</p>
