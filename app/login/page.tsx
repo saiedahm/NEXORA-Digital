@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 function LoginForm() {
   const params = useSearchParams();
@@ -12,17 +11,24 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function login() {
     setError("");
+    if (!email.trim() || !password) {
+      setError("Please enter your email address and password.");
+      return;
+    }
+    setLoading(true);
     const result = await signIn("credentials", {
-      email,
+      email: email.trim(),
       password,
       redirect: false,
       callbackUrl: "/dashboard",
     });
 
     if (result?.error) {
+      setLoading(false);
       setError("Email or password is incorrect, or your email has not been confirmed yet.");
       return;
     }
@@ -31,70 +37,38 @@ function LoginForm() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
-      <section className="card w-full max-w-md p-8 text-center">
-        <h1 className="text-3xl font-bold">Welcome to NEXORA DIGITAL</h1>
-        <p className="mt-3 text-[#A7B0C0]">Sign in with your email and password.</p>
+    <main className="nexora-auth-page">
+      <section className="nexora-auth-card">
+        <div className="nexora-auth-logo" aria-hidden="true">N</div>
+        <p className="nexora-auth-kicker">NEXORA DIGITAL</p>
+        <h1>Welcome back</h1>
+        <p className="nexora-auth-subtitle">Sign in to your NEXORA customer account.</p>
 
-        {verified === "1" && (
-          <p className="mt-4 rounded-xl border border-cyan-400/30 bg-cyan-400/10 p-3 text-sm text-cyan-300">
-            Email confirmed successfully. You can now sign in.
-          </p>
-        )}
+        {verified === "1" && <p className="nexora-auth-message success">Email confirmed successfully. You can now sign in.</p>}
+        {verified === "0" && <p className="nexora-auth-message error">This confirmation link is invalid or expired.</p>}
+        {error && <p className="nexora-auth-message error">{error}</p>}
 
-        {verified === "0" && (
-          <p className="mt-4 rounded-xl border border-red-400/30 bg-red-400/10 p-3 text-sm text-red-300">
-            This confirmation link is invalid or expired.
-          </p>
-        )}
-
-        {error && (
-          <p className="mt-4 rounded-xl border border-red-400/30 bg-red-400/10 p-3 text-sm text-red-300">
-            {error}
-          </p>
-        )}
-
-        <div className="mt-8 flex flex-col gap-4">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email address"
-            autoComplete="email"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            autoComplete="current-password"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-white outline-none focus:border-cyan-400"
-          />
-          <button
-            type="button"
-            onClick={login}
-            className="w-full rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-black transition hover:bg-cyan-300"
-          >
-            Sign in with email
+        <div className="nexora-auth-form">
+          <label htmlFor="login-email">Email address</label>
+          <input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
+          <label htmlFor="login-password">Password</label>
+          <input id="login-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Your password" autoComplete="current-password" />
+          <button type="button" onClick={login} disabled={loading}>
+            {loading ? "Signing in…" : "Sign in with email"}
           </button>
-
-          <Link
-            href="/register"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-          >
-            Create a new account
-          </Link>
         </div>
+
+        <div className="nexora-auth-divider"><span>New to NEXORA?</span></div>
+        <Link href="/register" className="nexora-auth-secondary">Create a new customer account</Link>
+        <Link href="/" className="nexora-auth-back">← Back to NEXORA</Link>
       </section>
     </main>
   );
 }
 
-
 export default function LoginPage() {
   return (
-    <Suspense fallback={<main className="flex min-h-screen items-center justify-center px-6"><section className="card w-full max-w-md p-8 text-center">Loading...</section></main>}>
+    <Suspense fallback={<main className="nexora-auth-page"><section className="nexora-auth-card"><p className="nexora-auth-kicker">NEXORA DIGITAL</p><h1>Loading…</h1></section></main>}>
       <LoginForm />
     </Suspense>
   );
