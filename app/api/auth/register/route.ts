@@ -7,6 +7,9 @@ import { sendCompanyRegistrationNotice, sendVerificationEmail } from "@/lib/emai
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  let createdUserId: string | null = null;
+  let createdOrganizationId: string | null = null;
+
   try {
     const body = await request.json();
     const email = String(body.email ?? "").trim().toLowerCase();
@@ -23,9 +26,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "You must accept the terms." }, { status: 400 });
     }
 
+    if (!process.env.EMAIL_SERVER_HOST || !process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
+      console.error("NEXORA email service is not configured in the deployment environment.");
+      return NextResponse.json({ error: "Email confirmation is temporarily unavailable. Please try again later." }, { status: 503 });
+    }
+
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {
-      return NextResponse.json({ error: "An account with this email already exists." }, { status: 409 });
+      return NextResponse.json({
+        error: existing.emailVerified
+          ? "An account with this email already exists."
+          : "This email is already registered but not confirmed. Please check your inbox for the confirmation email.",
+      }, { status: 409 });
     }
 
     const user = await prisma.user.create({
@@ -35,8 +47,9 @@ export async function POST(request: Request) {
         role: "CUSTOMER",
       },
     });
+    createdUserId = user.id;
 
-    await prisma.organization.create({
+    const organization = await prisma.organization.create({
       data: {
         name: "NEXORA Organization",
         members: {
@@ -44,6 +57,7 @@ export async function POST(request: Request) {
         },
       },
     });
+    createdOrganizationId = organization.id;
 
     const terms = await prisma.legalDocument.findFirst({
       where: { type: "TERMS", active: true },
@@ -71,14 +85,31 @@ export async function POST(request: Request) {
       },
     });
 
-    await Promise.all([
-      sendVerificationEmail(email, rawToken),
-      sendCompanyRegistrationNotice(email),
-    ]);
+    const origin = new URL(request.url).origin;
+
+    try {
+      await sendVerificationEmail(email, rawToken, origin);
+    } catch (emailError) {
+      console.error("NEXORA customer verification email failed:", emailError);
+      await prisma.verificationToken.deleteMany({ where: { identifier: `email:${email}` } });
+      if (createdOrganizationId) await prisma.organization.delete({ where: { id: createdOrganizationId } });
+      if (createdUserId) await prisma.user.delete({ where: { id: createdUserId } });
+      return NextResponse.json({ error: "We could not send the confirmation email. Please try again later." }, { status: 503 });
+    }
+
+    await sendCompanyRegistrationNotice(email);
 
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("NEXORA registration error:", error);
+
+    try {
+      if (createdOrganizationId) await prisma.organization.delete({ where: { id: createdOrganizationId } });
+      if (createdUserId) await prisma.user.delete({ where: { id: createdUserId } });
+    } catch (cleanupError) {
+      console.error("NEXORA registration cleanup failed:", cleanupError);
+    }
+
     return NextResponse.json({ error: "Registration failed. Please try again." }, { status: 500 });
   }
 }
