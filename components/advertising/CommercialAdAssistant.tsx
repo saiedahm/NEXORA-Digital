@@ -178,7 +178,6 @@ export function CommercialAdAssistant() {
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap",marginBottom:14}}>
             <div>
               <p className="eyebrow" style={{marginBottom:4}}>NEXORA AI ADVERTISING</p>
-              <strong style={{color:"#fff",fontSize:"clamp(16px,2vw,22px)"}}>مساحات إعلانية أعلى المنصة</strong>
             </div>
             {paymentMessage && <span style={{color:"#fff",border:"1px solid rgba(255,255,255,.5)",borderRadius:999,padding:"7px 12px",fontSize:12}}>{paymentMessage}</span>}
           </div>
