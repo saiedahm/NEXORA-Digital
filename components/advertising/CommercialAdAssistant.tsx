@@ -231,12 +231,36 @@ export function CommercialAdAssistant() {
                 <input value={answers[questions[step][0]] || ""} onChange={(e) => setAnswers({...answers,[questions[step][0]]:e.target.value})} onKeyDown={(e) => {if(e.key==="Enter") void next();}} style={{width:"100%",padding:14,boxSizing:"border-box",background:"#102536",color:"#fff",border:"1px solid rgba(255,255,255,.45)",borderRadius:10}} />
 
                 {step === questions.length - 1 && (
-                  <div style={{marginTop:14,display:"flex",gap:10,flexWrap:"wrap"}}>
-                    {[1,3,6,12].map((m) => (
-                      <button key={m} type="button" onClick={() => setAnswers({...answers,durationMonths:String(m)})} style={{border:"1px solid rgba(255,255,255,.65)",background:Number(answers.durationMonths)===m?"rgba(48,198,255,.18)":"transparent",color:"#fff",borderRadius:999,padding:"8px 14px",cursor:"pointer"}}>
-                        {m} شهر · €{monthly(m,space)}/شهر
-                      </button>
-                    ))}
+                  <div className="nexora-ad-pricing">
+                    <div className="nexora-ad-pricing-head">
+                      <div>
+                        <span className="nexora-ad-pricing-kicker">اختيار مدة الإعلان</span>
+                        <strong>اختر الباقة المناسبة لك</strong>
+                      </div>
+                      <span className="nexora-ad-space-badge">المساحة {space}</span>
+                    </div>
+                    <div className="nexora-ad-price-options">
+                      {[1,3,6,12].map((m) => {
+                        const total = prices[m][space];
+                        const perMonth = monthly(m,space);
+                        const selected = Number(answers.durationMonths) === m;
+                        return (
+                          <button key={m} type="button" className={"nexora-ad-price-option " + (selected ? "selected" : "")} onClick={() => setAnswers({...answers,durationMonths:String(m)})}>
+                            <span className="nexora-ad-price-months">{m} {m === 1 ? "شهر" : "أشهر"}</span>
+                            <strong>€{perMonth}</strong>
+                            <small>شهريًا</small>
+                            <span className="nexora-ad-price-total">الإجمالي €{total}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {answers.durationMonths && (
+                      <div className="nexora-ad-price-summary">
+                        <span>السعر المختار</span>
+                        <strong>€{monthly(Number(answers.durationMonths),space)} <small>/ شهر</small></strong>
+                        <em>إجمالي €{prices[Number(answers.durationMonths)][space]} لمدة {answers.durationMonths} {Number(answers.durationMonths) === 1 ? "شهر" : "أشهر"}</em>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -263,9 +287,18 @@ export function CommercialAdAssistant() {
                   </div>
                 </div>
 
-                <div style={{marginTop:18,padding:16,border:"1px solid rgba(255,255,255,.35)",borderRadius:14}}>
-                  <strong>€{preview.monthly} / شهر</strong>
-                  <span style={{opacity:.7,marginInlineStart:10}}>إجمالي {Number(answers.durationMonths) || 1} شهر: €{preview.price}</span>
+                <div className="nexora-ad-final-price">
+                  <div>
+                    <span>السعر الشهري</span>
+                    <strong>€{preview.monthly}<small>/ شهر</small></strong>
+                  </div>
+                  <div>
+                    <span>الإجمالي</span>
+                    <strong>€{preview.price}</strong>
+                  </div>
+                  <div className="nexora-ad-final-duration">
+                    مدة الإعلان: {Number(answers.durationMonths) || 1} {Number(answers.durationMonths) === 1 ? "شهر" : "أشهر"}
+                  </div>
                 </div>
                 <p style={{opacity:.72}}>بعد موافقتك على التصميم يتم تحويلك مباشرة إلى الدفع. بعد تأكيد Stripe يتم فتح الإعلان تلقائيًا ليظهر في المساحة المختارة.</p>
                 {error && <p style={{color:"#ff9b9b"}}>{error}</p>}
