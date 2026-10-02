@@ -30,7 +30,7 @@ export default function RegisterPage() {
   return (
     <main className="nexora-auth-page">
       <section className="nexora-auth-card nexora-register-card">
-        <div className="nexora-auth-logo" aria-hidden="true">N</div>
+        <div className="nexora-auth-logo"><img src="/nexora-logo.png" alt="NEXORA DIGITAL" /></div>
         <p className="nexora-auth-kicker">NEXORA DIGITAL</p>
         <h1>Create your account</h1>
         <p className="nexora-auth-subtitle">Become a NEXORA customer with your email address.</p>
