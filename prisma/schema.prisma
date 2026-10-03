@@ -326,6 +326,8 @@ model AiPodMemory {
   answer              String   @db.Text
   nextStep            String   @db.Text
   serviceType         String
+  needsClarification  Boolean  @default(false)
+  readyForProject     Boolean  @default(false)
   model               String?
   source              String   @default("ai")
   hits                Int      @default(0)
