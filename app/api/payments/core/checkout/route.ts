@@ -61,6 +61,7 @@ export async function POST(request: Request) {
 
     const stripe = getStripe();
     const origin = config.origin.replace(/\/$/, "");
+    const successPath = platform === "sakan" ? "/frontend/pages/pricing.html" : "/";
     const metadata = {
       platform,
       product,
@@ -93,7 +94,7 @@ export async function POST(request: Request) {
       line_items: [lineItem],
       ...(customerEmail ? { customer_email: customerEmail } : {}),
       metadata,
-      success_url: `${origin}/?payment=success&platform=${encodeURIComponent(platform)}&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}${successPath}?payment=success&platform=${encodeURIComponent(platform)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/?payment=cancelled&platform=${encodeURIComponent(platform)}`,
       allow_promotion_codes: true,
     });
