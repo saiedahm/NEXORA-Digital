@@ -20,7 +20,7 @@ const PLATFORMS = {
     products: {
       GOLD: { mode: "payment", amount: 1900, currency: "usd", name: "Sakan Gold Membership" },
       VIP: { mode: "payment", amount: 3900, currency: "usd", name: "Sakan VIP Membership" },
-      AD_99_CENTS: { mode: "payment", amount: 99, currency: "usd", name: "Sakan Banner Advertisement — 5 minutes" },
+      AD_99_CENTS: { mode: "payment", amount: 99, currency: "eur", name: "Sakan Member Profile Promotion — 5 minutes" },
     },
   },
 } as const;
