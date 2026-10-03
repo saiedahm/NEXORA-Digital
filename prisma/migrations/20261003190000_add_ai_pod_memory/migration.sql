@@ -6,6 +6,8 @@ CREATE TABLE "AiPodMemory" (
     "answer" TEXT NOT NULL,
     "nextStep" TEXT NOT NULL,
     "serviceType" TEXT NOT NULL,
+    "needsClarification" BOOLEAN NOT NULL DEFAULT false,
+    "readyForProject" BOOLEAN NOT NULL DEFAULT false,
     "model" TEXT,
     "source" TEXT NOT NULL DEFAULT 'ai',
     "hits" INTEGER NOT NULL DEFAULT 0,
