@@ -28,9 +28,11 @@ export async function POST(request: Request, context: RouteContext) {
   if (!project) return NextResponse.json({ error: "Project not found." }, { status: 404 });
 
   const payment = await prisma.payment.create({ data: { organizationId: membership.organizationId, projectId: project.id, amountCents, currency: "eur", status: "PENDING" } });
-  const stripe = getStripe();
-  const baseUrl = (process.env.NEXTAUTH_URL || process.env.AUTH_URL || new URL(request.url).origin).replace(/\/$/, "");
-  const checkout = await stripe.checkout.sessions.create({
+
+  try {
+    const stripe = getStripe();
+    const baseUrl = (process.env.NEXTAUTH_URL || process.env.AUTH_URL || new URL(request.url).origin).replace(/\/$/, "");
+    const checkout = await stripe.checkout.sessions.create({
     mode: "payment",
     payment_method_types: ["card"],
     line_items: [{ price_data: { currency: "eur", product_data: { name: `NEXORA Commercial Advertisement — Space ${space} — ${months} month(s)` }, unit_amount: amountCents }, quantity: 1 }],
@@ -38,6 +40,12 @@ export async function POST(request: Request, context: RouteContext) {
     success_url: `${baseUrl}/?payment=success&project=${encodeURIComponent(project.id)}&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${baseUrl}/?payment=cancelled&project=${encodeURIComponent(project.id)}`,
   });
-  await prisma.payment.update({ where: { id: payment.id }, data: { stripeCheckoutSessionId: checkout.id, status: "PROCESSING" } });
-  return NextResponse.json({ ok: true, url: checkout.url, amountCents });
+    await prisma.payment.update({ where: { id: payment.id }, data: { stripeCheckoutSessionId: checkout.id, status: "PROCESSING" } });
+    return NextResponse.json({ ok: true, url: checkout.url, amountCents });
+  } catch (error) {
+    await prisma.payment.update({ where: { id: payment.id }, data: { status: "FAILED" } }).catch((updateError) => console.error("Failed to mark Stripe payment as FAILED:", updateError));
+    const message = error instanceof Error ? error.message : "Stripe checkout could not be created.";
+    console.error("NEXORA Stripe checkout error:", message);
+    return NextResponse.json({ error: message }, { status: 502 });
+  }
 }
