@@ -318,6 +318,25 @@ model AiUsage {
   @@index([projectId, createdAt])
 }
 
+model AiPodMemory {
+  id                  String   @id @default(cuid())
+  language            String
+  normalizedQuestion  String
+  question            String   @db.Text
+  answer              String   @db.Text
+  nextStep            String   @db.Text
+  serviceType         String
+  model               String?
+  source              String   @default("ai")
+  hits                Int      @default(0)
+  lastUsedAt          DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@unique([language, normalizedQuestion])
+  @@index([language, createdAt])
+}
+
 model Subscription {
   id                   String             @id @default(cuid())
   organizationId       String
