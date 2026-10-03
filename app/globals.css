@@ -64,3 +64,5 @@
 @media(max-width:700px){.nexora-dashboard{padding:34px 14px}.nexora-dashboard-header{align-items:flex-start;flex-direction:column}.nexora-dashboard-header h1{font-size:38px}.nexora-dashboard-stats{grid-template-columns:1fr}.nexora-project-form{grid-template-columns:1fr}.nexora-project-description,.nexora-project-form button{grid-column:auto}}
 
 .nexora-auth-logo{width:110px;height:110px;margin:0 auto 18px;border-radius:50%;overflow:hidden;background:#050816;box-shadow:0 0 35px rgba(0,217,255,.2);display:flex;align-items:center;justify-content:center}.nexora-auth-logo img{width:100%;height:100%;object-fit:contain;display:block}
+
+.nexora-social-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 18px}.nexora-social-actions button{border:1px solid rgba(103,232,249,.28);border-radius:10px;padding:11px 12px;background:rgba(7,21,46,.7);color:#eaf6ff;cursor:pointer;font-weight:700}.nexora-social-actions button:hover{border-color:rgba(103,232,249,.65);background:rgba(14,45,76,.85)}@media(max-width:520px){.nexora-social-actions{grid-template-columns:1fr}}
