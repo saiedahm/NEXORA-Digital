@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -52,6 +53,12 @@ export default function RegisterPage() {
         </div>
 
         {message && <p className="nexora-auth-message">{message}</p>}
+
+        <div className="nexora-auth-divider"><span>Or register with</span></div>
+        <div className="nexora-social-actions">
+          <button type="button" onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>Continue with Google</button>
+          <button type="button" onClick={() => signIn("facebook", { callbackUrl: "/dashboard" })}>Continue with Facebook</button>
+        </div>
 
         <Link href="/login" className="nexora-auth-secondary">Already have an account? Sign in</Link>
         <Link href="/" className="nexora-auth-back">← Back to NEXORA</Link>
