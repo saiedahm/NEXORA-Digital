@@ -58,6 +58,11 @@ function LoginForm() {
           </button>
         </div>
 
+        <div className="nexora-auth-divider"><span>Or continue with</span></div>
+        <div className="nexora-social-actions">
+          <button type="button" onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>Continue with Google</button>
+          <button type="button" onClick={() => signIn("facebook", { callbackUrl: "/dashboard" })}>Continue with Facebook</button>
+        </div>
         <div className="nexora-auth-divider"><span>New to NEXORA?</span></div>
         <Link href="/register" className="nexora-auth-secondary">Create a new customer account</Link>
         <Link href="/" className="nexora-auth-back">← Back to NEXORA</Link>
