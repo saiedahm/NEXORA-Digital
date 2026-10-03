@@ -65,6 +65,16 @@ export async function POST(request: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
+        const platform = session.metadata?.platform;
+
+        if (platform === "help-me" || platform === "sakan") {
+          await prisma.stripeWebhookEvent.update({
+            where: { eventId: event.id },
+            data: { processed: true, processedAt: new Date(), error: null },
+          });
+          break;
+        }
+
         const paymentId = session.metadata?.paymentId;
         const projectId = session.metadata?.projectId;
         const organizationId = session.metadata?.organizationId;
