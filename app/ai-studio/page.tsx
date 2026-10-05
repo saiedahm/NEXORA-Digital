@@ -11,7 +11,7 @@ export default function AIStudioPage() {
     const clean = prompt.trim();
 
     if (!clean) {
-      setResult("Enter an idea above to start your first NEXORA AI Studio request.");
+      setResult("Write your request on the left to start the conversation.");
       return;
     }
 
@@ -45,27 +45,44 @@ export default function AIStudioPage() {
       <a className="back-link" href="/">← NEXORA</a>
       <div className="inner-kicker">01 · NEXORA PLATFORM</div>
       <h1>AI <span>Studio</span></h1>
-      <p>Create an idea, improvement request or digital task. NEXORA will process it through the secure AI service.</p>
-      <div className="studio-card">
-        <label htmlFor="studio-prompt">What would you like NEXORA to help with?</label>
-        <textarea
-          id="studio-prompt"
-          value={prompt}
-          onChange={(event) => setPrompt(event.target.value)}
-          placeholder="Describe your idea, website, content or digital task..."
-          rows={7}
-          disabled={loading}
-        />
-        <button
-          className="primary-button studio-button"
-          type="button"
-          onClick={runStudio}
-          disabled={loading}
-        >
-          {loading ? "Processing..." : "Start AI Studio"} <span>→</span>
-        </button>
-        {result && <div className="studio-result" role="status">{result}</div>}
+      <p>Talk with NEXORA in one workspace: write on the left and receive the AI response on the right.</p>
+
+      <div className="studio-chat">
+        <section className="studio-pane studio-input-pane">
+          <div className="studio-pane-head">
+            <span>YOUR REQUEST</span>
+            <span>01</span>
+          </div>
+          <label htmlFor="studio-prompt">What would you like NEXORA to help with?</label>
+          <textarea
+            id="studio-prompt"
+            value={prompt}
+            onChange={(event) => setPrompt(event.target.value)}
+            placeholder="Write your idea, question, website task or digital request..."
+            rows={12}
+            disabled={loading}
+          />
+          <button
+            className="primary-button studio-button"
+            type="button"
+            onClick={runStudio}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Send to NEXORA"} <span>→</span>
+          </button>
+        </section>
+
+        <section className="studio-pane studio-response-pane">
+          <div className="studio-pane-head">
+            <span>NEXORA AI</span>
+            <span>02</span>
+          </div>
+          <div className={`studio-response ${result ? "has-response" : ""}`} role="status">
+            {result || "Your NEXORA AI response will appear here."}
+          </div>
+        </section>
       </div>
+
       <a className="secondary-button" href="/">Back to platform</a>
     </main>
   );
