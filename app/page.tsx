@@ -15,7 +15,7 @@ export default function Home() {
           <a href="/vision">Vision</a>
           <a href="/contact">Contact</a>
         </nav>
-        <a className="nav-button" href="#modules">Explore</a>
+        <a className="nav-button" href="/pricing">Plans</a>
       </header>
 
       <section className="hero" id="platform">
