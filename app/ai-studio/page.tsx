@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 function RichAIText({ text }: { text: string }) {
   const normalized = text
@@ -8,7 +8,7 @@ function RichAIText({ text }: { text: string }) {
     .replace(/\\([*-])/g, "$1");
 
   const lines = normalized.split(/\r?\n/);
-  const blocks: React.ReactNode[] = [];
+  const blocks: ReactNode[] = [];
   let index = 0;
 
   function inline(value: string) {
@@ -150,7 +150,7 @@ export default function AIStudioPage() {
                 .map((message, index) => (
                   <div className="studio-message studio-message-user" key={`user-${index}`}>
                     <span>YOU</span>
-                    <RichAIText text={message.text} />
+                    <p>{message.text}</p>
                   </div>
                 ))
             ) : (
@@ -196,7 +196,7 @@ export default function AIStudioPage() {
                 .map((message, index) => (
                   <div className="studio-message studio-message-ai" key={`ai-${index}`}>
                     <span>NEXORA AI</span>
-                    <p>{message.text}</p>
+                    <RichAIText text={message.text} />
                   </div>
                 ))
             ) : (
