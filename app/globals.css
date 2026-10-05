@@ -64,3 +64,10 @@ footer div { display: flex; gap: 14px; } footer strong { color: #aeb8c8; letter-
 .inner-page h1 span { color: #69e8ff; }
 .inner-page p { max-width: 650px; margin: 0 0 34px; color: #8f9bad; font-size: 18px; line-height: 1.8; }
 @media (max-width: 700px) { .inner-page { width: calc(100% - 32px); padding: 48px 0; } .back-link { margin-bottom: 70px; } .inner-page p { font-size: 16px; } }
+
+.studio-card { width: min(720px, 100%); margin: 8px 0 28px; padding: 26px; border: 1px solid #1b2a38; border-radius: 20px; background: rgba(10,15,24,.78); }
+.studio-card label { display: block; margin-bottom: 12px; color: #c9d2df; font-size: 14px; font-weight: 700; }
+.studio-card textarea { width: 100%; resize: vertical; padding: 16px; border: 1px solid #253545; border-radius: 14px; outline: none; background: #080d15; color: #f5f7fb; font: inherit; line-height: 1.6; }
+.studio-card textarea:focus { border-color: #69e8ff; box-shadow: 0 0 0 3px rgba(105,232,255,.08); }
+.studio-button { border: 0; margin-top: 14px; cursor: pointer; font: inherit; }
+.studio-result { margin-top: 18px; padding: 18px; white-space: pre-wrap; border: 1px solid #1d3340; border-radius: 14px; color: #aeb8c8; line-height: 1.7; background: rgba(105,232,255,.035); }
