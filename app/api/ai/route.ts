@@ -44,7 +44,6 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.NEXORA_OPENAI_KEY;
     const model = process.env.OPENAI_MODEL || "gpt-6-luna";
-
     if (!apiKey) {
       return NextResponse.json(
         { error: "AI service is not configured yet." },
