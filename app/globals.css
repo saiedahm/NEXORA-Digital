@@ -110,3 +110,7 @@ footer div { display: flex; gap: 14px; } footer strong { color: #aeb8c8; letter-
 .studio-rich-text ol, .studio-rich-text ul { margin: 0 0 14px; padding-left: 24px; }
 .studio-rich-text li { margin: 0 0 9px; padding-left: 4px; color: #c9d2df; }
 .studio-rich-text li:last-child { margin-bottom: 0; }
+
+.logo { font-size: 22px; }
+.footer-brand { display: flex; align-items: center; gap: 16px; }
+.footer-logo { font-size: 24px; margin: 0; }
