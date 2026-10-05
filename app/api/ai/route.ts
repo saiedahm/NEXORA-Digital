@@ -22,9 +22,9 @@ export async function POST(request: Request) {
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
-    const model = process.env.OPENAI_MODEL;
+    const model = process.env.OPENAI_MODEL || "gpt-6-luna";
 
-    if (!apiKey || !model) {
+    if (!apiKey) {
       return NextResponse.json(
         { error: "AI service is not configured yet." },
         { status: 503 }
