@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="site-shell">
       <header className="nav">
-        <a className="brand-logo" href="/" aria-label="NEXORA Digital"><img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png" alt="NEXORA" /></a>
+        <a className="brand-lockup" href="/" aria-label="NEXORA"><span className="brand-logo"><img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png" alt="NEXORA" /></span><strong>NEXORA</strong></a>
         <nav aria-label="Main navigation">
           <a href="#platform">Platform</a>
           <a href="#modules">Solutions</a>
@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       <footer id="contact">
-        <div className="footer-brand"><a className="brand-logo footer-brand-logo" href="/" aria-label="NEXORA Digital"><img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png" alt="NEXORA Digital" /></a><span>Digital. Intelligent. Next.</span></div>
+        <div className="footer-brand"><a className="brand-lockup" href="/" aria-label="NEXORA"><span className="brand-logo footer-brand-logo"><img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png" alt="NEXORA" /></span><strong>NEXORA</strong></a></div>
         <a href="/contact">Contact NEXORA →</a>
         <span>© {new Date().getFullYear()} NEXORA</span>
       </footer>
