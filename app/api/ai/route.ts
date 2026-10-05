@@ -37,7 +37,7 @@ export async function POST(request: Request) {
           typeof (message as ChatMessage).content === "string"
       )
       .slice(-12)
-      .map((message) => ({
+      .map((message: ChatMessage) => ({
         role: message.role,
         content: message.content.slice(0, 4000),
       }));
