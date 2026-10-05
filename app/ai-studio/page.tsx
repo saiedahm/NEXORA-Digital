@@ -2,6 +2,78 @@
 
 import { useState } from "react";
 
+function RichAIText({ text }: { text: string }) {
+  const normalized = text
+    .replace(/\\(\*\*|__|\.)/g, "$1")
+    .replace(/\\([*-])/g, "$1");
+
+  const lines = normalized.split(/\r?\n/);
+  const blocks: React.ReactNode[] = [];
+  let index = 0;
+
+  function inline(value: string) {
+    return value.split(/(\*\*[^*]+\*\*|__[^_]+__)/g).map((part, i) => {
+      if ((part.startsWith("**") && part.endsWith("**")) || (part.startsWith("__") && part.endsWith("__"))) {
+        return <strong key={i}>{part.slice(2, -2)}</strong>;
+      }
+      return <span key={i}>{part}</span>;
+    });
+  }
+
+  while (index < lines.length) {
+    const line = lines[index].trim();
+
+    if (!line) {
+      index += 1;
+      continue;
+    }
+
+    const numbered: string[] = [];
+    while (index < lines.length) {
+      const match = lines[index].trim().match(/^\d+\.\s+(.+)$/);
+      if (!match) break;
+      numbered.push(match[1]);
+      index += 1;
+    }
+    if (numbered.length) {
+      blocks.push(
+        <ol key={`ol-${index}`}>
+          {numbered.map((item, i) => <li key={i}>{inline(item)}</li>)}
+        </ol>
+      );
+      continue;
+    }
+
+    const bullets: string[] = [];
+    while (index < lines.length) {
+      const match = lines[index].trim().match(/^[-*]\s+(.+)$/);
+      if (!match) break;
+      bullets.push(match[1]);
+      index += 1;
+    }
+    if (bullets.length) {
+      blocks.push(
+        <ul key={`ul-${index}`}>
+          {bullets.map((item, i) => <li key={i}>{inline(item)}</li>)}
+        </ul>
+      );
+      continue;
+    }
+
+    const paragraph: string[] = [line];
+    index += 1;
+    while (index < lines.length && lines[index].trim() && !/^\d+\.\s+/.test(lines[index].trim()) && !/^[-*]\s+/.test(lines[index].trim())) {
+      paragraph.push(lines[index].trim());
+      index += 1;
+    }
+
+    blocks.push(<p key={`p-${index}`}>{inline(paragraph.join(" "))}</p>);
+  }
+
+  return <div className="studio-rich-text">{blocks}</div>;
+}
+
+
 type Message = {
   role: "user" | "assistant";
   text: string;
@@ -78,7 +150,7 @@ export default function AIStudioPage() {
                 .map((message, index) => (
                   <div className="studio-message studio-message-user" key={`user-${index}`}>
                     <span>YOU</span>
-                    <p>{message.text}</p>
+                    <RichAIText text={message.text} />
                   </div>
                 ))
             ) : (
