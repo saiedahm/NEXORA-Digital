@@ -232,3 +232,32 @@ footer div { display: flex; gap: 14px; } footer strong { color: #aeb8c8; letter-
   .contact-panel { grid-template-columns: 1fr; }
   .contact-info, .contact-form { padding: 22px; }
 }
+
+.vision-page { align-items: stretch; }
+.vision-intro { max-width: 780px; }
+.vision-statement, .vision-roadmap { width: 100%; border: 1px solid #1b2a38; border-radius: 20px; background: rgba(10,15,24,.8); }
+.vision-statement { margin: 18px 0 70px; padding: 34px; }
+.vision-label { display: block; color: #69e8ff; font-size: 9px; font-weight: 800; letter-spacing: .16em; }
+.vision-statement h2 { margin: 10px 0 16px; color: #f5f7fb; font-size: clamp(34px, 6vw, 64px); line-height: .98; letter-spacing: -.05em; }
+.vision-statement h2 span, .vision-roadmap h2 span { color: #69e8ff; }
+.vision-statement p { margin: 0; max-width: 780px; font-size: 15px; line-height: 1.8; }
+.vision-principles { width: 100%; }
+.vision-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px; }
+.vision-card { min-height: 230px; padding: 22px; border: 1px solid #1b2a38; border-radius: 18px; background: rgba(10,15,24,.72); }
+.vision-card > span { color: #69e8ff; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.vision-card h3 { margin: 52px 0 12px; color: #f5f7fb; font-size: 21px; }
+.vision-card p { margin: 0; color: #8f9bad; font-size: 13px; line-height: 1.7; }
+.vision-roadmap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; margin: 70px 0 28px; padding: 30px; }
+.vision-roadmap h2 { margin: 10px 0 0; color: #f5f7fb; font-size: clamp(28px, 5vw, 50px); line-height: 1; letter-spacing: -.04em; }
+.vision-roadmap p { margin: 0; align-self: end; font-size: 14px; line-height: 1.8; }
+@media (max-width: 850px) {
+  .vision-grid { grid-template-columns: repeat(2, 1fr); }
+  .vision-roadmap { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .vision-grid { grid-template-columns: 1fr; }
+  .vision-statement { padding: 24px; margin-bottom: 50px; }
+  .vision-card { min-height: 190px; }
+  .vision-card h3 { margin-top: 36px; }
+  .vision-roadmap { margin-top: 50px; }
+}
