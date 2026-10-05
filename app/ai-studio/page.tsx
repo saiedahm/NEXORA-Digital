@@ -17,6 +17,11 @@ export default function AIStudioPage() {
 
     if (!clean || loading) return;
 
+    const history = messages.map((message) => ({
+      role: message.role,
+      content: message.text,
+    }));
+
     setPrompt("");
     setMessages((current) => [...current, { role: "user", text: clean }]);
     setLoading(true);
@@ -25,7 +30,7 @@ export default function AIStudioPage() {
       const response = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: clean }),
+        body: JSON.stringify({ prompt: clean, history }),
       });
 
       const data = await response.json();
