@@ -1,7 +1,7 @@
 const modules = [
-  { number: "01", title: "AI Studio", text: "Create, improve and transform digital work with intelligent tools." },
-  { number: "02", title: "Digital Workspace", text: "A clear foundation for projects, content and the work that moves them forward." },
-  { number: "03", title: "Smart Automation", text: "Turn repetitive digital processes into simpler, connected workflows." },
+  { number: "01", title: "AI Studio", text: "Create, improve and transform digital work with intelligent tools.", href: "/ai-studio" },
+  { number: "02", title: "Digital Workspace", text: "A clear foundation for projects, content and the work that moves them forward.", href: "/workspace" },
+  { number: "03", title: "Smart Automation", text: "Turn repetitive digital processes into simpler, connected workflows.", href: "/automation" },
 ];
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
           <a href="#platform">Platform</a>
           <a href="#modules">Solutions</a>
           <a href="#vision">Vision</a>
-          <a href="#contact">Contact</a>
+          <a href="/contact">Contact</a>
         </nav>
         <a className="nav-button" href="#modules">Explore</a>
       </header>
@@ -40,14 +40,14 @@ export default function Home() {
 
       <section className="module-grid">
         {modules.map((module) => (
-          <article className="module-card" key={module.number}>
+          <a className="module-card" href={module.href} key={module.number}>
             <div className="module-top">
               <span className="feature-number">{module.number}</span>
               <span className="module-arrow">↗</span>
             </div>
             <h3>{module.title}</h3>
             <p>{module.text}</p>
-          </article>
+          </a>
         ))}
       </section>
 
@@ -64,6 +64,7 @@ export default function Home() {
 
       <footer id="contact">
         <div><strong>NEXORA</strong><span>Digital. Intelligent. Next.</span></div>
+        <a href="/contact">Contact NEXORA →</a>
         <span>© {new Date().getFullYear()} NEXORA</span>
       </footer>
     </main>
