@@ -114,3 +114,12 @@ footer div { display: flex; gap: 14px; } footer strong { color: #aeb8c8; letter-
 .logo { font-size: 22px; }
 .footer-brand { display: flex; align-items: center; gap: 16px; }
 .footer-logo { font-size: 24px; margin: 0; }
+
+.brand-logo { display: inline-flex; align-items: center; flex-shrink: 0; }
+.brand-logo img { display: block; width: 118px; height: 118px; object-fit: contain; }
+.footer-brand { display: flex; align-items: center; gap: 18px; }
+.footer-brand-logo img { width: 105px; height: 105px; }
+@media (max-width: 760px) {
+  .brand-logo img { width: 82px; height: 82px; }
+  .footer-brand-logo img { width: 78px; height: 78px; }
+}
