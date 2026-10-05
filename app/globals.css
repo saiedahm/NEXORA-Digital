@@ -210,3 +210,25 @@ footer div { display: flex; gap: 14px; } footer strong { color: #aeb8c8; letter-
   .automation-card { min-height: 210px; }
   .automation-preview { margin-top: 50px; }
 }
+
+.contact-page { align-items: stretch; }
+.contact-intro { max-width: 760px; }
+.contact-panel { width: 100%; display: grid; grid-template-columns: .85fr 1.15fr; gap: 1px; margin: 18px 0 28px; border: 1px solid #1b2a38; border-radius: 20px; overflow: hidden; background: #1b2a38; }
+.contact-info, .contact-form { padding: 30px; background: rgba(10,15,24,.84); }
+.contact-info h2 { margin: 10px 0 16px; color: #f5f7fb; font-size: clamp(30px, 4vw, 48px); line-height: 1; letter-spacing: -.04em; }
+.contact-info h2 span { color: #69e8ff; }
+.contact-info > p { margin: 0 0 30px; font-size: 14px; line-height: 1.7; }
+.contact-label { color: #69e8ff; font-size: 9px; font-weight: 800; letter-spacing: .16em; }
+.contact-points { display: flex; flex-direction: column; gap: 12px; }
+.contact-points span { padding: 12px 0; border-top: 1px solid #1b2a38; color: #aab5c4; font-size: 12px; }
+.contact-form { display: grid; gap: 16px; }
+.contact-form label { display: grid; gap: 8px; color: #c9d2df; font-size: 12px; font-weight: 700; }
+.contact-form input, .contact-form select, .contact-form textarea { width: 100%; border: 1px solid #253545; border-radius: 12px; outline: none; background: #080d15; color: #f5f7fb; padding: 13px 14px; font: inherit; }
+.contact-form textarea { resize: vertical; line-height: 1.6; }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: #69e8ff; box-shadow: 0 0 0 3px rgba(105,232,255,.08); }
+.contact-submit { border: 0; cursor: pointer; font: inherit; justify-self: start; }
+.contact-success { padding: 12px 14px; border: 1px solid #2b6674; border-radius: 12px; color: #8defff; background: rgba(105,232,255,.05); font-size: 12px; line-height: 1.6; }
+@media (max-width: 760px) {
+  .contact-panel { grid-template-columns: 1fr; }
+  .contact-info, .contact-form { padding: 22px; }
+}
