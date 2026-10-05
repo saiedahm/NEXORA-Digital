@@ -2,21 +2,24 @@
 
 import { useState } from "react";
 
+type Message = {
+  role: "user" | "assistant";
+  text: string;
+};
+
 export default function AIStudioPage() {
   const [prompt, setPrompt] = useState("");
-  const [result, setResult] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function runStudio() {
     const clean = prompt.trim();
 
-    if (!clean) {
-      setResult("Write your request on the left to start the conversation.");
-      return;
-    }
+    if (!clean || loading) return;
 
+    setPrompt("");
+    setMessages((current) => [...current, { role: "user", text: clean }]);
     setLoading(true);
-    setResult("");
 
     try {
       const response = await fetch("/api/ai", {
@@ -27,14 +30,23 @@ export default function AIStudioPage() {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        setResult(data?.error || "The AI request could not be completed.");
-        return;
-      }
-
-      setResult(data.response);
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          text: response.ok
+            ? data.response
+            : data?.error || "The AI request could not be completed.",
+        },
+      ]);
     } catch {
-      setResult("Unable to connect to the NEXORA AI service.");
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          text: "Unable to connect to the NEXORA AI service.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -53,13 +65,35 @@ export default function AIStudioPage() {
             <span>YOUR REQUEST</span>
             <span>01</span>
           </div>
-          <label htmlFor="studio-prompt">What would you like NEXORA to help with?</label>
+
+          <div className="studio-history studio-user-history">
+            {messages.filter((message) => message.role === "user").length > 0 ? (
+              messages
+                .filter((message) => message.role === "user")
+                .map((message, index) => (
+                  <div className="studio-message studio-message-user" key={`user-${index}`}>
+                    <span>YOU</span>
+                    <p>{message.text}</p>
+                  </div>
+                ))
+            ) : (
+              <div className="studio-empty">Your requests will appear here as the conversation grows.</div>
+            )}
+          </div>
+
+          <label htmlFor="studio-prompt">New message</label>
           <textarea
             id="studio-prompt"
             value={prompt}
             onChange={(event) => setPrompt(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+                event.preventDefault();
+                runStudio();
+              }
+            }}
             placeholder="Write your idea, question, website task or digital request..."
-            rows={12}
+            rows={7}
             disabled={loading}
           />
           <button
@@ -77,8 +111,27 @@ export default function AIStudioPage() {
             <span>NEXORA AI</span>
             <span>02</span>
           </div>
-          <div className={`studio-response ${result ? "has-response" : ""}`} role="status">
-            {result || "Your NEXORA AI response will appear here."}
+
+          <div className="studio-history studio-ai-history" role="status">
+            {messages.filter((message) => message.role === "assistant").length > 0 ? (
+              messages
+                .filter((message) => message.role === "assistant")
+                .map((message, index) => (
+                  <div className="studio-message studio-message-ai" key={`ai-${index}`}>
+                    <span>NEXORA AI</span>
+                    <p>{message.text}</p>
+                  </div>
+                ))
+            ) : (
+              <div className="studio-empty">NEXORA AI responses will appear here.</div>
+            )}
+
+            {loading && (
+              <div className="studio-message studio-message-ai studio-thinking">
+                <span>NEXORA AI</span>
+                <p>Thinking...</p>
+              </div>
+            )}
           </div>
         </section>
       </div>
