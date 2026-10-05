@@ -14,6 +14,7 @@ export default function Home() {
           <a href="#modules">Solutions</a>
           <a href="/vision">Vision</a>
           <a href="/contact">Contact</a>
+          <a href="/account">Account</a>
         </nav>
         <a className="nav-button" href="/pricing">Plans</a>
       </header>
