@@ -12,7 +12,7 @@ export default function Home() {
         <nav aria-label="Main navigation">
           <a href="#platform">Platform</a>
           <a href="#modules">Solutions</a>
-          <a href="#vision">Vision</a>
+          <a href="/vision">Vision</a>
           <a href="/contact">Contact</a>
         </nav>
         <a className="nav-button" href="#modules">Explore</a>
