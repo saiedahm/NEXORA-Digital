@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       <footer id="contact">
-        <div><strong>NEXORA</strong><span>Digital. Intelligent. Next.</span></div>
+        <div className="footer-brand"><a className="logo footer-logo" href="/">NEXORA</a><span>Digital. Intelligent. Next.</span></div>
         <a href="/contact">Contact NEXORA →</a>
         <span>© {new Date().getFullYear()} NEXORA</span>
       </footer>
