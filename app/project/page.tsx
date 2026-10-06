@@ -77,7 +77,7 @@ export default function ProjectPage() {
             </div>
           </div>
 
-          <button className="primary-button direction-button" type="button" onClick={() => setReady(true)}>
+          <button className="primary-button direction-button" type="button" onClick={() => { window.location.href = `/structure?id=${encodeURIComponent(new URLSearchParams(window.location.search).get("id") || "")}`; }}>
             Continue to structure <span>→</span>
           </button>
         </div>
