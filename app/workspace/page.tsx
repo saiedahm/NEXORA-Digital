@@ -127,7 +127,7 @@ export default function WorkspacePage() {
                 type="button"
                 className={selected === item.id ? "saved-project selected" : "saved-project"}
                 key={item.id}
-                onClick={() => { setSelected(item.id); setProject(item.brief); setSaved(false); }}
+                onClick={() => { setSelected(item.id); setProject(item.brief); setSaved(false); window.location.href = `/project?id=${encodeURIComponent(item.id)}`; }}
               >
                 <span className="saved-project-index">NEXORA / {item.id.slice(-2)}</span>
                 <strong>{item.name}</strong>
