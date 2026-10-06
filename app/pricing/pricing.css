@@ -1,0 +1,138 @@
+.pricing-page {
+  width: min(1240px, calc(100% - 40px));
+  min-height: 100vh;
+  margin: auto;
+  padding: 35px 0 80px;
+}
+
+.pricing-hero {
+  max-width: 850px;
+  padding: 110px 0 65px;
+}
+
+.pricing-hero h1 {
+  margin: 18px 0;
+  font-size: clamp(48px, 7vw, 82px);
+  line-height: .96;
+  letter-spacing: -.06em;
+}
+
+.pricing-hero > p:last-child {
+  max-width: 650px;
+  color: #91a5ba;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+}
+
+.plan {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid rgba(145, 200, 255, .12);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .018);
+}
+
+.featured-plan {
+  border-color: rgba(98, 216, 255, .5);
+  background: linear-gradient(160deg, rgba(39, 177, 255, .1), rgba(255,255,255,.018));
+  box-shadow: 0 0 60px rgba(0, 168, 255, .07);
+}
+
+.popular {
+  position: absolute;
+  top: 0;
+  right: 22px;
+  padding: 7px 10px;
+  border-radius: 0 0 9px 9px;
+  background: #62d8ff;
+  color: #031019;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.plan-name {
+  margin: 0;
+  color: #62d8ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.plan-price {
+  margin-top: 26px;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -.05em;
+}
+
+.plan-price small {
+  color: #718499;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.plan-description {
+  min-height: 85px;
+  margin: 18px 0;
+  color: #8498ad;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.plan ul {
+  display: grid;
+  gap: 13px;
+  margin: 0 0 28px;
+  padding: 20px 0;
+  list-style: none;
+  border-top: 1px solid rgba(145, 200, 255, .09);
+  border-bottom: 1px solid rgba(145, 200, 255, .09);
+}
+
+.plan li {
+  color: #c3d1df;
+  font-size: 13px;
+}
+
+.plan .primary-button,
+.plan .secondary-button {
+  margin-top: auto;
+  justify-content: center;
+}
+
+.pricing-note {
+  margin: 28px auto 0;
+  max-width: 700px;
+  text-align: center;
+  color: #53677b;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan {
+    min-height: auto;
+  }
+}
