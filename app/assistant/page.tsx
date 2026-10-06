@@ -42,6 +42,7 @@ export default function AssistantPage() {
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const [projectDraft, setProjectDraft] = useState("");
 
   const suggestions = useMemo(
     () => ["ما هي NEXORA؟", "ما هي الأسعار؟", "كيف أنشئ موقعًا جديدًا؟", "هل يمكن تجديد موقعي القديم؟"],
@@ -135,6 +136,9 @@ export default function AssistantPage() {
           </div>
 
           <div className="suggestions">
+            <button type="button" className="transfer-button" onClick={createProjectFromChat}>
+              Create project from chat
+            </button>
             {suggestions.map((suggestion) => (
               <button type="button" key={suggestion} onClick={() => setInput(suggestion)}>
                 {suggestion}
