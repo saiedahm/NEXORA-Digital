@@ -83,6 +83,32 @@ export default function AIStudioPage() {
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [signedIn, setSignedIn] = useState(false);
+  const [savedNotice, setSavedNotice] = useState("");
+
+  async function ensureConversation() {
+    if (conversationId) return conversationId;
+    const response = await fetch("/api/conversations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: "AI Studio conversation" }),
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (!data.ok) return null;
+    setConversationId(data.conversation.id);
+    setSignedIn(true);
+    return data.conversation.id as string;
+  }
+
+  async function saveMessage(id: string, role: "user" | "assistant", content: string) {
+    await fetch("/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ conversationId: id, role, content }),
+    });
+  }
 
   async function runStudio() {
     const clean = prompt.trim();
@@ -97,8 +123,16 @@ export default function AIStudioPage() {
     setPrompt("");
     setMessages((current) => [...current, { role: "user", text: clean }]);
     setLoading(true);
+    setSavedNotice("");
 
     try {
+      const id = await ensureConversation();
+      if (!id) {
+        setSignedIn(false);
+        setMessages((current) => [...current, { role: "assistant", text: "Please sign in to save your AI Studio conversation." }]);
+        return;
+      }
+      await saveMessage(id, "user", clean);
       const response = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -107,15 +141,19 @@ export default function AIStudioPage() {
 
       const data = await response.json();
 
+      const aiText = response.ok
+        ? data.response
+        : data?.error || "The AI request could not be completed.";
+
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          text: response.ok
-            ? data.response
-            : data?.error || "The AI request could not be completed.",
+          text: aiText,
         },
       ]);
+      await saveMessage(id, "assistant", aiText);
+      setSavedNotice("Conversation saved to your NEXORA workspace.");
     } catch {
       setMessages((current) => [
         ...current,
@@ -135,6 +173,8 @@ export default function AIStudioPage() {
       <div className="inner-kicker">01 · NEXORA PLATFORM</div>
       <h1>AI <span>Studio</span></h1>
       <p>Talk with NEXORA in one workspace: write on the left and receive the AI response on the right.</p>
+      {savedNotice && <div className="account-note"><strong>Saved</strong><p>{savedNotice}</p></div>}
+      {!signedIn && <div className="account-note"><strong>Workspace mode</strong><p>Sign in to persist your AI Studio conversations.</p><a className="secondary-button" href="/account">Sign in →</a></div>}
 
       <div className="studio-chat">
         <section className="studio-pane studio-input-pane">
