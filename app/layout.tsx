@@ -3,6 +3,7 @@ import "./globals.css";
 import "./platform/platform.css";
 import "./pricing/pricing.css";
 import "./dashboard/dashboard.css";
+import "./ai-studio/studio.css";
 
 export const metadata: Metadata = {
   title: "NEXORA DIGITAL",
