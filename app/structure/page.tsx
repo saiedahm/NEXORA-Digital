@@ -87,7 +87,7 @@ export default function StructurePage() {
             ))}
           </div>
 
-          <button type="button" className="primary-button structure-save" onClick={saveStructure}>
+          <button type="button" className="primary-button structure-save" onClick={() => { saveStructure(); window.setTimeout(() => { window.location.href = `/builder?id=${encodeURIComponent(new URLSearchParams(window.location.search).get("id") || "")}`; }, 150); }}>
             Save structure <span>→</span>
           </button>
           {saved && <p className="save-message">Structure saved and ready for the build stage.</p>}
