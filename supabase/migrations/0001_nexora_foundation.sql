@@ -158,3 +158,35 @@ create policy "members can create conversation messages"
         and c.user_id = auth.uid()
     )
   );
+
+
+-- Usage accounting
+create table if not exists public.usage_events (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid not null references public.organizations(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  conversation_id uuid references public.conversations(id) on delete set null,
+  event_type text not null check (event_type in ('ai_message','ai_response')),
+  units integer not null default 1 check (units > 0),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists usage_events_org_id_idx on public.usage_events(organization_id);
+create index if not exists usage_events_user_id_idx on public.usage_events(user_id);
+create index if not exists usage_events_created_at_idx on public.usage_events(created_at);
+
+alter table public.usage_events enable row level security;
+
+create policy "members can view organization usage"
+  on public.usage_events for select
+  using (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = usage_events.organization_id
+        and m.user_id = auth.uid()
+    )
+  );
+
+create policy "users can create own usage"
+  on public.usage_events for insert
+  with check (user_id = auth.uid());
