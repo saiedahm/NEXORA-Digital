@@ -48,7 +48,7 @@ export default function AssistantPage() {
     []
   );
 
-  function sendMessage(event?: FormEvent) {
+  async function sendMessage(event?: FormEvent) {
     event?.preventDefault();
     const question = input.trim();
     if (!question || typing) return;
@@ -57,10 +57,31 @@ export default function AssistantPage() {
     setInput("");
     setTyping(true);
 
-    window.setTimeout(() => {
-      setMessages((current) => [...current, { role: "assistant", text: getAnswer(question) }]);
+    try {
+      const response = await fetch("/api/assistant", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, { role: "user", text: question }].map((message) => ({
+            role: message.role,
+            content: message.text
+          }))
+        })
+      });
+
+      const data = await response.json();
+      setMessages((current) => [
+        ...current,
+        { role: "assistant", text: data.answer || getAnswer(question) }
+      ]);
+    } catch {
+      setMessages((current) => [
+        ...current,
+        { role: "assistant", text: getAnswer(question) }
+      ]);
+    } finally {
       setTyping(false);
-    }, 450);
+    }
   }
 
   return (
