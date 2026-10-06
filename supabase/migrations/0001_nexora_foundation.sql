@@ -190,3 +190,30 @@ create policy "members can view organization usage"
 create policy "users can create own usage"
   on public.usage_events for insert
   with check (user_id = auth.uid());
+
+
+-- Subscription foundation
+create table if not exists public.subscriptions (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid not null references public.organizations(id) on delete cascade,
+  plan text not null default 'free' check (plan in ('free','starter','business','growth','enterprise')),
+  status text not null default 'active' check (status in ('active','trialing','past_due','canceled')),
+  stripe_customer_id text,
+  stripe_subscription_id text,
+  current_period_end timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (organization_id)
+);
+
+alter table public.subscriptions enable row level security;
+
+create policy "members can view organization subscription"
+  on public.subscriptions for select
+  using (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = subscriptions.organization_id
+        and m.user_id = auth.uid()
+    )
+  );
