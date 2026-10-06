@@ -1,69 +1,64 @@
-const projects = [
+"use client";
+
+import { useState } from "react";
+
+const initialProjects = [
   { name: "My first website", type: "New project", status: "Ready to start" },
   { name: "Website renewal", type: "Renewal", status: "Planning" }
 ];
 
 export default function DashboardPage() {
+  const [projects] = useState(initialProjects);
+
   return (
-    <main className="dashboard">
-      <aside className="dashboard-side">
-        <a className="dash-brand" href="/">NEXORA</a>
-        <nav>
-          <a className="active" href="/dashboard">Overview</a>
-          <a href="/dashboard">Projects</a>
-          <a href="/platform">AI Studio</a>
-          <a href="/pricing">Plans</a>
-          <a href="/dashboard">Account</a>
-        </nav>
-        <a className="side-home" href="/">← Back to website</a>
+    <main className="dashboard-shell">
+      <aside className="dashboard-sidebar">
+        <a className="dashboard-logo" href="/">NEXORA</a>
+        <p className="dashboard-label">WORKSPACE</p>
+        <a className="dashboard-link active" href="/dashboard">Overview</a>
+        <a className="dashboard-link" href="/workspace">Projects</a>
+        <a className="dashboard-link" href="/ai-studio">AI Studio</a>
+        <a className="dashboard-link" href="/assistant">AI Assistant</a>
+        <a className="dashboard-link" href="/pricing">Plans</a>
+        <div className="dashboard-spacer" />
+        <a className="dashboard-link" href="/">Back to website</a>
       </aside>
 
       <section className="dashboard-main">
-        <header className="dashboard-top">
+        <header className="dashboard-header">
           <div>
-            <p className="section-label">WORKSPACE</p>
+            <p className="section-label">NEXORA WORKSPACE</p>
             <h1>Good to see you.</h1>
           </div>
-          <div className="profile-chip">
-            <span className="profile-avatar">N</span>
-            <span>My account</span>
-          </div>
+          <a className="primary-button" href="/workspace">New project <span>+</span></a>
         </header>
 
-        <div className="welcome-card">
+        <section className="dashboard-welcome">
           <div>
-            <span className="ai-badge">✦ NEXORA AI</span>
-            <h2>What will you build next?</h2>
-            <p>Start a new website or bring an existing project into the next generation.</p>
+            <p className="section-label">AI DIGITAL WORKSPACE</p>
+            <h2>Build your next digital experience.</h2>
+            <p>Start a project, explore AI Studio, or ask NEXORA Assistant for guidance.</p>
           </div>
-          <a className="primary-button" href="#new-project">New project <span>→</span></a>
-        </div>
+          <a href="/assistant" className="welcome-action">Ask AI →</a>
+        </section>
 
-        <div className="dashboard-stats">
-          <article><span>PROJECTS</span><strong>0</strong><small>Active projects</small></article>
-          <article><span>AI USAGE</span><strong>0%</strong><small>Starter allowance</small></article>
-          <article><span>PLAN</span><strong>Free</strong><small>Foundation access</small></article>
-        </div>
+        <section className="dashboard-stats">
+          <div><span>PROJECTS</span><strong>{projects.length}</strong></div>
+          <div><span>AI USAGE</span><strong>0%</strong></div>
+          <div><span>PLAN</span><strong>FREE</strong></div>
+        </section>
 
-        <section className="projects">
-          <div className="section-heading">
-            <div>
-              <p className="section-label">YOUR WORKSPACE</p>
-              <h2>Projects</h2>
-            </div>
-            <a className="secondary-button" href="#new-project">+ New project</a>
+        <section className="projects-section">
+          <div className="projects-title">
+            <div><p className="section-label">YOUR PROJECTS</p><h2>Recent work</h2></div>
+            <a href="/workspace">View workspace →</a>
           </div>
-
           <div className="project-list">
             {projects.map((project) => (
               <article className="project-row" key={project.name}>
-                <div className="project-icon">N</div>
-                <div className="project-info">
-                  <h3>{project.name}</h3>
-                  <p>{project.type}</p>
-                </div>
+                <div><strong>{project.name}</strong><span>{project.type}</span></div>
                 <span className="project-status">{project.status}</span>
-                <span className="project-arrow">→</span>
+                <a href="/workspace">Open →</a>
               </article>
             ))}
           </div>
