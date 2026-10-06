@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 type Data = {
   account: { email: string; role: string; workspace: { name: string; slug: string } | null };
   usage: { projects: number; conversations: number; messages: number; aiMessages: number; aiResponses: number };
+  plan: { plan: string; status: string; current_period_end: string | null };
 };
 
 export default function AccountDashboard() {
@@ -48,6 +49,7 @@ export default function AccountDashboard() {
             </div>
           </div>
         </section>
+        <section className="account-panel"><div className="account-side"><span className="account-label">CURRENT PLAN</span><h2>{data.plan.plan.toUpperCase()}</h2><p>Status · {data.plan.status}</p></div><div className="account-form-area"><span className="account-label">PLAN MANAGEMENT</span><h2>Plans are ready for billing.</h2><p>Your workspace currently runs on the Free foundation. Paid subscription checkout will be connected after the billing layer is configured.</p><a className="primary-button" href="/pricing">View plans →</a></div></section>
         <div className="studio-toolbar">
           <a className="primary-button" href="/workspace">Open Workspace →</a>
           <a className="secondary-button" href="/ai-studio">Open AI Studio →</a>
