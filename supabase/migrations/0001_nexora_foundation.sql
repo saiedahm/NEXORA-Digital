@@ -85,3 +85,76 @@ create policy "members can update organization projects"
         and m.user_id = auth.uid()
     )
   );
+
+
+-- AI Studio persistence
+create table if not exists public.conversations (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid not null references public.organizations(id) on delete cascade,
+  project_id uuid references public.projects(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  title text not null default 'New AI conversation',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.messages (
+  id uuid primary key default gen_random_uuid(),
+  conversation_id uuid not null references public.conversations(id) on delete cascade,
+  role text not null check (role in ('user', 'assistant')),
+  content text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists conversations_project_id_idx on public.conversations(project_id);
+create index if not exists conversations_user_id_idx on public.conversations(user_id);
+create index if not exists messages_conversation_id_idx on public.messages(conversation_id);
+
+alter table public.conversations enable row level security;
+alter table public.messages enable row level security;
+
+create policy "members can view organization conversations"
+  on public.conversations for select
+  using (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = conversations.organization_id
+        and m.user_id = auth.uid()
+    )
+  );
+
+create policy "members can create organization conversations"
+  on public.conversations for insert
+  with check (
+    user_id = auth.uid()
+    and exists (
+      select 1 from public.memberships m
+      where m.organization_id = conversations.organization_id
+        and m.user_id = auth.uid()
+    )
+  );
+
+create policy "members can update organization conversations"
+  on public.conversations for update
+  using (user_id = auth.uid())
+  with check (user_id = auth.uid());
+
+create policy "members can view conversation messages"
+  on public.messages for select
+  using (
+    exists (
+      select 1 from public.conversations c
+      where c.id = messages.conversation_id
+        and c.user_id = auth.uid()
+    )
+  );
+
+create policy "members can create conversation messages"
+  on public.messages for insert
+  with check (
+    exists (
+      select 1 from public.conversations c
+      where c.id = messages.conversation_id
+        and c.user_id = auth.uid()
+    )
+  );
