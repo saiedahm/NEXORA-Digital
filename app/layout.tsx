@@ -9,6 +9,7 @@ import "./workspace/workspace.css";
 import "./project/project.css";
 import "./structure/structure.css";
 import "./builder/builder.css";
+import "./design/design.css";
 
 export const metadata: Metadata = {
   title: "NEXORA DIGITAL",
