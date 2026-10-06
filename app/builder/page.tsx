@@ -15,12 +15,15 @@ export default function BuilderPage() {
   const [pages, setPages] = useState<SitePage[]>(fallbackPages);
   const [active, setActive] = useState("home");
   const [projectName, setProjectName] = useState("NEXORA Website");
+  const [projectId, setProjectId] = useState("");
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
+      const id = params.get("id") || "";
+      setProjectId(id);
+
       const projects = JSON.parse(window.localStorage.getItem("nexora-projects") || "[]");
       const project = projects.find((item: { id: string }) => item.id === id) || projects[0];
       if (project) setProjectName(project.name);
@@ -105,7 +108,7 @@ export default function BuilderPage() {
         </div>
         <div className="builder-buttons">
           <button type="button" className="secondary-button" onClick={save}>Save progress</button>
-          <a className="primary-button" href={`/design?id=${encodeURIComponent(new URLSearchParams(window.location.search).get("id") || "")}`}>Continue <span>→</span></a>
+          <a className="primary-button" href={`/design?id=${encodeURIComponent(projectId)}`}>Continue <span>→</span></a>
         </div>
       </section>
 
