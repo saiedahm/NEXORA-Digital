@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./platform/platform.css";
 import "./pricing/pricing.css";
+import "./dashboard/dashboard.css";
 
 export const metadata: Metadata = {
   title: "NEXORA DIGITAL",
