@@ -1,14 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { createBrowserClient } from "@supabase/ssr";
-
 type Mode = "login" | "create";
-
-const supabase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
 
 export default function AccountPage() {
   const [mode, setMode] = useState<Mode>("login");
@@ -19,20 +12,22 @@ export default function AccountPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function ensureWorkspace(userId: string, userEmail: string) {
-    const response = await fetch("/api/auth", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "workspace", userId, email: userEmail }),
-    });
-    return response.ok;
-  }
-
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true); setMessage(""); setError("");
 
     try {
+      const response = await fetch("/api/auth", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: mode === "login" ? "login" : "signup", name, email, password }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) throw new Error(data.error || "Authentication failed.");
+      setMessage(data.message || "Signed in successfully.");
+      if (data.authenticated) { window.location.href = "/ai-studio"; return; }
+      if (data.needsConfirmation) { setPassword(""); return; }
+      return;
+
       if (mode === "create") {
         const { data, error } = await supabase.auth.signUp({
           email, password, options: { data: { full_name: name || null } },
