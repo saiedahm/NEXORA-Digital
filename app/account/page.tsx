@@ -14,37 +14,29 @@ export default function AccountPage() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setLoading(true); setMessage(""); setError("");
+    setLoading(true);
+    setMessage("");
+    setError("");
 
     try {
       const response = await fetch("/api/auth", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: mode === "login" ? "login" : "signup", name, email, password }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: mode === "login" ? "login" : "signup",
+          name,
+          email,
+          password,
+        }),
       });
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || "Authentication failed.");
       setMessage(data.message || "Signed in successfully.");
-      if (data.authenticated) { window.location.href = "/ai-studio"; return; }
-      if (data.needsConfirmation) { setPassword(""); return; }
-      return;
-
-      if (mode === "create") {
-        const { data, error } = await supabase.auth.signUp({
-          email, password, options: { data: { full_name: name || null } },
-        });
-        if (error) throw error;
-        if (!data.session || !data.user) {
-          setMessage("Account created. Please check your email to confirm your account.");
-          setPassword("");
-          return;
-        }
-        await ensureWorkspace(data.user.id, data.user.email ?? email);
-      } else {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error || !data.user) throw error || new Error("Sign in failed.");
-        await ensureWorkspace(data.user.id, data.user.email ?? email);
+      if (data.authenticated) {
+        window.location.href = "/ai-studio";
+        return;
       }
-      window.location.href = "/ai-studio";
+      if (data.needsConfirmation) setPassword("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Authentication failed.");
     } finally {
