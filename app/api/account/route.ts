@@ -23,6 +23,16 @@ export async function GET() {
   if (!membership) return NextResponse.json({ ok: false, error: "Workspace not found." }, { status: 403 });
 
   const orgId = membership.organization_id;
+
+  const { data: subscription } = await supabase
+    .from("subscriptions")
+    .select("plan, status, current_period_end")
+    .eq("organization_id", orgId)
+    .maybeSingle();
+
+  if (!subscription) {
+    await supabase.from("subscriptions").insert({ organization_id: orgId, plan: "free", status: "active" });
+  }
   const [{ count: projects }, { count: conversations }, { count: messages }, { data: usage }] = await Promise.all([
     supabase.from("projects").select("id", { count: "exact", head: true }).eq("organization_id", orgId),
     supabase.from("conversations").select("id", { count: "exact", head: true }).eq("organization_id", orgId),
@@ -36,6 +46,7 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     account: { email: user.email, role: membership.role, workspace: membership.organizations },
+    plan: subscription || { plan: "free", status: "active", current_period_end: null },
     usage: { projects: projects || 0, conversations: conversations || 0, messages: messages || 0, aiMessages, aiResponses },
   });
 }
