@@ -105,7 +105,7 @@ export default function BuilderPage() {
         </div>
         <div className="builder-buttons">
           <button type="button" className="secondary-button" onClick={save}>Save progress</button>
-          <a className="primary-button" href="/dashboard">Continue <span>→</span></a>
+          <a className="primary-button" href={`/design?id=${encodeURIComponent(new URLSearchParams(window.location.search).get("id") || "")}`}>Continue <span>→</span></a>
         </div>
       </section>
 
