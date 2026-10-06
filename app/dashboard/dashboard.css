@@ -1,0 +1,265 @@
+ .dashboard {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 235px 1fr;
+  background: #030914;
+}
+
+.dashboard-side {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 20px;
+  border-right: 1px solid rgba(145, 200, 255, .1);
+  background: rgba(3, 12, 23, .9);
+}
+
+.dash-brand {
+  padding: 8px 12px 55px;
+  color: #66dcff;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.dashboard-side nav {
+  display: grid;
+  gap: 5px;
+}
+
+.dashboard-side nav a,
+.side-home {
+  padding: 12px 13px;
+  border-radius: 10px;
+  color: #71869a;
+  font-size: 13px;
+}
+
+.dashboard-side nav a:hover,
+.dashboard-side nav .active {
+  color: #d9f7ff;
+  background: rgba(80, 204, 255, .08);
+}
+
+.side-home {
+  margin-top: auto;
+  border-top: 1px solid rgba(145, 200, 255, .09);
+  padding-top: 20px;
+}
+
+.dashboard-main {
+  width: min(1120px, calc(100% - 60px));
+  margin: auto;
+  padding: 50px 0 80px;
+}
+
+.dashboard-top {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.dashboard-top h1 {
+  margin: 12px 0 0;
+  font-size: clamp(35px, 5vw, 55px);
+  letter-spacing: -.05em;
+}
+
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px 7px 7px;
+  border: 1px solid rgba(145, 200, 255, .12);
+  border-radius: 999px;
+  color: #8ca1b5;
+  font-size: 12px;
+}
+
+.profile-avatar {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(98, 216, 255, .15);
+  color: #66dcff;
+}
+
+.welcome-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 45px;
+  padding: 34px;
+  border: 1px solid rgba(98, 216, 255, .22);
+  border-radius: 22px;
+  background: linear-gradient(120deg, rgba(30, 169, 255, .09), rgba(255,255,255,.018));
+}
+
+.ai-badge {
+  color: #66dcff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+.welcome-card h2 {
+  margin: 13px 0 8px;
+  font-size: 31px;
+  letter-spacing: -.04em;
+}
+
+.welcome-card p {
+  margin: 0;
+  color: #8297ab;
+  line-height: 1.6;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.dashboard-stats article {
+  padding: 22px;
+  border: 1px solid rgba(145, 200, 255, .1);
+  border-radius: 16px;
+  background: rgba(255,255,255,.015);
+}
+
+.dashboard-stats span {
+  display: block;
+  color: #587086;
+  font-size: 9px;
+  letter-spacing: .16em;
+}
+
+.dashboard-stats strong {
+  display: block;
+  margin: 13px 0 5px;
+  color: #dcefff;
+  font-size: 26px;
+}
+
+.dashboard-stats small {
+  color: #687e93;
+}
+
+.projects {
+  margin-top: 65px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-heading h2 {
+  margin: 10px 0 0;
+  font-size: 32px;
+  letter-spacing: -.04em;
+}
+
+.project-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 45px 1fr auto 25px;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid rgba(145, 200, 255, .08);
+  border-radius: 14px;
+  background: rgba(255,255,255,.012);
+}
+
+.project-icon {
+  display: grid;
+  width: 45px;
+  height: 45px;
+  place-items: center;
+  border: 1px solid rgba(98, 216, 255, .2);
+  border-radius: 10px;
+  color: #66dcff;
+  background: rgba(98,216,255,.05);
+}
+
+.project-info h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.project-info p {
+  margin: 0;
+  color: #647a90;
+  font-size: 11px;
+}
+
+.project-status {
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #6ddfff;
+  background: rgba(98,216,255,.07);
+  font-size: 10px;
+}
+
+.project-arrow {
+  color: #66dcff;
+}
+
+@media (max-width: 800px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-side {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid rgba(145,200,255,.1);
+  }
+
+  .dash-brand {
+    padding-bottom: 20px;
+  }
+
+  .dashboard-side nav {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .side-home {
+    display: none;
+  }
+
+  .dashboard-main {
+    width: min(100% - 30px, 1120px);
+    padding-top: 35px;
+  }
+
+  .welcome-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .project-row {
+    grid-template-columns: 42px 1fr 20px;
+  }
+
+  .project-status {
+    display: none;
+  }
+}
