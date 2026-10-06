@@ -33,6 +33,10 @@ export default function AccountPage() {
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || "Authentication failed.");
       setMessage(data.message);
+      if (data.authenticated) {
+        window.location.href = "/ai-studio";
+        return;
+      }
       if (mode === "create" && data.needsConfirmation) {
         setPassword("");
       }
