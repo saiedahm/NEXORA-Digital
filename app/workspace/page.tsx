@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import CreateProjectForm from "@/app/workspace/create-project-form";
 
 export const dynamic = "force-dynamic";
 
@@ -67,6 +68,7 @@ export default async function WorkspacePage() {
               <h2>{projects.length} project{projects.length === 1 ? "" : "s"}</h2>
               <p>Project records will become the foundation for your AI Studio and automation work.</p>
               <Link className="primary-button" href="/ai-studio">Open AI Studio →</Link>
+              <CreateProjectForm />
             </div>
           </section>
 
@@ -79,9 +81,10 @@ export default async function WorkspacePage() {
               </article>
             )) : (
               <article className="feature-card">
-                <span>READY</span>
-                <h3>Your first project</h3>
-                <p>The project creation layer is the next workspace step.</p>
+                <span>PROJECTS</span>
+                <h3>Create a project</h3>
+                <p>Start a project and keep its data inside your NEXORA organization.</p>
+                <CreateProjectForm />
               </article>
             )}
           </section>
