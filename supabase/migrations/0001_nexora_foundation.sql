@@ -41,3 +41,47 @@ alter table public.projects enable row level security;
 comment on table public.organizations is 'NEXORA tenant organizations.';
 comment on table public.memberships is 'Users belonging to NEXORA organizations.';
 comment on table public.projects is 'Projects owned by a NEXORA organization.';
+
+
+-- Workspace project creation policies
+create policy "members can view their organization"
+  on public.memberships for select
+  using (auth.uid() = user_id);
+
+create policy "members can view organization projects"
+  on public.projects for select
+  using (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = projects.organization_id
+        and m.user_id = auth.uid()
+    )
+  );
+
+create policy "members can create organization projects"
+  on public.projects for insert
+  with check (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = projects.organization_id
+        and m.user_id = auth.uid()
+    )
+    and created_by = auth.uid()
+  );
+
+create policy "members can update organization projects"
+  on public.projects for update
+  using (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = projects.organization_id
+        and m.user_id = auth.uid()
+    )
+  )
+  with check (
+    exists (
+      select 1 from public.memberships m
+      where m.organization_id = projects.organization_id
+        and m.user_id = auth.uid()
+    )
+  );
