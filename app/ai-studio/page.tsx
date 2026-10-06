@@ -86,6 +86,27 @@ export default function AIStudioPage() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(false);
   const [savedNotice, setSavedNotice] = useState("");
+  const [history, setHistory] = useState<{ id: string; title: string; updated_at: string }[]>([]);
+  const [historyOpen, setHistoryOpen] = useState(false);
+
+  async function loadHistory() {
+    const response = await fetch("/api/conversations");
+    if (!response.ok) return;
+    const data = await response.json();
+    if (data.ok) setHistory(data.conversations || []);
+  }
+
+  async function openConversation(id: string) {
+    const response = await fetch(`/api/messages?conversationId=${encodeURIComponent(id)}`);
+    if (!response.ok) return;
+    const data = await response.json();
+    if (!data.ok) return;
+    setConversationId(id);
+    setMessages((data.messages || []).map((m: { role: "user" | "assistant"; content: string }) => ({ role: m.role, text: m.content })));
+    setHistoryOpen(false);
+    setSignedIn(true);
+    setSavedNotice("Conversation loaded from your workspace.");
+  }
 
   async function ensureConversation() {
     if (conversationId) return conversationId;
@@ -121,6 +142,7 @@ export default function AIStudioPage() {
     }));
 
     setPrompt("");
+    setHistoryOpen(false);
     setMessages((current) => [...current, { role: "user", text: clean }]);
     setLoading(true);
     setSavedNotice("");
@@ -154,6 +176,7 @@ export default function AIStudioPage() {
       ]);
       await saveMessage(id, "assistant", aiText);
       setSavedNotice("Conversation saved to your NEXORA workspace.");
+      await loadHistory();
     } catch {
       setMessages((current) => [
         ...current,
@@ -175,6 +198,9 @@ export default function AIStudioPage() {
       <p>Talk with NEXORA in one workspace: write on the left and receive the AI response on the right.</p>
       {savedNotice && <div className="account-note"><strong>Saved</strong><p>{savedNotice}</p></div>}
       {!signedIn && <div className="account-note"><strong>Workspace mode</strong><p>Sign in to persist your AI Studio conversations.</p><a className="secondary-button" href="/account">Sign in →</a></div>}
+
+      <div className="studio-toolbar"><button className="secondary-button" type="button" onClick={async () => { setHistoryOpen((v) => !v); if (!history.length) await loadHistory(); }}>History →</button><button className="secondary-button" type="button" onClick={() => { setConversationId(null); setMessages([]); setSavedNotice(""); }}>＋ New conversation</button></div>
+      {historyOpen && <section className="account-panel"><div className="account-form-area"><span className="account-label">CHAT HISTORY</span><h2>Your conversations</h2>{history.length ? history.map((item) => <button className="secondary-button" type="button" key={item.id} onClick={() => openConversation(item.id)}>{item.title}</button>) : <p>No saved conversations yet.</p>}</div></section>}
 
       <div className="studio-chat">
         <section className="studio-pane studio-input-pane">
