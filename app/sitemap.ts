@@ -1,0 +1,1 @@
+import type{MetadataRoute}from"next";export default function sitemap():MetadataRoute.Sitemap{const base="https://www.nexora-digital.de";return["/","/jobs","/companies","/candidates","/pricing","/register","/login","/privacy","/terms","/impressum","/cookies"].map(path=>({url:base+path,lastModified:new Date()}))}
