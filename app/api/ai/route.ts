@@ -124,19 +124,27 @@ export async function POST(request: Request) {
 
     if (!text) return NextResponse.json({ error: "The AI service returned an empty response." }, { status: 502 });
 
-    const { data: event } = await supabase
+    const { data: events, error: usageError } = await supabase
       .from("usage_events")
-      .insert({
-        organization_id: membership.organization_id,
-        user_id: user.id,
-        event_type: "ai_message",
-        units: 1,
-      })
-      .select("id")
-      .single();
+      .insert([
+        {
+          organization_id: membership.organization_id,
+          user_id: user.id,
+          event_type: "ai_message",
+          units: 1,
+        },
+        {
+          organization_id: membership.organization_id,
+          user_id: user.id,
+          event_type: "ai_response",
+          units: 1,
+        },
+      ])
+      .select("id, event_type");
 
-    if (!event) return NextResponse.json({ error: "AI response completed but usage could not be recorded." }, { status: 500 });
-
+    if (usageError || !events || events.length !== 2) {
+      return NextResponse.json({ error: "AI response completed but usage could not be recorded." }, { status: 500 });
+    }
     return NextResponse.json({
       response: text,
       usage: { used: used + 1, limit, plan },
