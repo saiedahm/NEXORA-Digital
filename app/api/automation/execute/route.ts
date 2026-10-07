@@ -17,6 +17,9 @@ async function getContext() {
 }
 
 export async function POST(request: Request) {
+  let supabase: Awaited<ReturnType<typeof getContext>>["supabase"] | null = null;
+  let runId: string | null = null;
+
   try {
     const body = await request.json();
     const workflowId = typeof body?.workflowId === "string" ? body.workflowId : "";
@@ -25,7 +28,9 @@ export async function POST(request: Request) {
     if (!input) return NextResponse.json({ ok: false, error: "Workflow input is required." }, { status: 400 });
     if (input.length > 4000) return NextResponse.json({ ok: false, error: "Workflow input is too long." }, { status: 400 });
 
-    const { supabase, user, organizationId } = await getContext();
+    const context = await getContext();
+    supabase = context.supabase;
+    const { user, organizationId } = context;
     if (!user) return NextResponse.json({ ok: false, error: "Authentication required." }, { status: 401 });
     if (!organizationId) return NextResponse.json({ ok: false, error: "Workspace not found." }, { status: 403 });
 
@@ -43,6 +48,23 @@ export async function POST(request: Request) {
     const aiStep = steps.find((step: { type?: string; prompt?: string }) => step?.type === "ai_action" && typeof step.prompt === "string" && step.prompt.trim());
     if (!aiStep) return NextResponse.json({ ok: false, error: "This workflow has no configured AI Action." }, { status: 400 });
 
+    const { data: run, error: runInsertError } = await supabase
+      .from("automation_runs")
+      .insert({
+        organization_id: organizationId,
+        workflow_id: workflow.id,
+        triggered_by: user.id,
+        status: "running",
+        input,
+      })
+      .select("id, status, started_at")
+      .single();
+
+    if (runInsertError || !run) {
+      return NextResponse.json({ ok: false, error: "Could not create automation run history." }, { status: 500 });
+    }
+    runId = run.id;
+
     const prompt = aiStep.prompt.trim() + "\n\nWORKFLOW INPUT:\n" + input;
     const cookie = request.headers.get("cookie") || "";
     const aiResponse = await fetch(new URL("/api/ai", request.url), {
@@ -53,10 +75,33 @@ export async function POST(request: Request) {
     });
 
     const data = await aiResponse.json();
-    if (!aiResponse.ok) return NextResponse.json({ ok: false, error: data?.error || "AI workflow execution failed." }, { status: aiResponse.status });
 
-    return NextResponse.json({ ok: true, response: data.response, usage: data.usage });
+    if (!aiResponse.ok) {
+      const errorMessage = data?.error || "AI workflow execution failed.";
+      await supabase.from("automation_runs").update({
+        status: "failed",
+        error: errorMessage,
+        completed_at: new Date().toISOString(),
+      }).eq("id", runId).eq("organization_id", organizationId);
+      return NextResponse.json({ ok: false, error: errorMessage, runId }, { status: aiResponse.status });
+    }
+
+    const responseText = typeof data.response === "string" ? data.response : "";
+    await supabase.from("automation_runs").update({
+      status: "completed",
+      output: responseText,
+      completed_at: new Date().toISOString(),
+    }).eq("id", runId).eq("organization_id", organizationId);
+
+    return NextResponse.json({ ok: true, response: responseText, usage: data.usage, runId });
   } catch {
+    if (supabase && runId) {
+      await supabase.from("automation_runs").update({
+        status: "failed",
+        error: "Workflow execution failed.",
+        completed_at: new Date().toISOString(),
+      }).eq("id", runId);
+    }
     return NextResponse.json({ ok: false, error: "Workflow execution failed." }, { status: 500 });
   }
 }
