@@ -1,2 +1,5 @@
-import {NextResponse} from "next/server"; import {db} from "@/lib/db/client"; import {currentUser} from "@/lib/auth/current-user";
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
 export async function GET(){const user=await currentUser();if(!user||user.role!=="COMPANY"||!user.company)return NextResponse.json({error:"Company access required"},{status:403});const jobs=await db.job.findMany({where:{companyId:user.company.id},orderBy:{createdAt:"desc"}});return NextResponse.json(jobs);}
+export async function POST(req:Request){const user=await currentUser();if(!user||user.role!=="COMPANY"||!user.company)return NextResponse.json({error:"Company access required"},{status:403});const b=await req.json();if(!b.title||!b.description||!b.country||!b.employmentType)return NextResponse.json({error:"Required job fields are missing"},{status:400});const job=await db.job.create({data:{companyId:user.company.id,title:String(b.title),description:String(b.description),country:String(b.country),city:b.city?String(b.city):null,employmentType:String(b.employmentType),salaryRange:b.salaryRange?String(b.salaryRange):null,status:"PUBLISHED"}});return NextResponse.json(job,{status:201});}
