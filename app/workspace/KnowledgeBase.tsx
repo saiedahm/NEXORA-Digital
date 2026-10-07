@@ -169,7 +169,14 @@ export default function KnowledgeBase() {
           <button className="primary-button" disabled={saving}>{saving ? "Saving…" : "Add to Knowledge Base →"}</button>
         </form>
 
-        <KnowledgeFileImport\n          onImported={(document) => {\n            setDocuments((current) => [document as DocumentItem, ...current]);\n            setMessage("File imported into your Knowledge Base.");\n          }}\n        />\n\n        <form onSubmit={importWebsite}>
+        <KnowledgeFileImport
+          onImported={(document) => {
+            setDocuments((current) => [document as DocumentItem, ...current]);
+            setMessage("File imported into your Knowledge Base.");
+          }}
+        />
+
+        <form onSubmit={importWebsite}>
           <label className="account-label" htmlFor="knowledge-url">IMPORT WEBSITE URL</label>
           <input id="knowledge-url" type="url" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} placeholder="https://your-website.com" required />
           <button className="secondary-button" disabled={importing}>
