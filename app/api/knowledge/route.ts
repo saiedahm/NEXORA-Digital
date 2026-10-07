@@ -95,3 +95,51 @@ export async function DELETE(request: Request) {
   if (error) return NextResponse.json({ error: "Unable to delete knowledge document." }, { status: 500 });
   return NextResponse.json({ ok: true });
 }
+
+
+export async function PATCH(request: Request) {
+  const supabase = await getClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+
+  const { data: membership } = await supabase.from("memberships")
+    .select("organization_id").eq("user_id", user.id).limit(1).maybeSingle();
+  if (!membership) return NextResponse.json({ error: "Workspace not found." }, { status: 403 });
+
+  const body = await request.json();
+  const id = typeof body?.id === "string" ? body.id : "";
+  const title = typeof body?.title === "string" ? body.title.trim() : "";
+  const content = typeof body?.content === "string" ? body.content.trim() : "";
+  const sourceType = typeof body?.source_type === "string" ? body.source_type : "";
+
+  if (!id || !title || !content) {
+    return NextResponse.json({ error: "Document id, title and content are required." }, { status: 400 });
+  }
+  if (content.length > 100000) {
+    return NextResponse.json({ error: "Knowledge content is too large." }, { status: 400 });
+  }
+  if (sourceType && !["text", "url", "file", "qa"].includes(sourceType)) {
+    return NextResponse.json({ error: "Invalid source type." }, { status: 400 });
+  }
+
+  const { data: existing } = await supabase.from("knowledge_documents")
+    .select("id").eq("id", id).eq("organization_id", membership.organization_id).maybeSingle();
+  if (!existing) return NextResponse.json({ error: "Knowledge document not found." }, { status: 404 });
+
+  const updates: Record<string, string> = {
+    title,
+    content,
+    updated_at: new Date().toISOString(),
+  };
+  if (sourceType) updates.source_type = sourceType;
+
+  const { data, error } = await supabase.from("knowledge_documents")
+    .update(updates)
+    .eq("id", id)
+    .eq("organization_id", membership.organization_id)
+    .select("id, project_id, title, source_type, source_url, content, created_at, updated_at")
+    .single();
+
+  if (error) return NextResponse.json({ error: "Unable to update knowledge document." }, { status: 500 });
+  return NextResponse.json({ document: data });
+}
