@@ -1,24 +1,84 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
-const workflows = [
-  { number: "01", title: "Website updates", text: "Prepare repeatable website tasks and content changes.", status: "READY" },
-  { number: "02", title: "AI content flow", text: "Turn an idea into a structured content workflow.", status: "AI" },
-  { number: "03", title: "Business process", text: "Connect repetitive steps into one simple workflow.", status: "NEXT" },
-];
+type Project = { id: string; name: string };
+type Workflow = {
+  id: string;
+  project_id: string | null;
+  name: string;
+  description: string | null;
+  status: "draft" | "active" | "paused" | "archived";
+  trigger_type: "manual" | "schedule" | "webhook" | "event";
+};
 
 export default function AutomationPage() {
-  const [active, setActive] = useState("01");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [workflows, setWorkflows] = useState<Workflow[]>([]);
+  const [projectId, setProjectId] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [triggerType, setTriggerType] = useState<Workflow["trigger_type"]>("manual");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
+
+  async function load(selectedProject = projectId) {
+    setLoading(true);
+    const [projectsResponse, workflowsResponse] = await Promise.all([
+      fetch("/api/projects"),
+      fetch(selectedProject ? `/api/automation?project_id=${encodeURIComponent(selectedProject)}` : "/api/automation"),
+    ]);
+    if (projectsResponse.ok) {
+      const data = await projectsResponse.json();
+      setProjects(data.projects ?? []);
+    }
+    if (workflowsResponse.ok) {
+      const data = await workflowsResponse.json();
+      setWorkflows(data.workflows ?? []);
+    } else {
+      setMessage("Sign in to manage automation workflows.");
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => { load(); }, []);
+
+  async function createWorkflow(event: FormEvent) {
+    event.preventDefault();
+    if (!name.trim()) return;
+    setSaving(true);
+    setMessage("");
+    const response = await fetch("/api/automation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name.trim(),
+        description: description.trim(),
+        projectId: projectId || null,
+        triggerType,
+        definition: { steps: [] },
+      }),
+    });
+    const data = await response.json();
+    if (!response.ok || !data.ok) {
+      setMessage(data.error || "Could not create workflow.");
+      setSaving(false);
+      return;
+    }
+    setWorkflows((current) => [data.workflow, ...current]);
+    setName("");
+    setDescription("");
+    setMessage("Workflow created as draft.");
+    setSaving(false);
+  }
 
   return (
     <main className="inner-page automation-page">
       <a className="back-link" href="/">← NEXORA</a>
       <div className="inner-kicker">03 · NEXORA PLATFORM</div>
       <h1>Smart <span>Automation</span></h1>
-      <p className="automation-intro">
-        Build simple digital workflows that reduce repetitive work and keep important steps connected.
-      </p>
+      <p className="automation-intro">Create and manage secure workflows inside your NEXORA workspace.</p>
 
       <section className="automation-builder">
         <div className="automation-builder-head">
@@ -26,63 +86,37 @@ export default function AutomationPage() {
             <span className="automation-label">WORKFLOW BUILDER</span>
             <h2>Create a <span>workflow.</span></h2>
           </div>
-          <span className="automation-status">● SYSTEM READY</span>
+          <span className="automation-status">● {loading ? "LOADING" : "SYSTEM READY"}</span>
         </div>
 
-        <div className="automation-flow">
-          <div className="automation-step">
-            <span>01</span>
-            <strong>TRIGGER</strong>
-            <p>Something happens</p>
-          </div>
-          <div className="automation-line" />
-          <div className="automation-step">
-            <span>02</span>
-            <strong>AI ACTION</strong>
-            <p>NEXORA processes it</p>
-          </div>
-          <div className="automation-line" />
-          <div className="automation-step">
-            <span>03</span>
-            <strong>RESULT</strong>
-            <p>Your next step is ready</p>
-          </div>
-        </div>
+        <form className="account-form" onSubmit={createWorkflow}>
+          <label>Workflow name<input value={name} onChange={(e) => setName(e.target.value)} maxLength={120} placeholder="Website content workflow" required /></label>
+          <label>Description<input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="What should this workflow do?" /></label>
+          <label>Project<select value={projectId} onChange={(e) => { setProjectId(e.target.value); load(e.target.value); }}><option value="">Workspace-wide</option>{projects.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}</select></label>
+          <label>Trigger<select value={triggerType} onChange={(e) => setTriggerType(e.target.value as Workflow["trigger_type"])}><option value="manual">Manual</option><option value="schedule">Schedule</option><option value="webhook">Webhook</option><option value="event">Event</option></select></label>
+          <button className="primary-button" type="submit" disabled={saving}>{saving ? "Creating…" : "Create workflow →"}</button>
+          {message && <p>{message}</p>}
+        </form>
       </section>
 
       <section className="automation-library">
         <div className="automation-section-head">
-          <div>
-            <div className="section-kicker">AUTOMATION LIBRARY</div>
-            <h2>Choose a <span>flow.</span></h2>
+          <div><div className="section-kicker">AUTOMATION LIBRARY</div><h2>Your <span>workflows.</span></h2></div>
+          <span className="automation-count">{workflows.length} WORKFLOW{workflows.length === 1 ? "" : "S"}</span>
+        </div>
+
+        {loading ? <p>Loading workflows…</p> : workflows.length === 0 ? <p>No workflows yet. Create your first workflow above.</p> : (
+          <div className="automation-grid">
+            {workflows.map((workflow) => (
+              <article className="automation-card" key={workflow.id}>
+                <div className="automation-card-top"><span>{workflow.trigger_type.toUpperCase()}</span><b>{workflow.status.toUpperCase()}</b></div>
+                <h3>{workflow.name}</h3>
+                <p>{workflow.description || "NEXORA automation workflow."}</p>
+                <span className="automation-select">{workflow.project_id ? projects.find((project) => project.id === workflow.project_id)?.name || "Project" : "Workspace-wide"}</span>
+              </article>
+            ))}
           </div>
-          <span className="automation-count">03 FLOWS</span>
-        </div>
-
-        <div className="automation-grid">
-          {workflows.map((workflow) => (
-            <button
-              className={`automation-card ${active === workflow.number ? "is-active" : ""}`}
-              key={workflow.number}
-              type="button"
-              onClick={() => setActive(workflow.number)}
-            >
-              <div className="automation-card-top">
-                <span>{workflow.number}</span>
-                <b>{workflow.status}</b>
-              </div>
-              <h3>{workflow.title}</h3>
-              <p>{workflow.text}</p>
-              <span className="automation-select">{active === workflow.number ? "SELECTED ✓" : "SELECT FLOW →"}</span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className="automation-preview">
-        <span className="automation-label">SELECTED FLOW</span>
-        <h2>{workflows.find((workflow) => workflow.number === active)?.title}</h2>
-        <p>This is the foundation for the next automation layer. Real triggers, actions and connected services can be added here without changing the platform structure.</p>
+        )}
       </section>
 
       <a className="secondary-button" href="/">Back to platform</a>
