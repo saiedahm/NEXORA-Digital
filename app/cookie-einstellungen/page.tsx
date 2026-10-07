@@ -1,2 +1,25 @@
 import Link from "next/link";
-export default function CookieSettings(){return <main className="legal-page"><a className="back-link" href="/">← NEXORA</a><section className="legal-card"><div className="legal-meta">PRIVACY · 05</div><h1>Cookie-Einstellungen<span>.</span></h1><p>Hier werden künftig die Einstellungen für optionale Cookies und vergleichbare Technologien verwaltet.</p><h2>Notwendige Technologien</h2><p>Technisch notwendige Funktionen dürfen eingesetzt werden, soweit sie für den Betrieb und die Sicherheit der Plattform erforderlich sind.</p><h2>Optionale Technologien</h2><p>Nicht notwendige Analyse-, Marketing- oder Komforttechnologien werden nur nach den jeweils erforderlichen Einwilligungsregeln eingesetzt.</p><p>Das vollständige Consent-Management wird vor dem öffentlichen Launch an dieser Stelle aktiviert.</p><div className="legal-nav"><Link href="/impressum">Impressum</Link><Link href="/datenschutz">Datenschutz</Link><Link href="/agb">AGB</Link><Link href="/widerruf">Widerruf</Link></div></section></main>
+
+export default function CookieSettings() {
+  return (
+    <main className="legal-page">
+      <a className="back-link" href="/">← NEXORA</a>
+      <section className="legal-card">
+        <div className="legal-meta">PRIVACY · 05</div>
+        <h1>Cookie-Einstellungen<span>.</span></h1>
+        <p>Hier werden künftig die Einstellungen für optionale Cookies und vergleichbare Technologien verwaltet.</p>
+        <h2>Notwendige Technologien</h2>
+        <p>Technisch notwendige Funktionen dürfen eingesetzt werden, soweit sie für den Betrieb und die Sicherheit der Plattform erforderlich sind.</p>
+        <h2>Optionale Technologien</h2>
+        <p>Nicht notwendige Analyse-, Marketing- oder Komforttechnologien werden nur nach den jeweils erforderlichen Einwilligungsregeln eingesetzt.</p>
+        <p>Das vollständige Consent-Management wird vor dem öffentlichen Launch an dieser Stelle aktiviert.</p>
+        <div className="legal-nav">
+          <Link href="/impressum">Impressum</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/agb">AGB</Link>
+          <Link href="/widerruf">Widerruf</Link>
+        </div>
+      </section>
+    </main>
+  );
+}

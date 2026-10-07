@@ -1,2 +1,26 @@
 import Link from "next/link";
-export default function Agb(){return <main className="legal-page"><a className="back-link" href="/">← NEXORA</a><section className="legal-card"><div className="legal-meta">LEGAL · 03</div><h1>AGB<span>.</span></h1><p>Allgemeine Geschäftsbedingungen für die Nutzung und mögliche kostenpflichtige Leistungen von NEXORA DIGITAL.</p><h2>Geltungsbereich</h2><p>Diese Bedingungen regeln die Nutzung der digitalen Dienste von NEXORA DIGITAL sowie kostenpflichtige Leistungen, soweit hierfür ein Vertrag zustande kommt.</p><h2>Vertrag und Leistungen</h2><p>Leistungsumfang, Preise, Laufzeiten und besondere Bedingungen werden jeweils transparent vor dem Abschluss dargestellt.</p><h2>Stand</h2><p>Die finale Fassung wird vor dem kommerziellen Start mit den vollständigen Unternehmensdaten veröffentlicht.</p><div className="legal-nav"><Link href="/impressum">Impressum</Link><Link href="/datenschutz">Datenschutz</Link><Link href="/widerruf">Widerruf</Link><Link href="/cookie-einstellungen">Cookie-Einstellungen</Link></div></section></main>}
+
+export default function Agb() {
+  return (
+    <main className="legal-page">
+      <a className="back-link" href="/">← NEXORA</a>
+      <section className="legal-card">
+        <div className="legal-meta">LEGAL · 03</div>
+        <h1>AGB<span>.</span></h1>
+        <p>Allgemeine Geschäftsbedingungen für die Nutzung und mögliche kostenpflichtige Leistungen von NEXORA DIGITAL.</p>
+        <h2>Geltungsbereich</h2>
+        <p>Diese Bedingungen regeln die Nutzung der digitalen Dienste von NEXORA DIGITAL sowie kostenpflichtige Leistungen, soweit hierfür ein Vertrag zustande kommt.</p>
+        <h2>Vertrag und Leistungen</h2>
+        <p>Leistungsumfang, Preise, Laufzeiten und besondere Bedingungen werden jeweils transparent vor dem Abschluss dargestellt.</p>
+        <h2>Stand</h2>
+        <p>Die finale Fassung wird vor dem kommerziellen Start mit den vollständigen Unternehmensdaten veröffentlicht.</p>
+        <div className="legal-nav">
+          <Link href="/impressum">Impressum</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/widerruf">Widerruf</Link>
+          <Link href="/cookie-einstellungen">Cookie-Einstellungen</Link>
+        </div>
+      </section>
+    </main>
+  );
+}
