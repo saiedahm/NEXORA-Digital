@@ -1,0 +1,27 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #050b16; color: #f5f9ff; font-family: Arial, Helvetica, sans-serif; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.nav { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgba(87,181,255,.18); background: rgba(5,11,22,.92); backdrop-filter: blur(14px); }
+.nav-inner { min-height: 76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.brand { font-weight:900; letter-spacing:.08em; font-size:20px; }
+.brand span { color:#43c7ff; }
+.nav-links { display:flex; gap:22px; flex-wrap:wrap; color:#b9c9dc; font-size:14px; }
+.nav-links a:hover { color:#fff; }
+.hero { padding:90px 0 70px; background: radial-gradient(circle at 75% 20%, rgba(24,150,255,.18), transparent 34%); }
+.eyebrow { color:#55caff; font-weight:800; text-transform:uppercase; letter-spacing:.16em; font-size:12px; }
+h1 { font-size: clamp(42px, 7vw, 78px); line-height: .98; margin:16px 0 22px; max-width:850px; }
+.hero p { color:#b8c7d9; font-size:19px; line-height:1.7; max-width:760px; }
+.actions { display:flex; gap:14px; flex-wrap:wrap; margin-top:30px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; padding:13px 20px; border-radius:10px; border:1px solid rgba(255,255,255,.18); font-weight:800; }
+.btn.primary { background:#28b9ff; color:#03101b; border-color:#28b9ff; }
+.btn.secondary { background:rgba(255,255,255,.04); }
+.section { padding:65px 0; }
+.section h2 { font-size:34px; margin:0 0 12px; }
+.muted { color:#9fb1c6; line-height:1.7; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:28px; }
+.card { padding:24px; border:1px solid rgba(108,184,255,.18); border-radius:16px; background:rgba(12,25,43,.7); }
+.card h3 { margin:0 0 10px; }
+.badge { display:inline-block; padding:5px 9px; border-radius:999px; background:rgba(43,195,255,.1); color:#64d2ff; font-size:12px; font-weight:800; }
+.footer { border-top:1px solid rgba(87,181,255,.15); padding:30px 0; color:#8295aa; }
+@media(max-width:800px){ .grid{grid-template-columns:1fr;} .nav-inner{align-items:flex-start;padding:16px 0;flex-direction:column;} .hero{padding-top:55px;} }
