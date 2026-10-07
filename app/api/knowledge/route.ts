@@ -14,7 +14,7 @@ async function getClient() {
   });
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const supabase = await getClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
@@ -23,9 +23,24 @@ export async function GET() {
     .select("organization_id").eq("user_id", user.id).limit(1).maybeSingle();
   if (!membership) return NextResponse.json({ error: "Workspace not found." }, { status: 403 });
 
-  const { data, error } = await supabase.from("knowledge_documents")
+  const projectId = new URL(request.url).searchParams.get("project_id");
+
+  if (projectId) {
+    const { data: project } = await supabase.from("projects")
+      .select("id")
+      .eq("id", projectId)
+      .eq("organization_id", membership.organization_id)
+      .maybeSingle();
+    if (!project) return NextResponse.json({ error: "Project not found in your workspace." }, { status: 403 });
+  }
+
+  let query = supabase.from("knowledge_documents")
     .select("id, project_id, title, source_type, source_url, content, created_at, updated_at")
-    .eq("organization_id", membership.organization_id)
+    .eq("organization_id", membership.organization_id);
+
+  if (projectId) query = query.eq("project_id", projectId);
+
+  const { data, error } = await query
     .order("updated_at", { ascending: false });
 
   if (error) return NextResponse.json({ error: "Unable to load knowledge base." }, { status: 500 });
