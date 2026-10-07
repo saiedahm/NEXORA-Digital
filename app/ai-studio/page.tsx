@@ -258,7 +258,7 @@ export default function AIStudioPage() {
           <option value="">Workspace-wide</option>
           {projects.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}
         </select><button className="secondary-button" type="button" onClick={async () => { setHistoryOpen((v) => !v); if (!history.length) await loadHistory(); }}>History →</button><button className="secondary-button" type="button" onClick={() => { setConversationId(null); setMessages([]); setSavedNotice(""); }}>＋ New conversation</button></div>
-      {historyOpen && <section className="account-panel"><div className="account-form-area"><span className="account-label">CHAT HISTORY</span><h2>Your conversations</h2>{history.length ? history.map((item) => <button className="secondary-button" type="button" key={item.id} onClick={() => openConversation(item.id)}>{item.title}</button>) : <p>No saved conversations yet.</p>}</div></section>}
+      {historyOpen && <section className="account-panel"><div className="account-form-area"><span className="account-label">CHAT HISTORY</span><h2>Your conversations</h2>{history.length ? history.map((item) => <button className="secondary-button" type="button" key={item.id} onClick={() => openConversation(item.id)}><span>{item.title}</span><small>{item.project_id ? (projects.find((project) => project.id === item.project_id)?.name || "Project") : "Workspace-wide"}</small></button>) : <p>No saved conversations yet.</p>}</div></section>}
 
       <div className="studio-chat">
         <section className="studio-pane studio-input-pane">
