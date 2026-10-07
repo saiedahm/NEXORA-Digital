@@ -90,10 +90,9 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const pending: Array<{ name: string; value: string; options?: Record<string, unknown> }> = [];
   try {
-    const request = new Request("https://nexora.local");
     const supabase = makeClient(request, pending);
     const { data: { user } } = await supabase.auth.getUser();
 
