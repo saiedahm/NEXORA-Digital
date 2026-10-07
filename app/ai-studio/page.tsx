@@ -99,6 +99,7 @@ export default function AIStudioPage() {
         setProjects(data.projects || []);
       })
       .catch(() => {});
+  }, []);
 
   useEffect(() => {
     let active = true;
