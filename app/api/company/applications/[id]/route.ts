@@ -1,0 +1,5 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+const allowed=["SUBMITTED","REVIEW","INTERVIEW","REJECTED","HIRED"] as const;
+export async function PATCH(req:Request,{params}:{params:Promise<{id:string}>}){const user=await currentUser();if(!user?.company)return NextResponse.json({error:"Company access required"},{status:403});const {id}=await params;const b=await req.json();if(!allowed.includes(b.status))return NextResponse.json({error:"Invalid application status"},{status:400});const app=await db.application.findFirst({where:{id},include:{job:true}});if(!app||app.job.companyId!==user.company.id)return NextResponse.json({error:"Application not found"},{status:404});return NextResponse.json(await db.application.update({where:{id},data:{status:b.status}}));}
