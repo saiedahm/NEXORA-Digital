@@ -1,3 +1,2 @@
-import {NextResponse} from "next/server";
-import {db} from "@/lib/db/client";
-export async function GET(_req:Request,{params}:{params:{id:string}}){const job=await db.job.findFirst({where:{id:params.id,status:"PUBLISHED"},include:{company:true}});if(!job)return NextResponse.json({error:"Job not found"},{status:404});return NextResponse.json(job);}
+import{NextResponse}from"next/server";import{db}from"@/lib/db/client";
+export async function GET(_req:Request,{params}:{params:{id:string}}){const job=await db.job.findFirst({where:{id:params.id,status:"PUBLISHED",company:{verified:true}},include:{company:true}});if(!job)return NextResponse.json({error:"Job not found"},{status:404});return NextResponse.json(job);}
