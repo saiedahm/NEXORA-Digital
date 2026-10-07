@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+export async function GET(_req:Request,{params}:{params:Promise<{id:string}>}){const user=await currentUser();if(!user?.company)return NextResponse.json({error:"Company access required"},{status:403});const {id}=await params;const job=await db.job.findFirst({where:{id,companyId:user.company.id}});if(!job)return NextResponse.json({error:"Job not found"},{status:404});const applications=await db.application.findMany({where:{jobId:id},include:{candidate:{include:{user:true}}},orderBy:{createdAt:"desc"}});return NextResponse.json(applications);}
