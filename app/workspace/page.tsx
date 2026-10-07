@@ -73,7 +73,7 @@ export default async function WorkspacePage() {
             </div>
           </section>
 
-          <KnowledgeBase />
+          <KnowledgeBase projects={projects.map((project) => ({ id: project.id, name: project.name }))} />
 
           <section className="feature-grid">
             {projects.length ? projects.map((project) => (
