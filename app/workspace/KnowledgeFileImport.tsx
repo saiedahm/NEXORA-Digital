@@ -6,7 +6,7 @@ type Props = {
   onImported: (document: Record<string, unknown>) => void;
 };
 
-export default function KnowledgeFileImport({ onImported }: Props) {
+export default function KnowledgeFileImport({ onImported, projectId = "" }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
@@ -24,7 +24,7 @@ export default function KnowledgeFileImport({ onImported }: Props) {
 
     try {
       const form = new FormData();
-      form.append("file", file);
+      form.append("file", file);\n      if (projectId) form.append("project_id", projectId);
 
       const response = await fetch("/api/knowledge/import-file", {
         method: "POST",
