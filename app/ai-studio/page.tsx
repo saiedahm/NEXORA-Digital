@@ -182,9 +182,29 @@ export default function AIStudioPage() {
 
       const data = await response.json();
 
-      const aiText = response.ok
-        ? data.response
-        : data?.error || "The AI request could not be completed.";
+      if (!response.ok) {
+        const errorText = data?.error || "The AI request could not be completed.";
+        setMessages((current) => [
+          ...current,
+          {
+            role: "assistant",
+            text: errorText,
+          },
+        ]);
+        return;
+      }
+
+      const aiText = typeof data?.response === "string" ? data.response : "";
+      if (!aiText) {
+        setMessages((current) => [
+          ...current,
+          {
+            role: "assistant",
+            text: "The AI service returned an empty response.",
+          },
+        ]);
+        return;
+      }
 
       setMessages((current) => [
         ...current,
