@@ -57,8 +57,15 @@ export async function POST(request: Request) {
       .eq("organization_id", membership.organization_id)
       .maybeSingle();
 
-    const plan = subscription?.plan || "free";
-    const limit = PLAN_LIMITS[plan] ?? PLAN_LIMITS.free;
+    const subscriptionStatus = subscription?.status || "active";
+    const requestedPlan = subscription?.plan || "free";
+    const plan = ["free", "starter", "business", "growth", "enterprise"].includes(requestedPlan)
+      ? requestedPlan
+      : "free";
+    const hasPaidPlan = plan !== "free";
+    const billingActive = subscriptionStatus === "active" || subscriptionStatus === "trialing";
+    const effectivePlan = hasPaidPlan && !billingActive ? "free" : plan;
+    const limit = PLAN_LIMITS[effectivePlan] ?? PLAN_LIMITS.free;
 
     const startOfMonth = new Date();
     startOfMonth.setUTCDate(1);
@@ -74,7 +81,7 @@ export async function POST(request: Request) {
     const used = count || 0;
     if (limit !== null && used >= limit) {
       return NextResponse.json(
-        { error: `Your ${plan} plan has reached its monthly AI limit of ${limit} messages.`, usage: { used, limit, plan } },
+        { error: `Your ${effectivePlan} plan has reached its monthly AI limit of ${limit} messages.`, usage: { used, limit, plan: effectivePlan } },
         { status: 429 }
       );
     }
@@ -146,7 +153,7 @@ export async function POST(request: Request) {
     }
     return NextResponse.json({
       response: text,
-      usage: { used: used + 1, limit, plan },
+      usage: { used: used + 1, limit, plan: effectivePlan },
     });
   } catch {
     return NextResponse.json({ error: "Unable to process the AI request." }, { status: 500 });
