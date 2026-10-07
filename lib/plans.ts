@@ -7,6 +7,7 @@ export const NEXORA_PLANS = [
     text: "For individuals starting a serious digital project.",
     features: ["AI Studio access", "Digital workspace", "Core automation"],
     aiLimit: 200,
+    featured: false,
   },
   {
     key: "business",
@@ -26,6 +27,7 @@ export const NEXORA_PLANS = [
     text: "For growing teams building a larger digital operation.",
     features: ["Everything in Business", "Expanded automation", "Scalable workspace", "Growth support"],
     aiLimit: 5000,
+    featured: false,
   },
 ] as const;
 
