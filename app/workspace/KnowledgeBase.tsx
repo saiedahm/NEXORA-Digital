@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import KnowledgeFileImport from "./KnowledgeFileImport";
 
 type DocumentItem = {
   id: string;
@@ -168,7 +169,7 @@ export default function KnowledgeBase() {
           <button className="primary-button" disabled={saving}>{saving ? "Saving…" : "Add to Knowledge Base →"}</button>
         </form>
 
-        <form onSubmit={importWebsite}>
+        <KnowledgeFileImport\n          onImported={(document) => {\n            setDocuments((current) => [document as DocumentItem, ...current]);\n            setMessage("File imported into your Knowledge Base.");\n          }}\n        />\n\n        <form onSubmit={importWebsite}>
           <label className="account-label" htmlFor="knowledge-url">IMPORT WEBSITE URL</label>
           <input id="knowledge-url" type="url" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} placeholder="https://your-website.com" required />
           <button className="secondary-button" disabled={importing}>
