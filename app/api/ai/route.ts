@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const prompt = typeof body?.prompt === "string" ? body.prompt.trim() : "";
     const history = Array.isArray(body?.history) ? body.history : [];
+    const projectId = typeof body?.projectId === "string" ? body.projectId : null;
 
     if (!prompt) return NextResponse.json({ error: "Prompt is required." }, { status: 400 });
     if (prompt.length > 4000) return NextResponse.json({ error: "Prompt is too long." }, { status: 400 });
@@ -97,12 +98,28 @@ export async function POST(request: Request) {
       .slice(-12)
       .map((message: ChatMessage) => ({ role: message.role, content: message.content.slice(0, 4000) }));
 
-    const { data: knowledgeRows } = await supabase
+    if (projectId) {
+      const { data: project } = await supabase
+        .from("projects")
+        .select("id")
+        .eq("id", projectId)
+        .eq("organization_id", membership.organization_id)
+        .maybeSingle();
+      if (!project) return NextResponse.json({ error: "Project not found in your workspace." }, { status: 403 });
+    }
+
+    let knowledgeQuery = supabase
       .from("knowledge_documents")
       .select("title, source_type, content")
       .eq("organization_id", membership.organization_id)
       .order("updated_at", { ascending: false })
       .limit(20);
+
+    if (projectId) {
+      knowledgeQuery = knowledgeQuery.or(`project_id.eq.${projectId},project_id.is.null`);
+    }
+
+    const { data: knowledgeRows } = await knowledgeQuery;
 
     const knowledgeContext = (knowledgeRows || [])
       .map((item) => ({
