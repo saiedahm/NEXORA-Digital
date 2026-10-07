@@ -1,0 +1,2 @@
+import{NextResponse}from"next/server";import{db}from"@/lib/db/client";
+export async function GET(){const companies=await db.company.findMany({where:{verified:true},select:{id:true,name:true,country:true,sector:true,description:true,_count:{select:{jobs:{where:{status:"PUBLISHED"}}}}},orderBy:{name:"asc"}});return NextResponse.json(companies);}
