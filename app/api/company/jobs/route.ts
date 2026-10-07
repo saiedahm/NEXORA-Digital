@@ -1,0 +1,2 @@
+import {NextResponse} from "next/server"; import {db} from "@/lib/db/client"; import {currentUser} from "@/lib/auth/current-user";
+export async function GET(){const user=await currentUser();if(!user||user.role!=="COMPANY"||!user.company)return NextResponse.json({error:"Company access required"},{status:403});const jobs=await db.job.findMany({where:{companyId:user.company.id},orderBy:{createdAt:"desc"}});return NextResponse.json(jobs);}
