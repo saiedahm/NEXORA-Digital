@@ -68,10 +68,10 @@ export async function POST(request: Request) {
     if (!membership) return NextResponse.json({ error: "Workspace not found." }, { status: 403 });
 
     const body = await request.json();
-    const rawUrl = typeof body?.url === "string" ? body.url.trim() : "";
+    const rawUrl = typeof body?.url === "string" ? body.url.trim() : "";\n    const projectId = typeof body?.project_id === "string" ? body.project_id : null;
     if (!rawUrl || rawUrl.length > 2048) return NextResponse.json({ error: "A valid URL is required." }, { status: 400 });
 
-    const url = await validatePublicUrl(rawUrl);
+    if (projectId) {\n      const { data: project } = await supabase.from("projects").select("id").eq("id", projectId).eq("organization_id", membership.organization_id).maybeSingle();\n      if (!project) return NextResponse.json({ error: "Project not found in your workspace." }, { status: 403 });\n    }\n\n    const url = await validatePublicUrl(rawUrl);
     const response = await fetch(url, {
       headers: { "User-Agent": "NEXORA-KnowledgeBot/1.0" },
       redirect: "error",
