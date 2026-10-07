@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import CreateProjectForm from "@/app/workspace/create-project-form";
+import KnowledgeBase from "./KnowledgeBase";
 
 export const dynamic = "force-dynamic";
 
@@ -71,6 +72,8 @@ export default async function WorkspacePage() {
               <CreateProjectForm />
             </div>
           </section>
+
+          <KnowledgeBase />
 
           <section className="feature-grid">
             {projects.length ? projects.map((project) => (
