@@ -63,10 +63,30 @@ export default function Home() {
         </p>
       </section>
 
-      <footer id="contact">
-        <div className="footer-brand"><a className="brand-lockup" href="/" aria-label="NEXORA"><span className="brand-logo footer-brand-logo"><img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png" alt="NEXORA" /></span><strong>NEXORA</strong></a></div>
-        <a href="/contact">Contact NEXORA →</a>
-        <span>© {new Date().getFullYear()} NEXORA</span>
+      <footer id="contact" className="site-footer">
+        <div className="footer-main">
+          <div className="footer-brand">
+            <a className="brand-lockup" href="/" aria-label="NEXORA DIGITAL">
+              <span className="brand-logo footer-brand-logo">
+                <img src="https://raw.githubusercontent.com/saiedahm/NEXORA-Digital/main/assetsimagesnexora-logo.png" alt="NEXORA DIGITAL" />
+              </span>
+              <strong>NEXORA DIGITAL</strong>
+            </a>
+            <p>AI + WEB + AUTOMATION</p>
+          </div>
+          <div className="footer-links">
+            <a href="/contact">Kontakt</a>
+            <a href="/impressum">Impressum</a>
+            <a href="/datenschutz">Datenschutz</a>
+            <a href="/agb">AGB</a>
+            <a href="/widerruf">Widerruf</a>
+            <a href="/cookie-einstellungen">Cookie-Einstellungen</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} NEXORA DIGITAL</span>
+          <span>Digitalfuture</span>
+        </div>
       </footer>
     </main>
   );
