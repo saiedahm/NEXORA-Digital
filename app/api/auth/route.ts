@@ -33,15 +33,23 @@ async function ensureWorkspace(supabase: ReturnType<typeof makeClient>, userId: 
   const base = (email?.split("@")[0] || "workspace").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "workspace";
   const slug = `${base}-${userId.slice(0, 8)}`;
 
-  const { data: organization, error } = await supabase.from("organizations")
-    .insert({ name: email ? `${email.split("@")[0]}'s Workspace` : "NEXORA Workspace", slug })
-    .select("id, name, slug").single();
+  const organizationId = crypto.randomUUID();
+  const { error } = await supabase.from("organizations").insert({
+    id: organizationId,
+    name: email ? email.split("@")[0] + "'s Workspace" : "NEXORA Workspace",
+    slug,
+  });
   if (error) throw error;
 
   const { error: membershipError } = await supabase.from("memberships")
-    .insert({ organization_id: organization.id, user_id: userId, role: "owner" });
+    .insert({ organization_id: organizationId, user_id: userId, role: "owner" });
   if (membershipError) throw membershipError;
-  return { organization_id: organization.id };
+
+  const { error: subscriptionError } = await supabase.from("subscriptions")
+    .insert({ organization_id: organizationId, plan: "free", status: "active" });
+  if (subscriptionError) throw subscriptionError;
+
+  return { organization_id: organizationId };
 }
 
 export async function POST(request: Request) {
