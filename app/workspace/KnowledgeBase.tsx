@@ -19,6 +19,8 @@ export default function KnowledgeBase() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [deleting, setDeleting] = useState("");
+  const [importUrl, setImportUrl] = useState("");
+  const [importing, setImporting] = useState(false);
   const [editing, setEditing] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
@@ -33,6 +35,31 @@ export default function KnowledgeBase() {
   }
 
   useEffect(() => { load(); }, []);
+
+  async function importWebsite(event: React.FormEvent) {
+    event.preventDefault();
+    setImporting(true);
+    setMessage("");
+    try {
+      const response = await fetch("/api/knowledge/import-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: importUrl }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error || "Unable to import this website.");
+        return;
+      }
+      setDocuments((current) => [data.document, ...current]);
+      setImportUrl("");
+      setMessage("Website content imported into your Knowledge Base.");
+    } catch {
+      setMessage("Unable to import this website.");
+    } finally {
+      setImporting(false);
+    }
+  }
 
   async function addDocument(event: React.FormEvent) {
     event.preventDefault();
@@ -139,6 +166,14 @@ export default function KnowledgeBase() {
           <label className="account-label" htmlFor="knowledge-content">CONTENT</label>
           <textarea id="knowledge-content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Enter trusted information for your AI..." rows={7} required />
           <button className="primary-button" disabled={saving}>{saving ? "Saving…" : "Add to Knowledge Base →"}</button>
+        </form>
+
+        <form onSubmit={importWebsite}>
+          <label className="account-label" htmlFor="knowledge-url">IMPORT WEBSITE URL</label>
+          <input id="knowledge-url" type="url" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} placeholder="https://your-website.com" required />
+          <button className="secondary-button" disabled={importing}>
+            {importing ? "Importing…" : "Import website →"}
+          </button>
         </form>
 
         <div className="feature-grid">
