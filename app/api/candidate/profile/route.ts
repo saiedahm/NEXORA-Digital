@@ -1,0 +1,5 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+export async function PATCH(req:Request){const user=await currentUser();if(!user?.candidate)return NextResponse.json({error:"Candidate access required"},{status:403});const b=await req.json();const data={headline:b.headline?String(b.headline):null,summary:b.summary?String(b.summary):null,skills:Array.isArray(b.skills)?b.skills.map(String):[],yearsExperience:b.yearsExperience?Number(b.yearsExperience):null,education:b.education?String(b.education):null,languages:Array.isArray(b.languages)?b.languages.map(String):[],preferredLocations:Array.isArray(b.preferredLocations)?b.preferredLocations.map(String):[],employmentPreference:b.employmentPreference?String(b.employmentPreference):null};return NextResponse.json(await db.candidate.update({where:{id:user.candidate.id},data}));}
+export async function GET(){const user=await currentUser();if(!user?.candidate)return NextResponse.json({error:"Candidate access required"},{status:403});return NextResponse.json(user.candidate);}
