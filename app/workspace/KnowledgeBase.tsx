@@ -48,7 +48,7 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
       const response = await fetch("/api/knowledge/import-url", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: importUrl }),
+        body: JSON.stringify({ url: importUrl, project_id: projectId || null }),
       });
       const data = await response.json();
       if (!response.ok) {
