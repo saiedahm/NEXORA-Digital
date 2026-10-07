@@ -97,6 +97,24 @@ export async function POST(request: Request) {
       .slice(-12)
       .map((message: ChatMessage) => ({ role: message.role, content: message.content.slice(0, 4000) }));
 
+    const { data: knowledgeRows } = await supabase
+      .from("knowledge_documents")
+      .select("title, source_type, content")
+      .eq("organization_id", membership.organization_id)
+      .order("updated_at", { ascending: false })
+      .limit(20);
+
+    const knowledgeContext = (knowledgeRows || [])
+      .map((item) => ({
+        title: typeof item.title === "string" ? item.title.slice(0, 200) : "Knowledge source",
+        sourceType: typeof item.source_type === "string" ? item.source_type : "text",
+        content: typeof item.content === "string" ? item.content.slice(0, 6000) : "",
+      }))
+      .filter((item) => item.content)
+      .map((item) => "[" + item.sourceType + "] " + item.title + "\n" + item.content)
+      .join("\n\n")
+      .slice(0, 50000);
+
     const apiKey = process.env.NEXORA_OPENAI_KEY;
     const model = process.env.OPENAI_MODEL || "gpt-6-luna";
     if (!apiKey) return NextResponse.json({ error: "AI service is not configured yet." }, { status: 503 });
