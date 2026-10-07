@@ -16,6 +16,7 @@ model User {
   candidate Candidate?
   company Company?
   applications Application[]
+  subscriptions Subscription[]
 }
 
 model Candidate {
@@ -91,4 +92,19 @@ model Match {
   job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
   @@unique([candidateId, jobId])
   @@index([candidateId, score])
+}
+
+model Subscription {
+  id String @id @default(cuid())
+  userId String
+  provider String @default("stripe")
+  providerCustomerId String?
+  providerSubscriptionId String? @unique
+  plan String
+  status String
+  currentPeriodEnd DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, status])
 }
