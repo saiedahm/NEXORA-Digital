@@ -18,6 +18,7 @@ export default function KnowledgeBase() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [deleting, setDeleting] = useState("");
 
   async function load() {
     setLoading(true);
@@ -56,6 +57,29 @@ export default function KnowledgeBase() {
     }
   }
 
+  async function removeDocument(id: string) {
+    setDeleting(id);
+    setMessage("");
+    try {
+      const response = await fetch("/api/knowledge", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error || "Unable to delete knowledge.");
+        return;
+      }
+      setDocuments((current) => current.filter((item) => item.id !== id));
+      setMessage("Knowledge source removed.");
+    } catch {
+      setMessage("Unable to delete knowledge.");
+    } finally {
+      setDeleting("");
+    }
+  }
+
   return (
     <section className="account-panel">
       <div className="account-side">
@@ -91,6 +115,9 @@ export default function KnowledgeBase() {
               <span>{item.source_type.toUpperCase()}</span>
               <h3>{item.title}</h3>
               <p>{item.content.slice(0, 180)}{item.content.length > 180 ? "…" : ""}</p>
+              <button className="secondary-button" type="button" onClick={() => removeDocument(item.id)} disabled={deleting === item.id}>
+                {deleting === item.id ? "Removing…" : "Remove source"}
+              </button>
             </article>
           )) : <p>No knowledge sources yet.</p>}
         </div>
