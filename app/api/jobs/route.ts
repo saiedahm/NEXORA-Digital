@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db/client";
-export async function GET(){const jobs=await db.job.findMany({where:{status:"PUBLISHED"},include:{company:true},orderBy:{createdAt:"desc"}});return NextResponse.json(jobs);}
-export async function POST(req:Request){const body=await req.json();if(!body.companyId||!body.title||!body.description||!body.country||!body.employmentType)return NextResponse.json({error:"Missing required job fields"},{status:400});const job=await db.job.create({data:{companyId:body.companyId,title:body.title,description:body.description,country:body.country,city:body.city||null,employmentType:body.employmentType,salaryRange:body.salaryRange||null,status:"PUBLISHED"}});return NextResponse.json(job,{status:201});}
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+export async function GET(req:Request){const {searchParams}=new URL(req.url);const q=searchParams.get("q")?.trim()||"";const country=searchParams.get("country")?.trim()||"";const type=searchParams.get("employmentType")?.trim()||"";const jobs=await db.job.findMany({where:{status:"PUBLISHED",company:{verified:true},...(country?{country:{contains:country,mode:"insensitive"}}:{}),...(type?{employmentType:{equals:type}}:{}),...(q?{OR:[{title:{contains:q,mode:"insensitive"}},{description:{contains:q,mode:"insensitive"}},{city:{contains:q,mode:"insensitive"}}]}:{})},include:{company:true},orderBy:{createdAt:"desc"}});return NextResponse.json(jobs);}
