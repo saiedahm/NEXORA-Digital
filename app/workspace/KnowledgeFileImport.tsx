@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 type Props = {
   onImported: (document: Record<string, unknown>) => void;
+  projectId?: string;
 };
 
 export default function KnowledgeFileImport({ onImported, projectId = "" }: Props) {
@@ -24,7 +25,8 @@ export default function KnowledgeFileImport({ onImported, projectId = "" }: Prop
 
     try {
       const form = new FormData();
-      form.append("file", file);\n      if (projectId) form.append("project_id", projectId);
+      form.append("file", file);
+      if (projectId) form.append("project_id", projectId);
 
       const response = await fetch("/api/knowledge/import-file", {
         method: "POST",
