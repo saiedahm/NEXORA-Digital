@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server"; import { createHash } from "crypto"; import { db } from "@/lib/db/client"; import { createSessionToken } from "@/lib/auth/session";
+const hash=(v:string)=>createHash("sha256").update(v).digest("hex");
+export async function POST(req:Request){const b=await req.json();const user=await db.user.findUnique({where:{email:String(b.email||"").toLowerCase()}});if(!user||user.passwordHash!==hash(String(b.password||"")))return NextResponse.json({error:"Invalid email or password"},{status:401});const res=NextResponse.json({id:user.id,role:user.role});res.cookies.set("nexora_session",createSessionToken(user.id),{httpOnly:true,secure:process.env.NODE_ENV==="production",sameSite:"lax",path:"/",maxAge:604800});return res;}
