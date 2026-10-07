@@ -89,3 +89,33 @@ export async function POST(request: Request) {
     return json({ ok: false, error: error instanceof Error ? error.message : "Authentication service is unavailable." }, 500, pending);
   }
 }
+
+export async function GET() {
+  const pending: Array<{ name: string; value: string; options?: Record<string, unknown> }> = [];
+  try {
+    const request = new Request("https://nexora.local");
+    const supabase = makeClient(request, pending);
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return json({ ok: true, authenticated: false }, 200, pending);
+
+    const { data: membership } = await supabase
+      .from("memberships")
+      .select("organization_id, role")
+      .eq("user_id", user.id)
+      .limit(1)
+      .maybeSingle();
+
+    return json({
+      ok: true,
+      authenticated: true,
+      account: {
+        email: user.email ?? "",
+        role: membership?.role ?? "member",
+        organizationId: membership?.organization_id ?? null,
+      },
+    }, 200, pending);
+  } catch {
+    return json({ ok: false, authenticated: false, error: "Authentication status unavailable." }, 500, pending);
+  }
+}
