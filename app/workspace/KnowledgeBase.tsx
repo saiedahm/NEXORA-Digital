@@ -19,6 +19,9 @@ export default function KnowledgeBase() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [deleting, setDeleting] = useState("");
+  const [editing, setEditing] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
 
   async function load() {
     setLoading(true);
@@ -54,6 +57,35 @@ export default function KnowledgeBase() {
       setMessage("Unable to save knowledge.");
     } finally {
       setSaving(false);
+    }
+  }
+
+  function startEditing(item: DocumentItem) {
+    setEditing(item.id);
+    setEditTitle(item.title);
+    setEditContent(item.content);
+    setMessage("");
+  }
+
+  async function saveEdit() {
+    if (!editing) return;
+    setMessage("");
+    try {
+      const response = await fetch("/api/knowledge", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editing, title: editTitle, content: editContent }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error || "Unable to update knowledge.");
+        return;
+      }
+      setDocuments((current) => current.map((item) => item.id === editing ? data.document : item));
+      setEditing(null);
+      setMessage("Knowledge source updated.");
+    } catch {
+      setMessage("Unable to update knowledge.");
     }
   }
 
@@ -114,10 +146,22 @@ export default function KnowledgeBase() {
             <article className="feature-card" key={item.id}>
               <span>{item.source_type.toUpperCase()}</span>
               <h3>{item.title}</h3>
-              <p>{item.content.slice(0, 180)}{item.content.length > 180 ? "…" : ""}</p>
-              <button className="secondary-button" type="button" onClick={() => removeDocument(item.id)} disabled={deleting === item.id}>
-                {deleting === item.id ? "Removing…" : "Remove source"}
-              </button>
+              {editing === item.id ? (
+                <>
+                  <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} aria-label="Knowledge title" />
+                  <textarea value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={5} aria-label="Knowledge content" />
+                  <button className="primary-button" type="button" onClick={saveEdit}>Save changes →</button>
+                  <button className="secondary-button" type="button" onClick={() => setEditing(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <p>{item.content.slice(0, 180)}{item.content.length > 180 ? "…" : ""}</p>
+                  <button className="secondary-button" type="button" onClick={() => startEditing(item)}>Edit source</button>
+                  <button className="secondary-button" type="button" onClick={() => removeDocument(item.id)} disabled={deleting === item.id}>
+                    {deleting === item.id ? "Removing…" : "Remove source"}
+                  </button>
+                </>
+              )}
             </article>
           )) : <p>No knowledge sources yet.</p>}
         </div>
