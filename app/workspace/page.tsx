@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import CreateProjectForm from "@/app/workspace/create-project-form";
 import KnowledgeBase from "./KnowledgeBase";
+import ProjectManager from "./ProjectManager";
 
 export const dynamic = "force-dynamic";
 
@@ -76,20 +77,11 @@ export default async function WorkspacePage() {
           <KnowledgeBase projects={projects.map((project) => ({ id: project.id, name: project.name }))} />
 
           <section className="feature-grid">
-            {projects.length ? projects.map((project) => (
-              <article className="feature-card" key={project.id}>
-                <span>PROJECT</span>
-                <h3>{project.name}</h3>
-                <p>{project.description || "NEXORA project workspace."}</p>
-              </article>
-            )) : (
-              <article className="feature-card">
-                <span>PROJECTS</span>
-                <h3>Create a project</h3>
-                <p>Start a project and keep its data inside your NEXORA organization.</p>
-                <CreateProjectForm />
-              </article>
-            )}
+            <ProjectManager projects={projects.map((project) => ({
+              id: project.id,
+              name: project.name,
+              description: project.description,
+            }))} />
           </section>
         </>
       )}
