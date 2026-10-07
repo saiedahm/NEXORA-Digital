@@ -20,6 +20,7 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
   const [content, setContent] = useState("");
   const [sourceType, setSourceType] = useState("text");
   const [projectId, setProjectId] = useState("");
+  const [filterProjectId, setFilterProjectId] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -30,9 +31,10 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
-  async function load() {
+  async function load(selectedProjectId = filterProjectId) {
     setLoading(true);
-    const response = await fetch("/api/knowledge", { cache: "no-store" });
+    const query = selectedProjectId ? `?project_id=${encodeURIComponent(selectedProjectId)}` : "";
+    const response = await fetch(`/api/knowledge${query}`, { cache: "no-store" });
     const data = await response.json();
     if (response.ok) setDocuments(data.documents || []);
     else setMessage(data.error || "Unable to load knowledge base.");
@@ -58,6 +60,7 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
       }
       setDocuments((current) => [data.document, ...current]);
       setImportUrl("");
+      setProjectId("");
       setMessage("Website content imported into your Knowledge Base.");
     } catch {
       setMessage("Unable to import this website.");
@@ -84,6 +87,7 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
       setDocuments((current) => [data.document, ...current]);
       setTitle("");
       setContent("");
+      setProjectId("");
       setMessage("Knowledge saved to your workspace.");
     } catch {
       setMessage("Unable to save knowledge.");
@@ -187,6 +191,14 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
           }}
         />
 
+        <div>
+          <label className="account-label" htmlFor="knowledge-filter">FILTER BY PROJECT</label>
+          <select id="knowledge-filter" value={filterProjectId} onChange={(e) => { setFilterProjectId(e.target.value); load(e.target.value); }}>
+            <option value="">All workspace knowledge</option>
+            {projects.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}
+          </select>
+        </div>
+
         <form onSubmit={importWebsite}>
           <label className="account-label" htmlFor="knowledge-url">IMPORT WEBSITE URL</label>
           <input id="knowledge-url" type="url" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} placeholder="https://your-website.com" required />
@@ -200,6 +212,7 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
             <article className="feature-card" key={item.id}>
               <span>{item.source_type.toUpperCase()}</span>
               <h3>{item.title}</h3>
+              <p className="muted-copy">{item.project_id ? `Project: ${projects.find((project) => project.id === item.project_id)?.name || "Project"}` : "Workspace-wide"}</p>
               {editing === item.id ? (
                 <>
                   <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} aria-label="Knowledge title" />
