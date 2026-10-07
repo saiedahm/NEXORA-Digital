@@ -1,2 +1,1 @@
-import {NextResponse} from "next/server";
-export async function POST(){const r=NextResponse.json({ok:true});r.cookies.set("nexora_session","",{httpOnly:true,expires:new Date(0),path:"/"});return r;}
+import{NextResponse}from"next/server";export async function POST(){const r=NextResponse.json({ok:true});r.cookies.set("nexora_session","",{httpOnly:true,secure:process.env.NODE_ENV==="production",sameSite:"lax",expires:new Date(0),path:"/"});return r}
