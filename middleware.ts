@@ -1,0 +1,4 @@
+import { NextRequest, NextResponse } from "next/server";
+import { verifySessionToken } from "./lib/auth/session";
+export function middleware(req:NextRequest){const p=req.nextUrl.pathname;const protectedPath=p.startsWith("/dashboard")||p.startsWith("/candidates/profile")||p.startsWith("/candidates/cv")||p.startsWith("/candidates/applications")||p.startsWith("/candidates/matches")||p.startsWith("/companies/post-job");if(!protectedPath)return NextResponse.next();const token=req.cookies.get("nexora_session")?.value;if(!token||!verifySessionToken(token)){const url=req.nextUrl.clone();url.pathname="/login";return NextResponse.redirect(url);}return NextResponse.next();}
+export const config={matcher:["/dashboard/:path*","/candidates/:path*","/companies/post-job/:path*"]};
