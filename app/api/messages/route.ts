@@ -41,7 +41,29 @@ export async function POST(request: Request) {
     const { data, error } = await supabase.from("messages").insert({ conversation_id: conversationId, role, content }).select("id, role, content, created_at").single();
     if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 400 });
 
-    await supabase.from("conversations").update({ updated_at: new Date().toISOString() }).eq("id", conversationId).eq("user_id", user.id);
+    const updateData: { updated_at: string; title?: string } = {
+      updated_at: new Date().toISOString(),
+    };
+
+    if (role === "user") {
+      const { data: currentConversation } = await supabase
+        .from("conversations")
+        .select("title")
+        .eq("id", conversationId)
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (currentConversation?.title === "AI Studio conversation" || currentConversation?.title === "New AI conversation") {
+        const generatedTitle = content.replace(/\s+/g, " ").trim().slice(0, 80);
+        if (generatedTitle) updateData.title = generatedTitle;
+      }
+    }
+
+    await supabase
+      .from("conversations")
+      .update(updateData)
+      .eq("id", conversationId)
+      .eq("user_id", user.id);
     return NextResponse.json({ ok: true, message: data });
   } catch {
     return NextResponse.json({ ok: false, error: "Message could not be saved." }, { status: 500 });
