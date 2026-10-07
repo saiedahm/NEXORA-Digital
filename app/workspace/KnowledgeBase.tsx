@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import KnowledgeFileImport from "./KnowledgeFileImport";
 
-type DocumentItem = {
+type ProjectItem = { id: string; name: string; };\n\ntype DocumentItem = {
   id: string;
   title: string;
   source_type: string;
@@ -11,11 +11,11 @@ type DocumentItem = {
   created_at: string;
 };
 
-export default function KnowledgeBase() {
+export default function KnowledgeBase({ projects = [] }: { projects?: ProjectItem[] }) {
   const [documents, setDocuments] = useState<DocumentItem[]>([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [sourceType, setSourceType] = useState("text");
+  const [sourceType, setSourceType] = useState("text");\n  const [projectId, setProjectId] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -70,7 +70,7 @@ export default function KnowledgeBase() {
       const response = await fetch("/api/knowledge", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content, source_type: sourceType }),
+        body: JSON.stringify({ title, content, source_type: sourceType, project_id: projectId || null }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -164,7 +164,7 @@ export default function KnowledgeBase() {
             <option value="url">URL</option>
             <option value="file">File</option>
           </select>
-          <label className="account-label" htmlFor="knowledge-content">CONTENT</label>
+          <label className="account-label" htmlFor="knowledge-project">PROJECT</label>\n          <select id="knowledge-project" value={projectId} onChange={(e) => setProjectId(e.target.value)}>\n            <option value="">Workspace-wide</option>\n            {projects.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}\n          </select>\n          <label className="account-label" htmlFor="knowledge-content">CONTENT</label>
           <textarea id="knowledge-content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Enter trusted information for your AI..." rows={7} required />
           <button className="primary-button" disabled={saving}>{saving ? "Saving…" : "Add to Knowledge Base →"}</button>
         </form>
