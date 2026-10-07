@@ -15,7 +15,7 @@ function makeClient(request: Request, pending: Array<{ name: string; value: stri
   return createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
     cookies: {
       getAll: () => requestCookies(request),
-      setAll: (items) => pending.push(...items),
+      setAll: (items) => { pending.push(...items); },
     },
   });
 }
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
 
     if (!["login", "signup"].includes(action)) return json({ ok: false, error: "Invalid authentication action." }, 400, pending);
     if (!email || !password) return json({ ok: false, error: "Email and password are required." }, 400, pending);
-    if (password.length < 8) return json({ ok: false, error: "Password must be at least 8 characters." }, 400);
+    if (password.length < 8) return json({ ok: false, error: "Password must be at least 8 characters." }, 400, pending);
 
     const supabase = makeClient(request, pending);
     const result = action === "login"
