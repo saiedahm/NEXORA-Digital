@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
+import { NEXORA_FREE_PLAN, NEXORA_PLANS, NEXORA_ENTERPRISE } from "@/lib/plans";
 import { cookies } from "next/headers";
 
 export const runtime = "nodejs";
@@ -7,11 +8,9 @@ export const runtime = "nodejs";
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
 const PLAN_LIMITS: Record<string, number | null> = {
-  free: 20,
-  starter: 200,
-  business: 1000,
-  growth: 5000,
-  enterprise: null,
+  [NEXORA_FREE_PLAN.key]: NEXORA_FREE_PLAN.aiLimit,
+  ...Object.fromEntries(NEXORA_PLANS.map((item) => [item.key, item.aiLimit])),
+  [NEXORA_ENTERPRISE.key]: NEXORA_ENTERPRISE.aiLimit,
 };
 
 async function getSupabase() {
