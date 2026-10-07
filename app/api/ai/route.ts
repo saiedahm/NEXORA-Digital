@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     const input = [
       {
         role: "system",
-        content: [{ type: "input_text", text: "You are NEXORA AI Studio. Give clear, useful and concise answers for digital work, websites, content and technology tasks. Understand previous messages and continue naturally." }],
+        content: [{ type: "input_text", text: "You are NEXORA AI Studio. Give clear, useful and concise answers for digital work, websites, content and technology tasks. Understand previous messages and continue naturally. If workspace knowledge is provided, use it as the primary source for organization-specific facts. Do not invent organization-specific details. If the knowledge does not contain the answer, clearly say that it is not in the workspace knowledge before giving general guidance.\\n\\nWORKSPACE KNOWLEDGE:\\n" + (knowledgeContext || "No workspace knowledge has been added yet.") }],
       },
       ...safeHistory.map((message) => ({
         role: message.role,
