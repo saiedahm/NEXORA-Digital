@@ -51,3 +51,50 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Project creation failed." }, { status: 500 });
   }
 }
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const projectId = typeof body?.projectId === "string" ? body.projectId : "";
+    const name = typeof body?.name === "string" ? body.name.trim() : "";
+    const description = typeof body?.description === "string" ? body.description.trim() : "";
+
+    if (!projectId || !name || name.length > 100) {
+      return NextResponse.json({ ok: false, error: "Project and name are required." }, { status: 400 });
+    }
+
+    const supabase = await client();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ ok: false, error: "Authentication required." }, { status: 401 });
+
+    const { data: membership } = await supabase
+      .from("memberships")
+      .select("organization_id")
+      .eq("user_id", user.id)
+      .limit(1)
+      .maybeSingle();
+
+    if (!membership) return NextResponse.json({ ok: false, error: "Workspace not found." }, { status: 403 });
+
+    const { data: project } = await supabase
+      .from("projects")
+      .select("id")
+      .eq("id", projectId)
+      .eq("organization_id", membership.organization_id)
+      .maybeSingle();
+
+    if (!project) return NextResponse.json({ ok: false, error: "Project not found in your workspace." }, { status: 404 });
+
+    const { data, error } = await supabase
+      .from("projects")
+      .update({ name, description: description || null, updated_at: new Date().toISOString() })
+      .eq("id", projectId)
+      .eq("organization_id", membership.organization_id)
+      .select("id, name, description, created_at, updated_at")
+      .single();
+
+    if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ ok: true, project: data });
+  } catch {
+    return NextResponse.json({ ok: false, error: "Project update failed." }, { status: 500 });
+  }
+}
