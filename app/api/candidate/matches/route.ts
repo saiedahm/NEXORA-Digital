@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+export async function GET(){const user=await currentUser();if(!user?.candidate)return NextResponse.json({error:"Candidate access required"},{status:403});const candidate=user.candidate;const jobs=await db.job.findMany({where:{status:"PUBLISHED"},include:{company:true}});const skills=new Set(candidate.skills.map(s=>s.toLowerCase()));const results=jobs.map(job=>{const text=(job.title+" "+job.description).toLowerCase();const matched=[...skills].filter(s=>text.includes(s));const score=Math.min(100,Math.round((matched.length/Math.max(1,skills.size))*100));return {job,score,reasons:matched}}).sort((a,b)=>b.score-a.score);return NextResponse.json(results);}
