@@ -1,4 +1,5 @@
 import { NEXORA_PLANS } from "@/lib/plans";
+import PricingActions from "./PricingActions";
 
 
 
@@ -24,9 +25,7 @@ export default function PricingPage() {
                 <span key={feature}>✓ {feature}</span>
               ))}
             </div>
-            <a className={plan.featured ? "primary-button" : "secondary-button"} href="/contact">
-              Start with {plan.name} <span>→</span>
-            </a>
+            <PricingActions plan={plan.key} featured={plan.featured} />
           </article>
         ))}
       </section>
