@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import BillingPortalButton from "./BillingPortalButton";
 
 type Data = {
   account: { email: string; role: string; workspace: { name: string; slug: string } | null };
@@ -49,7 +50,7 @@ export default function AccountDashboard() {
             </div>
           </div>
         </section>
-        <section className="account-panel"><div className="account-side"><span className="account-label">CURRENT PLAN</span><h2>{data.plan.plan.toUpperCase()}</h2><p>Status · {data.plan.status}</p>{data.plan.current_period_end && <p>Renews · {new Date(data.plan.current_period_end).toLocaleDateString()}</p>}</div><div className="account-form-area"><span className="account-label">PLAN MANAGEMENT</span><h2>Manage your NEXORA plan.</h2><p>Choose a paid plan from pricing. Once Stripe confirms payment, your workspace subscription is updated automatically.</p><a className="primary-button" href="/pricing">View plans →</a></div></section>
+        <section className="account-panel"><div className="account-side"><span className="account-label">CURRENT PLAN</span><h2>{data.plan.plan.toUpperCase()}</h2><p>Status · {data.plan.status}</p>{data.plan.current_period_end && <p>Renews · {new Date(data.plan.current_period_end).toLocaleDateString()}</p>}</div><div className="account-form-area"><span className="account-label">PLAN MANAGEMENT</span><h2>Manage your NEXORA plan.</h2><p>Choose a paid plan from pricing. Once Stripe confirms payment, your workspace subscription is updated automatically.</p><div className="studio-toolbar"><a className="primary-button" href="/pricing">View plans →</a>{data.plan.plan !== "free" && <BillingPortalButton />}</div></div></section>
         <div className="studio-toolbar">
           <a className="primary-button" href="/workspace">Open Workspace →</a>
           <a className="secondary-button" href="/ai-studio">Open AI Studio →</a>
