@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+export async function PATCH(req:Request,{params}:{params:Promise<{id:string}>}){const user=await currentUser();if(!user||user.role!=="ADMIN")return NextResponse.json({error:"Admin access required"},{status:403});const {id}=await params;const b=await req.json();if(typeof b.verified!=="boolean")return NextResponse.json({error:"verified must be boolean"},{status:400});const company=await db.company.update({where:{id},data:{verified:b.verified}});return NextResponse.json(company);}
