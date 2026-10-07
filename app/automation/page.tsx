@@ -28,6 +28,9 @@ export default function AutomationPage() {
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null);
   const [stepType, setStepType] = useState<WorkflowStep["type"]>("ai_action");
   const [stepPrompt, setStepPrompt] = useState("");
+  const [runInput, setRunInput] = useState("");
+  const [runningWorkflow, setRunningWorkflow] = useState<string | null>(null);
+  const [runResult, setRunResult] = useState("");
 
   async function load(selectedProject = projectId) {
     setLoading(true);
@@ -101,6 +104,30 @@ export default function AutomationPage() {
     setMessage("Workflow step added.");
   }
 
+  async function runWorkflow(workflow: Workflow) {
+    if (!runInput.trim()) {
+      setMessage("Enter an input for the workflow first.");
+      return;
+    }
+    setRunningWorkflow(workflow.id);
+    setMessage("");
+    setRunResult("");
+    const response = await fetch("/api/automation/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ workflowId: workflow.id, input: runInput.trim() }),
+    });
+    const data = await response.json();
+    if (!response.ok || !data.ok) {
+      setMessage(data.error || "Workflow execution failed.");
+      setRunningWorkflow(null);
+      return;
+    }
+    setRunResult(data.response || "");
+    setMessage("Workflow completed successfully.");
+    setRunningWorkflow(null);
+  }
+
   return (
     <main className="inner-page automation-page">
       <a className="back-link" href="/">← NEXORA</a>
@@ -152,7 +179,12 @@ export default function AutomationPage() {
                     </select></label>
                     {stepType === "ai_action" && <label>AI instruction<textarea value={stepPrompt} onChange={(e) => setStepPrompt(e.target.value)} placeholder="Describe what NEXORA AI should do in this step." rows={4} /></label>}
                     <button className="primary-button" type="button" onClick={() => addStep(workflow)}>Add step →</button>
-                    <p>{workflow.definition?.steps?.length || 0} step{(workflow.definition?.steps?.length || 0) === 1 ? "" : "s"} configured.</p>{workflow.definition?.steps?.map((step, index) => <p key={`${workflow.id}-step-${index}`}><strong>{index + 1}. {step.type === "ai_action" ? "AI Action" : "Result"}</strong>{step.type === "ai_action" && step.prompt ? ` — ${step.prompt}` : ""}</p>)}
+                    <p>{workflow.definition?.steps?.length || 0} step{(workflow.definition?.steps?.length || 0) === 1 ? "" : "s"} configured.</p>
+                    <label>Workflow input<textarea value={runInput} onChange={(e) => setRunInput(e.target.value)} placeholder="Give this workflow a task or content to process." rows={4} /></label>
+                    <button className="secondary-button" type="button" onClick={() => runWorkflow(workflow)} disabled={runningWorkflow === workflow.id || workflow.status === "archived"}>
+                      {runningWorkflow === workflow.id ? "Running AI…" : "Run workflow →"}
+                    </button>
+                    {runResult && <div className="automation-result"><strong>Latest result</strong><p>{runResult}</p></div>}{workflow.definition?.steps?.map((step, index) => <p key={`${workflow.id}-step-${index}`}><strong>{index + 1}. {step.type === "ai_action" ? "AI Action" : "Result"}</strong>{step.type === "ai_action" && step.prompt ? ` — ${step.prompt}` : ""}</p>)}
                   </div>
                 )}
               </article>
