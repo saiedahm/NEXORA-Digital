@@ -43,6 +43,16 @@ export default function AutomationPage() {
   const [runInput, setRunInput] = useState("");
   const [runningWorkflow, setRunningWorkflow] = useState<string | null>(null);
   const [runResult, setRunResult] = useState("");
+  const [runHistory, setRunHistory] = useState<Array<{
+    id: string;
+    workflow_id: string;
+    status: "running" | "completed" | "failed";
+    input: string | null;
+    output: string | null;
+    error: string | null;
+    started_at: string;
+    completed_at: string | null;
+  }>>([]);
 
   async function load(selectedProject = projectId) {
     setLoading(true);
@@ -73,7 +83,19 @@ export default function AutomationPage() {
 
   useEffect(() => {
     load();
+    loadRunHistory();
   }, []);
+
+  async function loadRunHistory(workflowId = "") {
+    const response = await fetch(
+      workflowId
+        ? `/api/automation/runs?workflow_id=${encodeURIComponent(workflowId)}`
+        : "/api/automation/runs"
+    );
+    if (!response.ok) return;
+    const data = await response.json();
+    setRunHistory(data.runs ?? []);
+  }
 
   async function createWorkflow(event: FormEvent) {
     event.preventDefault();
@@ -179,6 +201,7 @@ export default function AutomationPage() {
     }
 
     setRunResult(data.response || "");
+    await loadRunHistory();
     setMessage("Workflow completed successfully.");
     setRunningWorkflow(null);
   }
@@ -396,6 +419,48 @@ export default function AutomationPage() {
                       ))}
                     </div>
                   )}
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      <section className="automation-library">
+        <div className="automation-section-head">
+          <div>
+            <div className="section-kicker">RUN HISTORY</div>
+            <h2>Recent <span>executions.</span></h2>
+          </div>
+          <button className="secondary-button" type="button" onClick={() => loadRunHistory()}>
+            Refresh history ↻
+          </button>
+        </div>
+
+        {runHistory.length === 0 ? (
+          <p>No workflow runs yet.</p>
+        ) : (
+          <div className="automation-grid">
+            {runHistory.map((run) => {
+              const workflow = workflows.find((item) => item.id === run.workflow_id);
+              return (
+                <article className="automation-card" key={run.id}>
+                  <div className="automation-card-top">
+                    <span>{workflow?.name || "Workflow"}</span>
+                    <b>{run.status.toUpperCase()}</b>
+                  </div>
+                  <p><strong>Started:</strong> {new Date(run.started_at).toLocaleString()}</p>
+                  {run.completed_at && (
+                    <p><strong>Completed:</strong> {new Date(run.completed_at).toLocaleString()}</p>
+                  )}
+                  {run.input && <p><strong>Input:</strong> {run.input}</p>}
+                  {run.output && (
+                    <div className="automation-result">
+                      <strong>Output</strong>
+                      <p>{run.output}</p>
+                    </div>
+                  )}
+                  {run.error && <p><strong>Error:</strong> {run.error}</p>}
                 </article>
               );
             })}
