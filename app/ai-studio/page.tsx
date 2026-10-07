@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 function RichAIText({ text }: { text: string }) {
   const normalized = text
@@ -88,6 +88,25 @@ export default function AIStudioPage() {
   const [savedNotice, setSavedNotice] = useState("");
   const [history, setHistory] = useState<{ id: string; title: string; updated_at: string }[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch("/api/auth")
+      .then(async (response) => {
+        const data = await response.json();
+        if (!active) return;
+        if (response.ok && data.authenticated) {
+          setSignedIn(true);
+          await loadHistory();
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function loadHistory() {
     const response = await fetch("/api/conversations");
