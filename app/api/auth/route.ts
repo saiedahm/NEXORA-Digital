@@ -76,8 +76,8 @@ export async function POST(request: Request) {
       ? await supabase.auth.signInWithPassword({ email, password })
       : await supabase.auth.signUp({ email, password, options: { data: { full_name: name || null } } });
 
-    if (result.error) return json({ ok: false, error: result.error.message }, 401);
-    if (!result.data.user) return json({ ok: false, error: "Authentication failed." }, 401);
+    if (result.error) return json({ ok: false, error: result.error.message }, 401, pending);
+    if (!result.data.user) return json({ ok: false, error: "Authentication failed." }, 401, pending);
 
     if (!result.data.session) {
       return json({ ok: true, authenticated: false, needsConfirmation: true, message: "Account created. Please check your email to confirm your account." }, 200, pending);
