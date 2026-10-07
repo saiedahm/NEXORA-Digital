@@ -3,14 +3,14 @@
 import { FormEvent, useEffect, useState } from "react";
 
 type Project = { id: string; name: string };
-type Workflow = {
+type WorkflowStep = { type: "ai_action" | "result"; prompt?: string; output?: string };\n\ntype Workflow = {
   id: string;
   project_id: string | null;
   name: string;
   description: string | null;
   status: "draft" | "active" | "paused" | "archived";
   trigger_type: "manual" | "schedule" | "webhook" | "event";
-  definition?: { steps?: { type: string }[] };
+  definition?: { steps?: WorkflowStep[] };
 };
 
 export default function AutomationPage() {
@@ -24,7 +24,8 @@ export default function AutomationPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null);
-  const [stepType, setStepType] = useState("ai_action");
+  const [stepType, setStepType] = useState<WorkflowStep["type"]>("ai_action");
+  const [stepPrompt, setStepPrompt] = useState("");
 
   async function load(selectedProject = projectId) {
     setLoading(true);
@@ -77,13 +78,15 @@ export default function AutomationPage() {
   }
 
   async function addStep(workflow: Workflow) {
-    const currentSteps = (workflow as Workflow & { definition?: { steps?: { type: string }[] } }).definition?.steps ?? [];
+    const currentSteps = workflow.definition?.steps ?? [];
+    const step = stepType === "ai_action" ? { type: "ai_action" as const, prompt: stepPrompt.trim() } : { type: "result" as const, output: "" };
+    if (stepType === "ai_action" && !stepPrompt.trim()) { setMessage("Describe what the AI should do."); return; }
     const response = await fetch("/api/automation", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         workflowId: workflow.id,
-        definition: { steps: [...currentSteps, { type: stepType }] },
+        definition: { steps: [...currentSteps, step] },
       }),
     });
     const data = await response.json();
@@ -92,6 +95,7 @@ export default function AutomationPage() {
       return;
     }
     setWorkflows((current) => current.map((item) => item.id === workflow.id ? { ...item, ...data.workflow } : item));
+    setStepPrompt("");
     setMessage("Workflow step added.");
   }
 
@@ -140,12 +144,13 @@ export default function AutomationPage() {
                 </button>
                 {selectedWorkflow === workflow.id && (
                   <div className="account-form">
-                    <label>Next step<select value={stepType} onChange={(e) => setStepType(e.target.value)}>
+                    <label>Next step<select value={stepType} onChange={(e) => setStepType(e.target.value as WorkflowStep["type"])}>
                       <option value="ai_action">AI Action</option>
                       <option value="result">Result</option>
                     </select></label>
+                    {stepType === "ai_action" && <label>AI instruction<textarea value={stepPrompt} onChange={(e) => setStepPrompt(e.target.value)} placeholder="Describe what NEXORA AI should do in this step." rows={4} /></label>}
                     <button className="primary-button" type="button" onClick={() => addStep(workflow)}>Add step →</button>
-                    <p>{workflow.definition?.steps?.length || 0} step{(workflow.definition?.steps?.length || 0) === 1 ? "" : "s"} configured.</p>
+                    <p>{workflow.definition?.steps?.length || 0} step{(workflow.definition?.steps?.length || 0) === 1 ? "" : "s"} configured.</p>{workflow.definition?.steps?.map((step, index) => <p key={`${workflow.id}-step-${index}`}><strong>{index + 1}. {step.type === "ai_action" ? "AI Action" : "Result"}</strong>{step.type === "ai_action" && step.prompt ? ` — ${step.prompt}` : ""}</p>)}
                   </div>
                 )}
               </article>
