@@ -10,6 +10,7 @@ type Workflow = {
   description: string | null;
   status: "draft" | "active" | "paused" | "archived";
   trigger_type: "manual" | "schedule" | "webhook" | "event";
+  definition?: { steps?: { type: string }[] };
 };
 
 export default function AutomationPage() {
@@ -22,6 +23,8 @@ export default function AutomationPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null);
+  const [stepType, setStepType] = useState("ai_action");
 
   async function load(selectedProject = projectId) {
     setLoading(true);
@@ -73,6 +76,25 @@ export default function AutomationPage() {
     setSaving(false);
   }
 
+  async function addStep(workflow: Workflow) {
+    const currentSteps = (workflow as Workflow & { definition?: { steps?: { type: string }[] } }).definition?.steps ?? [];
+    const response = await fetch("/api/automation", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        workflowId: workflow.id,
+        definition: { steps: [...currentSteps, { type: stepType }] },
+      }),
+    });
+    const data = await response.json();
+    if (!response.ok || !data.ok) {
+      setMessage(data.error || "Could not add workflow step.");
+      return;
+    }
+    setWorkflows((current) => current.map((item) => item.id === workflow.id ? { ...item, ...data.workflow } : item));
+    setMessage("Workflow step added.");
+  }
+
   return (
     <main className="inner-page automation-page">
       <a className="back-link" href="/">← NEXORA</a>
@@ -113,6 +135,19 @@ export default function AutomationPage() {
                 <h3>{workflow.name}</h3>
                 <p>{workflow.description || "NEXORA automation workflow."}</p>
                 <span className="automation-select">{workflow.project_id ? projects.find((project) => project.id === workflow.project_id)?.name || "Project" : "Workspace-wide"}</span>
+                <button className="secondary-button" type="button" onClick={() => setSelectedWorkflow(selectedWorkflow === workflow.id ? null : workflow.id)}>
+                  {selectedWorkflow === workflow.id ? "Close builder ↑" : "Build steps →"}
+                </button>
+                {selectedWorkflow === workflow.id && (
+                  <div className="account-form">
+                    <label>Next step<select value={stepType} onChange={(e) => setStepType(e.target.value)}>
+                      <option value="ai_action">AI Action</option>
+                      <option value="result">Result</option>
+                    </select></label>
+                    <button className="primary-button" type="button" onClick={() => addStep(workflow)}>Add step →</button>
+                    <p>{workflow.definition?.steps?.length || 0} step{(workflow.definition?.steps?.length || 0) === 1 ? "" : "s"} configured.</p>
+                  </div>
+                )}
               </article>
             ))}
           </div>
