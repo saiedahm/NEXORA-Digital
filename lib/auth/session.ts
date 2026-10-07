@@ -1,0 +1,4 @@
+import { createHmac, randomBytes } from "crypto";
+const secret=()=>process.env.AUTH_SECRET||"development-only-change-me";
+export function createSessionToken(userId:string){const nonce=randomBytes(16).toString("hex");const payload=userId+"."+nonce;const sig=createHmac("sha256",secret()).update(payload).digest("hex");return Buffer.from(payload+"."+sig).toString("base64url");}
+export function verifySessionToken(token:string){try{const raw=Buffer.from(token,"base64url").toString();const parts=raw.split(".");if(parts.length!==3)return null;const [userId,nonce,sig]=parts;const expected=createHmac("sha256",secret()).update(userId+"."+nonce).digest("hex");return sig===expected?userId:null;}catch{return null;}}
