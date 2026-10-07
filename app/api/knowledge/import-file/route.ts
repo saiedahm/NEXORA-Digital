@@ -25,8 +25,8 @@ export async function POST(request: Request) {
     if (!membership) return NextResponse.json({ error: "Workspace not found." }, { status: 403 });
 
     const form = await request.formData();
-    const file = form.get("file");
-    if (!(file instanceof File)) return NextResponse.json({ error: "A file is required." }, { status: 400 });
+    const file = form.get("file");\n    const projectIdValue = form.get("project_id");\n    const projectId = typeof projectIdValue === "string" && projectIdValue ? projectIdValue : null;
+    if (!(file instanceof File)) return NextResponse.json({ error: "A file is required." }, { status: 400 });\n\n    if (projectId) {\n      const { data: project } = await supabase.from("projects").select("id").eq("id", projectId).eq("organization_id", membership.organization_id).maybeSingle();\n      if (!project) return NextResponse.json({ error: "Project not found in your workspace." }, { status: 403 });\n    }
 
     const allowed = new Set([
       "text/plain",
