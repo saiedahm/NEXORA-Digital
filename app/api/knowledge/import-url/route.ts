@@ -35,15 +35,15 @@ async function validatePublicUrl(raw: string) {
 
 function extractText(html: string) {
   return html
-    .replace(/<script[\\s\\S]*?<\\/script>/gi, " ")
-    .replace(/<style[\\s\\S]*?<\\/style>/gi, " ")
-    .replace(/<noscript[\\s\\S]*?<\\/noscript>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
+    .replace(/<script[^>]*>.*?<\/script>/gis, " ")
+    .replace(/<style[^>]*>.*?<\/style>/gis, " ")
+    .replace(/<noscript[^>]*>.*?<\/noscript>/gis, " ")
+    .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")
     .replace(/&lt;/gi, "<")
     .replace(/&gt;/gi, ">")
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
