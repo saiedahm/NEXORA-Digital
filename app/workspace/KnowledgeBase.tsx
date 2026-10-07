@@ -11,6 +11,7 @@ type DocumentItem = {
   source_type: string;
   content: string;
   created_at: string;
+  project_id: string | null;
 };
 
 export default function KnowledgeBase({ projects = [] }: { projects?: ProjectItem[] }) {
@@ -178,8 +179,10 @@ export default function KnowledgeBase({ projects = [] }: { projects?: ProjectIte
         </form>
 
         <KnowledgeFileImport
+          projectId={projectId}
           onImported={(document) => {
             setDocuments((current) => [document as DocumentItem, ...current]);
+            setProjectId("");
             setMessage("File imported into your Knowledge Base.");
           }}
         />
