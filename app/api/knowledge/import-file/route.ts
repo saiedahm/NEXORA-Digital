@@ -25,8 +25,15 @@ export async function POST(request: Request) {
     if (!membership) return NextResponse.json({ error: "Workspace not found." }, { status: 403 });
 
     const form = await request.formData();
-    const file = form.get("file");\n    const projectIdValue = form.get("project_id");\n    const projectId = typeof projectIdValue === "string" && projectIdValue ? projectIdValue : null;
-    if (!(file instanceof File)) return NextResponse.json({ error: "A file is required." }, { status: 400 });\n\n    if (projectId) {\n      const { data: project } = await supabase.from("projects").select("id").eq("id", projectId).eq("organization_id", membership.organization_id).maybeSingle();\n      if (!project) return NextResponse.json({ error: "Project not found in your workspace." }, { status: 403 });\n    }
+    const file = form.get("file");
+    const projectIdValue = form.get("project_id");
+    const projectId = typeof projectIdValue === "string" && projectIdValue ? projectIdValue : null;
+    if (!(file instanceof File)) return NextResponse.json({ error: "A file is required." }, { status: 400 });
+
+    if (projectId) {
+      const { data: project } = await supabase.from("projects").select("id").eq("id", projectId).eq("organization_id", membership.organization_id).maybeSingle();
+      if (!project) return NextResponse.json({ error: "Project not found in your workspace." }, { status: 403 });
+    }
 
     const allowed = new Set([
       "text/plain",
@@ -47,6 +54,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabase.from("knowledge_documents").insert({
       organization_id: membership.organization_id,
+      project_id: projectId,
       title: file.name.slice(0, 200),
       source_type: "file",
       content: content.slice(0, 100000),
