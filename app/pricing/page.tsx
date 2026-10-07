@@ -1,29 +1,6 @@
-const plans = [
-  {
-    name: "Starter",
-    price: "€99",
-    period: "/ month",
-    text: "For individuals starting a serious digital project.",
-    features: ["AI Studio access", "Digital workspace", "Core automation"],
-    featured: false,
-  },
-  {
-    name: "Business",
-    price: "€299",
-    period: "/ month",
-    text: "For businesses that want connected digital workflows.",
-    features: ["Everything in Starter", "Advanced AI workflows", "Business workspace", "Priority support"],
-    featured: true,
-  },
-  {
-    name: "Growth",
-    price: "€699",
-    period: "/ month",
-    text: "For growing teams building a larger digital operation.",
-    features: ["Everything in Business", "Expanded automation", "Scalable workspace", "Growth support"],
-    featured: false,
-  },
-];
+import { NEXORA_PLANS } from "@/lib/plans";
+
+
 
 export default function PricingPage() {
   return (
@@ -36,7 +13,7 @@ export default function PricingPage() {
       </p>
 
       <section className="pricing-grid">
-        {plans.map((plan) => (
+        {NEXORA_PLANS.map((plan) => (
           <article className={`pricing-card ${plan.featured ? "pricing-featured" : ""}`} key={plan.name}>
             {plan.featured && <span className="pricing-badge">MOST POPULAR</span>}
             <div className="pricing-name">{plan.name}</div>
