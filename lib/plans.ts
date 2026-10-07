@@ -1,3 +1,11 @@
+export const NEXORA_FREE_PLAN = {
+  key: "free",
+  name: "Free",
+  price: "€0",
+  period: "/ month",
+  aiLimit: 20,
+} as const;
+
 export const NEXORA_PLANS = [
   {
     key: "starter",
