@@ -77,14 +77,18 @@ export default function AccountPage() {
             <button type="button" className={mode === "login" ? "is-active" : ""} onClick={() => { setMode("login"); setError(""); setMessage(""); }}>Sign in</button>
             <button type="button" className={mode === "create" ? "is-active" : ""} onClick={() => { setMode("create"); setError(""); setMessage(""); }}>Create account</button>
           </div>
-          {!authenticated && !checkingSession && <form onSubmit={submit} className="account-form">
-            {mode === "create" && <label>Full name<input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" autoComplete="name" /></label>}
-            <label>Email<input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@example.com" autoComplete="email" required /></label>
-            <label>Password<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Minimum 8 characters" autoComplete={mode === "login" ? "current-password" : "new-password"} minLength={8} required /></label>
-            <button className="primary-button account-submit" type="submit" disabled={loading}>{loading ? "Please wait…" : mode === "login" ? "Sign in" : "Create account"} <span>→</span></button>
-          </form>
-          {message && <div className="account-note"><strong>Success</strong><p>{message}</p></div>}
-          {error && <div className="account-note"><strong>Authentication error</strong><p>{error}</p></div>}
+          {!authenticated && !checkingSession && (
+            <>
+              <form onSubmit={submit} className="account-form">
+                {mode === "create" && <label>Full name<input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" autoComplete="name" /></label>}
+                <label>Email<input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@example.com" autoComplete="email" required /></label>
+                <label>Password<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Minimum 8 characters" autoComplete={mode === "login" ? "current-password" : "new-password"} minLength={8} required /></label>
+                <button className="primary-button account-submit" type="submit" disabled={loading}>{loading ? "Please wait…" : mode === "login" ? "Sign in" : "Create account"} <span>→</span></button>
+              </form>
+              {message && <div className="account-note"><strong>Success</strong><p>{message}</p></div>}
+              {error && <div className="account-note"><strong>Authentication error</strong><p>{error}</p></div>}
+            </>
+          )}
         </div>
       </section>
       <a className="secondary-button" href="/pricing">View plans →</a>
