@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+export async function PATCH(req:Request,{params}:{params:Promise<{id:string}>}){const user=await currentUser();if(!user||user.role!=="ADMIN")return NextResponse.json({error:"Admin access required"},{status:403});const {id}=await params;const b=await req.json();if(!["DRAFT","PUBLISHED","CLOSED"].includes(b.status))return NextResponse.json({error:"Invalid status"},{status:400});const job=await db.job.findUnique({where:{id},include:{company:true}});if(!job)return NextResponse.json({error:"Job not found"},{status:404});if(b.status==="PUBLISHED"&&!job.company.verified)return NextResponse.json({error:"Company must be verified before publishing."},{status:403});return NextResponse.json(await db.job.update({where:{id},data:{status:b.status}}));}
