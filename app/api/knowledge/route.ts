@@ -70,3 +70,28 @@ export async function POST(request: Request) {
   if (error) return NextResponse.json({ error: "Unable to save knowledge document." }, { status: 500 });
   return NextResponse.json({ document: data }, { status: 201 });
 }
+
+
+export async function DELETE(request: Request) {
+  const supabase = await getClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+
+  const { data: membership } = await supabase.from("memberships")
+    .select("organization_id").eq("user_id", user.id).limit(1).maybeSingle();
+  if (!membership) return NextResponse.json({ error: "Workspace not found." }, { status: 403 });
+
+  const body = await request.json();
+  const id = typeof body?.id === "string" ? body.id : "";
+  if (!id) return NextResponse.json({ error: "Knowledge document id is required." }, { status: 400 });
+
+  const { data: document } = await supabase.from("knowledge_documents")
+    .select("id").eq("id", id).eq("organization_id", membership.organization_id).maybeSingle();
+  if (!document) return NextResponse.json({ error: "Knowledge document not found." }, { status: 404 });
+
+  const { error } = await supabase.from("knowledge_documents")
+    .delete().eq("id", id).eq("organization_id", membership.organization_id);
+
+  if (error) return NextResponse.json({ error: "Unable to delete knowledge document." }, { status: 500 });
+  return NextResponse.json({ ok: true });
+}
