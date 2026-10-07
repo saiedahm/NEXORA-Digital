@@ -86,8 +86,19 @@ export default function AIStudioPage() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(false);
   const [savedNotice, setSavedNotice] = useState("");
-  const [history, setHistory] = useState<{ id: string; title: string; updated_at: string }[]>([]);
+  const [history, setHistory] = useState<{ id: string; title: string; project_id: string | null; updated_at: string }[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [projects, setProjects] = useState<{ id: string; name: string }[]>([]);
+  const [projectId, setProjectId] = useState("");
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then(async (response) => {
+        if (!response.ok) return;
+        const data = await response.json();
+        setProjects(data.projects || []);
+      })
+      .catch(() => {});
 
   useEffect(() => {
     let active = true;
@@ -121,6 +132,8 @@ export default function AIStudioPage() {
     const data = await response.json();
     if (!data.ok) return;
     setConversationId(id);
+    const selectedConversation = history.find((item) => item.id === id);
+    setProjectId(selectedConversation?.project_id || "");
     setMessages((data.messages || []).map((m: { role: "user" | "assistant"; content: string }) => ({ role: m.role, text: m.content })));
     setHistoryOpen(false);
     setSignedIn(true);
@@ -132,7 +145,7 @@ export default function AIStudioPage() {
     const response = await fetch("/api/conversations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: "AI Studio conversation" }),
+      body: JSON.stringify({ title: "AI Studio conversation", projectId: projectId || null }),
     });
     if (!response.ok) return null;
     const data = await response.json();
@@ -177,7 +190,7 @@ export default function AIStudioPage() {
       const response = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: clean, history }),
+        body: JSON.stringify({ prompt: clean, history, projectId: projectId || null }),
       });
 
       const data = await response.json();
@@ -238,7 +251,12 @@ export default function AIStudioPage() {
       {savedNotice && <div className="account-note"><strong>Saved</strong><p>{savedNotice}</p></div>}
       {!signedIn && <div className="account-note"><strong>Workspace mode</strong><p>Sign in to persist your AI Studio conversations.</p><a className="secondary-button" href="/account">Sign in →</a></div>}
 
-      <div className="studio-toolbar"><button className="secondary-button" type="button" onClick={async () => { setHistoryOpen((v) => !v); if (!history.length) await loadHistory(); }}>History →</button><button className="secondary-button" type="button" onClick={() => { setConversationId(null); setMessages([]); setSavedNotice(""); }}>＋ New conversation</button></div>
+      <div className="studio-toolbar">
+        <label className="account-label" htmlFor="studio-project">PROJECT</label>
+        <select id="studio-project" value={projectId} onChange={(event) => { setProjectId(event.target.value); setConversationId(null); setMessages([]); setSavedNotice(""); }}>
+          <option value="">Workspace-wide</option>
+          {projects.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}
+        </select><button className="secondary-button" type="button" onClick={async () => { setHistoryOpen((v) => !v); if (!history.length) await loadHistory(); }}>History →</button><button className="secondary-button" type="button" onClick={() => { setConversationId(null); setMessages([]); setSavedNotice(""); }}>＋ New conversation</button></div>
       {historyOpen && <section className="account-panel"><div className="account-form-area"><span className="account-label">CHAT HISTORY</span><h2>Your conversations</h2>{history.length ? history.map((item) => <button className="secondary-button" type="button" key={item.id} onClick={() => openConversation(item.id)}>{item.title}</button>) : <p>No saved conversations yet.</p>}</div></section>}
 
       <div className="studio-chat">
