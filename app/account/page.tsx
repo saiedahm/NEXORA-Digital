@@ -11,6 +11,15 @@ export default function AccountPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth").then(async (response) => {
+      const data = await response.json();
+      if (response.ok && data.authenticated) setAuthenticated(true);
+    }).catch(() => {}).finally(() => setCheckingSession(false));
+  }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,6 +59,8 @@ export default function AccountPage() {
       <div className="inner-kicker">NEXORA · ACCOUNT</div>
       <h1>Your digital <span>workspace.</span></h1>
       <p className="account-intro">Secure account access for AI Studio, projects, usage and connected services.</p>
+      {checkingSession && <div className="account-note"><strong>Checking session</strong><p>Verifying your NEXORA workspace session…</p></div>}
+      {authenticated && !checkingSession && <div className="account-note"><strong>Signed in</strong><p>Your NEXORA session is active. You can open your workspace dashboard or AI Studio.</p><div className="studio-toolbar"><a className="primary-button" href="/account-dashboard">Account dashboard →</a><a className="secondary-button" href="/ai-studio">AI Studio →</a></div></div>}
       <section className="account-panel">
         <div className="account-side">
           <span className="account-label">NEXORA ACCESS</span>
@@ -66,7 +77,7 @@ export default function AccountPage() {
             <button type="button" className={mode === "login" ? "is-active" : ""} onClick={() => { setMode("login"); setError(""); setMessage(""); }}>Sign in</button>
             <button type="button" className={mode === "create" ? "is-active" : ""} onClick={() => { setMode("create"); setError(""); setMessage(""); }}>Create account</button>
           </div>
-          <form onSubmit={submit} className="account-form">
+          {!authenticated && !checkingSession && <form onSubmit={submit} className="account-form">
             {mode === "create" && <label>Full name<input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" autoComplete="name" /></label>}
             <label>Email<input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@example.com" autoComplete="email" required /></label>
             <label>Password<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Minimum 8 characters" autoComplete={mode === "login" ? "current-password" : "new-password"} minLength={8} required /></label>
