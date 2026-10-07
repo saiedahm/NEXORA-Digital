@@ -1,15 +1,1 @@
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "NEXORA-Digital | Global Recruitment Platform",
-  description: "Global recruitment platform connecting candidates and companies with intelligent matching.",
-};
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
+import type{Metadata}from"next";import Link from"next/link";import"./globals.css";export const metadata:Metadata={title:"NEXORA-Digital | Global Recruitment Platform",description:"Global recruitment platform connecting candidates and companies with intelligent matching."};export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><header className="nav"><div className="container nav-inner"><Link href="/" className="brand">NEXORA<span>-Digital</span></Link><nav className="nav-links"><Link href="/jobs">Find a Job</Link><Link href="/companies">Companies</Link><Link href="/candidates">Candidates</Link><Link href="/pricing">Pricing</Link><Link href="/notifications">Activity</Link><Link href="/account">Account</Link></nav></div></header>{children}<footer className="footer"><div className="container">© 2026 NEXORA-Digital · <Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link> · <Link href="/impressum">Impressum</Link> · <Link href="/cookies">Cookie Settings</Link></div></footer></body></html>}
