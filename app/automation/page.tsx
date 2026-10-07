@@ -3,7 +3,9 @@
 import { FormEvent, useEffect, useState } from "react";
 
 type Project = { id: string; name: string };
-type WorkflowStep = { type: "ai_action" | "result"; prompt?: string; output?: string };\n\ntype Workflow = {
+type WorkflowStep = { type: "ai_action" | "result"; prompt?: string; output?: string };
+
+type Workflow = {
   id: string;
   project_id: string | null;
   name: string;
