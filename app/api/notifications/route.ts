@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server";
+import {db} from "@/lib/db/client";
+import {currentUser} from "@/lib/auth/current-user";
+export async function GET(){const user=await currentUser();if(!user)return NextResponse.json({error:"Unauthorized"},{status:401});const applications=await db.application.findMany({where:user.role==="CANDIDATE"?{candidate:{userId:user.id}}:{job:{company:{userId:user.id}}},include:{job:true,candidate:{include:{user:true}}},orderBy:{updatedAt:"desc"},take:50});const notifications=applications.map(a=>user.role==="CANDIDATE"?{id:a.id,type:"APPLICATION_STATUS",status:a.status,title:a.job.title,message:"Your application status is "+a.status,updatedAt:a.updatedAt}:{id:a.id,type:"APPLICATION_RECEIVED",status:a.status,title:a.job.title,message:"Candidate "+a.candidate.user.name+" applied to your vacancy",updatedAt:a.updatedAt});return NextResponse.json(notifications);}
