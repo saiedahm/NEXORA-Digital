@@ -8,7 +8,7 @@ const statuses = ["DRAFT", "PUBLISHED", "CLOSED"] as const;
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const user = await currentUser();
-    if (!user?.company) return NextResponse.json({ error: "Company access required" }, { status: 403 });
+    if (!user || user.role !== "COMPANY" || !user.company) return NextResponse.json({ error: "Company access required" }, { status: 403 });
     const { id } = await params;
     const job = await db.job.findFirst({
       where: { id, companyId: user.company.id },
