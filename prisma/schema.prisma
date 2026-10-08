@@ -39,6 +39,7 @@ model User {
   company       Company?
   applications  Application[]
   subscriptions Subscription[]
+  contactMessages ContactMessage[]
 }
 
 model Candidate {
@@ -117,6 +118,19 @@ model Match {
 
   @@unique([candidateId, jobId])
   @@index([candidateId, score])
+}
+
+model ContactMessage {
+  id          String   @id @default(cuid())
+  userId      String?
+  email       String?
+  subject     String
+  message     String
+  createdAt   DateTime @default(now())
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([userId])
 }
 
 model Subscription {
