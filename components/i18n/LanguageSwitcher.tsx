@@ -14,10 +14,61 @@ const GOOGLE_CODES: Record<string,string> = {
   az:"az",hi:"hi",bn:"bn",ur:"ur","fa-AF":"fa",ps:"ps",ku:"ku",uk:"uk",
 };
 
-function setGoogleLanguage(language: string) {
+declare global {
+  interface Window {
+    google?: { translate?: { TranslateElement?: new (options: Record<string, unknown>, elementId: string) => unknown } };
+    googleTranslateElementInit?: () => void;
+  }
+}
+
+function hideGoogleUi() {
+  const style = document.getElementById("nexora-google-hide");
+  if (style) return;
+  const css = document.createElement("style");
+  css.id = "nexora-google-hide";
+  css.textContent = `
+    .goog-te-banner-frame, .goog-te-balloon-frame, .goog-te-menu-frame,
+    .goog-te-spinner-pos, .goog-te-gadget, .goog-tooltip, .goog-tooltip:hover,
+    .goog-text-highlight, #google_translate_element { display:none !important; }
+    body { top:0 !important; }
+  `;
+  document.head.appendChild(css);
+}
+
+function loadGoogleTranslate() {
+  hideGoogleUi();
+  if (window.google?.translate?.TranslateElement) {
+    try { new window.google.translate.TranslateElement({ pageLanguage: "en", autoDisplay: false }, "google_translate_element"); } catch {}
+    return;
+  }
+  if (document.getElementById("google-translate-script")) return;
+  window.googleTranslateElementInit = () => {
+    try {
+      if (window.google?.translate?.TranslateElement) {
+        new window.google.translate.TranslateElement({ pageLanguage: "en", autoDisplay: false }, "google_translate_element");
+      }
+    } catch {}
+    hideGoogleUi();
+  };
+  const script = document.createElement("script");
+  script.id = "google-translate-script";
+  script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  script.async = true;
+  document.body.appendChild(script);
+}
+
+function applyGoogleLanguage(language: string) {
+  if (language === "en") {
+    document.cookie = "googtrans=/en/en; Path=/; Max-Age=31536000; SameSite=Lax";
+    return;
+  }
   const code = GOOGLE_CODES[language] || "en";
   document.cookie = "googtrans=/en/" + code + "; Path=/; Max-Age=31536000; SameSite=Lax";
-  document.cookie = "googtrans=/en/" + code + "; Path=/; Domain=" + window.location.hostname + "; Max-Age=31536000; SameSite=Lax";
+  const select = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+  if (select) {
+    select.value = code;
+    select.dispatchEvent(new Event("change"));
+  }
 }
 
 export default function LanguageSwitcher() {
@@ -31,7 +82,9 @@ export default function LanguageSwitcher() {
     setLanguage(next);
     document.documentElement.lang = next;
     document.documentElement.dir = RTL.has(next) ? "rtl" : "ltr";
-    if (next !== "en") setGoogleLanguage(next);
+    loadGoogleTranslate();
+    const timer = window.setTimeout(() => applyGoogleLanguage(next), 700);
+    return () => window.clearTimeout(timer);
   }, []);
 
   function changeLanguage(next: string) {
@@ -40,17 +93,20 @@ export default function LanguageSwitcher() {
     document.cookie = "nexora-language=" + encodeURIComponent(next) + "; Path=/; Max-Age=31536000; SameSite=Lax";
     document.documentElement.lang = next;
     document.documentElement.dir = RTL.has(next) ? "rtl" : "ltr";
-    setGoogleLanguage(next);
+    loadGoogleTranslate();
+    window.setTimeout(() => applyGoogleLanguage(next), 500);
     window.dispatchEvent(new CustomEvent("nexora-language-change", { detail: next }));
-    window.location.reload();
   }
 
   return (
-    <label className="language-switcher" aria-label="Language">
-      <span aria-hidden="true">🌐</span>
-      <select value={language} onChange={(event) => changeLanguage(event.target.value)}>
-        {LANGUAGES.map(([code, name]) => <option value={code} key={code}>{name}</option>)}
-      </select>
-    </label>
+    <>
+      <div id="google_translate_element" aria-hidden="true" />
+      <label className="language-switcher" aria-label="Language">
+        <span aria-hidden="true">🌐</span>
+        <select value={language} onChange={(event) => changeLanguage(event.target.value)}>
+          {LANGUAGES.map(([code, name]) => <option value={code} key={code}>{name}</option>)}
+        </select>
+      </label>
+    </>
   );
 }
