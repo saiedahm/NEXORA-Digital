@@ -1,1 +1,89 @@
-import Link from"next/link";export default function Home(){return <><header className="nav"><div className="container nav-inner"><Link href="/" className="brand">NEXORA<span>-Digital</span></Link><nav className="nav-links"><Link href="/jobs">Find a Job</Link><Link href="/companies">For Companies</Link><Link href="/candidates">Candidates</Link><Link href="/pricing">Pricing</Link><Link href="/notifications">Activity</Link><Link href="/account">Account</Link></nav></div></header><main><section className="hero"><div className="container"><div className="eyebrow">GLOBAL RECRUITMENT PLATFORM</div><h1>Talent and opportunity, intelligently connected.</h1><p>NEXORA-Digital connects candidates and employers through verified global jobs, professional profiles, structured applications and intelligent matching.</p><div className="actions"><Link className="btn primary" href="/jobs">Find a Job</Link><Link className="btn secondary" href="/register/company">Hire Talent</Link><Link className="btn secondary" href="/register/candidate">Join as Candidate</Link></div></div></section><section className="section"><div className="container"><span className="badge">COMPLETE RECRUITMENT JOURNEY</span><h2>Search. Match. Apply. Hire.</h2><div className="grid">{[["Global Jobs","Discover published opportunities from verified employers."],["AI Matching","Match professional skills and experience with relevant vacancies."],["Professional CV","Build a clear candidate profile and printable CV."],["Recruiter Workspace","Create, publish and manage vacancies and applicants."],["Hiring Pipeline","Move applications from submission through review, interview and hire."],["Verified Employers","Company verification and vacancy moderation create a trusted marketplace."]].map(([t,d])=><article className="card" key={t}><h3>{t}</h3><p className="muted">{d}</p></article>)}</div></div></section><section className="section"><div className="container"><div className="card"><span className="badge">PLANS</span><h2>Built for professionals and growing employers.</h2><p className="muted">Start free as a candidate or choose a professional plan. Companies get a dedicated recruitment workspace.</p><div className="actions"><Link className="btn primary" href="/pricing">View plans</Link><Link className="btn secondary" href="/companies">Explore companies</Link></div></div></div></section></main><footer className="footer"><div className="container">© 2026 NEXORA-Digital · <Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link> · <Link href="/impressum">Impressum</Link> · <Link href="/cookies">Cookie Settings</Link></div></footer></>}
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <main>
+      <section className="hero">
+        <div className="container hero-grid">
+          <div className="hero-copy">
+            <div className="eyebrow">GLOBAL RECRUITMENT PLATFORM</div>
+            <h1>
+              Talent and opportunity,
+              <span> intelligently</span> connected.
+            </h1>
+            <p>
+              Find the right talent or the right job — faster, smarter, and
+              without borders. NEXORA-Digital connects professionals and
+              employers through trusted global opportunities.
+            </p>
+            <div className="actions">
+              <Link className="btn primary" href="/jobs">Find a Job</Link>
+              <Link className="btn secondary" href="/register/company">Post a Job</Link>
+            </div>
+          </div>
+          <div className="hero-visual" aria-hidden="true">
+            <div className="globe"><span></span><i></i><b></b></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="feature-strip">
+        <div className="container feature-grid">
+          {[
+            ["◎", "Smart Matching", "AI-powered job recommendations"],
+            ["◉", "Global Reach", "Opportunities worldwide"],
+            ["◇", "Trusted & Secure", "Your data, our priority"],
+            ["ϟ", "Fast & Easy", "Simple. Modern. Effective."]
+          ].map(([icon, title, text]) => (
+            <article className="feature" key={title}>
+              <div className="feature-icon">{icon}</div>
+              <div><h3>{title}</h3><p>{text}</p></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="stats">
+        <div className="container stats-grid">
+          <div><strong>12,000+</strong><span>Active Job Listings</span></div>
+          <div><strong>5,000+</strong><span>Trusted Companies</span></div>
+          <div><strong>250,000+</strong><span>Registered Candidates</span></div>
+          <div><strong>120+</strong><span>Countries</span></div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <span className="badge">THE NEXORA JOURNEY</span>
+          <h2>Search. Match. Apply. Hire.</h2>
+          <div className="grid">
+            {[
+              ["Global Jobs", "Discover published opportunities from employers around the world."],
+              ["AI Matching", "Connect skills and experience with relevant vacancies."],
+              ["Professional CV", "Build a clear candidate profile and professional CV."],
+              ["Recruiter Workspace", "Create, publish and manage vacancies and applicants."],
+              ["Hiring Pipeline", "Move applications from submission through review to hire."],
+              ["Verified Employers", "Company verification and moderation help build trust."]
+            ].map(([title, text]) => (
+              <article className="card" key={title}>
+                <h3>{title}</h3><p className="muted">{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section plans-section">
+        <div className="container card plan-card">
+          <span className="badge">PLANS</span>
+          <h2>Built for professionals and growing employers.</h2>
+          <p className="muted">Start free as a candidate or choose a professional plan. Companies get a dedicated recruitment workspace.</p>
+          <div className="actions">
+            <Link className="btn primary" href="/pricing">View Plans</Link>
+            <Link className="btn secondary" href="/companies">Explore Companies</Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
