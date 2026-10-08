@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import LanguageSwitcher from "@/components/i18n/LanguageSwitcher";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body>
         <header className="nav">
           <div className="container nav-inner">
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/pricing">Pricing</Link>
               <Link href="/notifications">Activity</Link>
               <Link href="/account">Account</Link>
-              <span className="language">◉ EN⌄</span>
+              <LanguageSwitcher />
               <Link className="post-job" href="/register/company">Post a Job</Link>
             </nav>
           </div>
