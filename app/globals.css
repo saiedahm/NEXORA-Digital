@@ -8,5 +8,5 @@ iframe.goog-te-banner-frame{display:none!important;visibility:hidden!important;h
 .goog-te-gadget-icon,.goog-te-balloon-frame{display:none!important;visibility:hidden!important}
 body>.skiptranslate{display:none!important}
 
-.hero-woman{width:100%;height:100%;object-fit:cover;border-radius:28px;display:block;box-shadow:0 0 55px rgba(0,183,255,.24);border:1px solid rgba(74,196,255,.2)}
-@media(max-width:900px){.hero-woman{max-height:320px;border-radius:22px}}
+.hero-woman{width:100%;height:100%;object-fit:cover;display:block;opacity:.96;mix-blend-mode:screen;mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 88%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 88%,transparent 100%)}
+@media(max-width:900px){.hero-woman{max-height:320px}}
