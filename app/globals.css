@@ -4,8 +4,9 @@
 html body{top:0!important}
 .goog-te-banner-frame,.goog-te-banner-frame.skiptranslate,
 iframe.goog-te-banner-frame{display:none!important;visibility:hidden!important;height:0!important}
-#google_translate_element,.goog-te-gadget,.goog-te-gadget-simple,
-.goog-te-gadget-icon,.goog-te-balloon-frame{display:none!important;visibility:hidden!important}
+/* Keep Google's hidden control mounted: hiding the host with display:none can prevent the language selector from initializing. */
+#google_translate_element{position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+.goog-te-gadget,.goog-te-gadget-simple,.goog-te-gadget-icon,.goog-te-balloon-frame{display:none!important;visibility:hidden!important}
 body>.skiptranslate{display:none!important}
 
 .hero-woman{width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:.98;border-radius:0;filter:saturate(1.04) contrast(1.02) drop-shadow(0 0 30px rgba(18,197,255,.14));}
