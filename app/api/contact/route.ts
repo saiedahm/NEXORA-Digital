@@ -1,1 +1,35 @@
-import{NextResponse}from"next/server";import{currentUser}from"@/lib/auth/current-user";export async function POST(req:Request){try{const user=await currentUser();const b=await req.json().catch(()=>({}));const subject=typeof b.subject==="string"?b.subject.trim().slice(0,160):"";const message=typeof b.message==="string"?b.message.trim().slice(0,3000):"";if(subject.length<3||message.length<10)return NextResponse.json({error:"Please provide a subject and message."},{status:400});return NextResponse.json({received:true,authenticated:Boolean(user),message:"Your message has been received."},{status:201})}catch(error){console.error("Contact submission failed",error);return NextResponse.json({error:"Unable to send your message."},{status:500})}}
+import { NextResponse } from "next/server";
+import { currentUser } from "@/lib/auth/current-user";
+import { db } from "@/lib/db/client";
+
+export async function POST(req: Request) {
+  try {
+    const user = await currentUser();
+    const body = await req.json().catch(() => ({}));
+    const subject = typeof body.subject === "string" ? body.subject.trim().slice(0, 160) : "";
+    const message = typeof body.message === "string" ? body.message.trim().slice(0, 3000) : "";
+    const email = typeof body.email === "string" ? body.email.trim().slice(0, 320) : user?.email ?? null;
+
+    if (subject.length < 3 || message.length < 10) {
+      return NextResponse.json({ error: "Please provide a subject and message." }, { status: 400 });
+    }
+
+    await db.contactMessage.create({
+      data: {
+        userId: user?.id ?? null,
+        email,
+        subject,
+        message,
+      },
+    });
+
+    return NextResponse.json({
+      received: true,
+      authenticated: Boolean(user),
+      message: "Your message has been received.",
+    }, { status: 201 });
+  } catch (error) {
+    console.error("Contact submission failed", error);
+    return NextResponse.json({ error: "Unable to send your message." }, { status: 500 });
+  }
+}
