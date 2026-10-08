@@ -22,7 +22,7 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-visual">
-            <img className="hero-woman" src="/nexora-hero-woman.png" alt="NEXORA global recruitment" />
+            <img className="hero-woman" src="/nexora-hero-woman.webp" alt="NEXORA global recruitment" />
           </div>
         </div>
       </section>
