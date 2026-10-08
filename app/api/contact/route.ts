@@ -9,9 +9,13 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => ({}));
     const subject = typeof body.subject === "string" ? body.subject.trim().slice(0, 160) : "";
     const message = typeof body.message === "string" ? body.message.trim().slice(0, 3000) : "";
-    const email = typeof body.email === "string" ? body.email.trim().slice(0, 320) : user?.email ?? null;
+    const email = typeof body.email === "string" ? body.email.trim().slice(0, 254) : user?.email ?? null;
 
-    if (email && (email.length > 254 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email))) {\n      return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });\n    }\n\n    if (subject.length < 3 || message.length < 10) {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });
+    }
+
+    if (subject.length < 3 || message.length < 10) {
       return NextResponse.json({ error: "Please provide a subject and message." }, { status: 400 });
     }
 
