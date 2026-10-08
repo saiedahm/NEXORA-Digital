@@ -1,2 +1,2 @@
 import{NextResponse}from"next/server";import{db}from"@/lib/db/client";
-export async function GET(){const companies=await db.company.findMany({where:{verified:true},select:{id:true,name:true,country:true,sector:true,description:true,_count:{select:{jobs:{where:{status:"PUBLISHED"}}}}},orderBy:{name:"asc"}});return NextResponse.json(companies);}
+export async function GET(){try{const companies=await db.company.findMany({where:{verified:true},select:{id:true,name:true,country:true,sector:true,description:true,_count:{select:{jobs:{where:{status:"PUBLISHED"}}}}},orderBy:{name:"asc"}});return NextResponse.json(companies)}catch(error){console.error("Public company directory failed",error);return NextResponse.json({error:"Unable to load companies at this time."},{status:500})}}
