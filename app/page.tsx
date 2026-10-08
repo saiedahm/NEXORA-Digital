@@ -6,7 +6,7 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="eyebrow">GLOBAL RECRUITMENT PLATFORM</div>
+            <div className="eyebrow"><span className="eyebrow-pulse" /> GLOBAL RECRUITMENT PLATFORM</div>
             <h1>
               Talent and opportunity,
               <span> intelligently</span> connected.
@@ -20,9 +20,26 @@ export default function Home() {
               <Link className="btn primary" href="/jobs">Find a Job</Link>
               <Link className="btn secondary" href="/register/company">Post a Job</Link>
             </div>
+            <div className="hero-trust-line">
+              <span><i /> AI-powered matching</span>
+              <span><i /> Global opportunities</span>
+              <span><i /> Trusted employers</span>
+            </div>
           </div>
           <div className="hero-visual">
-            <img className="hero-woman" src="/nexora-hero-woman.webp" alt="NEXORA global recruitment" />
+            <div className="hero-energy-ring hero-energy-ring-one" />
+            <div className="hero-energy-ring hero-energy-ring-two" />
+            <div className="hero-orb-glow" />
+            <img className="hero-woman" src="/nexora-hero-woman.webp" alt="Futuristic NEXORA AI global recruitment visual" />
+            <div className="hero-float-card hero-float-jobs">
+              <span className="hero-float-icon">✦</span>
+              <span><strong>Global Jobs</strong><small>Opportunities without borders</small></span>
+            </div>
+            <div className="hero-float-card hero-float-ai">
+              <span className="hero-float-icon">◎</span>
+              <span><strong>AI Matching</strong><small>Skills meet opportunity</small></span>
+            </div>
+            <div className="hero-scan-line" />
           </div>
         </div>
       </section>
