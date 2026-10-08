@@ -21,8 +21,8 @@ export default function Home() {
               <Link className="btn secondary" href="/register/company">Post a Job</Link>
             </div>
           </div>
-          <div className="hero-visual" aria-hidden="true">
-            <div className="globe"><span></span><i></i><b></b></div>
+          <div className="hero-visual">
+            <img className="hero-woman" src="/nexora-hero-woman.png" alt="NEXORA global recruitment" />
           </div>
         </div>
       </section>
