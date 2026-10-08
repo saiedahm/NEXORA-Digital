@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { randomUUID } from "crypto";
 import { currentUser } from "@/lib/auth/current-user";
 import { db } from "@/lib/db/client";
 
@@ -14,20 +15,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Please provide a subject and message." }, { status: 400 });
     }
 
-    await db.contactMessage.create({
-      data: {
-        userId: user?.id ?? null,
-        email,
-        subject,
-        message,
-      },
-    });
+    await db.$executeRaw`
+      INSERT INTO "ContactMessage" ("id", "userId", "email", "subject", "message", "createdAt")
+      VALUES (${randomUUID()}, ${user?.id ?? null}, ${email}, ${subject}, ${message}, CURRENT_TIMESTAMP)
+    `;
 
-    return NextResponse.json({
-      received: true,
-      authenticated: Boolean(user),
-      message: "Your message has been received.",
-    }, { status: 201 });
+    return NextResponse.json({ received: true, authenticated: Boolean(user), message: "Your message has been received." }, { status: 201 });
   } catch (error) {
     console.error("Contact submission failed", error);
     return NextResponse.json({ error: "Unable to send your message." }, { status: 500 });
