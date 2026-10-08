@@ -1,1 +1,40 @@
-import Link from"next/link";export default function Impressum(){return <main className="section"><div className="container"><span className="badge">LEGAL</span><h1>Impressum</h1><article className="card"><h2>NEXORA-Digital</h2><p>Global Recruitment Platform.</p><p className="muted">The final legal notice must contain the registered company name, legal form, business address, authorized representative and applicable registration/contact details before public launch.</p><p className="muted">This placeholder is intentionally not presenting invented company-registration data.</p></article><Link href="/" className="btn secondary">Back to NEXORA</Link></div></main>}
+import Link from "next/link";
+
+export default function Impressum() {
+  return (
+    <main className="section">
+      <div className="container">
+        <span className="badge">LEGAL</span>
+        <h1>Impressum</h1>
+
+        <article className="card">
+          <h2>Angaben zum Anbieter</h2>
+
+          <p>
+            <strong>Rechtsname / Vollständiger Name:</strong><br />
+            Akhmed Ismail Saied
+          </p>
+
+          <p>
+            <strong>Firmenname:</strong><br />
+            digital horizons
+          </p>
+
+          <p>
+            <strong>Vollständige Adresse:</strong><br />
+            Ehndofer Str. 130<br />
+            24537 Neumünster<br />
+            Deutschland
+          </p>
+
+          <p>
+            <strong>Telefon:</strong><br />
+            +4915123937937
+          </p>
+        </article>
+
+        <Link href="/" className="btn secondary">Back to NEXORA</Link>
+      </div>
+    </main>
+  );
+}
