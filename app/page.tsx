@@ -101,6 +101,17 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <section className="section" aria-labelledby="digital-future-network-title">
+        <div className="container card">
+          <span className="badge">DIGITAL FUTURE ECOSYSTEM</span>
+          <h2 id="digital-future-network-title">Connected platforms. Separate secure accounts.</h2>
+          <p className="muted">Explore the other DIGITAL FUTURE services. Each website keeps its own login until a shared sign-in integration is configured and tested.</p>
+          <div className="actions">
+            <a className="btn secondary" href="https://www.digital-future.ai/" target="_blank" rel="noopener noreferrer">DIGITAL FUTURE STATE ↗</a>
+            <a className="btn secondary" href="https://www.helpmey.net/login" target="_blank" rel="noopener noreferrer">HELP-ME Login ↗</a>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
