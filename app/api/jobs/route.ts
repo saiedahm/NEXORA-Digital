@@ -1,1 +1,47 @@
-import{NextResponse}from"next/server";import{db}from"@/lib/db/client";export async function GET(req:Request){try{const{searchParams}=new URL(req.url);const q=searchParams.get("q")?.trim()||"";const country=searchParams.get("country")?.trim()||"";const type=searchParams.get("employmentType")?.trim()||"";if(q.length>160||country.length>100||type.length>60)return NextResponse.json({error:"Search filters are too long."},{status:400});const rawLimit=Number(searchParams.get("limit")||"50");const take=Number.isFinite(rawLimit)?Math.min(Math.max(Math.floor(rawLimit),1),100):50;const jobs=await db.job.findMany({where:{status:"PUBLISHED",company:{verified:true},...(country?{country:{contains:country,mode:"insensitive"}}:{}),...(type?{employmentType:{equals:type,mode:"insensitive"}}:{}),...(q?{OR:[{title:{contains:q,mode:"insensitive"}},{description:{contains:q,mode:"insensitive"}},{city:{contains:q,mode:"insensitive"}}]}:{})},select:{id:true,title:true,description:true,country:true,city:true,employmentType:true,salaryRange:true,status:true,createdAt:true,updatedAt:true,company:{select:{id:true,name:true,country:true,sector:true,description:true,verified:true}}},orderBy:{createdAt:"desc"},take});return NextResponse.json(jobs)}catch(error){console.error("Public jobs lookup failed",error);return NextResponse.json({error:"Unable to load jobs at this time."},{status:500})}}
+import { NextResponse } from "next/server";
+import { db } from "@/lib/db/client";
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const q = searchParams.get("q")?.trim() || "";
+    const country = searchParams.get("country")?.trim() || "";
+    const city = searchParams.get("city")?.trim() || "";
+    const type = searchParams.get("employmentType")?.trim() || "";
+
+    if (q.length > 160 || country.length > 100 || city.length > 100 || type.length > 60) {
+      return NextResponse.json({ error: "Search filters are too long." }, { status: 400 });
+    }
+
+    const rawLimit = Number(searchParams.get("limit") || "50");
+    const take = Number.isFinite(rawLimit) ? Math.min(Math.max(Math.floor(rawLimit), 1), 100) : 50;
+    const jobs = await db.job.findMany({
+      where: {
+        status: "PUBLISHED",
+        company: { verified: true },
+        ...(country ? { country: { contains: country, mode: "insensitive" as const } } : {}),
+        ...(city ? { city: { contains: city, mode: "insensitive" as const } } : {}),
+        ...(type ? { employmentType: { equals: type, mode: "insensitive" as const } } : {}),
+        ...(q ? {
+          OR: [
+            { title: { contains: q, mode: "insensitive" as const } },
+            { description: { contains: q, mode: "insensitive" as const } },
+            { city: { contains: q, mode: "insensitive" as const } },
+            { company: { name: { contains: q, mode: "insensitive" as const } } }
+          ]
+        } : {})
+      },
+      select: {
+        id: true, title: true, description: true, country: true, city: true,
+        employmentType: true, salaryRange: true, status: true, createdAt: true, updatedAt: true,
+        company: { select: { id: true, name: true, country: true, sector: true, description: true, verified: true } }
+      },
+      orderBy: { createdAt: "desc" },
+      take
+    });
+    return NextResponse.json(jobs);
+  } catch (error) {
+    console.error("Public jobs lookup failed", error);
+    return NextResponse.json({ error: "Unable to load jobs at this time." }, { status: 500 });
+  }
+}
