@@ -26,6 +26,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           };
         `}</Script>
         <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive" />
+        <div
+          role="status"
+          aria-label="Trial period notice"
+          style={{
+            width: "100%",
+            padding: "10px 16px",
+            textAlign: "center",
+            background: "linear-gradient(90deg, #082744, #0b3555, #082744)",
+            borderBottom: "1px solid rgba(212, 175, 55, .8)",
+            color: "#f5f9ff",
+            fontWeight: 700,
+            lineHeight: 1.65
+          }}
+        >
+          <span style={{ color: "#f1cc68", marginRight: 9 }}>TRIAL PERIOD</span>
+          <span>We are in the trial period until 30 October 2026.</span>
+          <span aria-hidden="true" style={{ display: "inline-block", margin: "0 10px", color: "#f1cc68" }}>•</span>
+          <span lang="ar" dir="rtl">نحن في الفترة التجريبية حتى تاريخ 30/10/2026</span>
+        </div>
         <header className="nav">
           <div className="container nav-inner">
             <Link href="/" className="logo-link" aria-label="NEXORA-Digital home">
