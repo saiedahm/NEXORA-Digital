@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import LanguageSwitcher from "@/components/i18n/LanguageSwitcher";
+import LegalCloseButton from "@/components/LegalCloseButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </header>
+        <LegalCloseButton />
         {children}
         <footer className="footer">
           <div className="container footer-inner">
