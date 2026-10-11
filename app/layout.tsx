@@ -29,6 +29,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div
           role="status"
           aria-label="Trial period notice"
+          lang="ar"
+          dir="rtl"
           style={{
             width: "100%",
             padding: "10px 16px",
@@ -40,10 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             lineHeight: 1.65
           }}
         >
-          <span style={{ color: "#f1cc68", marginRight: 9 }}>TRIAL PERIOD</span>
-          <span>We are in the trial period until 30 October 2026.</span>
-          <span aria-hidden="true" style={{ display: "inline-block", margin: "0 10px", color: "#f1cc68" }}>•</span>
-          <span lang="ar" dir="rtl">نحن في الفترة التجريبية حتى تاريخ 30/10/2026</span>
+          نحن في الفترة التجريبية حتى تاريخ 30/10/2026
         </div>
         <header className="nav">
           <div className="container nav-inner">
