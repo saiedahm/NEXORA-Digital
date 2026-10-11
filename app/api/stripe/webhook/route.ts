@@ -55,14 +55,18 @@ export async function POST(request: Request) {
   }
 
   try {
-    await db.billingEvent.create({
-      data: { provider: "stripe", providerEventId: event.id, eventType: event.type },
-    }).catch((error: unknown) => {
+    try {
+      await db.billingEvent.create({
+        data: { provider: "stripe", providerEventId: event.id, eventType: event.type },
+      });
+    } catch (error: unknown) {
+      // Stripe retries deliveries. A previously recorded event must not mutate
+      // subscription state again; acknowledge the duplicate immediately.
       if (typeof error === "object" && error !== null && "code" in error && error.code === "P2002") {
-        return null;
+        return NextResponse.json({ received: true, duplicate: true });
       }
       throw error;
-    });
+    }
 
     const object = event.data.object;
     const metadata = object.metadata as Record<string, string> | undefined;
