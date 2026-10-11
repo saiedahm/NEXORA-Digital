@@ -8,20 +8,20 @@ export default function Impressum() {
         <h1>Impressum</h1>
 
         <article className="card">
-          <h2>Angaben zum Anbieter</h2>
+          <h2>Betreiber / Anbieter</h2>
 
           <p>
-            <strong>Rechtsname / Vollständiger Name:</strong><br />
+            <strong>Name:</strong><br />
             Akhmed Ismail Saied
           </p>
 
           <p>
-            <strong>Firmenname:</strong><br />
+            <strong>Unternehmensname:</strong><br />
             digital future
           </p>
 
           <p>
-            <strong>Vollständige Adresse:</strong><br />
+            <strong>Anschrift:</strong><br />
             Ehndofer Str. 130<br />
             24537 Neumünster<br />
             Deutschland
