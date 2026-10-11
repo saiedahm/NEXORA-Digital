@@ -55,18 +55,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    try {
-      await db.billingEvent.create({
-        data: { provider: "stripe", providerEventId: event.id, eventType: event.type },
-      });
-    } catch (error: unknown) {
-      // Stripe retries deliveries. A previously recorded event must not mutate
-      // subscription state again; acknowledge the duplicate immediately.
-      if (typeof error === "object" && error !== null && "code" in error && error.code === "P2002") {
-        return NextResponse.json({ received: true, duplicate: true });
-      }
-      throw error;
-    }
+    // Do not mark an event as processed before its database work succeeds.
+    // Otherwise a transient failure would make Stripe retries look like duplicates.
 
     const object = event.data.object;
     const metadata = object.metadata as Record<string, string> | undefined;
@@ -134,6 +124,18 @@ export async function POST(request: Request) {
           data: { status: event.type === "invoice.paid" ? "ACTIVE" : "PAST_DUE" },
         });
       }
+    }
+
+    try {
+      await db.billingEvent.create({
+        data: { provider: "stripe", providerEventId: event.id, eventType: event.type },
+      });
+    } catch (error: unknown) {
+      // Another delivery may have completed this same event concurrently.
+      if (typeof error === "object" && error !== null && "code" in error && error.code === "P2002") {
+        return NextResponse.json({ received: true, duplicate: true });
+      }
+      throw error;
     }
 
     return NextResponse.json({ received: true });
