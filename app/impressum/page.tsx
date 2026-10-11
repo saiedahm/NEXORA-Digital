@@ -28,8 +28,10 @@ export default function Impressum() {
           </p>
 
           <p>
-            <strong>E-Mail:</strong><br />
-            info@nexoraonline.de
+            <strong>Kontakt / E-Mail:</strong><br />
+            <a href="mailto:contact@digital-future.ai">contact@digital-future.ai</a><br />
+            <a href="mailto:info@digital-future.ai">info@digital-future.ai</a><br />
+            <a href="mailto:server@digital-future.ai">server@digital-future.ai</a>
           </p>
 
           <p>
