@@ -71,7 +71,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         if (published >= limit) return NextResponse.json({ error: "Your current plan has reached its published vacancy limit." }, { status: 403 });
       }
     }
-    const updated = await db.job.update({ where: { id: job.id }, data: { status: status as typeof statuses[number] } });
+    const changed = await db.job.updateMany({ where: { id: job.id, status: job.status }, data: { status: status as typeof statuses[number] } });
+    if (changed.count !== 1) return NextResponse.json({ error: "This vacancy changed while you were editing it. Refresh and try again." }, { status: 409 });
+    const updated = await db.job.findUnique({ where: { id: job.id }, select: { id: true, title: true, description: true, country: true, city: true, employmentType: true, salaryRange: true, status: true, createdAt: true, updatedAt: true } });
     return NextResponse.json(updated);
   } catch (error) {
     console.error("Company vacancy update failed", error);
