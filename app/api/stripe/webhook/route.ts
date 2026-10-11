@@ -124,6 +124,15 @@ export async function POST(request: Request) {
           data: { status: event.type === "invoice.paid" ? "ACTIVE" : "PAST_DUE" },
         });
       }
+    } else if (event.type === "checkout.session.async_payment_failed") {
+      // An asynchronous checkout payment failed: never grant access for it.
+      // If a subscription record was already created, make it non-active.
+      if (subscriptionId) {
+        await db.subscription.updateMany({
+          where: { providerSubscriptionId: subscriptionId },
+          data: { status: "PAST_DUE" },
+        });
+      }
     }
 
     try {
