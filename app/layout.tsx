@@ -44,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="legal"><Link href="/widerruf">Widerruf</Link><Link href="/terms">AGB</Link><Link href="/privacy">Datenschutz</Link><Link href="/impressum">Impressum</Link><Link href="/cookies">Cookie-Einstellungen</Link><Link href="/contact">Contact</Link></nav>
             <Link href="/" aria-label="NEXORA-Digital home"><Image className="footer-logo" src="/nexora-logo.png" alt="NEXORA Digital" width={92} height={92} /></Link>
             <div className="copyright">© 2026 NEXORA Digital. All rights reserved.</div>
+            <div className="digitalfuture-footer"><a href="https://www.digital-future.ai" target="_blank" rel="noreferrer">https://www.digital-future.ai</a><span>server@digital-future.ai</span></div>
           </div>
         </footer>
       </body>
