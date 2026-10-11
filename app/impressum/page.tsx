@@ -17,7 +17,7 @@ export default function Impressum() {
 
           <p>
             <strong>Firmenname:</strong><br />
-            digital horizons
+            digital future
           </p>
 
           <p>
@@ -28,8 +28,18 @@ export default function Impressum() {
           </p>
 
           <p>
+            <strong>E-Mail:</strong><br />
+            info@nexoraonline.de
+          </p>
+
+          <p>
             <strong>Telefon:</strong><br />
-            +4915123937937
+            +49 151 23937937
+          </p>
+
+          <p>
+            <strong>Weitere Website:</strong><br />
+            <a href="https://www.digital-future.ai" target="_blank" rel="noreferrer">https://www.digital-future.ai</a>
           </p>
         </article>
 
