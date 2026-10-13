@@ -29,7 +29,7 @@ This URL is public configuration, not proof that the OAuth server is enabled.
 
 - Add a server-side start route that creates cryptographically random `state`, `nonce`, and PKCE verifier/challenge, stores them in secure short-lived cookies, and redirects to the provider authorization endpoint.
 - Add a server-side callback route that exchanges the code at the token endpoint, validates the ID token signature using the provider JWKS, and checks exact issuer, audience, expiry, nonce and state.
-- Add a dedicated database identity mapping using the stable pair `issuer + sub`. Do not silently link accounts by email alone.
+- A dedicated Prisma `ExternalIdentity` mapping model has now been added on this feature branch, uniquely keyed by `issuer + subject` and linked to the local `User`. It still needs a reviewed database migration before it can be used. Do not silently link accounts by email alone.
 - Require an explicit secure account-linking/onboarding path for identities not already linked. Preserve NEXORA roles from its own database; never accept an ADMIN role from the identity provider.
 - Keep the existing email/password login as the fallback and gate the SSO button behind a disabled-by-default feature flag until end-to-end testing passes.
 - Add logout behavior, CSRF/open-redirect protections, rate limiting, and automated tests.
@@ -46,3 +46,8 @@ This URL is public configuration, not proof that the OAuth server is enabled.
 ## Cost and secret handling
 
 Supabase documents OAuth 2.1 Server as having no separate feature fee, but users count toward the project's monthly active users. Do not share or commit client secrets, service-role keys, signing keys, or access/refresh tokens. No financial permissions are required for identity-only SSO.
+
+
+## Latest isolated code change
+
+The Prisma schema on this branch now includes `ExternalIdentity`, with a unique constraint on `issuer + subject` and a relation to the local NEXORA user. This is a schema-only preparation: no database migration was run, no identity is linked, and no sign-in behavior changed. Before use, generate and review a migration against a non-production database, then run the existing build and auth tests. Do not run a production migration until a tested deployment plan and backup/rollback approach exist.
