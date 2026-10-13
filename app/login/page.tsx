@@ -57,6 +57,9 @@ function LoginForm() {
           <input name="password" required type="password" autoComplete="current-password" placeholder="Password" style={input} />
           {error && <p style={{ color: "#ff6b6b" }}>{error}</p>}
           <button className="btn primary" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
+          <p className="muted" style={{ textAlign: "center", margin: "14px 0 8px" }}>— or —</p>
+          <a className="btn" href="/api/auth/sso/start" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>Continue with Digital Future ID</a>
+          <p className="muted" style={{ fontSize: 13 }}>SSO becomes available after the administrator configures the provider. Your regular NEXORA login continues to work.</p>
           <p className="muted">New to NEXORA? <Link href="/register">Create an account</Link></p>
         </form>
       </div>
